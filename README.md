@@ -1,24 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Site and Sight Creative Studio Website
+
+A modern, responsive website for Site and Sight Creative Studio built with Next.js and Tailwind CSS.
+
+## Features
+
+- Modern, responsive design optimized for all device sizes
+- Clean, professional aesthetic with intuitive navigation
+- Dark mode support for enhanced user experience
+- Optimized performance with Next.js
+- Fully customizable using Tailwind CSS
+
+## Pages
+
+- **Home** - Introduction to the studio with featured projects
+- **Work** - Portfolio showcase with filterable projects
+- **About** - Information about the studio, team, and approach
+- **Contact** - Contact form and studio information
+
+## Technologies Used
+
+- [Next.js](https://nextjs.org/) - React framework for production
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [ESLint](https://eslint.org/) - Code linting and standards
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18.x or higher
+- npm or yarn
+
+### Installation
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/site-and-sight.git
+cd site-and-sight
+```
+
+2. Install dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Run the development server
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+site-and-sight/
+├── public/             # Static assets
+├── src/                # Source code
+│   ├── app/            # App router pages and layouts
+│   │   ├── about/      # About page
+│   │   ├── contact/    # Contact page
+│   │   ├── work/       # Work/portfolio page
+│   │   ├── layout.tsx  # Root layout
+│   │   ├── page.tsx    # Home page
+│   │   └── globals.css # Global styles
+├── .eslintrc.js        # ESLint configuration
+├── next.config.js      # Next.js configuration
+├── package.json        # Dependencies and scripts
+├── postcss.config.js   # PostCSS configuration
+├── tailwind.config.js  # Tailwind CSS configuration
+└── tsconfig.json       # TypeScript configuration
+```
+
+## Customization
+
+- Update content in the page components
+- Add real projects to the Work page
+- Customize colors in the Tailwind configuration
+- Add additional pages as needed
+
+## Deployment
+
+This website can be easily deployed to Vercel or any other hosting service that supports Next.js.
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Author
+
+Site and Sight Creative Studio
 
 ## Learn More
 
