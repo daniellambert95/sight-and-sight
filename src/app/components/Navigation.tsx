@@ -62,9 +62,9 @@ export default function Navigation({ currentPage }: NavigationProps) {
 
   return (
     <header 
-      className={`fixed top-0 w-full py-6 px-8 md:px-16 flex items-center justify-between z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white/95 shadow-md backdrop-blur-sm' 
+      className={`fixed top-0 w-full py-6 px-8 md:px-16 flex items-center justify-between z-50 transition-all duration-800 ${
+        scrolled || mobileMenuOpen
+          ? 'bg-white/90 shadow-md backdrop-blur-sm' 
           : 'bg-transparent'
       }`}
     >
@@ -82,7 +82,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
       </motion.div>
       
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex space-x-8">
+      <nav className="hidden lg:flex space-x-8">
         {[
           { name: 'HOME', path: '/', current: currentPage === 'home' },
           { name: 'SERVICES', path: '/services', current: currentPage === 'services' },
@@ -112,7 +112,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
       
       {/* CTA Button - Desktop */}
       <motion.div 
-        className="hidden md:block"
+        className="hidden lg:block"
         initial="hidden"
         animate="visible"
         variants={ctaVariants}
@@ -126,69 +126,90 @@ export default function Navigation({ currentPage }: NavigationProps) {
       </motion.div>
       
       {/* Mobile Menu Button */}
-      <div className="md:hidden">
-        <button className="p-2" onClick={toggleMobileMenu} aria-label="Toggle mobile menu">
-          {mobileMenuOpen ? (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          )}
+      <div className="lg:hidden">
+        <button className="p-2 relative w-10 h-10 flex items-center justify-center" onClick={toggleMobileMenu} aria-label="Toggle mobile menu">
+          <motion.div
+            className="absolute w-6 bg-black h-0.5 rounded-full"
+            animate={{
+              rotate: mobileMenuOpen ? 45 : 0,
+              y: mobileMenuOpen ? 0 : -6.6
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute w-6 bg-black h-0.5 rounded-full"
+            animate={{
+              opacity: mobileMenuOpen ? 0 : 1,
+              x: mobileMenuOpen ? 20 : 0
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute w-6 bg-black h-0.5 rounded-full"
+            animate={{
+              rotate: mobileMenuOpen ? -45 : 0,
+              y: mobileMenuOpen ? 0 : 6.6
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          />
         </button>
       </div>
       
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 md:hidden">
-          <nav className="flex flex-col p-6">
-            <Link 
-              href="/" 
-              className={`py-3 ${currentPage === 'home' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              HOME
-            </Link>
-            <Link 
-              href="/services" 
-              className={`py-3 ${currentPage === 'services' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              SERVICES
-            </Link>
-            <Link 
-              href="/work" 
-              className={`py-3 ${currentPage === 'work' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              WORK
-            </Link>
-            <Link 
-              href="/about" 
-              className={`py-3 ${currentPage === 'about' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              ABOUT
-            </Link>
-            <Link 
-              href="/contact" 
-              className={`py-3 ${currentPage === 'contact' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              CONTACT
-            </Link>
-            <Link
-              href="/contact"
-              className="mt-4 px-6 py-3 bg-[#ff5500] text-white rounded-md hover:bg-[#e64d00] transition-colors text-center"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Book an intro call
-            </Link>
-          </nav>
-        </div>
-      )}
+      <motion.div 
+        className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 lg:hidden overflow-hidden"
+        initial={false}
+        animate={{ 
+          height: mobileMenuOpen ? 'auto' : 0,
+          opacity: mobileMenuOpen ? 1 : 0
+        }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+      >
+        <nav className="flex flex-col p-6">
+          <Link 
+            href="/" 
+            className={`py-3 ${currentPage === 'home' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            HOME
+          </Link>
+          <Link 
+            href="/services" 
+            className={`py-3 ${currentPage === 'services' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            SERVICES
+          </Link>
+          <Link 
+            href="/work" 
+            className={`py-3 ${currentPage === 'work' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            WORK
+          </Link>
+          <Link 
+            href="/about" 
+            className={`py-3 ${currentPage === 'about' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            ABOUT
+          </Link>
+          <Link 
+            href="/contact" 
+            className={`py-3 ${currentPage === 'contact' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            CONTACT
+          </Link>
+          <Link
+            href="/contact"
+            className="mt-4 px-5 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-[#ff5500] text-white rounded-md hover:bg-[#e64d00] transition-colors text-center"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Book an intro call
+          </Link>
+        </nav>
+      </motion.div>
     </header>
   );
 } 

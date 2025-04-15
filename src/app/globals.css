@@ -85,3 +85,33 @@ a:not(.btn):hover::after {
 html {
   scroll-behavior: smooth;
 }
+
+/* Animated fire-like gradient text */
+.animate-gradient {
+  background: linear-gradient(
+    to right,
+    #ff5500,
+    #ff7800,
+    #ff9a00,
+    #ff5500,
+    #ff3300,
+    #ff5500
+  );
+  background-size: 200% 200%;
+  animation: gradient-flow 8s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
