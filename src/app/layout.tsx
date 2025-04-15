@@ -1,8 +1,13 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import ClientLayout from "@/app/components/ClientLayout";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export const metadata: Metadata = {
   title: "Site & Sight | Creative Digital Studio",
@@ -15,9 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        {children}
+    <html lang="en" className={inter.variable}>
+      <body className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );

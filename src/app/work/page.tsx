@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 
@@ -214,7 +213,7 @@ export default function WorkPage() {
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to start your project?</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
-            We'd love to hear about your ideas and help bring them to life. Let's create something amazing together.
+            We&apos;d love to hear about your ideas and help bring them to life. Let&apos;s create something amazing together.
           </p>
           <Link 
             href="/contact" 

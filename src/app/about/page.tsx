@@ -56,10 +56,10 @@ export default function AboutPage() {
               Founded in 2020, Site and Sight began with a simple mission: to create digital experiences that bridge the gap between form and function, between what looks good and what works well.
             </p>
             <p className="text-gray-600 mb-6">
-              Our name represents our dual focus – "Site" referring to the digital spaces we create and "Sight" representing the visual impact and user perception of those spaces. This duality guides our approach to every project.
+              Our name represents our dual focus – &ldquo;Site&rdquo; referring to the digital spaces we create and &ldquo;Sight&rdquo; representing the visual impact and user perception of those spaces. This duality guides our approach to every project.
             </p>
             <p className="text-gray-600">
-              Today, we're a tight-knit team of designers, developers, and strategists who collaborate closely with our clients to bring their vision to life while pushing the boundaries of what's possible in digital design.
+              Today, we&apos;re a tight-knit team of designers, developers, and strategists who collaborate closely with our clients to bring their vision to life while pushing the boundaries of what&apos;s possible in digital design.
             </p>
           </div>
           <div className="bg-gray-200 rounded-lg h-[400px] relative">
@@ -172,7 +172,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to collaborate?</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
-            We're always excited to partner with forward-thinking brands and businesses. Let's create something amazing together.
+            We&apos;re always excited to partner with forward-thinking brands and businesses. Let&apos;s create something amazing together.
           </p>
           <Link 
             href="/contact" 

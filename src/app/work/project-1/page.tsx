@@ -180,7 +180,7 @@ export default function Project1Page() {
             <div>
               <h3 className="text-2xl font-semibold mb-4">Design & Development</h3>
               <p className="text-gray-700 mb-4">
-                Our design team created a visually striking interface that aligned with Pink Pizza's brand identity, featuring their signature pink color, custom typography, and high-quality food photography.
+                Our design team created a visually striking interface that aligned with Pink Pizza&apos;s brand identity, featuring their signature pink color, custom typography, and high-quality food photography.
               </p>
               <p className="text-gray-700">
                 We developed the website using modern technologies to ensure fast loading times, responsive design, and seamless functionality across all devices.
@@ -218,7 +218,7 @@ export default function Project1Page() {
             <path d="M14 4.34v4.66c-1.72 0-3.196.493-4.428 1.477C8.34 11.46 7.724 12.837 7.724 14.6c0 .127.005.252.016.375h4.976v9.375H0V15.525c0-3.403.553-6.142 1.66-8.217C2.767 5.235 4.267 3.619 6.16 2.46 8.054 1.3 10.34.59 13.016.33L14 4.34zm18 0v4.66c-1.72 0-3.196.493-4.428 1.477-1.233 .983-1.848 2.36-1.848 4.123 0 .127.005.252.016.375h4.976v9.375H18V15.525c0-3.403.553-6.142 1.66-8.217.813-2.073 2.313-3.69 4.207-4.848C25.76 1.3 28.054.59 30.73.33L32 4.34z" />
           </svg>
           <blockquote className="text-2xl font-light italic text-gray-700 mb-8">
-            "Site and Sight perfectly captured our brand's personality in the website design. The online ordering system has significantly increased our sales, and customers love how easy it is to use. Working with their team was a pleasure from start to finish."
+            &ldquo;Site and Sight perfectly captured our brand&apos;s personality in the website design. The online ordering system has significantly increased our sales, and customers love how easy it is to use. Working with their team was a pleasure from start to finish.&rdquo;
           </blockquote>
           <div>
             <p className="font-medium text-lg">Maria Schneider</p>
@@ -232,7 +232,7 @@ export default function Project1Page() {
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-8">Ready to create your project?</h2>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-10">
-            Let's discuss how we can help bring your vision to life with a custom digital solution tailored to your needs.
+            Let&apos;s discuss how we can help bring your vision to life with a custom digital solution tailored to your needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 

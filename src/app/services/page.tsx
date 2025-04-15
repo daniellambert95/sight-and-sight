@@ -1,7 +1,6 @@
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function Services() {
   // Array of services with descriptions
@@ -131,7 +130,7 @@ export default function Services() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to elevate your digital presence?</h2>
           <p className="text-xl text-gray-600 mb-8">
-            Let's discuss how our services can help you achieve your business goals.
+            Let&apos;s discuss how our services can help you achieve your business goals.
           </p>
           <Link 
             href="/contact" 
