@@ -104,39 +104,58 @@ export default function Home() {
                   "Crafting Digital".split(" ").map((word, i) => (
                     <motion.span
                       key={i}
-                      className="mr-3 inline-block text-secondary"
-                      initial={{ opacity: 0, y: -80, rotateX: 40 }}
-                      animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 80,
-                        damping: 14,
-                        mass: 1.2,
-                        delay: 0.3 + (i * 0.25),
-                        opacity: { duration: 0.4, delay: 0.3 + (i * 0.25) }
+                      className="mr-3 inline-block text-secondary overflow-hidden"
+                      style={{ 
+                        position: 'relative',
+                        display: 'inline-block',
+                        paddingBottom: '0.1em'
                       }}
                     >
-                      {word}
+                      <motion.span
+                        style={{ 
+                          display: 'inline-block',
+                          position: 'relative'
+                        }}
+                        initial={{ y: "100%", opacity: 1 }}
+                        animate={{ y: "0%" }}
+                        transition={{
+                          type: "tween",
+                          duration: 0.7,
+                          ease: [0.19, 0.33, 0.18, 1],
+                          delay: 0.3 + (i * 0.25),
+                        }}
+                      >
+                        {word}
+                      </motion.span>
                     </motion.span>
                   ))
                 }
               </div>
               <motion.div 
-                className="mt-1 relative"
-                initial={{ opacity: 0, y: -80, rotateX: 40 }}
-                animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 80,
-                  damping: 14,
-                  mass: 1.2,
-                  delay: 0.8,
-                  opacity: { duration: 0.4, delay: 0.8 }
+                className="mt-1 relative overflow-hidden"
+                style={{ 
+                  position: 'relative',
+                  display: 'inline-block',
+                  paddingBottom: '0.1em'
                 }}
               >
-                <span className="animate-gradient bg-gradient-animate bg-clip-text text-transparent font-black">
+                <motion.span
+                  style={{ 
+                    display: 'inline-block',
+                    position: 'relative'
+                  }}
+                  initial={{ y: "100%", opacity: 1 }}
+                  animate={{ y: "0%" }}
+                  transition={{
+                    type: "tween",
+                    duration: 0.7,
+                    ease: [0.19, 0.33, 0.18, 1],
+                    delay: 1,
+                  }}
+                  className="animate-gradient bg-gradient-animate bg-clip-text text-transparent font-black"
+                >
                   Experiences
-                </span>
+                </motion.span>
               </motion.div>
             </h1>
             
@@ -153,7 +172,7 @@ export default function Home() {
                       transition={{
                         ...entranceTransition,
                         duration: 0.4,
-                        delay: 0.3 + (i * 0.08)
+                        delay: 1.5 + (i * 0.08)
                       }}
                     >
                       {word}
@@ -166,7 +185,7 @@ export default function Home() {
               className="flex flex-col sm:flex-row gap-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ ...entranceTransition, delay: 0.8 }}
+              transition={{ ...entranceTransition, delay: 1.5 }}
             >
               <Link 
                 href="/work" 
