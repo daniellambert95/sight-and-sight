@@ -62,18 +62,18 @@ export default function Home() {
   
   // Shared animation values
   const entranceTransition = {
-    duration: 1.2,
+    duration: 0.2,
     ease: [0.25, 0.1, 0.25, 1.0],
   };
   
   // Staggered animation for feature cards
   const featureCardVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 0 },
     visible: (custom: number) => ({
       opacity: 1,
       y: 0,
       transition: { 
-        delay: custom * 0.1, 
+        delay: custom * 0.28, 
         duration: 0.5,
         ease: [0.25, 0.1, 0.25, 1.0]
       }
@@ -98,7 +98,7 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 w-full flex flex-col lg:flex-row items-center justify-between pt-36 pb-20 lg:py-0 lg:min-h-screen">
           {/* Content Column */}
           <div className={`${isMobile ? 'w-full' : 'lg:w-1/2'} lg:pr-8 mb-12 lg:mb-0 flex flex-col justify-center`}>
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
+            <h1 className="text-5xl md:text-7xl font-bold">
               <div className="flex flex-wrap">
                 {
                   "Crafting Digital".split(" ").map((word, i) => (
@@ -108,7 +108,7 @@ export default function Home() {
                       style={{ 
                         position: 'relative',
                         display: 'inline-block',
-                        paddingBottom: '0.1em'
+                        paddingBottom: '0.05em'
                       }}
                     >
                       <motion.span
@@ -122,7 +122,7 @@ export default function Home() {
                           type: "tween",
                           duration: 0.7,
                           ease: [0.19, 0.33, 0.18, 1],
-                          delay: 0.3 + (i * 0.25),
+                          delay: 0.2 + (i * 0.25),
                         }}
                       >
                         {word}
@@ -135,22 +135,22 @@ export default function Home() {
                 className="mt-1 relative overflow-hidden"
                 style={{ 
                   position: 'relative',
-                  display: 'inline-block',
-                  paddingBottom: '0.1em'
+                  display: 'inline-block'
                 }}
               >
                 <motion.span
                   style={{ 
                     display: 'inline-block',
-                    position: 'relative'
+                    position: 'relative',
+                    fontFamily: 'var(--font-moonrocks)'
                   }}
-                  initial={{ y: "100%", opacity: 1 }}
-                  animate={{ y: "0%" }}
+                  initial={{ x: "-100%", opacity: 1 }}
+                  animate={{ x: "0%" }}
                   transition={{
                     type: "tween",
                     duration: 0.7,
                     ease: [0.19, 0.33, 0.18, 1],
-                    delay: 1,
+                    delay: 0.8,
                   }}
                   className="animate-gradient bg-gradient-animate bg-clip-text text-transparent font-black"
                 >
@@ -172,7 +172,7 @@ export default function Home() {
                       transition={{
                         ...entranceTransition,
                         duration: 0.4,
-                        delay: 1.5 + (i * 0.08)
+                        delay: 1.9 + (i * 0.08)
                       }}
                     >
                       {word}
@@ -338,30 +338,61 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-center mb-12 relative z-10">How We Work</h2>
           </ScrollReveal>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto relative z-10">
             {[
-              { num: 1, title: "Discovery", desc: "We learn about your business, goals, and requirements." },
-              { num: 2, title: "Strategy", desc: "We develop a tailored strategy to meet your specific needs." },
-              { num: 3, title: "Implementation", desc: "We bring your project to life with expert execution." },
-              { num: 4, title: "Support", desc: "We provide ongoing support to ensure continued success." }
+              { 
+                num: 1, 
+                title: "Discovery", 
+                desc: "We learn about your business, goals, and requirements.",
+                icon: "/work_svg/planning-svgrepo-com.svg"
+              },
+              { 
+                num: 2, 
+                title: "Strategy", 
+                desc: "We develop a tailored strategy to meet your specific needs.",
+                icon: "/work_svg/distributed-svgrepo-com.svg"
+              },
+              { 
+                num: 3, 
+                title: "Implementation", 
+                desc: "We bring your project to life with expert execution.",
+                icon: "/work_svg/pie-chart-svgrepo-com.svg" 
+              },
+              { 
+                num: 4, 
+                title: "Support", 
+                desc: "We provide ongoing support to ensure continued success.",
+                icon: "/work_svg/chat-chat-svgrepo-com.svg"
+              }
             ].map((item, index) => (
               <motion.div 
                 key={item.num} 
-                className="text-center"
+                className="bg-white rounded-xl p-8 flex flex-col items-center shadow-lg hover:shadow-xl transition-all duration-300"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
                 custom={index}
                 variants={featureCardVariants}
+                whileHover={{ y: -10 }}
+                transition={{ duration: 0.01 }}
               >
-                <motion.div 
-                  className="bg-[#ff5500] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  {item.num}
-                </motion.div>
-                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-600">{item.desc}</p>
+                <div className="relative w-24 h-24 mb-6">
+                  <div className="absolute inset-0 bg-amber-100 rounded-full opacity-30" />
+                  <div className="relative z-10 w-full h-full flex items-center justify-center">
+                    <Image 
+                      src={item.icon} 
+                      alt={item.title} 
+                      width={60} 
+                      height={60}
+
+                    />
+                  </div>
+                </div>
+                <div className="bg-[#ff5500] text-white text-sm px-4 py-1 rounded-full mb-4">
+                  Step {item.num}
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-center">{item.title}</h3>
+                <p className="text-gray-600 text-center">{item.desc}</p>
               </motion.div>
             ))}
           </div>

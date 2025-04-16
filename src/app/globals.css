@@ -14,8 +14,13 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
+}
+
+/* Font utility classes */
+.font-moonrocks {
+  font-family: var(--font-moonrocks);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -102,6 +107,23 @@ html {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Icon styles for dual-tone coloring */
+.dual-tone-icon {
+  filter: url(#purple-orange-filter);
 }
 
 @keyframes gradient-flow {
