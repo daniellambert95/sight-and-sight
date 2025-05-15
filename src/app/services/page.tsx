@@ -65,7 +65,7 @@ export default function Services() {
       <section className="py-20 px-8 md:px-16 bg-white">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-primary">Our Services</h1>
-          <p className="text-xl md:text-2xl text-secondary max-w-3xl">
+          <p className="text-xl md:text-2xl text-dark-primary max-w-3xl">
             We offer a comprehensive range of digital services to help your business thrive in the online world.
           </p>
         </div>

@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Logo from './Logo';
+import ThemeToggle from './ThemeToggle';
+import { useTheme } from '../utils/ThemeProvider';
 
 interface NavigationProps {
   currentPage: 'home' | 'work' | 'about' | 'services' | 'contact';
@@ -10,19 +13,7 @@ interface NavigationProps {
 
 export default function Navigation({ currentPage }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  // Monitor scroll position for header style changes
-  useEffect(() => {
-    const updateScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    
-    window.addEventListener('scroll', updateScroll);
-    updateScroll(); // Initial check
-    
-    return () => window.removeEventListener('scroll', updateScroll);
-  }, []);
+  const { theme } = useTheme();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -30,134 +21,136 @@ export default function Navigation({ currentPage }: NavigationProps) {
 
   // Animation variants
   const navItemVariants = {
-    hidden: { opacity: 0, x: -20 },
     visible: (custom: number) => ({
       opacity: 1,
-      x: 0,
+      y: 0,
       transition: { 
-        duration: 0.5, 
-        delay: 0.2 + (custom * 0.1),
+        duration: 0.4, 
+        delay: 0.1 + (custom * 0.1),
         ease: "easeOut"
       }
     })
   };
 
-  const logoVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { 
-      opacity: 1, 
-      x: 0,
-      transition: { duration: 0.5, ease: "easeOut" }
-    }
-  };
-
   const ctaVariants = {
-    hidden: { opacity: 0, x: 20 },
     visible: { 
       opacity: 1, 
-      x: 0,
-      transition: { duration: 0.5, delay: 0.6, ease: "easeOut" }
+      y: 0,
+      transition: { duration: 0.4, delay: 0.5, ease: "easeOut" }
     }
   };
 
   return (
-    <header 
-      className={`fixed top-0 w-full py-6 px-8 md:px-16 flex items-center justify-between z-50 transition-all duration-800 ${
-        scrolled || mobileMenuOpen
-          ? 'bg-white/90 shadow-md backdrop-blur-sm' 
-          : 'bg-transparent'
-      }`}
-    >
+    <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8 fixed top-0 z-50 pt-6">
       <motion.div 
-        className="text-2xl font-bold"
-        initial="hidden"
-        animate="visible"
-        variants={logoVariants}
+        className={`flex items-center justify-between w-full max-w-7xl mx-auto rounded-md py-3 px-6 backdrop-blur-sm ${
+          theme === 'dark' 
+            ? 'bg-black/50 text-white' 
+            : 'bg-white/50 text-black'
+        } shadow-lg transition-all duration-300`}
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
       >
-        <Link href="/">
-          <span className="text-[#ff5500]">Site</span>
-          <span className="text-secondary">&</span>
-          <span className="text-[#ff5500]">Sight</span>
-        </Link>
-      </motion.div>
-      
-      {/* Desktop Navigation */}
-      <nav className="hidden lg:flex space-x-8">
-        {[
-          { name: 'HOME', path: '/', current: currentPage === 'home' },
-          { name: 'SERVICES', path: '/services', current: currentPage === 'services' },
-          { name: 'WORK', path: '/work', current: currentPage === 'work' },
-          { name: 'ABOUT', path: '/about', current: currentPage === 'about' },
-          { name: 'CONTACT', path: '/contact', current: currentPage === 'contact' }
-        ].map((item, index) => (
-          <motion.div
-            key={item.name}
-            custom={index}
-            initial="hidden"
-            animate="visible"
-            variants={navItemVariants}
-          >
-            <Link 
-              href={item.path} 
-              className={item.current ? 'text-[#ff5500] font-medium' : ''}
+        <Logo />
+        
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-6">
+          <nav className="flex items-center space-x-6">
+            {[
+              { name: 'HOME', path: '/', current: currentPage === 'home' },
+              { name: 'SERVICES', path: '/services', current: currentPage === 'services' },
+              { name: 'WORK', path: '/work', current: currentPage === 'work' },
+              { name: 'ABOUT', path: '/about', current: currentPage === 'about' },
+              { name: 'CONTACT', path: '/contact', current: currentPage === 'contact' }
+            ].map((item, index) => (
+              <motion.div
+                key={item.name}
+                custom={index}
+                initial="hidden"
+                animate="visible"
+                variants={navItemVariants}
+              >
+                <Link 
+                  href={item.path} 
+                  className={`relative font-medium text-base hover:text-[#ff5500] transition-colors ${
+                    item.current 
+                      ? 'text-[#ff5500]' 
+                      : theme === 'dark' ? 'text-gray-200' : 'text-gray-800'
+                  }`}
+                  style={{ fontFamily: 'var(--font-league-spartan)' }}
+                >
+                  {item.name}
+                  {item.current && (
+                    <span className="absolute bottom-[-4px] left-0 w-full h-[2px] bg-[#ff5500]" />
+                  )}
+                </Link>
+              </motion.div>
+            ))}
+          </nav>
+          
+          <div className="flex items-center space-x-4">
+            {/* Theme Toggle */}
+            <ThemeToggle />
+            
+            {/* CTA Button */}
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              variants={ctaVariants}
             >
-              {item.name}
-              {item.current && (
-                <div className="h-[2px] bg-[#ff5500] mt-1" />
-              )}
-            </Link>
-          </motion.div>
-        ))}
-      </nav>
-      
-      {/* CTA Button - Desktop */}
-      <motion.div 
-        className="hidden lg:block"
-        initial="hidden"
-        animate="visible"
-        variants={ctaVariants}
-      >
-        <Link
-          href="/contact"
-          className="px-6 py-3 bg-[#ff5500] text-white rounded-md hover:bg-[#e64d00] transition-colors"
-        >
-          Book an intro call
-        </Link>
+              <Link
+                href="/contact"
+                className="px-5 py-2 bg-[#ff5500] text-white rounded-md hover:bg-[#e64d00] transition-colors text-base font-medium"
+                style={{ fontFamily: 'var(--font-league-spartan)' }}
+              >
+                Let's talk
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+        
+        {/* Mobile Menu Button */}
+        <div className="flex items-center space-x-4 md:hidden">
+          <ThemeToggle />
+          <button 
+            className="p-2 relative w-10 h-10 flex items-center justify-center" 
+            onClick={toggleMobileMenu} 
+            aria-label="Toggle mobile menu"
+          >
+            <motion.div
+              className={`absolute w-6 h-0.5 rounded-full ${theme === 'dark' ? 'bg-white' : 'bg-[#333333]'}`}
+              animate={{
+                rotate: mobileMenuOpen ? 45 : 0,
+                y: mobileMenuOpen ? 0 : -6
+              }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            />
+            <motion.div
+              className={`absolute w-6 h-0.5 rounded-full ${theme === 'dark' ? 'bg-white' : 'bg-[#333333]'}`}
+              animate={{
+                opacity: mobileMenuOpen ? 0 : 1,
+                x: mobileMenuOpen ? 20 : 0
+              }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            />
+            <motion.div
+              className={`absolute w-6 h-0.5 rounded-full ${theme === 'dark' ? 'bg-white' : 'bg-[#333333]'}`}
+              animate={{
+                rotate: mobileMenuOpen ? -45 : 0,
+                y: mobileMenuOpen ? 0 : 6
+              }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+            />
+          </button>
+        </div>
       </motion.div>
-      
-      {/* Mobile Menu Button */}
-      <div className="lg:hidden">
-        <button className="p-2 relative w-10 h-10 flex items-center justify-center" onClick={toggleMobileMenu} aria-label="Toggle mobile menu">
-          <motion.div
-            className="absolute w-6 bg-black h-0.5 rounded-full"
-            animate={{
-              rotate: mobileMenuOpen ? 45 : 0,
-              y: mobileMenuOpen ? 0 : -6.6
-            }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute w-6 bg-black h-0.5 rounded-full"
-            animate={{
-              opacity: mobileMenuOpen ? 0 : 1,
-              x: mobileMenuOpen ? 20 : 0
-            }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute w-6 bg-black h-0.5 rounded-full"
-            animate={{
-              rotate: mobileMenuOpen ? -45 : 0,
-              y: mobileMenuOpen ? 0 : 6.6
-            }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          />
-        </button>
-      </div>
       
       {/* Mobile Menu */}
       <motion.div 
-        className="absolute top-full left-0 right-0 bg-white shadow-lg z-50 lg:hidden overflow-hidden"
+        className={`absolute top-24 left-4 right-4 shadow-lg rounded-xl z-50 md:hidden overflow-hidden mx-auto ${
+          theme === 'dark' ? 'bg-[#333333]' : 'bg-white'
+        }`}
         initial={false}
         animate={{ 
           height: mobileMenuOpen ? 'auto' : 0,
@@ -168,48 +161,54 @@ export default function Navigation({ currentPage }: NavigationProps) {
         <nav className="flex flex-col p-6">
           <Link 
             href="/" 
-            className={`py-3 ${currentPage === 'home' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
+            className={`py-3 ${currentPage === 'home' ? 'text-[#ff5500] font-medium' : theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
             onClick={() => setMobileMenuOpen(false)}
+            style={{ fontFamily: 'var(--font-league-spartan)' }}
           >
             HOME
           </Link>
           <Link 
             href="/services" 
-            className={`py-3 ${currentPage === 'services' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
+            className={`py-3 ${currentPage === 'services' ? 'text-[#ff5500] font-medium' : theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
             onClick={() => setMobileMenuOpen(false)}
+            style={{ fontFamily: 'var(--font-league-spartan)' }}
           >
             SERVICES
           </Link>
           <Link 
             href="/work" 
-            className={`py-3 ${currentPage === 'work' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
+            className={`py-3 ${currentPage === 'work' ? 'text-[#ff5500] font-medium' : theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
             onClick={() => setMobileMenuOpen(false)}
+            style={{ fontFamily: 'var(--font-league-spartan)' }}
           >
             WORK
           </Link>
           <Link 
             href="/about" 
-            className={`py-3 ${currentPage === 'about' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
+            className={`py-3 ${currentPage === 'about' ? 'text-[#ff5500] font-medium' : theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
             onClick={() => setMobileMenuOpen(false)}
+            style={{ fontFamily: 'var(--font-league-spartan)' }}
           >
             ABOUT
           </Link>
           <Link 
             href="/contact" 
-            className={`py-3 ${currentPage === 'contact' ? 'text-[#ff5500] font-medium' : 'text-gray-600'}`}
+            className={`py-3 ${currentPage === 'contact' ? 'text-[#ff5500] font-medium' : theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
             onClick={() => setMobileMenuOpen(false)}
+            style={{ fontFamily: 'var(--font-league-spartan)' }}
           >
             CONTACT
           </Link>
           <Link
             href="/contact"
-            className="mt-4 px-5 py-2 sm:px-6 sm:py-3 text-sm sm:text-base bg-[#ff5500] text-white rounded-md hover:bg-[#e64d00] transition-colors text-center"
+            className="mt-4 px-5 py-2 bg-[#ff5500] text-white rounded-md hover:bg-[#e64d00] transition-colors text-center text-base font-medium"
             onClick={() => setMobileMenuOpen(false)}
+            style={{ fontFamily: 'var(--font-league-spartan)' }}
           >
-            Book an intro call
+            Let's talk
           </Link>
         </nav>
       </motion.div>
-    </header>
+    </div>
   );
 } 

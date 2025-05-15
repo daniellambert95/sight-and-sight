@@ -41,7 +41,7 @@ export default function AboutPage() {
         <DotPattern color="#B05C35" size={1.5} spacing={22} className="z-[1] opacity-25" />
         <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 w-full">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-primary">About Us</h1>
-          <p className="text-xl text-secondary max-w-3xl">
+          <p className="text-xl text-dark-primary max-w-3xl">
             Site and Sight is a creative studio that combines strategic thinking with innovative design to craft digital experiences that captivate and inspire.
           </p>
         </div>

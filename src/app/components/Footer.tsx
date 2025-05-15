@@ -5,10 +5,12 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
 import ScrollReveal from './animations/ScrollReveal';
+import { useTheme } from '../utils/ThemeProvider';
 
 export default function Footer() {
   const footerRef = useRef(null);
   const isInView = useInView(footerRef, { once: true, margin: "-10% 0px" });
+  const { theme } = useTheme();
   
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -36,14 +38,22 @@ export default function Footer() {
   return (
     <motion.footer 
       ref={footerRef}
-      className="px-8 md:px-16 py-16 bg-black text-white mt-auto border-t border-zinc-800 relative overflow-hidden"
+      className={`px-8 md:px-16 py-16 mt-auto border-t relative overflow-hidden transition-colors duration-300 ${
+        theme === 'dark' 
+          ? 'bg-black text-white border-zinc-800' 
+          : 'bg-gray-50 text-black border-gray-200'
+      }`}
       initial="hidden"
       animate={isInView ? "show" : "hidden"}
       variants={staggerContainer}
     >
       {/* Animated gradient background */}
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-t from-black via-zinc-900 to-black opacity-50"
+        className={`absolute inset-0 opacity-50 ${
+          theme === 'dark'
+            ? 'bg-gradient-to-t from-black via-zinc-900 to-black'
+            : 'bg-gradient-to-t from-gray-100 via-white to-gray-50'
+        }`}
         animate={{ 
           backgroundPosition: ["0% 0%", "100% 100%"],
         }}
@@ -63,17 +73,17 @@ export default function Footer() {
             transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
             <span className="text-[#ff5500]">Site</span>
-            <span className="text-white">&</span>
+            <span className={theme === 'dark' ? 'text-white' : 'text-black'}>&</span>
             <span className="text-[#ff5500]">Sight</span>
           </motion.div>
-          <p className="text-gray-400">
+          <p className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
             Crafting digital experiences <br />
             that captivate and inspire.
           </p>
         </motion.div>
         
         <motion.div variants={footerItems}>
-          <h3 className="text-lg font-semibold mb-4">Navigation</h3>
+          <h3 className={`text-lg font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Navigation</h3>
           <ul className="space-y-2">
             {['Home', 'Work', 'About', 'Testimonials', 'Contact'].map((item, i) => (
               <motion.li 
@@ -83,7 +93,9 @@ export default function Footer() {
               >
                 <Link 
                   href={item === 'Home' ? '/' : `/${item.toLowerCase()}`} 
-                  className="text-gray-400 hover:text-[#ff5500] transition-colors interactive"
+                  className={`hover:text-[#ff5500] transition-colors interactive ${
+                    theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  }`}
                 >
                   {item}
                 </Link>
@@ -93,11 +105,12 @@ export default function Footer() {
         </motion.div>
         
         <motion.div variants={footerItems}>
-          <h3 className="text-lg font-semibold mb-4">Contact</h3>
-          <ul className="space-y-2 text-gray-400">
+          <h3 className={`text-lg font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Contact</h3>
+          <ul className="space-y-2">
             <motion.li
               whileHover={{ x: 5 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}
             >
               <a href="mailto:hello@siteandsight.com" className="hover:text-[#ff5500] transition-colors interactive">
                 hello@siteandsight.com
@@ -106,17 +119,18 @@ export default function Footer() {
             <motion.li
               whileHover={{ x: 5 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}
             >
               <a href="tel:+11234567890" className="hover:text-[#ff5500] transition-colors interactive">
                 +1 (123) 456-7890
               </a>
             </motion.li>
-            <motion.li>Dublin, Ireland</motion.li>
+            <motion.li className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Dublin, Ireland</motion.li>
           </ul>
         </motion.div>
         
         <motion.div variants={footerItems}>
-          <h3 className="text-lg font-semibold mb-4">Connect</h3>
+          <h3 className={`text-lg font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Connect</h3>
           <div className="flex space-x-4">
             {[
               { name: 'Facebook', svg: <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" /></svg> },
@@ -126,7 +140,9 @@ export default function Footer() {
               <motion.a 
                 key={social.name}
                 href="#" 
-                className="text-gray-400 hover:text-[#ff5500] transition-colors interactive" 
+                className={`transition-colors interactive ${
+                  theme === 'dark' ? 'text-gray-400 hover:text-[#ff5500]' : 'text-gray-500 hover:text-[#ff5500]'
+                }`}
                 aria-label={social.name}
                 whileHover={{ 
                   scale: 1.2,
@@ -142,7 +158,9 @@ export default function Footer() {
       </div>
       
       <motion.div 
-        className="max-w-7xl mx-auto mt-12 pt-8 border-t border-zinc-800 text-gray-500 text-sm"
+        className={`max-w-7xl mx-auto mt-12 pt-8 text-sm border-t ${
+          theme === 'dark' ? 'border-zinc-800 text-gray-500' : 'border-gray-200 text-gray-500'
+        }`}
         variants={footerItems}
       >
         © {new Date().getFullYear()} Site and Sight Creative Studio. All rights reserved.

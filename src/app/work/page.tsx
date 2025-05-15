@@ -65,7 +65,7 @@ export default function WorkPage() {
         <div className="absolute inset-0 bg-white bg-opacity-50"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 w-full">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-primary">Our Work</h1>
-          <p className="text-xl text-secondary max-w-3xl">
+          <p className="text-xl text-dark-primary max-w-3xl">
             Explore our portfolio of creative projects spanning branding, web design, UI/UX, video editing, motion graphics, and digital marketing. Each project represents our commitment to crafting engaging digital experiences.
           </p>
         </div>

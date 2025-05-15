@@ -13,7 +13,7 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-amber-50 bg-opacity-50"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 w-full">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-primary">Get In Touch</h1>
-          <p className="text-xl text-secondary max-w-3xl">
+          <p className="text-xl text-dark-primary max-w-3xl">
             Have a project in mind or want to learn more about our services? We&apos;d love to hear from you. Fill out the form below or reach out directly.
           </p>
         </div>

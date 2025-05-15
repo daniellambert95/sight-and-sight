@@ -1,7 +1,8 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter, Rubik_Moonrocks } from "next/font/google";
+import { Inter, League_Spartan } from "next/font/google";
 import ClientLayout from "@/app/components/ClientLayout";
+import { ThemeProvider } from "@/app/utils/ThemeProvider";
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -9,11 +10,10 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-const rubikMoonrocks = Rubik_Moonrocks({
-  weight: '400',
+const leagueSpartan = League_Spartan({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-moonrocks',
+  variable: '--font-league-spartan',
 });
 
 export const metadata: Metadata = {
@@ -27,11 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${rubikMoonrocks.variable}`}>
-      <body className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
-        <ClientLayout>
-          {children}
-        </ClientLayout>
+    <html lang="en" className={`${inter.variable} ${leagueSpartan.variable}`}>
+      <body className="min-h-screen overflow-x-hidden transition-colors duration-300">
+        <ThemeProvider>
+          <ClientLayout>
+            {children}
+          </ClientLayout>
+        </ThemeProvider>
       </body>
     </html>
   );
