@@ -7,36 +7,39 @@ import { motion } from "framer-motion";
 import ScrollReveal from "./animations/ScrollReveal";
 import { useTheme } from "../utils/ThemeProvider";
 
-// Sample project data
+// Updated project data with correct routing
 const projects = [
   {
-    id: 1,
+    id: "pinkpizzaberlin",
     title: "Pink Pizza Berlin",
     description: "A modern website for a trendy Berlin pizzeria featuring online ordering, menu design, and Google Maps integration.",
     imageUrl: "/pink-hero.jpg",
-    category: "Web Design",
-    year: "2025"
+    category: ["Web Design", "Branding"],
+    year: "2025",
+    route: "/work/pinkpizzaberlin"
   },
   {
-    id: 2,
+    id: "derbaumchirurg", 
     title: "Der Baumchirurg",
     description: "A professional website for a tree surgery and garden maintenance company showcasing their expert services and portfolio.",
-    imageUrl: "/pink-hero.jpg", // Using existing image as fallback
-    category: "Web Design",
-    year: "2024"
+    imageUrl: "/pink-hero.jpg",
+    category: ["Web Design", "SEO"],
+    year: "2024",
+    route: "/work/derbaumchirurg" 
   },
   {
-    id: 3,
+    id: "brand-identity",
     title: "Brand Identity System",
     description: "A comprehensive brand identity system for a tech startup that needed to establish a strong market presence.",
-    imageUrl: "/pink-hero.jpg", // Using existing image as fallback
-    category: "Branding",
-    year: "2022"
+    imageUrl: "/pink-hero.jpg",
+    category: ["Web Design", "SEO"],
+    year: "2022",
+    route: "/work/brand-identity" 
   }
 ];
 
 export default function FeaturedProjects() {
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const { theme } = useTheme();
 
   return (
@@ -74,7 +77,7 @@ export default function FeaturedProjects() {
                       alt={project.title}
                       fill
                       style={{ objectFit: 'cover' }}
-                      priority={project.id === 1}
+                      priority={project.id === "pinkpizzaberlin"}
                     /> */}
                   </motion.div>
                   <motion.div 
@@ -91,7 +94,7 @@ export default function FeaturedProjects() {
                   <p className={`mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                     {project.description}
                   </p>
-                  <Link href={`/work/project-${project.id}`} className="text-[#ff5500] font-medium hover:underline flex items-center">
+                  <Link href={project.route} className="text-[#ff5500] font-medium hover:underline flex items-center">
                     <span>View Project</span>
                     <motion.span 
                       className="ml-1"

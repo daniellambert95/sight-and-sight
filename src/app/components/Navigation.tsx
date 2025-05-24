@@ -8,7 +8,7 @@ import ThemeToggle from './ThemeToggle';
 import { useTheme } from '../utils/ThemeProvider';
 
 interface NavigationProps {
-  currentPage: 'home' | 'work' | 'about' | 'services' | 'contact';
+  currentPage: 'home' | 'work' | 'about' | 'services' | 'pricing' | 'contact';
 }
 
 export default function Navigation({ currentPage }: NavigationProps) {
@@ -60,6 +60,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
             {[
               { name: 'HOME', path: '/', current: currentPage === 'home' },
               { name: 'SERVICES', path: '/services', current: currentPage === 'services' },
+              { name: 'PRICING', path: '/pricing', current: currentPage === 'pricing' },
               { name: 'WORK', path: '/work', current: currentPage === 'work' },
               { name: 'ABOUT', path: '/about', current: currentPage === 'about' },
               { name: 'CONTACT', path: '/contact', current: currentPage === 'contact' }
@@ -174,6 +175,14 @@ export default function Navigation({ currentPage }: NavigationProps) {
             style={{ fontFamily: 'var(--font-league-spartan)' }}
           >
             SERVICES
+          </Link>
+          <Link 
+            href="/pricing" 
+            className={`py-3 ${currentPage === 'pricing' ? 'text-[#ff5500] font-medium' : theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}
+            onClick={() => setMobileMenuOpen(false)}
+            style={{ fontFamily: 'var(--font-league-spartan)' }}
+          >
+            PRICING
           </Link>
           <Link 
             href="/work" 

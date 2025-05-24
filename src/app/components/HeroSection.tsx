@@ -81,7 +81,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.5 }}
             style={{ fontFamily: 'var(--font-league-spartan)' }}
           >
-            We build scroll-stopping websites and search strategies that get you seen — and remembered.
+            We build scroll-stopping websites and search strategies that get you seen and remembered.
 
           </motion.p>
           

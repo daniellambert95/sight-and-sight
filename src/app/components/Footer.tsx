@@ -85,7 +85,7 @@ export default function Footer() {
         <motion.div variants={footerItems}>
           <h3 className={`text-lg font-semibold mb-4 ${theme === 'dark' ? 'text-white' : 'text-black'}`}>Navigation</h3>
           <ul className="space-y-2">
-            {['Home', 'Work', 'About', 'Testimonials', 'Contact'].map((item, i) => (
+            {['Home', 'Services', 'Pricing', 'Work', 'About', 'Contact'].map((item, i) => (
               <motion.li 
                 key={item}
                 whileHover={{ x: 5 }}
