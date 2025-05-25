@@ -28,9 +28,7 @@ export default function HeroSection() {
       ref={heroRef} 
       className="relative min-h-[120vh] md:min-h-screen overflow-hidden"
     >
-      {/* Dot pattern background */}
-      {/* <DotPattern color="#B05C35" size={1.5} spacing={22} className="z-[1] opacity-50 absolute inset-0" /> */}
-      
+
       {/* Floating particles */}
       <FloatingParticles 
         particleCount={40}
