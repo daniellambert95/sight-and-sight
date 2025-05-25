@@ -26,7 +26,7 @@ export default function HeroSection() {
   return (
     <section 
       ref={heroRef} 
-      className="relative min-h-[120vh] md:min-h-screen overflow-hidden"
+      className="relative min-h-screen md:min-h-screen overflow-hidden"
     >
 
       {/* Floating particles */}
@@ -39,7 +39,7 @@ export default function HeroSection() {
         className="z-[1]"
       />
       
-      <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 w-full flex items-center justify-center pt-60 md:pt-72 pb-20 lg:py-0 lg:min-h-screen">
+      <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 w-full flex items-center justify-center pt-40 md:pt-72 pb-20 lg:py-0 lg:min-h-screen">
         {/* Content Column - Centered */}
         <motion.div 
           className="w-full max-w-4xl text-center"
