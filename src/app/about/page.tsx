@@ -445,17 +445,17 @@ export default function AboutPage() {
               >
                 {/* Card Glow Effect */}
                 <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-                  member.color === 'blue' ? 'bg-gradient-to-br from-blue-500/10 to-transparent' :
-                  member.color === 'green' ? 'bg-gradient-to-br from-green-500/10 to-transparent' :
-                  'bg-gradient-to-br from-purple-500/10 to-transparent'
+                  member.color === 'blue' ? 'bg-gradient-to-br from-[#ff5500]/10 to-transparent' :
+                  member.color === 'green' ? 'bg-gradient-to-br from-[#ff5500]/10 to-transparent' :
+                  'bg-gradient-to-br from-[#ff5500]/10 to-transparent'
                 }`}></div>
                 
                 <div className="relative z-10">
                   {/* Profile Image */}
                   <div className={`relative w-32 h-32 mx-auto mb-6 rounded-3xl overflow-hidden border-4 ${
-                    member.color === 'blue' ? 'border-blue-500/30' :
-                    member.color === 'green' ? 'border-green-500/30' :
-                    'border-purple-500/30'
+                    member.color === 'blue' ? 'border-[#ff5500]/60' :
+                    member.color === 'green' ? 'border-[#ff5500]/60' :
+                    'border-[#ff5500]/30'
                   } group-hover:border-opacity-50 transition-all duration-300`}>
                     {member.image ? (
                       <Image 
@@ -483,11 +483,7 @@ export default function AboutPage() {
                   </div>
 
                   {/* Role Badge */}
-                  <div className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-bold mb-4 ${
-                    member.color === 'blue' ? 'bg-blue-500/20 text-blue-500' :
-                    member.color === 'green' ? 'bg-green-500/20 text-green-500' :
-                    'bg-purple-500/20 text-purple-500'
-                  }`}>
+                  <div className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-bold mb-4 bg-[#ff5500]/20 text-[#ff5500]`}>
                     {member.role.toUpperCase()}
                   </div>
 
