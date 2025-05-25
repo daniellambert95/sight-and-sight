@@ -49,30 +49,6 @@
   color: #ff5500;
 }
 
-/* Subtle hover effects for links */
-a:not(.btn) {
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-a:not(.btn)::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  bottom: -2px;
-  left: 0;
-  background-color: #ff5500;
-  transform: scaleX(0);
-  transform-origin: bottom right;
-  transition: transform 0.3s ease;
-}
-
-a:not(.btn):hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
 /* Smooth scrolling for the whole page */
 html {
   scroll-behavior: smooth;

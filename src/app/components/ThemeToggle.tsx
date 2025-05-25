@@ -11,8 +11,8 @@ export default function ThemeToggle() {
       onClick={toggleTheme}
       className={`p-2 rounded-full transition-colors flex items-center justify-center ${
         theme === 'dark' 
-          ? 'bg-blue-500/20 text-blue-400' 
-          : 'bg-blue-500/10 text-blue-500'
+          ? 'bg-[#ff5500]/10 text-[#ff5500]' 
+          : 'bg-[#ff5500]/5 text-[#ff5500]'
       }`}
       whileTap={{ scale: 0.95 }}
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}

@@ -1,6 +1,5 @@
 'use client';
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import ScrollReveal from "./animations/ScrollReveal";
 import { useTheme } from "../utils/ThemeProvider";
@@ -8,97 +7,158 @@ import { useTheme } from "../utils/ThemeProvider";
 export default function HowWeWork() {
   const { theme } = useTheme();
   
-  // Staggered animation for feature cards
-  const featureCardVariants = {
-    hidden: { opacity: 0, y: 0 },
-    visible: (custom: number) => ({
-      opacity: 1,
+  // Animation variants
+  const fadeIn = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
       y: 0,
-      transition: { 
-        delay: custom * 0.28, 
-        duration: 0.5,
-        ease: [0.25, 0.1, 0.25, 1.0]
+      transition: { duration: 0.6 }
+    }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
       }
-    })
+    }
   };
 
   const workSteps = [
     { 
       num: 1, 
       title: "Discovery", 
-      desc: "We learn about your business, goals, and requirements.",
-      icon: "/work_svg/planning-svgrepo-com.svg"
+      desc: "We learn about your business, goals, and requirements to create the perfect foundation.",
+      icon: "🔍",
+      color: "blue"
     },
     { 
       num: 2, 
       title: "Strategy", 
-      desc: "We develop a tailored strategy to meet your specific needs.",
-      icon: "/work_svg/distributed-svgrepo-com.svg"
+      desc: "We develop a tailored strategy to meet your specific needs and objectives.",
+      icon: "🎯",
+      color: "green"
     },
     { 
       num: 3, 
       title: "Implementation", 
-      desc: "We bring your project to life with expert execution.",
-      icon: "/work_svg/pie-chart-svgrepo-com.svg" 
+      desc: "We bring your project to life with expert execution and attention to detail.",
+      icon: "⚡",
+      color: "purple"
     },
     { 
       num: 4, 
       title: "Support", 
-      desc: "We provide ongoing support to ensure continued success.",
-      icon: "/work_svg/chat-chat-svgrepo-com.svg"
+      desc: "We provide ongoing support to ensure continued success and growth.",
+      icon: "🚀",
+      color: "orange"
     }
   ];
 
   return (
-    <section className={`px-8 md:px-16 py-24 relative overflow-hidden transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'
+    <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
+      theme === 'dark' ? 'bg-gradient-to-br from-gray-900 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
     }`}>
-      <ScrollReveal>
-        <h2 className={`text-3xl font-bold text-center mb-12 relative z-10 ${
-          theme === 'dark' ? 'text-white' : 'text-primary'
-        }`}>How We Work</h2>
-      </ScrollReveal>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-7xl mx-auto relative z-10">
-        {workSteps.map((item, index) => (
-          <motion.div 
-            key={item.num} 
-            className={`rounded-xl p-8 flex flex-col items-center shadow-lg hover:shadow-xl transition-all duration-300 ${
-              theme === 'dark' 
-                ? 'bg-gray-700 shadow-gray-900/30 hover:shadow-gray-900/50' 
-                : 'bg-white shadow-gray-200/70'
-            }`}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            custom={index}
-            variants={featureCardVariants}
-            whileHover={{ y: -10 }}
-            transition={{ duration: 0.01 }}
-          >
-            <div className="relative w-24 h-24 mb-6">
-              <div className="absolute inset-0 bg-amber-100 rounded-full opacity-30" />
-              <div className="relative z-10 w-full h-full flex items-center justify-center">
-                <Image 
-                  src={item.icon} 
-                  alt={item.title} 
-                  width={60} 
-                  height={60}
-                  className={theme === 'dark' ? 'brightness-200' : ''}
-                />
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className={`absolute top-20 left-10 w-40 h-40 rounded-full opacity-10 ${
+          theme === 'dark' ? 'bg-blue-500' : 'bg-blue-300'
+        }`}></div>
+        <div className={`absolute bottom-20 right-20 w-32 h-32 rotate-45 opacity-15 ${
+          theme === 'dark' ? 'bg-orange-500' : 'bg-orange-300'
+        }`}></div>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="inline-flex items-center gap-3 mb-6">
+            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
+            <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
+              theme === 'dark'
+                ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
+                : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
+            }`}>
+              ⚡ Our Process
+            </span>
+            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
+          </div>
+          <h2 className={`text-4xl md:text-5xl font-black mb-6 ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
+            How we <span className="text-[#ff5500]">work</span>
+          </h2>
+          <p className={`text-xl max-w-3xl mx-auto ${
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+          }`}>
+            Our proven 4-step process ensures your project is delivered on time, on budget, and exceeds expectations
+          </p>
+        </motion.div>
+
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          {workSteps.map((step, index) => (
+            <motion.div 
+              key={step.num}
+              variants={fadeIn}
+              className={`group relative p-8 rounded-3xl transition-all duration-500 hover:scale-105 ${
+                theme === 'dark' 
+                  ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50 shadow-2xl shadow-gray-900/50' 
+                  : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50 shadow-2xl shadow-gray-200/50'
+              } backdrop-blur-sm`}
+            >
+              {/* Glow effect */}
+              <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
+                step.color === 'blue' ? 'bg-gradient-to-br from-blue-500/10 to-transparent' :
+                step.color === 'green' ? 'bg-gradient-to-br from-green-500/10 to-transparent' :
+                step.color === 'purple' ? 'bg-gradient-to-br from-purple-500/10 to-transparent' :
+                'bg-gradient-to-br from-orange-500/10 to-transparent'
+              }`}></div>
+              
+              <div className="relative z-10 text-center">
+                {/* Icon */}
+                <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center shadow-lg ${
+                  step.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
+                  step.color === 'green' ? 'bg-gradient-to-br from-green-500 to-green-600' :
+                  step.color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-600' :
+                  'bg-gradient-to-br from-orange-500 to-orange-600'
+                } group-hover:scale-110 transition-transform duration-300`}>
+                  <span className="text-3xl">
+                    {step.icon}
+                  </span>
+                </div>
+
+                {/* Step number */}
+                <div className="inline-flex items-center justify-center w-8 h-8 bg-[#ff5500] text-white text-sm font-bold rounded-full mb-4">
+                  {step.num}
+                </div>
+
+                {/* Title */}
+                <h3 className={`text-2xl font-black mb-3 ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>{step.title}</h3>
+
+                {/* Description */}
+                <p className={`leading-relaxed ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                  {step.desc}
+                </p>
               </div>
-            </div>
-            <div className="bg-[#ff5500] text-white text-sm px-4 py-1 rounded-full mb-4">
-              Step {item.num}
-            </div>
-            <h3 className={`text-xl font-semibold mb-3 text-center ${
-              theme === 'dark' ? 'text-white' : 'text-black'
-            }`}>{item.title}</h3>
-            <p className={`text-center ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}>{item.desc}</p>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

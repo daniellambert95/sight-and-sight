@@ -37,7 +37,7 @@ export default function AboutPage() {
       name: "Daniel Lambert",
       role: "Creative Lead",
       bio: "With over 15 years of experience in web development and creative design, Daniel is the founder and creative lead who develops all our websites and creates stunning graphics. His innovative vision and technical expertise drive our projects forward.",
-      image: "/daniel.png",
+      image: "/images/team/daniel.png",
       color: "blue"
     },
     {
@@ -45,7 +45,7 @@ export default function AboutPage() {
       name: "Killian Walpole",
       role: "Marketing Manager",
       bio: "Killian specializes in PR communications, email marketing, and social media strategy. With expertise in copywriting and digital marketing, he crafts compelling campaigns that engage audiences and drive results.",
-      image: "/killian.png",
+      image: "/images/team/killian.png",
       color: "green"
     },
     {
@@ -53,7 +53,7 @@ export default function AboutPage() {
       name: "Bill Pierce",
       role: "Video & Motion Graphics Designer",
       bio: "Bill specializes in video editing and motion graphics design, creating dynamic visual content that brings stories to life through animation and engaging video production.",
-      image: "/bill.png",
+      image: "/images/team/bill.png",
       color: "purple"
     },
   ];

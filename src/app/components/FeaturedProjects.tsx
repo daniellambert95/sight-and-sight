@@ -14,7 +14,7 @@ const projects = [
     title: "Pink Pizza Berlin",
     description: "A modern website for a trendy Berlin pizzeria featuring online ordering, menu design, and Google Maps integration.",
     imageUrl: "/pink-hero.jpg",
-    category: ["Web Design", "Branding"],
+    category: ["Web Design", "Branding", "Google Maps"],
     year: "2025",
     route: "/work/pinkpizzaberlin"
   },
@@ -23,18 +23,18 @@ const projects = [
     title: "Der Baumchirurg",
     description: "A professional website for a tree surgery and garden maintenance company showcasing their expert services and portfolio.",
     imageUrl: "/pink-hero.jpg",
-    category: ["Web Design", "SEO"],
-    year: "2024",
+    category: ["Web Design", "SEO", "Branding", "Logo Design"],
+    year: "2025",
     route: "/work/derbaumchirurg" 
   },
   {
-    id: "brand-identity",
-    title: "Brand Identity System",
-    description: "A comprehensive brand identity system for a tech startup that needed to establish a strong market presence.",
+    id: "miller-design",
+    title: "MDZN - Miller Design",
+    description: "A modern website for a design studio showcasing their expert services and portfolio.",
     imageUrl: "/pink-hero.jpg",
     category: ["Web Design", "SEO"],
-    year: "2022",
-    route: "/work/brand-identity" 
+    year: "2025",
+    route: "/work/miller-design" 
   }
 ];
 
