@@ -8,7 +8,7 @@ import ThemeToggle from './ThemeToggle';
 import { useTheme } from '../utils/ThemeProvider';
 
 interface NavigationProps {
-  currentPage: 'home' | 'work' | 'about' | 'services' | 'pricing' | 'contact' | 'blog';
+  currentPage: 'home' | 'work' | 'about' | 'services' |  'blog' | 'pricing' | 'contact' | 'blog';
 }
 
 export default function Navigation({ currentPage }: NavigationProps) {
@@ -94,8 +94,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
               { name: 'PRICING', path: '/pricing', current: currentPage === 'pricing' },
               { name: 'WORK', path: '/work', current: currentPage === 'work' },
               { name: 'BLOG', path: '/blog', current: currentPage === 'blog' },
-              { name: 'ABOUT', path: '/about', current: currentPage === 'about' },
-              { name: 'CONTACT', path: '/contact', current: currentPage === 'contact' }
+              { name: 'ABOUT', path: '/about', current: currentPage === 'about' }
             ].map((item, index) => (
               <motion.div
                 key={item.name}
@@ -230,8 +229,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
               { name: 'PRICING', path: '/pricing', current: currentPage === 'pricing' },
               { name: 'WORK', path: '/work', current: currentPage === 'work' },
               { name: 'BLOG', path: '/blog', current: currentPage === 'blog' },
-              { name: 'ABOUT', path: '/about', current: currentPage === 'about' },
-              { name: 'CONTACT', path: '/contact', current: currentPage === 'contact' }
+              { name: 'ABOUT', path: '/about', current: currentPage === 'about' }
             ].map((item, index) => (
               <motion.div
                 key={item.name}
