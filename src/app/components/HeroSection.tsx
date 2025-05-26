@@ -1,15 +1,17 @@
 'use client';
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import DotPattern from "./DotPattern";
 import FloatingParticles from "./FloatingParticles";
+import ProjectModal from "./ProjectModal";
 import { useTheme } from "../utils/ThemeProvider";
 
 export default function HeroSection() {
   const heroRef = useRef(null);
   const { theme } = useTheme();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Shared animation values
   const entranceTransition = {
@@ -128,9 +130,9 @@ export default function HeroSection() {
               <div className="absolute inset-0 bg-gradient-to-r from-[#ff5500] to-[#ff7800] rounded-xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
             </Link>
             
-            <Link 
-              href="/contact" 
-              className={`group w-full sm:w-auto px-8 py-4 border-2 border-[#ff5500] rounded-xl text-[#ff5500] transition-all duration-300 inline-block text-center font-bold text-base transform hover:scale-105 shadow-lg hover:shadow-xl ${
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className={`group w-full sm:w-auto px-8 py-4 border-2 border-[#ff5500] rounded-xl text-[#ff5500] transition-all duration-300 text-center font-bold text-base transform hover:scale-105 shadow-lg hover:shadow-xl ${
                 theme === 'dark' 
                   ? 'bg-white/5 hover:bg-white/10 backdrop-blur-sm' 
                   : 'bg-white/80 hover:bg-white backdrop-blur-sm'
@@ -143,7 +145,7 @@ export default function HeroSection() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
               </span>
-            </Link>
+            </button>
           </motion.div>
 
           {/* Compact stats */}
@@ -172,6 +174,12 @@ export default function HeroSection() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Project Modal */}
+      <ProjectModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </section>
   );
 } 
