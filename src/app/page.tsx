@@ -16,8 +16,44 @@ import { useTheme } from "./utils/ThemeProvider";
 
 export default function Home() {
   const { theme } = useTheme();
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(false);
   const [showMainContent, setShowMainContent] = useState(false);
+
+  useEffect(() => {
+    // Check if animation has already been shown this session
+    const hasShownIntro = sessionStorage.getItem('intro-shown');
+    
+    if (!hasShownIntro) {
+      // First time visiting in this session - show animation
+      setShowIntro(true);
+      // Mark as shown for this session
+      sessionStorage.setItem('intro-shown', 'true');
+    } else {
+      // Animation already shown this session - skip directly to main content
+      setShowMainContent(true);
+    }
+
+    // Reset animation state when user leaves the site
+    const handleBeforeUnload = () => {
+      sessionStorage.removeItem('intro-shown');
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        sessionStorage.removeItem('intro-shown');
+      }
+    };
+
+    // Add event listeners for when user leaves the site
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // Cleanup event listeners
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
 
   const handleIntroComplete = () => {
     setShowIntro(false);

@@ -295,7 +295,7 @@ export default function Pricing() {
                 </div>
                 <div className="flex items-center justify-between">
                   <p className={`font-bold text-2xl ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                    Starting at <span className="text-green-500">€300</span>
+                    Starting at <span className="text-green-500">€298</span>
                   </p>
                 </div>
               </div>
@@ -337,7 +337,7 @@ export default function Pricing() {
                 </div>
                 <div className="flex items-center justify-between">
                   <p className={`font-bold text-2xl ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                    Starting at <span className="text-blue-500">€400</span>
+                    Starting at <span className="text-blue-500">€398</span>
                   </p>
                 </div>
               </div>
@@ -421,7 +421,7 @@ export default function Pricing() {
                 </div>
                 <div className="flex items-center justify-between">
                   <p className={`font-bold text-2xl ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                    <span className="text-orange-500">€160</span> per hour
+                    <span className="text-orange-500">€198</span> per hour
                   </p>
                 </div>
               </div>

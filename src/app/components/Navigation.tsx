@@ -13,11 +13,40 @@ interface NavigationProps {
 
 export default function Navigation({ currentPage }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { theme } = useTheme();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
+
+  // Handle scroll behavior
+  useEffect(() => {
+    const controlNavbar = () => {
+      if (typeof window !== 'undefined') {
+        const currentScrollY = window.scrollY;
+        
+        // Show nav when at top of page
+        if (currentScrollY < 10) {
+          setIsVisible(true);
+        }
+        // Hide nav when scrolling down, show when scrolling up
+        else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          setIsVisible(false);
+        } else if (currentScrollY < lastScrollY) {
+          setIsVisible(true);
+        }
+        
+        setLastScrollY(currentScrollY);
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', controlNavbar);
+      return () => window.removeEventListener('scroll', controlNavbar);
+    }
+  }, [lastScrollY]);
 
   // Animation variants
   const navItemVariants = {
@@ -73,17 +102,26 @@ export default function Navigation({ currentPage }: NavigationProps) {
   };
 
   return (
-    <div className="w-full flex justify-center px-4 sm:px-6 lg:px-8 fixed top-0 z-50 pt-6">
+    <>
       <motion.div 
-        className={`flex items-center justify-between w-full max-w-7xl mx-auto rounded-md py-3 px-6 backdrop-blur-sm ${
-          theme === 'dark' 
-            ? 'bg-black/50 text-white' 
-            : 'bg-white/50 text-black'
-        } shadow-lg transition-all duration-300`}
+        className="w-full flex justify-center px-4 sm:px-6 lg:px-8 fixed top-0 z-50 pt-6"
         initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        animate={{ 
+          y: (isVisible || mobileMenuOpen) ? 0 : -100, 
+          opacity: (isVisible || mobileMenuOpen) ? 1 : 0 
+        }}
+        transition={{ 
+          duration: 0.3, 
+          ease: "easeInOut" 
+        }}
       >
+        <div 
+          className={`flex items-center justify-between w-full max-w-7xl mx-auto rounded-md py-3 px-6 backdrop-blur-sm ${
+            theme === 'dark' 
+              ? 'bg-black/50 text-white' 
+              : 'bg-white/50 text-black'
+          } shadow-lg transition-all duration-300`}
+        >
         <Logo />
         
         {/* Desktop Navigation */}
@@ -176,7 +214,8 @@ export default function Navigation({ currentPage }: NavigationProps) {
             />
           </button>
         </div>
-      </motion.div>
+      </div>
+    </motion.div>
       
       {/* Full-Screen Mobile Menu */}
       <motion.div 
@@ -272,6 +311,6 @@ export default function Navigation({ currentPage }: NavigationProps) {
           </nav>
         </div>
       </motion.div>
-    </div>
+    </>
   );
 } 

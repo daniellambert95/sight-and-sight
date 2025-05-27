@@ -32,6 +32,26 @@ export default function ProjectsSection() {
   // Project data
   const projects = [
     {
+      id: "miller-design",
+      title: "MDZN - Miller Design", 
+      description: "A modern website for a design studio showcasing their expert services and portfolio.",
+      imageUrl: "/pink-hero.jpg",
+      category: ["Web Design", "SEO", "Branding", "Logo Design"],
+      year: "2025",
+      route: "/work",
+      color: "bg-gradient-to-br from-purple-500 to-purple-700"
+    },
+    {
+      id: "derbaumchirurg",
+      title: "Der Baumchirurg",
+      description: "A professional website for a tree surgery and garden maintenance company showcasing their expert services and portfolio.",
+      imageUrl: "/pink-hero.jpg", 
+      category: ["Web Design", "SEO", "Branding", "Logo Design"],
+      year: "2025",
+      route: "/work",
+      color: "bg-gradient-to-br from-green-500 to-green-700"
+    },
+    {
       id: "pinkpizzaberlin",
       title: "Pink Pizza Berlin",
       description: "A modern website for a trendy Berlin pizzeria featuring online ordering, menu design, and Google Maps integration.",
@@ -40,26 +60,6 @@ export default function ProjectsSection() {
       year: "2025",
       route: "/work/pinkpizzaberlin",
       color: "bg-gradient-to-br from-pink-500 to-red-600"
-    },
-    {
-      id: "derbaumchirurg", 
-      title: "Der Baumchirurg",
-      description: "A professional website for a tree surgery and garden maintenance company showcasing their expert services and portfolio.",
-      imageUrl: "/pink-hero.jpg",
-      category: ["Web Design", "SEO", "Branding", "Logo Design"],
-      year: "2025",
-      route: "/work",
-      color: "bg-gradient-to-br from-green-500 to-green-700"
-    },
-    {
-      id: "miller-design",
-      title: "MDZN - Miller Design",
-      description: "A modern website for a design studio showcasing their expert services and portfolio.",
-      imageUrl: "/pink-hero.jpg",
-      category: ["Web Design", "SEO", "Branding", "Logo Design"],
-      year: "2025",
-      route: "/work",
-      color: "bg-gradient-to-br from-purple-500 to-purple-700"
     }
   ];
 
@@ -131,11 +131,11 @@ export default function ProjectsSection() {
               <div className="relative z-10">
                 {/* Project Image Area */}
                 <div className={`h-48 ${project.color} relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
+                  <div className="absolute inset-0 bg-primary bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
                   
                   {/* Year Badge */}
                   <div className="absolute top-4 left-4">
-                    <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-bold">
+                    <span className="bg-white/40 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-bold">
                       {project.year}
                     </span>
                   </div>

@@ -128,7 +128,7 @@ export default function HowWeWork() {
               
               <div className="relative z-10 text-center">
                 {/* Icon */}
-                <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center shadow-lg ${
+                {/* <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center shadow-lg ${
                   step.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
                   step.color === 'green' ? 'bg-gradient-to-br from-green-500 to-green-600' :
                   step.color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-600' :
@@ -137,7 +137,7 @@ export default function HowWeWork() {
                   <span className="text-3xl">
                     {step.icon}
                   </span>
-                </div>
+                </div> */}
 
                 {/* Step number */}
                 <div className="inline-flex items-center justify-center w-8 h-8 bg-[#ff5500] text-white text-sm font-bold rounded-full mb-4">

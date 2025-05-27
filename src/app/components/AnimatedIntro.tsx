@@ -166,10 +166,10 @@ const AnimatedIntro: React.FC<AnimatedIntroProps> = ({ onComplete }) => {
       </div>
 
               {/* Main Content */}
-        <div className="relative h-full flex flex-col items-center justify-center px-8 pt-24">
+        <div className="relative h-full flex flex-col items-center justify-center px-8 pt-30">
           {/* Main Text with Typewriter Effect */}
           <div className="mb-8 min-h-[140px] flex items-center">
-            <h1 className={`text-6xl md:text-8xl lg:text-9xl font-bold ${textClass} transition-opacity duration-1000 ${phase >= 2 ? 'opacity-100' : 'opacity-0'} tracking-tight`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
+            <h1 className={`text-5xl md:text-8xl lg:text-9xl font-bold ${textClass} transition-opacity duration-1000 ${phase >= 2 ? 'opacity-100' : 'opacity-0'} tracking-tight`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
               <span className="drop-shadow-lg">
                 {staticText}
                 <span className="text-[#ff5500]">{typedWord}</span>
@@ -231,7 +231,7 @@ const AnimatedIntro: React.FC<AnimatedIntroProps> = ({ onComplete }) => {
           </div>
         </div>
         {/* Subtitle */}
-        <p className={`pt-12 text-l md:text-xl lg:text-1xl ${subtitleClass} max-w-2xl text-center mb-20 transition-all duration-1000 ${phase >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} font-medium`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
+        <p className={`pt-12 text-m md:text-xl lg:text-1xl ${subtitleClass} max-w-2xl text-center mb-20 transition-all duration-1000 ${phase >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} font-medium`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
           OPTIMIZED FOR HUMANS <span className="block">AND GOOGLE'S ROBOT OVERLORDS.</span> 
         </p>
       </div>

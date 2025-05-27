@@ -29,24 +29,21 @@ export default function TestimonialsSection() {
   // Testimonials data
   const testimonials = [
     {
-      name: "Geoff Miller",
-      position: "Creative Director, MDZN Dubai",
-      content: "Site&Sight transformed our digital presence completely. The new website increased our conversions by 340% in just 3 months!",
-      avatar: "👩‍💼",
-      rating: 5
-    },
-    {
-      name: "Engin",
-      position: "Cofounder, Pink Pizza Berlin",
-      content: "Professional, creative, and incredibly efficient. They delivered exactly what we needed and more. Our online orders doubled!",
-      avatar: "👨‍🍳",
-      rating: 5
-    },
-    {
       name: "James Carter",
       position: "Business owner, Der Baumchirurg",
+      content: "Customers are flying in after getting my site designed by Daniel. The main focus was SEO but it also looks amazing! Very satisfied!",
+      rating: 5
+    },
+    {
+      name: "Geoff Miller",
+      position: "Creative Director, MDZN Dubai",
+      content: "S&S creatively and expertly delivered on their promise for my new website millerdesign.ai. Their process was efficient  professional and seamless as they also contributed extra help with copywriting, seo, design, analytics, and were a pleasure to work with along the way. Genuinely have no complaints and very satisfied we chose them as our web partner. 5 stars",
+      rating: 5
+    },
+    {
+      name: "Engin ",
+      position: "Cofounder, PinkPizza Berlin",
       content: "Outstanding SEO results! We went from page 3 to top 3 Google rankings in our industry. Highly recommend their expertise.",
-      avatar: "👩‍💻",
       rating: 5
     }
   ];
@@ -131,8 +128,10 @@ export default function TestimonialsSection() {
                 
                 {/* Author */}
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white text-2xl">
-                    {testimonial.avatar}
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white">
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
+                    </svg>
                   </div>
                   <div>
                     <div className={`font-bold ${

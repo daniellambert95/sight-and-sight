@@ -13,7 +13,9 @@ interface BasePackage {
   name: string;
   description: string;
   price: number;
+  originalPrice?: number;
   monthlyFee?: number;
+  minimumMonths?: number;
   features: string[];
   icon: string;
   color: string;
@@ -35,15 +37,15 @@ const basePackages: BasePackage[] = [
     id: 'onetime',
     name: 'One-Time Package',
     description: 'Perfect for businesses that prefer upfront payment',
-    price: 2600,
-    monthlyFee: 20,
+    price: 3298,
+    monthlyFee: 24,
     features: [
       'Design and Development',
       'Basic SEO setup',
       'Mobile responsive',
       'Up to 5 pages included',
       '2 free integrations (contact form, WhatsApp, Calendly)',
-      '€20/mo hosting'
+      '€24/mo hosting'
     ],
     icon: '💰',
     color: 'orange'
@@ -52,7 +54,9 @@ const basePackages: BasePackage[] = [
     id: 'monthly',
     name: 'Monthly Package',
     description: 'All-inclusive subscription with premium features',
-    price: 100,
+    price: 138,
+    originalPrice: 138,
+    minimumMonths: 12,
     features: [
       'Design and Development',
       'Hosting included',
@@ -69,10 +73,11 @@ const basePackages: BasePackage[] = [
     id: 'yearly',
     name: 'Yearly Package',
     description: 'Best value with annual commitment',
-    price: 1000,
+    price: 1198,
+    originalPrice: 1656, // 138 * 12 = 1656
     features: [
       'Everything in Monthly',
-      '17% savings vs monthly',
+      '28% savings vs monthly',
       'Priority support',
       'Quarterly strategy calls',
       'Performance reports'
@@ -233,7 +238,7 @@ const addOns: AddOn[] = [
     id: 'strategy-sessions',
     name: 'Strategy Sessions',
     description: 'On-demand expert guidance',
-    price: 150,
+    price: 200,
     category: 'support',
     icon: '🎯',
     color: 'blue'
@@ -385,6 +390,13 @@ export default function PricingCalculator({ theme }: PricingCalculatorProps) {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
+              {/* Minimum commitment banner for monthly package */}
+              {pkg.id === 'monthly' && pkg.minimumMonths && (
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#ff5500] text-white px-4 py-1 rounded-full text-xs font-semibold">
+                  {pkg.minimumMonths} months minimum contract
+                </div>
+              )}
+              
               <div className="text-3xl mb-4">{pkg.icon}</div>
               <h4 className={`text-xl font-bold mb-2 ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
@@ -398,6 +410,15 @@ export default function PricingCalculator({ theme }: PricingCalculatorProps) {
               </p>
               
               <div className="mb-4">
+                {/* Show original price crossed out for yearly package */}
+                {pkg.originalPrice && pkg.originalPrice > pkg.price && (
+                  <div className={`text-lg line-through ${
+                    theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+                  }`}>
+                    €{pkg.originalPrice}{pkg.id === 'yearly' && '/year'}
+                  </div>
+                )}
+                
                 <div className={`text-3xl font-bold ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
@@ -406,6 +427,14 @@ export default function PricingCalculator({ theme }: PricingCalculatorProps) {
                   {pkg.id === 'yearly' && <span className="text-lg">/year</span>}
                   {pkg.id === 'onetime' && <span className="text-lg"> one-time</span>}
                 </div>
+                
+                {/* Show savings for yearly package */}
+                {pkg.originalPrice && pkg.originalPrice > pkg.price && (
+                  <div className="text-green-500 font-semibold text-sm">
+                    Save €{pkg.originalPrice - pkg.price} ({Math.round(((pkg.originalPrice - pkg.price) / pkg.originalPrice) * 100)}% off)
+                  </div>
+                )}
+                
                 {pkg.monthlyFee && (
                   <div className={`text-sm ${
                     theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
