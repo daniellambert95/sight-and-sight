@@ -227,24 +227,22 @@ export default function AboutPage() {
             </motion.div>
             
             <motion.div 
-              className={`relative rounded-3xl h-[500px] overflow-hidden ${
-                theme === 'dark' 
-                  ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
-                  : 'bg-gradient-to-br from-gray-100 to-gray-200 border border-gray-300'
-              }`}
+              className="flex justify-center"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {/* Placeholder for studio image */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className={`text-8xl ${theme === 'dark' ? 'text-gray-700' : 'text-gray-400'}`}>
-                  🏢
-                </div>
+              {/* Simple Logo with Orange Border */}
+              <div className="relative">
+                <Image
+                  src={theme === 'dark' ? '/logo/icon/logo-dark.png' : '/logo/icon/logo-light.png'}
+                  alt="Site&Sight Logo"
+                  width={350}
+                  height={350}
+                  className="object-contain rounded-full border-2 border-orange-500 shadow-lg"
+                  priority
+                />
               </div>
-              {/* Decorative elements */}
-              <div className="absolute top-6 right-6 w-16 h-16 rounded-full bg-[#ff5500] opacity-20"></div>
-              <div className="absolute bottom-6 left-6 w-12 h-12 rotate-45 bg-blue-500 opacity-20"></div>
             </motion.div>
           </div>
         </div>
