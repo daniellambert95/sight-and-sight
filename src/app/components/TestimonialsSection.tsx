@@ -43,7 +43,7 @@ export default function TestimonialsSection() {
     {
       name: "Engin ",
       position: "Cofounder, PinkPizza Berlin",
-      content: "Outstanding SEO results! We went from page 3 to top 3 Google rankings in our industry. Highly recommend their expertise.",
+      content: "Daniel really helped with our online presence by setting up and optimizing our Google Maps listing so we could start receiving reviews while also creating stunning branded menus and website. The results exceeded our expectations and we highly recommend his web design expertise.",
       rating: 5
     }
   ];

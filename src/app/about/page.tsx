@@ -310,21 +310,21 @@ export default function AboutPage() {
                 step: "01",
                 title: "Discover",
                 description: "We begin by deeply understanding your business, goals, audience, and competitive landscape through research and strategic discussions.",
-                color: "blue",
+                color: "orange",
                 icon: "🔍"
               },
               {
                 step: "02",
                 title: "Design",
                 description: "Our creative process combines strategic thinking with innovative design, focusing on both aesthetics and functionality to create engaging experiences.",
-                color: "purple",
+                color: "orange",
                 icon: "🎨"
               },
               {
                 step: "03",
                 title: "Develop",
                 description: "We bring designs to life with clean, efficient code, ensuring responsive behavior, optimal performance, and seamless interactions.",
-                color: "green",
+                color: "orange",
                 icon: "⚡"
               }
             ].map((item, index) => (
@@ -338,28 +338,14 @@ export default function AboutPage() {
                 } backdrop-blur-sm`}
               >
                 {/* Card Glow Effect */}
-                <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-                  item.color === 'blue' ? 'bg-gradient-to-br from-blue-500/10 to-transparent' :
-                  item.color === 'purple' ? 'bg-gradient-to-br from-purple-500/10 to-transparent' :
-                  'bg-gradient-to-br from-green-500/10 to-transparent'
-                }`}></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col items-center text-center">
                   {/* Step Number */}
-                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl text-white text-xl font-bold mb-6 shadow-lg ${
-                    item.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
-                    item.color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-600' :
-                    'bg-gradient-to-br from-green-500 to-green-600'
-                  }`}>
-                    {item.icon}
-                  </div>
+                  
                   
                   {/* Step Badge */}
-                  <div className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-bold mb-4 ${
-                    item.color === 'blue' ? 'bg-blue-500/20 text-blue-500' :
-                    item.color === 'purple' ? 'bg-purple-500/20 text-purple-500' :
-                    'bg-green-500/20 text-green-500'
-                  }`}>
+                  <div className="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-bold mb-4 bg-orange-500/20 text-orange-500">
                     STEP {item.step}
                   </div>
 
@@ -444,19 +430,11 @@ export default function AboutPage() {
                 } backdrop-blur-sm`}
               >
                 {/* Card Glow Effect */}
-                <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-                  member.color === 'blue' ? 'bg-gradient-to-br from-[#ff5500]/10 to-transparent' :
-                  member.color === 'green' ? 'bg-gradient-to-br from-[#ff5500]/10 to-transparent' :
-                  'bg-gradient-to-br from-[#ff5500]/10 to-transparent'
-                }`}></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div className="relative z-10">
                   {/* Profile Image */}
-                  <div className={`relative w-32 h-32 mx-auto mb-6 rounded-3xl overflow-hidden border-4 ${
-                    member.color === 'blue' ? 'border-[#ff5500]/60' :
-                    member.color === 'green' ? 'border-[#ff5500]/60' :
-                    'border-[#ff5500]/30'
-                  } group-hover:border-opacity-50 transition-all duration-300`}>
+                  <div className="relative w-32 h-32 mx-auto mb-6 rounded-3xl overflow-hidden border-4 border-orange-500/60 group-hover:border-opacity-50 transition-all duration-300">
                     {member.image ? (
                       <Image 
                         src={member.image}
@@ -475,11 +453,7 @@ export default function AboutPage() {
                       </div>
                     )}
                     {/* Decorative ring */}
-                    <div className={`absolute -inset-2 rounded-3xl opacity-20 ${
-                      member.color === 'blue' ? 'bg-blue-500' :
-                      member.color === 'green' ? 'bg-green-500' :
-                      'bg-purple-500'
-                    } -z-10 group-hover:opacity-30 transition-opacity duration-300`}></div>
+                    <div className="absolute -inset-2 rounded-3xl opacity-20 bg-orange-500 -z-10 group-hover:opacity-30 transition-opacity duration-300"></div>
                   </div>
 
                   {/* Role Badge */}
@@ -510,13 +484,13 @@ export default function AboutPage() {
         {/* Background Geometric Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className={`absolute top-20 left-10 w-40 h-40 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-green-500' : 'bg-green-300'
+            theme === 'dark' ? 'bg-orange-500' : 'bg-orange-300'
           }`}></div>
           <div className={`absolute bottom-20 right-20 w-32 h-32 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-purple-500' : 'bg-purple-300'
+            theme === 'dark' ? 'bg-orange-500' : 'bg-orange-300'
           }`}></div>
           <div className={`absolute top-1/3 right-1/4 w-8 h-8 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-blue-500' : 'bg-blue-400'
+            theme === 'dark' ? 'bg-orange-500' : 'bg-orange-400'
           }`}></div>
           <div className={`absolute bottom-1/3 left-1/3 w-6 h-6 rotate-45 opacity-25 ${
             theme === 'dark' ? 'bg-orange-500' : 'bg-orange-400'
@@ -566,19 +540,19 @@ export default function AboutPage() {
                 title: "Creativity Without Boundaries",
                 description: "We believe in pushing creative boundaries while maintaining a focus on solving real problems for real users. Our designs are both innovative and purposeful.",
                 icon: "🎨",
-                color: "purple"
+                color: "orange"
               },
               {
                 title: "User-Centered Approach",
                 description: "We place users at the center of our design process, ensuring that every decision enhances the user experience and meets their needs.",
                 icon: "👥",
-                color: "blue"
+                color: "orange"
               },
               {
                 title: "Collaborative Partnership",
                 description: "We see our clients as partners and believe the best work comes from open collaboration, clear communication, and mutual respect.",
                 icon: "🤝",
-                color: "green"
+                color: "orange"
               },
               {
                 title: "Continuous Innovation",
@@ -597,20 +571,10 @@ export default function AboutPage() {
                 } backdrop-blur-sm`}
               >
                 {/* Card Glow Effect */}
-                <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-                  value.color === 'purple' ? 'bg-gradient-to-br from-purple-500/10 to-transparent' :
-                  value.color === 'blue' ? 'bg-gradient-to-br from-blue-500/10 to-transparent' :
-                  value.color === 'green' ? 'bg-gradient-to-br from-green-500/10 to-transparent' :
-                  'bg-gradient-to-br from-orange-500/10 to-transparent'
-                }`}></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div className="relative z-10 flex items-start gap-6">
-                  <div className={`flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg ${
-                    value.color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-600' :
-                    value.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
-                    value.color === 'green' ? 'bg-gradient-to-br from-green-500 to-green-600' :
-                    'bg-gradient-to-br from-orange-500 to-orange-600'
-                  }`}>
+                  <div className="flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg bg-gradient-to-br from-orange-500 to-orange-600">
                     {value.icon}
                   </div>
                   <div className="flex-1">

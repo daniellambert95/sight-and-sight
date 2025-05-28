@@ -67,7 +67,7 @@ const basePackages: BasePackage[] = [
       'Lifetime updates'
     ],
     icon: '⭐',
-    color: 'blue'
+    color: 'orange'
   },
   {
     id: 'yearly',
@@ -83,7 +83,7 @@ const basePackages: BasePackage[] = [
       'Performance reports'
     ],
     icon: '🚀',
-    color: 'green'
+    color: 'orange'
   }
 ];
 
@@ -96,7 +96,7 @@ const addOns: AddOn[] = [
     price: 60,
     category: 'content',
     icon: '📝',
-    color: 'purple'
+    color: 'orange'
   },
   {
     id: 'copywriting',
@@ -105,7 +105,7 @@ const addOns: AddOn[] = [
     price: 80,
     category: 'content',
     icon: '✍️',
-    color: 'purple'
+    color: 'orange'
   },
   {
     id: 'additional-pages',
@@ -114,7 +114,7 @@ const addOns: AddOn[] = [
     price: 80,
     category: 'content',
     icon: '📄',
-    color: 'purple'
+    color: 'orange'
   },
   {
     id: 'brand-identity',
@@ -123,7 +123,7 @@ const addOns: AddOn[] = [
     price: 300,
     category: 'content',
     icon: '🎨',
-    color: 'purple'
+    color: 'orange'
   },
   
   // SEO & Marketing
@@ -134,7 +134,7 @@ const addOns: AddOn[] = [
     price: 200,
     category: 'seo',
     icon: '🔍',
-    color: 'green'
+    color: 'orange'
   },
   {
     id: 'monthly-seo',
@@ -144,7 +144,7 @@ const addOns: AddOn[] = [
     isMonthly: true,
     category: 'seo',
     icon: '📈',
-    color: 'green'
+    color: 'orange'
   },
   {
     id: 'backlinks',
@@ -154,7 +154,7 @@ const addOns: AddOn[] = [
     isMonthly: true,
     category: 'seo',
     icon: '🔗',
-    color: 'green'
+    color: 'orange'
   },
   {
     id: 'local-seo',
@@ -163,7 +163,7 @@ const addOns: AddOn[] = [
     price: 250,
     category: 'seo',
     icon: '📍',
-    color: 'green'
+    color: 'orange'
   },
   {
     id: 'google-ads',
@@ -173,7 +173,7 @@ const addOns: AddOn[] = [
     isMonthly: true,
     category: 'seo',
     icon: '🎯',
-    color: 'green'
+    color: 'orange'
   },
   
   // Automation & Tech
@@ -184,7 +184,7 @@ const addOns: AddOn[] = [
     price: 400,
     category: 'automation',
     icon: '🤖',
-    color: 'red'
+    color: 'orange'
   },
   {
     id: 'advanced-automation',
@@ -193,7 +193,7 @@ const addOns: AddOn[] = [
     price: 800,
     category: 'automation',
     icon: '⚡',
-    color: 'red'
+    color: 'orange'
   },
   {
     id: 'additional-integrations',
@@ -202,7 +202,7 @@ const addOns: AddOn[] = [
     price: 50,
     category: 'automation',
     icon: '🔗',
-    color: 'red'
+    color: 'orange'
   },
   {
     id: 'ecommerce',
@@ -211,7 +211,7 @@ const addOns: AddOn[] = [
     price: 2000,
     category: 'automation',
     icon: '🛒',
-    color: 'red'
+    color: 'orange'
   },
   {
     id: 'analytics',
@@ -220,7 +220,7 @@ const addOns: AddOn[] = [
     price: 80,
     category: 'automation',
     icon: '📊',
-    color: 'red'
+    color: 'orange'
   },
   
   // Support & Consulting
@@ -232,7 +232,7 @@ const addOns: AddOn[] = [
     isMonthly: true,
     category: 'support',
     icon: '💡',
-    color: 'blue'
+    color: 'orange'
   },
   {
     id: 'strategy-sessions',
@@ -241,15 +241,15 @@ const addOns: AddOn[] = [
     price: 200,
     category: 'support',
     icon: '🎯',
-    color: 'blue'
+    color: 'orange'
   }
 ];
 
 const categoryColors = {
-  content: 'purple',
-  seo: 'green',
-  automation: 'red',
-  support: 'blue'
+  content: 'orange',
+  seo: 'orange',
+  automation: 'orange',
+  support: 'orange'
 };
 
 const categoryNames = {
@@ -324,39 +324,14 @@ export default function PricingCalculator({ theme }: PricingCalculatorProps) {
   };
 
   const getColorClasses = (color: string, variant: 'bg' | 'text' | 'border' | 'hover') => {
-    const colors = {
-      orange: {
-        bg: 'bg-orange-500',
-        text: 'text-orange-500',
-        border: 'border-orange-500',
-        hover: 'hover:bg-orange-600'
-      },
-      blue: {
-        bg: 'bg-blue-500',
-        text: 'text-blue-500',
-        border: 'border-blue-500',
-        hover: 'hover:bg-blue-600'
-      },
-      green: {
-        bg: 'bg-green-500',
-        text: 'text-green-500',
-        border: 'border-green-500',
-        hover: 'hover:bg-green-600'
-      },
-      purple: {
-        bg: 'bg-purple-500',
-        text: 'text-purple-500',
-        border: 'border-purple-500',
-        hover: 'hover:bg-purple-600'
-      },
-      red: {
-        bg: 'bg-red-500',
-        text: 'text-red-500',
-        border: 'border-red-500',
-        hover: 'hover:bg-red-600'
-      }
+    // Always use orange brand color
+    const orangeColors = {
+      bg: 'bg-[#ff5500]',
+      text: 'text-[#ff5500]',
+      border: 'border-[#ff5500]',
+      hover: 'hover:bg-[#ff6600]'
     };
-    return colors[color as keyof typeof colors]?.[variant] || '';
+    return orangeColors[variant];
   };
 
   return (
@@ -392,7 +367,7 @@ export default function PricingCalculator({ theme }: PricingCalculatorProps) {
             >
               {/* Minimum commitment banner for monthly package */}
               {pkg.id === 'monthly' && pkg.minimumMonths && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#ff5500] text-white px-4 py-1 rounded-full text-xs font-semibold">
+                <div className="absolute text-center -top-3 left-1/2 transform -translate-x-1/2 bg-[#ff5500] text-white px-4 py-1 rounded-full text-xs font-semibold">
                   {pkg.minimumMonths} months minimum contract
                 </div>
               )}
@@ -483,7 +458,7 @@ export default function PricingCalculator({ theme }: PricingCalculatorProps) {
                     key={addOn.id}
                     className={`relative p-4 rounded-xl cursor-pointer transition-all duration-300 ${
                       selectedAddOns.has(addOn.id)
-                        ? `ring-2 ring-${addOn.color}-500 ${
+                        ? `ring-2 ring-[#ff5500] ${
                             theme === 'dark' 
                               ? 'bg-gray-800' 
                               : 'bg-white'
@@ -506,7 +481,7 @@ export default function PricingCalculator({ theme }: PricingCalculatorProps) {
                               e.stopPropagation();
                               updateQuantity(addOn.id, (quantities[addOn.id] || 1) - 1);
                             }}
-                            className={`w-6 h-6 rounded-full ${getColorClasses(addOn.color, 'bg')} text-white text-sm flex items-center justify-center`}
+                            className={`w-6 h-6 rounded-full bg-[#ff5500] hover:bg-[#ff6600] text-white text-sm flex items-center justify-center transition-colors`}
                           >
                             -
                           </button>
@@ -520,7 +495,7 @@ export default function PricingCalculator({ theme }: PricingCalculatorProps) {
                               e.stopPropagation();
                               updateQuantity(addOn.id, (quantities[addOn.id] || 1) + 1);
                             }}
-                            className={`w-6 h-6 rounded-full ${getColorClasses(addOn.color, 'bg')} text-white text-sm flex items-center justify-center`}
+                            className={`w-6 h-6 rounded-full bg-[#ff5500] hover:bg-[#ff6600] text-white text-sm flex items-center justify-center transition-colors`}
                           >
                             +
                           </button>
@@ -539,7 +514,7 @@ export default function PricingCalculator({ theme }: PricingCalculatorProps) {
                       {addOn.description}
                     </p>
                     
-                    <div className={`font-bold ${getColorClasses(addOn.color, 'text')}`}>
+                    <div className={`font-bold text-[#ff5500]`}>
                       €{addOn.price}{addOn.isMonthly ? '/month' : ''}
                     </div>
                   </motion.div>

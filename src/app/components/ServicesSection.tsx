@@ -90,13 +90,12 @@ export default function ServicesSection() {
       description: "Eye-catching visuals and brand identity that makes your business unforgettable.",
       icon: "🎨",
       color: "orange",
-      features: ["Brand Identity", "UI/UX Design", "Motion Graphics", "Print Design"],
+      features: ["Brand Identity", "Logos", "Motion Graphics", "Print Design"],
       detailedDescription: "From brand identity to user interface design, we create visually stunning and strategically crafted designs that communicate your brand message effectively and engage your target audience.",
       pricing: "Starting from €300",
       deliverables: [
         "Brand identity design",
         "Logo design & brand guidelines",
-        "UI/UX design systems",
         "Marketing materials",
         "Motion graphics",
         "Print design solutions"

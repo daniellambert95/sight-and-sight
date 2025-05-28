@@ -35,6 +35,16 @@ const faqs: FAQItem[] = [
     answer: "While we work across various industries, we have particular expertise in restaurants and hospitality, professional services, e-commerce, technology, healthcare, and creative industries. Our diverse experience allows us to bring fresh perspectives and proven strategies to any sector.",
     category: "general"
   },
+  {
+    question: "Do you work with international clients?",
+    answer: "Yes, we work with clients worldwide. Our team is experienced in managing projects across different time zones and cultural contexts. We've successfully delivered projects for clients in Europe, North America, and beyond.",
+    category: "general"
+  },
+  {
+    question: "Can you help with SEO and marketing?",
+    answer: "Absolutely! We offer comprehensive SEO services, content marketing, social media management, and digital advertising to grow your online presence. Our integrated approach ensures your website not only looks great but also attracts and converts visitors effectively.",
+    category: "general"
+  },
 
   // Process Questions
   {
@@ -43,8 +53,18 @@ const faqs: FAQItem[] = [
     category: "process"
   },
   {
+    question: "How quickly can you start my project?",
+    answer: "We typically begin new projects within 1-2 weeks, depending on our current workload and project complexity. For urgent projects, we can often accommodate faster start times. During our initial consultation, we'll provide you with a realistic timeline based on your specific requirements.",
+    category: "process"
+  },
+  {
     question: "How long does a typical project take?",
     answer: "Project timelines vary based on scope and complexity. A simple website redesign might take 4-6 weeks, while a complete brand identity and website project could take 8-12 weeks. E-commerce sites typically require 6-10 weeks. We'll provide a detailed timeline during our initial consultation based on your specific requirements.",
+    category: "process"
+  },
+  {
+    question: "What's your design process like?",
+    answer: "Our design process is collaborative and iterative. We begin with discovery and research, move into strategy and wireframing, then create visual designs with multiple revision rounds. Finally, we develop and test everything before launch. We keep you involved every step of the way to ensure the final result exceeds your expectations.",
     category: "process"
   },
   {
@@ -70,6 +90,16 @@ const faqs: FAQItem[] = [
     category: "pricing"
   },
   {
+    question: "Can I upgrade from One-Time to Monthly package later?",
+    answer: "Yes, you can upgrade to our Monthly package at any time. We'll apply a prorated credit for any unused portion of add-on services. This flexibility allows you to start with our One-Time package and transition to ongoing support when your business needs evolve.",
+    category: "pricing"
+  },
+  {
+    question: "What does 'Unlimited Edits' include in the Monthly package?",
+    answer: "Unlimited Edits covers content updates, image changes, minor design adjustments, and regular maintenance tasks. This includes updating text, adding new pages, changing images, and small design modifications. Major redesigns or completely new features may require additional quotes, but most day-to-day updates are included.",
+    category: "pricing"
+  },
+  {
     question: "Do you offer payment plans or financing?",
     answer: "Yes! We understand that quality web design is an investment. We offer flexible payment plans that can be structured around project milestones or monthly payments. We're happy to work with you to find a payment structure that fits your cash flow and budget.",
     category: "pricing"
@@ -77,6 +107,16 @@ const faqs: FAQItem[] = [
   {
     question: "What's included in your pricing?",
     answer: "Our pricing includes design and development, content integration, basic SEO setup, mobile responsiveness, browser testing, and post-launch support. We're transparent about what's included and will clearly outline any additional costs for extra features or services during the proposal phase.",
+    category: "pricing"
+  },
+  {
+    question: "Do you provide hosting for all websites?",
+    answer: "Yes, all our packages include professional hosting with 99.9% uptime guarantee, SSL certificates, and regular backups. Our One-Time package includes hosting for €24/month, while our Monthly and Yearly packages include hosting at no additional cost.",
+    category: "pricing"
+  },
+  {
+    question: "Do you offer website maintenance?",
+    answer: "Yes! We provide ongoing maintenance and support packages to keep your website updated, secure, and performing optimally. These services include regular backups, security monitoring, content updates, performance optimization, and technical support.",
     category: "pricing"
   },
   {
@@ -89,6 +129,16 @@ const faqs: FAQItem[] = [
   {
     question: "What platforms and technologies do you use?",
     answer: "We primarily work with modern technologies like Next.js, React, WordPress, Shopify, and custom solutions depending on your needs. We choose the best platform based on your specific requirements, budget, and long-term goals. All our websites are built with modern standards for speed, security, and SEO.",
+    category: "technical"
+  },
+  {
+    question: "What kind of chatbot solutions do you offer?",
+    answer: "We offer AI-powered chatbots for customer support, lead generation, appointment booking, and custom solutions tailored to your specific business needs. All chatbots are fully integrated with your website and can be customized to match your brand. Solutions range from basic FAQ bots to advanced AI assistants that can handle complex customer interactions.",
+    category: "technical"
+  },
+  {
+    question: "Can you build custom features not listed in your packages?",
+    answer: "Absolutely! We love creative challenges and can build custom solutions for unique requirements. Whether you need specialized functionality, custom integrations, or innovative features, our team can develop tailored solutions. Contact our sales team to discuss your specific needs and we'll provide a custom quote.",
     category: "technical"
   },
   {

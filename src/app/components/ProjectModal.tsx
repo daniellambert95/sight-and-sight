@@ -69,7 +69,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
     {
       id: 'creative-design',
       title: 'Creative Design',
-      description: 'Branding, UI/UX & graphics',
+      description: 'Logos, Branding & graphics',
       icon: '🎨',
       color: 'purple'
     },
@@ -421,19 +421,18 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
             {/* Navigation buttons - only for steps 1 and 3 */}
             {(currentStep === 1 || currentStep === 3) && (
               <div className="flex justify-between items-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <button
-                  onClick={handleBack}
-                  disabled={currentStep === 1}
-                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                    currentStep === 1
-                      ? 'opacity-50 cursor-not-allowed'
-                      : theme === 'dark'
+                {currentStep > 1 && (
+                  <button
+                    onClick={handleBack}
+                    className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                      theme === 'dark'
                         ? 'text-gray-400 hover:text-white hover:bg-gray-800'
                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                  }`}
-                >
-                  ← Back
-                </button>
+                    }`}
+                  >
+                    ← Back
+                  </button>
+                )}
 
                 <button
                   onClick={currentStep === 3 ? handleSubmit : handleNext}
@@ -442,7 +441,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
                     isStepValid()
                       ? 'bg-gradient-to-r from-[#ff5500] to-[#ff7800] text-white hover:from-[#ff6600] hover:to-[#ff8800] transform hover:scale-105 shadow-lg hover:shadow-xl'
                       : 'opacity-50 cursor-not-allowed bg-gray-400 text-gray-200'
-                  }`}
+                  } ${currentStep === 1 ? 'ml-auto' : ''}`}
                 >
                   {currentStep === 3 ? 'Submit' : 'Next →'}
                 </button>

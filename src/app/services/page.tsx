@@ -102,10 +102,10 @@ export default function Services() {
           features: ["Logo Design", "Brand Guidelines", "Color Palette", "Typography System"]
         },
         {
-          title: "UI/UX Design",
-          description: "User-centered design solutions that create intuitive interfaces and seamless user experiences across all digital platforms.",
-          icon: "🎨",
-          features: ["User Research", "Wireframing", "Prototyping", "Usability Testing"]
+          title: "Graphic Design",
+          description: "Eye-catching print and digital graphics including marketing materials, social media content, and promotional designs.",
+          icon: "📐",
+          features: ["Marketing Materials", "Social Media Graphics", "Print Design", "Digital Assets"]
         },
         {
           title: "Video Editing & Production",
@@ -118,12 +118,6 @@ export default function Services() {
           description: "Dynamic motion graphics and animations that bring your brand to life and enhance your storytelling across all platforms.",
           icon: "✨",
           features: ["2D/3D Animation", "Motion Graphics", "Visual Effects", "Brand Animation"]
-        },
-        {
-          title: "Graphic Design",
-          description: "Eye-catching print and digital graphics including marketing materials, social media content, and promotional designs.",
-          icon: "📐",
-          features: ["Marketing Materials", "Social Media Graphics", "Print Design", "Digital Assets"]
         }
       ]
     },
