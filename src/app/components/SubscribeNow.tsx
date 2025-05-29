@@ -3,30 +3,55 @@
 import React, { useState } from 'react';
 import { useTheme } from '../utils/ThemeProvider';
 import { motion } from 'framer-motion';
+import { supabase } from '../utils/supabase';
 
 const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
   const { theme } = useTheme();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !email.includes('@')) {
+      setMessage({ type: 'error', text: 'Please enter a valid email address' });
+      return;
+    }
+
+    setIsLoading(true);
+    setMessage(null);
+
+    try {
+      const { data, error } = await supabase
+        .from('newsletter_subscriptions')
+        .insert([{ email: email.toLowerCase().trim() }])
+        .select();
+
+      if (error) {
+        if (error.code === '23505') {
+          setMessage({ type: 'error', text: 'This email is already subscribed!' });
+        } else {
+          console.error('Supabase error:', error);
+          setMessage({ type: 'error', text: 'Something went wrong. Please try again.' });
+        }
+      } else {
+        setMessage({ type: 'success', text: 'Successfully subscribed! Check your inbox for a welcome email.' });
+        setEmail('');
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      setMessage({ type: 'error', text: 'Network error. Please check your connection and try again.' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
   
   return (
     <section className={`relative py-24 overflow-hidden transition-colors duration-300 ${
       theme === 'dark' ? 'bg-gradient-to-br from-black via-gray-900 to-gray-800' : 'bg-gradient-to-br from-white via-gray-50 to-orange-50'
     }`}>
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className={`absolute top-20 right-10 w-48 h-48 rounded-full opacity-10 ${
-          theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/20'
-        }`}></div>
-        <div className={`absolute bottom-10 left-20 w-32 h-32 rotate-45 opacity-15 ${
-          theme === 'dark' ? 'bg-purple-500' : 'bg-purple-300'
-        }`}></div>
-        <div className={`absolute top-1/3 left-1/4 w-16 h-16 rounded-full opacity-20 ${
-          theme === 'dark' ? 'bg-blue-500' : 'bg-blue-400'
-        }`}></div>
-        <div className={`absolute bottom-1/3 right-1/3 w-12 h-12 rotate-45 opacity-25 ${
-          theme === 'dark' ? 'bg-green-500' : 'bg-green-400'
-        }`}></div>
-      </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16">
         <div className="flex flex-wrap justify-center">
@@ -38,12 +63,12 @@ const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
                 key={index}
                 className={`
                   inline-block
-                  text-6xl md:text-8xl font-bold
-                  transition-all duration-1200 ease-[cubic-bezier(0,0.4,0.2,1)]
+                  text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold
+                  transition-all duration-1200 ease-[cubic-bezier(0,0,0,1)]
                   origin-center
                   ${isHovered ? 'scale-y-150 scale-x-110' : 'scale-100'}
                   cursor-pointer
-                  ${letter === ' ' ? 'w-8' : ''}
+                  ${letter === ' ' ? 'w-4 md:w-8 lg:w-12' : ''}
                 `}
                 style={{ 
                   color: theme === 'dark' ? '#ff5500' : '#ff5500',
@@ -62,27 +87,54 @@ const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
           className="w-full max-w-xl mx-auto mt-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 2.8, delay: 0.5 }}
+          transition={{ duration: 0.6 }}
         >
-          <div className={`rounded-full flex items-center p-2 shadow-2xl backdrop-blur-sm ${
+          <div className={`p-4 rounded-3xl backdrop-blur-sm shadow-2xl border ${
             theme === 'dark' 
-              ? 'bg-gray-800/80 border border-gray-700/50' 
-              : 'bg-white/90 border border-white/50'
+              ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border-gray-700/50' 
+              : 'bg-gradient-to-br from-white/80 to-gray-50/80 border-white/50'
           }`}>
-            <input 
-              type="email" 
-              placeholder="Your email address" 
-              className={`bg-transparent flex-1 px-4 py-2 outline-none placeholder:text-gray-500 ${
-                theme === 'dark' ? 'text-white' : 'text-black'
-              }`}
-            />
-            <button 
-              className="group relative bg-[#ff5500] hover:bg-[#ff6600] text-white font-bold px-6 py-2 rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
-              style={{ fontFamily: 'var(--font-league-spartan)' }}
-            >
-              <span className="relative z-10">SUBSCRIBE</span>
-              <div className="absolute inset-0 bg-[#ff5500] rounded-full blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
-            </button>
+            <form onSubmit={handleSubmit} className="flex flex-col md:flex-row items-center gap-4">
+              <input 
+                type="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email address" 
+                disabled={isLoading}
+                className={`w-full md:flex-1 px-6 py-3 rounded-xl outline-none transition-colors disabled:opacity-50 ${
+                  theme === 'dark' 
+                    ? 'bg-gray-800 text-white placeholder:text-gray-400 border border-gray-700 focus:border-[#ff5500]' 
+                    : 'bg-white text-gray-900 placeholder:text-gray-500 border border-gray-200 focus:border-[#ff5500]'
+                }`}
+              />
+              <button 
+                type="submit"
+                disabled={isLoading}
+                className="w-full md:w-auto px-8 py-3 bg-[#ff5500] text-white rounded-xl hover:bg-[#ff6600] transition-colors text-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                style={{ fontFamily: 'var(--font-league-spartan)' }}
+              >
+                {isLoading ? 'Subscribing...' : 'Subscribe Now'}
+              </button>
+            </form>
+            
+            {/* Success/Error Message */}
+            {message && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`mt-4 p-3 rounded-lg text-center ${
+                  message.type === 'success'
+                    ? theme === 'dark'
+                      ? 'bg-green-900/50 text-green-300 border border-green-700'
+                      : 'bg-green-100 text-green-800 border border-green-200'
+                    : theme === 'dark'
+                      ? 'bg-red-900/50 text-red-300 border border-red-700'
+                      : 'bg-red-100 text-red-800 border border-red-200'
+                }`}
+              >
+                {message.text}
+              </motion.div>
+            )}
           </div>
         </motion.div>
       </div>
