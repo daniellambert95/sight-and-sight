@@ -1,7 +1,39 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
 import { useTheme } from "../utils/ThemeProvider";
+
+// Animated Counter Component
+function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: number, suffix?: string, duration?: number }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    if (isInView) {
+      let startTime: number | null = null;
+      const animate = (currentTime: number) => {
+        if (startTime === null) startTime = currentTime;
+        const progress = (currentTime - startTime) / (duration * 1000);
+        
+        if (progress < 1) {
+          setCount(Math.floor(target * progress));
+          requestAnimationFrame(animate);
+        } else {
+          setCount(target);
+        }
+      };
+      requestAnimationFrame(animate);
+    }
+  }, [isInView, target, duration]);
+
+  return (
+    <div ref={ref} className="text-4xl font-black">
+      {count}{suffix}
+    </div>
+  );
+}
 
 export default function StatsSection() {
   const { theme } = useTheme();
@@ -26,12 +58,12 @@ export default function StatsSection() {
     }
   };
 
-  // Statistics data
+  // Statistics data with animated counters
   const stats = [
-    { number: "50+", label: "Projects Completed", icon: "🚀" },
-    { number: "100%", label: "Client Satisfaction", icon: "⭐" },
-    { number: "24/7", label: "Support Available", icon: "💬" },
-    { number: "6+", label: "Years Experience", icon: "🏆" }
+    { number: 50, suffix: "+", label: "Projects Completed", icon: "🚀", duration: 2.5 },
+    { number: 100, suffix: "%", label: "Client Satisfaction", icon: "⭐", duration: 2 },
+    { number: 24, suffix: "/7", label: "Support Available", icon: "💬", duration: 1.5 },
+    { number: 6, suffix: "+", label: "Years Experience", icon: "🏆", duration: 1 }
   ];
 
   return (
@@ -85,9 +117,15 @@ export default function StatsSection() {
               
               <div className="relative z-10">
                 <div className="text-4xl mb-4">{stat.icon}</div>
-                <div className={`text-4xl font-black mb-2 ${
+                <div className={`mb-2 ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>{stat.number}</div>
+                }`}>
+                  <AnimatedCounter 
+                    target={stat.number} 
+                    suffix={stat.suffix} 
+                    duration={stat.duration}
+                  />
+                </div>
                 <div className={`text-sm font-semibold ${
                   theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                 }`}>{stat.label}</div>
