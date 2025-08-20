@@ -52,15 +52,6 @@ export default function TestimonialsSection() {
     <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
       theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-900' : 'bg-gradient-to-br from-white to-gray-50'
     }`}>
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className={`absolute top-20 left-10 w-32 h-32 rounded-full opacity-10 ${
-          theme === 'dark' ? 'bg-yellow-500' : 'bg-yellow-300'
-        }`}></div>
-        <div className={`absolute bottom-20 right-20 w-20 h-20 rotate-45 opacity-15 ${
-          theme === 'dark' ? 'bg-purple-500' : 'bg-purple-300'
-        }`}></div>
-      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div 

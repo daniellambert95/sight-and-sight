@@ -110,7 +110,7 @@ export default function ServicesSection() {
       color: "orange",
       features: ["Video Editing", "Motion Graphics", "Animation", "Post Production"],
       detailedDescription: "Our video production team creates engaging video content and motion graphics that captivate your audience and effectively communicate your brand message through dynamic visual storytelling.",
-      pricing: "Starting from €200/video",
+      pricing: "Starting from €350/day",
       deliverables: [
         "Professional video editing",
         "Motion graphics animation",
@@ -155,15 +155,6 @@ export default function ServicesSection() {
       <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
         theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-900' : 'bg-gradient-to-br from-white to-gray-50'
       }`}>
-        {/* Background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 left-10 w-40 h-40 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/30'
-          }`}></div>
-          <div className={`absolute bottom-20 right-20 w-32 h-32 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-orange-500' : 'bg-orange-300'
-          }`}></div>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto">
           <motion.div 

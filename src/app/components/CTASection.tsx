@@ -11,21 +11,6 @@ export default function CTASection() {
     <section className={`relative py-24 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
       theme === 'dark' ? 'bg-gradient-to-br from-gray-900 via-black to-gray-800' : 'bg-gradient-to-br from-white via-orange-50 to-white'
     }`}>
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className={`absolute top-20 right-10 w-48 h-48 rounded-full opacity-10 ${
-          theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/20'
-        }`}></div>
-        <div className={`absolute bottom-10 left-20 w-32 h-32 rotate-45 opacity-15 ${
-          theme === 'dark' ? 'bg-blue-400' : 'bg-blue-300'
-        }`}></div>
-        <div className={`absolute top-1/3 left-1/4 w-12 h-12 rounded-full opacity-20 ${
-          theme === 'dark' ? 'bg-purple-500' : 'bg-purple-400'
-        }`}></div>
-        <div className={`absolute bottom-1/3 right-1/3 w-8 h-8 rotate-45 opacity-25 ${
-          theme === 'dark' ? 'bg-green-500' : 'bg-green-400'
-        }`}></div>
-      </div>
 
       <motion.div 
         className="relative z-10 max-w-5xl mx-auto text-center"

@@ -28,7 +28,7 @@ export default function StatsSection() {
 
   // Statistics data
   const stats = [
-    { number: "150+", label: "Projects Completed", icon: "🚀" },
+    { number: "50+", label: "Projects Completed", icon: "🚀" },
     { number: "100%", label: "Client Satisfaction", icon: "⭐" },
     { number: "24/7", label: "Support Available", icon: "💬" },
     { number: "6+", label: "Years Experience", icon: "🏆" }
@@ -38,15 +38,6 @@ export default function StatsSection() {
     <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
       theme === 'dark' ? 'bg-gradient-to-br from-gray-900 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
     }`}>
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className={`absolute top-10 right-20 w-32 h-32 rounded-full opacity-10 ${
-          theme === 'dark' ? 'bg-orange-500' : 'bg-orange-300'
-        }`}></div>
-        <div className={`absolute bottom-10 left-10 w-20 h-20 rotate-45 opacity-15 ${
-          theme === 'dark' ? 'bg-blue-500' : 'bg-blue-300'
-        }`}></div>
-      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div 

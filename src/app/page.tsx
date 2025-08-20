@@ -10,7 +10,6 @@ import StatsSection from "./components/StatsSection";
 import ServicesSection from "./components/ServicesSection";
 import ProjectsSection from "./components/ProjectsSection";
 import TestimonialsSection from "./components/TestimonialsSection";
-import CTASection from "./components/CTASection";
 import AnimatedIntro from "./components/AnimatedIntro";
 import { useTheme } from "./utils/ThemeProvider";
 
@@ -90,9 +89,6 @@ export default function Home() {
 
           {/* Testimonials Section */}
           <TestimonialsSection />
-
-          {/* Call to Action Section */}
-          <CTASection />
           
           {/* Subscribe Now Section */}
           <SubscribeNow />

@@ -62,15 +62,6 @@ export default function HowWeWork() {
     <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
       theme === 'dark' ? 'bg-gradient-to-br from-gray-900 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
     }`}>
-      {/* Background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className={`absolute top-20 left-10 w-40 h-40 rounded-full opacity-10 ${
-          theme === 'dark' ? 'bg-blue-500' : 'bg-blue-300'
-        }`}></div>
-        <div className={`absolute bottom-20 right-20 w-32 h-32 rotate-45 opacity-15 ${
-          theme === 'dark' ? 'bg-orange-500' : 'bg-orange-300'
-        }`}></div>
-      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div 
