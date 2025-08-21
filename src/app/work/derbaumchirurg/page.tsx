@@ -56,9 +56,6 @@ export default function DerBaumchirurgCaseStudy() {
                     ? 'bg-gray-800/40 border-gray-700/50' 
                     : 'bg-white/60 border-gray-200/50'
                 }`}>
-                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-[#ff5500]/20 flex items-center justify-center">
-                    <span className="text-[#ff5500] text-sm">⚡</span>
-                  </div>
                   <div className="text-3xl font-bold text-[#ff5500] mb-1">24hrs</div>
                   <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                     First Client Contact
@@ -70,9 +67,6 @@ export default function DerBaumchirurgCaseStudy() {
                     ? 'bg-gray-800/40 border-gray-700/50' 
                     : 'bg-white/60 border-gray-200/50'
                 }`}>
-                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-orange-500/20 flex items-center justify-center">
-                    <span className="text-orange-500 text-sm">🌟</span>
-                  </div>
                   <div className="text-3xl font-bold text-orange-500 mb-1">4.9★</div>
                   <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                     Customer Rating
@@ -111,10 +105,6 @@ export default function DerBaumchirurgCaseStudy() {
                 </div>
                 <div className="absolute -bottom-3 -right-3 bg-[#ff5500] text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
                   Mobile Ready
-                </div>
-                {/* Floating elements */}
-                <div className="absolute -top-4 -left-4 w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-white text-xs">✓</span>
                 </div>
               </div>
             </div>

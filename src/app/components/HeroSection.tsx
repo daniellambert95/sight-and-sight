@@ -41,7 +41,7 @@ export default function HeroSection() {
         className="z-[1]"
       />
       
-      <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 w-full flex items-center justify-center pt-40 md:pt-72 pb-20 lg:py-0 lg:min-h-screen">
+      <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 w-full flex items-center justify-center pt-40 pb-20 lg:py-0 lg:min-h-screen">
         {/* Content Column - Centered */}
         <motion.div 
           className="w-full max-w-4xl text-center"
@@ -56,21 +56,22 @@ export default function HeroSection() {
           }}
         >
           <motion.h1 
-            className="lg:mt-24 text-5xl md:text-7xl lg:text-8xl font-black mb-6"
+            className="lg:mt-30 text-5xl md:text-7xl lg:text-8xl font-black mb-6"
             variants={fadeInUp}
             style={{ fontFamily: 'var(--font-league-spartan)' }}
           >
+            <span className={`block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>WE BUILD</span>
             <span className={`block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>PIXEL-PERFECT</span>
             <span className={`block ${theme === 'dark' ? 'text-white' : 'text-black'}`}>PAGES.</span>
             <span 
-              className="block animate-gradient bg-gradient-animate bg-clip-text text-transparent"
+              className="block text-5xl animate-gradient bg-gradient-animate bg-clip-text text-transparent"
               style={{ 
                 fontWeight: 900,
                 letterSpacing: '-0.02em',
                 fontFamily: 'var(--font-league-spartan)'
               }}
             >
-              SEO that delivers.
+              With SEO that delivers.
             </span>
           </motion.h1>
           
@@ -82,7 +83,8 @@ export default function HeroSection() {
             }`}
             style={{ fontFamily: 'var(--font-inter)' }}
           >
-            Pixel-perfect websites & data-driven SEO that 
+            Eye-catching websites & data-driven SEO 
+            <span className=""> that</span>
             <span className="text-[#ff5500] font-semibold block"> convert & captivate</span>
           </motion.p>
 

@@ -41,27 +41,6 @@ export default function ContactPage() {
           ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
           : 'bg-gradient-to-br from-white via-orange-50 to-purple-50'
       }`}>
-        {/* Geometric Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Large Circle */}
-          <div className={`absolute -top-32 -right-32 w-80 h-80 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/30'
-          }`}></div>
-          {/* Medium Circle */}
-          <div className={`absolute bottom-20 -left-16 w-48 h-48 rounded-full opacity-15 ${
-            theme === 'dark' ? 'bg-blue-500' : 'bg-blue-300'
-          }`}></div>
-          {/* Small geometric shapes */}
-          <div className={`absolute top-1/4 right-1/4 w-8 h-8 rotate-45 opacity-30 ${
-            theme === 'dark' ? 'bg-purple-500' : 'bg-purple-400'
-          }`}></div>
-          <div className={`absolute bottom-1/3 left-1/4 w-6 h-6 rotate-45 opacity-25 ${
-            theme === 'dark' ? 'bg-green-500' : 'bg-green-400'
-          }`}></div>
-          <div className={`absolute top-1/2 left-1/3 w-4 h-4 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-orange-500' : 'bg-orange-400'
-          }`}></div>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 w-full py-16">
           <div className="text-center">
@@ -161,18 +140,6 @@ export default function ContactPage() {
       <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
         theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-900' : 'bg-gradient-to-br from-white to-gray-50'
       }`}>
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 right-20 w-32 h-32 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-green-500' : 'bg-green-300'
-          }`}></div>
-          <div className={`absolute bottom-20 left-10 w-20 h-20 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-blue-500' : 'bg-blue-300'
-          }`}></div>
-          <div className={`absolute top-1/2 right-1/3 w-12 h-12 rounded-full opacity-12 ${
-            theme === 'dark' ? 'bg-purple-500' : 'bg-purple-300'
-          }`}></div>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Contact Form */}
@@ -516,21 +483,6 @@ export default function ContactPage() {
       <section className={`relative py-24 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
         theme === 'dark' ? 'bg-gradient-to-br from-black via-gray-900 to-gray-800' : 'bg-gradient-to-br from-white via-orange-50 to-white'
       }`}>
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 right-10 w-48 h-48 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/20'
-          }`}></div>
-          <div className={`absolute bottom-10 left-20 w-32 h-32 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-blue-400' : 'bg-blue-300'
-          }`}></div>
-          <div className={`absolute top-1/3 left-1/4 w-12 h-12 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-purple-500' : 'bg-purple-400'
-          }`}></div>
-          <div className={`absolute bottom-1/3 right-1/3 w-8 h-8 rotate-45 opacity-25 ${
-            theme === 'dark' ? 'bg-green-500' : 'bg-green-400'
-          }`}></div>
-        </div>
 
         <motion.div 
           className="relative z-10 max-w-5xl mx-auto text-center"

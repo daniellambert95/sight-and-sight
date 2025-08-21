@@ -57,13 +57,13 @@ export default function Footer() {
     >
       {/* Hero Section with Bold Message */}
       <section className="relative min-h-screen bg-[#ff5500] flex items-center justify-center px-8 md:px-16 pt-20">
-        <div className="max-w-7xl mx-auto text-left">
+        <div className="max-w-7xl mx-auto text-center">
           {/* Main Headline */}
           <motion.div
             variants={titleVariants}
             className="mb-16"
           >
-            <h2 className="text-6xl md:text-8xl lg:text-9xl text-white font-black leading-none mb-4 ml-16" >
+            <h2 className="text-6xl md:text-8xl lg:text-9xl text-white font-black leading-none mb-4" >
               <span className="block ">Let's create something</span>
               <span className="block"><em className="italic">unique</em> together</span>
             </h2>

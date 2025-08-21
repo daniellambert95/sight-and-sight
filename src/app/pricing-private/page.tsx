@@ -63,30 +63,6 @@ export default function PricingPrivate() {
           ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
           : 'bg-gradient-to-br from-white via-orange-50 to-orange-100'
       }`}>
-        {/* Geometric Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Large Circle */}
-          <div className={`absolute -top-32 -right-32 w-64 h-64 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/20'
-          }`}></div>
-          {/* Medium Circle */}
-          <div className={`absolute bottom-20 -left-16 w-32 h-32 rounded-full opacity-15 ${
-            theme === 'dark' ? 'bg-orange-400' : 'bg-orange-300'
-          }`}></div>
-          {/* Small Squares */}
-          <div className={`absolute top-1/4 right-1/4 w-6 h-6 rotate-45 opacity-30 ${
-            theme === 'dark' ? 'bg-orange-500' : 'bg-[#ff5500]'
-          }`}></div>
-          <div className={`absolute bottom-1/3 left-1/4 w-4 h-4 rotate-45 opacity-25 ${
-            theme === 'dark' ? 'bg-orange-400' : 'bg-orange-400'
-          }`}></div>
-          {/* Gradient Overlay for better text readability */}
-          <div className={`absolute inset-0 ${
-            theme === 'dark' 
-              ? 'bg-gradient-to-r from-black/30 via-transparent to-transparent' 
-              : 'bg-gradient-to-r from-white/50 via-white/10 to-transparent'
-          }`}></div>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 w-full py-16">
           <div className="text-center">
@@ -197,15 +173,6 @@ export default function PricingPrivate() {
           theme === 'dark' ? 'bg-black' : 'bg-white'
         }`}
       >
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute bottom-20 right-10 w-32 h-32 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-blue-500' : 'bg-blue-300'
-          }`}></div>
-          <div className={`absolute top-20 left-10 w-20 h-20 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-green-500' : 'bg-green-300'
-          }`}></div>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
@@ -241,15 +208,6 @@ export default function PricingPrivate() {
       <section className={`relative py-20 px-6 md:px-16 transition-colors duration-300 ${
         theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
       }`}>
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 right-20 w-28 h-28 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-purple-500' : 'bg-purple-300'
-          }`}></div>
-          <div className={`absolute bottom-20 left-20 w-16 h-16 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-blue-500' : 'bg-blue-300'
-          }`}></div>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
@@ -521,18 +479,6 @@ export default function PricingPrivate() {
       <section className={`relative py-20 px-6 md:px-16 overflow-hidden transition-colors duration-300 ${
         theme === 'dark' ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' : 'bg-gradient-to-br from-orange-50 via-white to-orange-100'
       }`}>
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-10 right-20 w-40 h-40 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/30'
-          }`}></div>
-          <div className={`absolute bottom-10 left-10 w-24 h-24 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-orange-400' : 'bg-orange-300'
-          }`}></div>
-          <div className={`absolute top-1/2 left-1/3 w-8 h-8 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-orange-500' : 'bg-[#ff5500]'
-          }`}></div>
-        </div>
 
         <motion.div 
           className="relative z-10 max-w-6xl mx-auto"

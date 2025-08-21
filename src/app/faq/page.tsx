@@ -225,17 +225,6 @@ export default function FAQPage() {
           ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
           : 'bg-gradient-to-br from-white via-blue-50 to-purple-50'
       }`}>
-        {/* Background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-60 h-60 bg-primary/10 dark:bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-secondary/10 dark:bg-secondary/5 rounded-full blur-3xl" />
-          <div className={`absolute top-1/4 right-1/4 w-8 h-8 rotate-45 opacity-30 ${
-            theme === 'dark' ? 'bg-purple-500' : 'bg-purple-400'
-          }`} />
-          <div className={`absolute bottom-1/3 left-1/4 w-6 h-6 rotate-45 opacity-25 ${
-            theme === 'dark' ? 'bg-green-500' : 'bg-green-400'
-          }`} />
-        </div>
 
         <div className="container px-4 mx-auto max-w-6xl relative z-10">
           <motion.div

@@ -217,27 +217,6 @@ export default function Services() {
           ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
           : 'bg-gradient-to-br from-white via-orange-50 to-orange-100'
       }`}>
-        {/* Geometric Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Large Circle */}
-          <div className={`absolute -top-32 -right-32 w-80 h-80 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/30'
-          }`}></div>
-          {/* Medium Circle */}
-          <div className={`absolute bottom-20 -left-16 w-48 h-48 rounded-full opacity-15 ${
-            theme === 'dark' ? 'bg-orange-400' : 'bg-orange-300'
-          }`}></div>
-          {/* Small geometric shapes */}
-          <div className={`absolute top-1/4 right-1/4 w-8 h-8 rotate-45 opacity-30 ${
-            theme === 'dark' ? 'bg-orange-500' : 'bg-[#ff5500]'
-          }`}></div>
-          <div className={`absolute bottom-1/3 left-1/4 w-6 h-6 rotate-45 opacity-25 ${
-            theme === 'dark' ? 'bg-orange-400' : 'bg-orange-400'
-          }`}></div>
-          <div className={`absolute top-1/2 left-1/3 w-4 h-4 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-orange-500' : 'bg-[#ff5500]'
-          }`}></div>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 w-full py-16">
           <div className="text-center">
@@ -337,18 +316,6 @@ export default function Services() {
       <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
         theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-900' : 'bg-gradient-to-br from-white to-gray-50'
       }`}>
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 right-20 w-36 h-36 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/30'
-          }`}></div>
-          <div className={`absolute bottom-20 left-10 w-28 h-28 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-orange-500' : 'bg-orange-300'
-          }`}></div>
-          <div className={`absolute top-1/2 right-1/4 w-16 h-16 rounded-full opacity-12 ${
-            theme === 'dark' ? 'bg-orange-400' : 'bg-orange-200'
-          }`}></div>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
@@ -469,18 +436,6 @@ export default function Services() {
       <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
         theme === 'dark' ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' : 'bg-gradient-to-br from-gray-50 via-white to-orange-50'
       }`}>
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 left-10 w-40 h-40 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-orange-500' : 'bg-orange-300'
-          }`}></div>
-          <div className={`absolute bottom-20 right-20 w-32 h-32 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/30'
-          }`}></div>
-          <div className={`absolute top-1/3 right-1/3 w-8 h-8 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-orange-400' : 'bg-orange-200'
-          }`}></div>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
@@ -618,21 +573,6 @@ export default function Services() {
       <section className={`relative py-24 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
         theme === 'dark' ? 'bg-gradient-to-br from-black via-gray-900 to-gray-800' : 'bg-gradient-to-br from-white via-orange-50 to-white'
       }`}>
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 right-10 w-48 h-48 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/20'
-          }`}></div>
-          <div className={`absolute bottom-10 left-20 w-32 h-32 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-orange-400' : 'bg-orange-300'
-          }`}></div>
-          <div className={`absolute top-1/3 left-1/4 w-12 h-12 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-orange-500' : 'bg-[#ff5500]'
-          }`}></div>
-          <div className={`absolute bottom-1/3 right-1/3 w-8 h-8 rotate-45 opacity-25 ${
-            theme === 'dark' ? 'bg-orange-400' : 'bg-orange-400'
-          }`}></div>
-        </div>
 
         <motion.div 
           className="relative z-10 max-w-5xl mx-auto text-center"
