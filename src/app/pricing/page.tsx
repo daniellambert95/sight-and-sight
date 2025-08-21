@@ -237,8 +237,7 @@ export default function Pricing() {
                     rotate: 0
                   }}
                   transition={{ 
-                    duration: 0.3,
-                    ease: "easeOut"
+                    duration: 0.3
                   }}
                 >
                   {feature.icon}

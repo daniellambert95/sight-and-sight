@@ -55,8 +55,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
       y: 0,
       transition: { 
         duration: 0.4, 
-        delay: 0.1 + (custom * 0.1),
-        ease: "easeOut"
+        delay: 0.1 + (custom * 0.1)
       }
     })
   };
@@ -65,7 +64,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.4, delay: 0.5, ease: "easeOut" }
+      transition: { duration: 0.4, delay: 0.5 }
     }
   };
 
@@ -74,16 +73,14 @@ export default function Navigation({ currentPage }: NavigationProps) {
       opacity: 0,
       scale: 0.95,
       transition: {
-        duration: 0.3,
-        ease: "easeInOut"
+        duration: 0.3
       }
     },
     open: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.4,
-        ease: "easeOut"
+        duration: 0.4
       }
     }
   };
@@ -95,8 +92,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
       y: 0,
       transition: {
         duration: 0.4,
-        delay: 0.1 + (custom * 0.05),
-        ease: "easeOut"
+        delay: 0.1 + (custom * 0.05)
       }
     })
   };
@@ -111,8 +107,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
           opacity: (isVisible || mobileMenuOpen) ? 1 : 0 
         }}
         transition={{ 
-          duration: 0.3, 
-          ease: "easeInOut" 
+          duration: 0.3
         }}
       >
         <div 
@@ -194,7 +189,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 rotate: mobileMenuOpen ? 45 : 0,
                 y: mobileMenuOpen ? 0 : -6
               }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              transition={{ duration: 0.3 }}
             />
             <motion.div
               className={`absolute w-6 h-0.5 rounded-full ${theme === 'dark' ? 'bg-white' : 'bg-[#333333]'}`}
@@ -202,7 +197,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 opacity: mobileMenuOpen ? 0 : 1,
                 x: mobileMenuOpen ? 20 : 0
               }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              transition={{ duration: 0.3 }}
             />
             <motion.div
               className={`absolute w-6 h-0.5 rounded-full ${theme === 'dark' ? 'bg-white' : 'bg-[#333333]'}`}
@@ -210,7 +205,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 rotate: mobileMenuOpen ? -45 : 0,
                 y: mobileMenuOpen ? 0 : 6
               }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              transition={{ duration: 0.3 }}
             />
           </button>
         </div>
@@ -246,7 +241,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                     rotate: 45,
                     y: 0
                   }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  transition={{ duration: 0.3 }}
                 />
                 <motion.div
                   className={`absolute w-6 h-0.5 rounded-full ${theme === 'dark' ? 'bg-white' : 'bg-[#333333]'}`}
@@ -254,7 +249,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                     rotate: -45,
                     y: 0
                   }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  transition={{ duration: 0.3 }}
                 />
               </button>
             </div>

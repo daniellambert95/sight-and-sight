@@ -31,8 +31,7 @@ export default function ProjectsSection() {
       y: 0, 
       rotateX: 0,
       transition: { 
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1]
+        duration: 0.6
       }
     }
   };
@@ -48,8 +47,7 @@ export default function ProjectsSection() {
       scale: 1,
       y: 0,
       transition: { 
-        duration: 0.5,
-        ease: [0.22, 1, 0.36, 1]
+        duration: 0.5
       }
     },
     exit: { 
@@ -57,8 +55,7 @@ export default function ProjectsSection() {
       scale: 0.8,
       y: 100,
       transition: { 
-        duration: 0.3,
-        ease: [0.22, 1, 0.36, 1]
+        duration: 0.3
       }
     }
   };
@@ -107,6 +104,22 @@ export default function ProjectsSection() {
       websiteUrl: "www.millerdesign.ai",
       gradient: "from-[#ff5500] via-[#ff7733] to-[#ff9955]", // Orange theme
       accentColor: "#ff5500",
+      size: "medium"
+    },
+    {
+      id: "streamline-hr",
+      title: "Streamline HR",
+      subtitle: "AI-Powered HR Management",
+      description: "Employee management and applicant tracking system that utilizes AI to speed up HR processes and streamline operations.",
+      imageUrl: "/images/work/streamline-hr/desktop.webp",
+      mockupUrl: "/images/work/streamline-hr/desktop.webp",
+      mobileImageUrl: "/images/work/streamline-hr/mobile.webp",
+      category: ["Web App Development", "AI Integration", "Web Design", "Branding"],
+      year: "2025",
+      route: "/work/streamline-hr",
+      websiteUrl: "streamline-hr.vercel.app",
+      gradient: "from-[#ff5500] via-[#8b5cf6] to-[#6366f1]", // Orange to purple
+      accentColor: "#8b5cf6",
       size: "medium"
     },
     {
@@ -193,7 +206,7 @@ export default function ProjectsSection() {
                 ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
                 : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
             } shadow-lg backdrop-blur-sm`}>
-              ✨ FEATURED WORK
+              ✨ SELECTED WORKS
             </span>
             <motion.div 
               className="w-12 h-0.5 bg-gradient-to-l from-transparent to-[#ff5500]"

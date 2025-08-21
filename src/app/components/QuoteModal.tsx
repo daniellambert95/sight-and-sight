@@ -311,16 +311,14 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       x: 0,
       opacity: 1,
       transition: {
-        duration: 0.3,
-        ease: "easeInOut"
+        duration: 0.3
       }
     },
     exit: (direction: number) => ({
       x: direction < 0 ? 300 : -300,
       opacity: 0,
       transition: {
-        duration: 0.3,
-        ease: "easeInOut"
+        duration: 0.3
       }
     })
   };
@@ -393,8 +391,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 0.8,
-              delay: 0.2,
-              ease: "easeOut",
+              delay: 0.2
             }}
           >
             <h2 className="text-4xl font-black mb-4">🎯 Proposal Incoming!</h2>
@@ -419,8 +416,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             }}
             transition={{
               duration: 6,
-              delay: 0.5,
-              ease: [0.1, 0.2, 0.25, 0.9],
+              delay: 0.5
             }}
           >
             🚀
@@ -438,8 +434,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             }}
             transition={{
               duration: 6,
-              delay: 0.7,
-              ease: [0.1, 0.2, 0.25, 0.9],
+              delay: 0.7
             }}
           >
             <div className="w-8 h-20 bg-gradient-to-t from-orange-500 via-yellow-400 to-transparent rounded-full blur-sm" />
@@ -459,8 +454,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               }}
               transition={{
                 duration: 5.8,
-                delay: 0.8 + i * 0.1,
-                ease: [0.1, 0.2, 0.25, 0.9],
+                delay: 0.8 + i * 0.1
               }}
             />
           ))}
@@ -479,8 +473,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               }}
               transition={{
                 duration: 5.5,
-                delay: 1 + i * 0.15,
-                ease: [0.1, 0.2, 0.25, 0.9],
+                delay: 1 + i * 0.15
               }}
             />
           ))}

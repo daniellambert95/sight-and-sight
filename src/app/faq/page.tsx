@@ -352,7 +352,7 @@ export default function FAQPage() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        transition={{ duration: 0.3 }}
                       >
                         <div className={`px-8 pb-8 text-lg leading-relaxed ${
                           theme === 'dark' ? 'text-gray-300' : 'text-gray-600'

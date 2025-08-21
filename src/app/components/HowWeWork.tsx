@@ -1,8 +1,11 @@
 'use client';
 
+import React, { useRef } from "react";
 import { motion } from "framer-motion";
 import ScrollReveal from "./animations/ScrollReveal";
 import { useTheme } from "../utils/ThemeProvider";
+import { AnimatedBeam } from "@/components/magicui/animated-beam";
+import { cn } from "@/lib/utils";
 
 export default function HowWeWork() {
   const { theme } = useTheme();
@@ -95,68 +98,89 @@ export default function HowWeWork() {
 
         {/* Process Flow Timeline */}
         <div className="relative max-w-6xl mx-auto">
-          {/* Connecting line */}
-          <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-orange-500/20 via-orange-500/60 to-orange-500/20 -translate-y-1/2 z-0"></div>
-          
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-          {workSteps.map((step, index) => (
-            <motion.div 
-              key={step.num}
-              variants={fadeIn}
-              className={`group relative p-8 rounded-3xl transition-all duration-500 hover:scale-105 ${
-                theme === 'dark' 
-                  ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50 shadow-2xl shadow-gray-900/50' 
-                  : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50 shadow-2xl shadow-gray-200/50'
-              } backdrop-blur-sm`}
-            >
-              {/* Glow effect */}
-              <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-                step.color === 'blue' ? 'bg-gradient-to-br from-blue-500/10 to-transparent' :
-                step.color === 'green' ? 'bg-gradient-to-br from-green-500/10 to-transparent' :
-                step.color === 'purple' ? 'bg-gradient-to-br from-purple-500/10 to-transparent' :
-                'bg-gradient-to-br from-orange-500/10 to-transparent'
-              }`}></div>
-              
-              <div className="relative z-10 text-center">
-                {/* Icon */}
-                {/* <div className={`w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center shadow-lg ${
-                  step.color === 'blue' ? 'bg-gradient-to-br from-blue-500 to-blue-600' :
-                  step.color === 'green' ? 'bg-gradient-to-br from-green-500 to-green-600' :
-                  step.color === 'purple' ? 'bg-gradient-to-br from-purple-500 to-purple-600' :
-                  'bg-gradient-to-br from-orange-500 to-orange-600'
-                } group-hover:scale-110 transition-transform duration-300`}>
-                  <span className="text-3xl">
-                    {step.icon}
-                  </span>
-                </div> */}
-
-                {/* Step number */}
-                <div className="inline-flex items-center justify-center w-8 h-8 bg-[#ff5500] text-white text-sm font-bold rounded-full mb-4">
-                  {step.num}
-                </div>
-
-                {/* Title */}
-                <h3 className={`text-2xl font-black mb-3 ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>{step.title}</h3>
-
-                {/* Description */}
-                <p className={`leading-relaxed ${
-                  theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                }`}>
-                  {step.desc}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-          </motion.div>
+          <ProcessFlowWithBeams theme={theme} staggerContainer={staggerContainer} fadeIn={fadeIn} workSteps={workSteps} />
         </div>
       </div>
     </section>
+  );
+}
+
+// ProcessFlowWithBeams component
+function ProcessFlowWithBeams({ theme, staggerContainer, fadeIn, workSteps }: any) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const startRef = useRef<HTMLDivElement>(null);
+  const step1Ref = useRef<HTMLDivElement>(null);
+  const step2Ref = useRef<HTMLDivElement>(null);
+  const step3Ref = useRef<HTMLDivElement>(null);
+  const step4Ref = useRef<HTMLDivElement>(null);
+  const endRef = useRef<HTMLDivElement>(null);
+  
+  const stepRefs = [step1Ref, step2Ref, step3Ref, step4Ref];
+
+  return (
+    <div ref={containerRef} className="relative w-full overflow-hidden">
+      {/* Full screen width start point */}
+      <div ref={startRef} className="absolute left-0 top-1/2 w-1 h-1 -translate-y-1/2"></div>
+      
+      {/* Full screen width end point */}
+      <div ref={endRef} className="absolute right-0 top-1/2 w-1 h-1 -translate-y-1/2"></div>
+
+      <motion.div 
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10 px-8 md:px-16"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+      >
+        {workSteps.map((step: any, index: number) => (
+          <motion.div 
+            key={step.num}
+            ref={stepRefs[index]}
+            variants={fadeIn}
+            className={`group relative p-8 rounded-3xl transition-all duration-500 hover:scale-105 ${
+              theme === 'dark' 
+                ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50 shadow-2xl shadow-gray-900/50' 
+                : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50 shadow-2xl shadow-gray-200/50'
+            } backdrop-blur-sm`}
+          >
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div className="relative z-10 text-center">
+              {/* Step number circle */}
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-[#ff5500] to-[#ff6600] text-white text-lg font-bold rounded-full mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                {step.num}
+              </div>
+
+              {/* Title */}
+              <h3 className={`text-2xl font-black mb-3 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>{step.title}</h3>
+
+              {/* Description */}
+              <p className={`leading-relaxed ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                {step.desc}
+              </p>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Single Continuous Animated Beam - Hidden on mobile, visible on desktop */}
+      <div className="hidden lg:block">
+        {/* One smooth continuous beam from far left to far right */}
+        <AnimatedBeam
+          containerRef={containerRef}
+          fromRef={startRef}
+          toRef={endRef}
+          className="opacity-90"
+          gradientStartColor="#ff5500"
+          gradientStopColor="#ff6600"
+          duration={4}
+          pathWidth={6}
+        />
+      </div>
+    </div>
   );
 }

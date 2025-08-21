@@ -53,8 +53,7 @@ export default function NotFound() {
       scale: [1, 1.1, 1],
       transition: { 
         duration: 2,
-        repeat: Infinity,
-        ease: "easeInOut"
+        repeat: Infinity
       }
     }
   };
@@ -65,8 +64,7 @@ export default function NotFound() {
       y: [-10, 10, -10],
       transition: { 
         duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut"
+        repeat: Infinity
       }
     }
   };
@@ -77,8 +75,7 @@ export default function NotFound() {
       rotate: [-5, 5, -5],
       transition: { 
         duration: 0.5,
-        repeat: Infinity,
-        ease: "easeInOut"
+        repeat: Infinity
       }
     }
   };
