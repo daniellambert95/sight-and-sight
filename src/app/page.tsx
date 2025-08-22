@@ -8,7 +8,7 @@ import SubscribeNow from "./components/SubscribeNow";
 import HeroSection from "./components/HeroSection";
 import StatsSection from "./components/StatsSection";
 import ServicesSection from "./components/ServicesSection";
-import ProjectsSection from "./components/ProjectsSection";
+import ProjectCarousel from "./components/ProjectCarousel";
 import TestimonialsSection from "./components/TestimonialsSection";
 import AnimatedIntro from "./components/AnimatedIntro";
 import { useTheme } from "./utils/ThemeProvider";
@@ -81,8 +81,8 @@ export default function Home() {
           {/* Services Section */}
           <ServicesSection />
 
-          {/* Projects Section */}
-          <ProjectsSection />
+          {/* Cinematic Project Carousel */}
+          <ProjectCarousel />
 
           {/* How We Work Section */}
           <HowWeWork />

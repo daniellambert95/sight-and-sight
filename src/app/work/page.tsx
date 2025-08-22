@@ -246,7 +246,7 @@ export default function WorkPage() {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <button 
-                onClick={() => document.getElementById('featured-projects')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => window.scrollTo({ top: window.innerHeight * 0.8, behavior: 'smooth' })}
                 className="group relative inline-flex items-center justify-center px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105"
               >
                 <span className="relative z-10">Explore Our Work</span>
