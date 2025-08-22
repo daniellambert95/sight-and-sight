@@ -182,8 +182,8 @@ export default function ProjectsSection() {
   return (
     <section className={`relative py-16 px-4 md:px-8 overflow-hidden transition-all duration-700 ${
       theme === 'dark' 
-        ? 'bg-gradient-to-br from-gray-950 via-gray-900 to-black' 
-        : 'bg-gradient-to-br from-white via-gray-50 to-orange-50/30'
+        ? 'bg-gradient-to-br from-black to-gray-950' 
+        : 'bg-gradient-to-br from-white to-gray-50'
     }`}>
 
       <div className="relative z-10 max-w-6xl mx-auto">
@@ -272,7 +272,7 @@ export default function ProjectsSection() {
                 activeProject === project.id ? 'ring-2 ring-[#ff5500]/50' : ''
               } ${
                 theme === 'dark' 
-                  ? 'bg-gradient-to-br from-gray-900/90 to-gray-800/90 border border-gray-700/50' 
+                  ? 'bg-gradient-to-br from-gray-900/90 to-black/90 border border-gray-700/50' 
                   : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50'
               } backdrop-blur-xl shadow-xl`}>
                 

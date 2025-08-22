@@ -643,14 +643,14 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
             onClick={(e) => e.stopPropagation()}
             className={`max-w-2xl w-full max-h-[90vh] overflow-y-auto p-12 rounded-3xl ${
               theme === 'dark' 
-                ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
-                : 'bg-white border border-gray-200 shadow-2xl'
+                ? 'bg-gradient-to-br from-gray-900 to-black border border-gray-700' 
+                : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200 shadow-2xl'
             }`}
           >
             <div className="text-center">
               <div className="mb-6 flex justify-center">
                 <Image
-                  src="/logo/icon/logo-light.png"
+                  src={theme === 'dark' ? "/logo/icon/logo-dark.png" : "/logo/icon/logo-light.png"}
                   alt="Site & Sight Logo"
                   width={80}
                   height={80}

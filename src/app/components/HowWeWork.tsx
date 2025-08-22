@@ -63,7 +63,7 @@ export default function HowWeWork() {
 
   return (
     <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-gradient-to-br from-gray-900 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
+      theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
     }`}>
 
       <div className="relative z-10 max-w-7xl mx-auto">
@@ -138,7 +138,7 @@ function ProcessFlowWithBeams({ theme, staggerContainer, fadeIn, workSteps }: an
             variants={fadeIn}
             className={`group relative p-8 rounded-3xl transition-all duration-500 hover:scale-105 ${
               theme === 'dark' 
-                ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50 shadow-2xl shadow-gray-900/50' 
+                ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-700/50 shadow-2xl shadow-black/50' 
                 : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50 shadow-2xl shadow-gray-200/50'
             } backdrop-blur-sm`}
           >

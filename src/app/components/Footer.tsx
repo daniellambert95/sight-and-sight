@@ -2,15 +2,17 @@
 
 import Link from 'next/link';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../utils/ThemeProvider';
 import Logo from './Logo';
+import ProjectModal from './ProjectModal';
 
 export default function Footer() {
   const footerRef = useRef(null);
   const isInView = useInView(footerRef, { once: true, margin: "-10% 0px" });
   const { theme } = useTheme();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -162,8 +164,8 @@ export default function Footer() {
             variants={footerItems}
             className="flex flex-col sm:flex-row justify-center gap-6 mb-12"
           >
-            <Link 
-              href="/contact" 
+            <button 
+              onClick={() => setIsModalOpen(true)}
               className="group relative inline-flex items-center justify-center px-10 py-5 bg-white text-[#ff5500] rounded-2xl hover:bg-gray-100 transition-all duration-300 text-xl font-semibold shadow-2xl transform hover:scale-105"
               style={{ fontFamily: 'var(--font-league-spartan)' }}
             >
@@ -171,7 +173,7 @@ export default function Footer() {
               <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </Link>
+            </button>
             
             <Link 
               href="/pricing" 
@@ -209,7 +211,7 @@ export default function Footer() {
       {/* Bottom Footer Section */}
       <section className={`transition-colors duration-300 ${
         theme === 'dark' 
-          ? 'bg-gradient-to-br from-black via-zinc-900 to-black text-white' 
+          ? 'bg-black text-white' 
           : 'bg-gradient-to-br from-slate-50 via-white to-gray-100 text-gray-900'
       }`}>
         <div className="max-w-7xl mx-auto px-8 md:px-16 py-16">
@@ -371,6 +373,12 @@ export default function Footer() {
           </motion.div>
         </div>
       </section>
+
+      {/* Project Modal */}
+      <ProjectModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </motion.footer>
   );
 }

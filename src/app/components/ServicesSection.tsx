@@ -174,7 +174,7 @@ export default function ServicesSection() {
   return (
     <>
       <section className={`relative py-24 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-black via-gray-950 to-gray-900' : 'bg-gradient-to-br from-white via-gray-50 to-orange-50/20'
+        theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
       }`}>
 
         <div className="relative z-10 max-w-7xl mx-auto">
@@ -240,8 +240,8 @@ export default function ServicesSection() {
               <motion.div 
                 className={`group relative p-10 rounded-3xl transition-all duration-700 cursor-pointer overflow-hidden ${
                   theme === 'dark' 
-                    ? 'bg-gradient-to-br from-gray-800/90 via-gray-900/90 to-black/90 border border-gray-700/50' 
-                    : 'bg-gradient-to-br from-white via-gray-50/50 to-orange-50/30 border border-white/70'
+                    ? 'bg-gradient-to-br from-gray-900/90 to-black/90 border border-gray-700/50' 
+                    : 'bg-gradient-to-br from-white to-gray-50/50 border border-white/70'
                 } backdrop-blur-xl hover:scale-[1.01] shadow-2xl hover:shadow-[#ff5500]/10`}
                 onMouseEnter={() => setHoveredService(services[0].id)}
                 onMouseLeave={() => setHoveredService(null)}
@@ -315,7 +315,7 @@ export default function ServicesSection() {
                   variants={fadeIn}
                   className={`group relative p-8 rounded-3xl transition-all duration-500 cursor-pointer overflow-hidden ${
                     theme === 'dark' 
-                      ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50' 
+                      ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-700/50' 
                       : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50'
                   } backdrop-blur-sm hover:scale-[1.03] shadow-xl hover:shadow-2xl`}
                   onMouseEnter={() => setHoveredService(service.id)}
@@ -394,7 +394,7 @@ export default function ServicesSection() {
             <motion.div 
               className={`relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl p-8 ${
                 theme === 'dark' 
-                  ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
+                  ? 'bg-gradient-to-br from-gray-900 to-black border border-gray-700' 
                   : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
               } shadow-2xl`}
               variants={modalVariants}

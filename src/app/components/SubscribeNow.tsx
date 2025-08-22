@@ -50,7 +50,7 @@ const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
   
   return (
     <section className={`relative py-24 overflow-hidden transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-gradient-to-br from-black via-gray-900 to-gray-800' : 'bg-gradient-to-br from-white via-gray-50 to-orange-50'
+      theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
     }`}>
       
       <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16">
@@ -100,7 +100,7 @@ const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
           
           <div className={`p-4 rounded-3xl backdrop-blur-sm shadow-2xl border ${
             theme === 'dark' 
-              ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border-gray-700/50' 
+              ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border-gray-700/50' 
               : 'bg-gradient-to-br from-white/80 to-gray-50/80 border-white/50'
           }`}>
             <form onSubmit={handleSubmit} className="flex flex-col md:flex-row items-center gap-4">

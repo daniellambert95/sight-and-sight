@@ -67,7 +67,7 @@ export default function Home() {
       {/* Main Website Content */}
       {showMainContent && (
         <div className={`relative overflow-hidden transition-colors duration-300 ${
-          theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'
+          theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950 text-white' : 'bg-gradient-to-br from-white to-gray-50 text-black'
         }`}>
           {/* Navigation */}
           <Navigation currentPage="home" />

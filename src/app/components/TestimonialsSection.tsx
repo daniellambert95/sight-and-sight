@@ -22,7 +22,7 @@ const TestimonialCard = ({
     <figure
       className={`relative h-full w-80 cursor-pointer overflow-hidden rounded-2xl border p-6 mx-4 ${
         theme === 'dark' 
-          ? 'border-gray-700/50 bg-gray-800/80 hover:bg-gray-800/90' 
+          ? 'border-gray-700/50 bg-gray-900/80 hover:bg-gray-900/90' 
           : 'border-gray-200/50 bg-white/90 hover:bg-white'
       } backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] shadow-xl`}
     >
@@ -117,7 +117,7 @@ export default function TestimonialsSection() {
 
   return (
     <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-900' : 'bg-gradient-to-br from-white to-gray-50'
+      theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
     }`}>
 
       <div className="relative z-10 max-w-7xl mx-auto">
