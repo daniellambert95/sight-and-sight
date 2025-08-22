@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../utils/ThemeProvider';
+import { RocketLaunchIcon } from '@heroicons/react/24/solid';
+import Image from 'next/image';
 
 interface ProjectModalProps {
   isOpen: boolean;
@@ -19,6 +21,8 @@ interface FormData {
 export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
   const { theme } = useTheme();
   const [currentStep, setCurrentStep] = useState(1);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     email: '',
     name: '',
@@ -30,6 +34,8 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
   useEffect(() => {
     if (isOpen) {
       setCurrentStep(1);
+      setIsAnimating(false);
+      setIsSubmitted(false);
       setFormData({
         email: '',
         name: '',
@@ -56,43 +62,67 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
       id: 'web-development',
       title: 'Website Development',
       description: 'Custom websites & web applications',
-      icon: '🌐',
-      color: 'blue'
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+      ),
+      color: 'orange'
     },
     {
       id: 'seo-marketing',
       title: 'SEO & Digital Marketing',
       description: 'Boost your online visibility',
-      icon: '📈',
-      color: 'green'
+      icon: (
+        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+        </svg>
+      ),
+      color: 'orange'
     },
     {
       id: 'creative-design',
       title: 'Creative Design',
       description: 'Logos, Branding & graphics',
-      icon: '🎨',
-      color: 'purple'
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+        </svg>
+      ),
+      color: 'orange'
     },
     {
       id: 'video-editing',
       title: 'Video & Motion Graphics',
       description: 'Professional video content',
-      icon: '🎬',
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+      ),
       color: 'orange'
     },
     {
       id: 'automation',
       title: 'Automation & AI',
       description: 'Smart business solutions',
-      icon: '🤖',
-      color: 'indigo'
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+        </svg>
+      ),
+      color: 'orange'
     },
     {
       id: 'custom',
       title: 'Something Else',
       description: 'Tell us about your unique project',
-      icon: '💡',
-      color: 'pink'
+      icon: (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        </svg>
+      ),
+      color: 'orange'
     }
   ];
 
@@ -112,9 +142,53 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
     // Here you would typically send the data to your backend
     console.log('Form submitted:', formData);
     
-    // For now, just show a success message and close
-    alert('Thank you! We\'ll be in touch soon.');
+    // Start the celebration animation
+    setIsAnimating(true);
+    
+    // After animation completes, show success screen (8s animation + 1s extra)
+    setTimeout(() => {
+      setIsAnimating(false);
+      setIsSubmitted(true);
+    }, 9000);
+  };
+
+  const handleClose = () => {
+    setCurrentStep(1);
+    setIsAnimating(false);
+    setIsSubmitted(false);
+    setFormData({
+      email: '',
+      name: '',
+      projectTypes: [],
+      customProject: ''
+    });
     onClose();
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      if (currentStep === 3 && isStepValid()) {
+        handleSubmit();
+      } else if (isStepValid()) {
+        handleNext();
+      }
+    }
+  };
+
+  const handleModalKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' && !event.shiftKey && !event.ctrlKey && !event.metaKey) {
+      // Only handle Enter if we're not in a textarea or other special input
+      const target = event.target as HTMLElement;
+      if (target.tagName !== 'TEXTAREA') {
+        event.preventDefault();
+        if (currentStep === 3 && isStepValid()) {
+          handleSubmit();
+        } else if (isStepValid()) {
+          handleNext();
+        }
+      }
+    }
   };
 
   const isStepValid = () => {
@@ -148,30 +222,126 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
   if (!isOpen) return null;
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
-        onClick={onClose}
-      >
-        {/* Backdrop */}
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-        
-        {/* Modal */}
+    <AnimatePresence mode="wait">
+      {/* Rocket Launch Animation Modal */}
+      {isAnimating && (
         <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.9, opacity: 0 }}
-          transition={{ type: "spring", duration: 0.5 }}
-          className={`relative w-full max-w-2xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl ${
-            theme === 'dark' 
-              ? 'bg-gradient-to-br from-gray-900 to-black border border-gray-700/50' 
-              : 'bg-gradient-to-br from-white to-gray-50 border border-white/50'
-          }`}
-          onClick={(e) => e.stopPropagation()}
+          key="rocket-animation-modal"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black z-50 flex items-center justify-center overflow-hidden"
         >
+          {/* Orange brand-colored stars background */}
+          <div className="absolute inset-0">
+            {[...Array(30)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-[#ff5500] rounded-full"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  opacity: [0, 1, 0],
+                  scale: [0, 1, 0],
+                }}
+                transition={{
+                  duration: Math.random() * 3 + 2,
+                  repeat: Infinity,
+                  delay: Math.random() * 3,
+                  ease: "easeInOut"
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Success message that appears from the start */}
+          <motion.div
+            className="absolute bottom-1/3 text-center text-white z-10"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 1.2,
+              delay: 0.5,
+              ease: "easeOut"
+            }}
+          >
+            <h2 className="text-4xl font-black mb-4">Project Submitted!</h2>
+            <p className="text-xl">We'll reach out and be in contact soon...</p>
+          </motion.div>
+
+          {/* Rocket that flies straight up - smooth continuous movement */}
+          <motion.div
+            className="absolute z-20"
+            initial={{ 
+              opacity: 1, 
+              scale: 1,
+              y: 0,
+            }}
+            animate={{
+              opacity: 0,
+              scale: 0.3,
+              y: -1300,
+            }}
+            transition={{
+              duration: 7,
+              delay: 1,
+              ease: "linear"
+            }}
+          >
+            {/* Orange rocket facing up */}
+            <RocketLaunchIcon className="w-12 h-12 text-[#ff5500] transform -rotate-45" />
+          </motion.div>
+
+          {/* Single synchronized thin flame trail - smooth continuous movement */}
+          <motion.div
+            className="absolute z-15"
+            initial={{ opacity: 0, scale: 1, y: 60 }}
+            animate={{
+              opacity: 1,
+              scale: 4,
+              y: -1300,
+            }}
+            transition={{
+              duration: 7,
+              delay: 1.1,
+              ease: "linear"
+            }}
+          >
+            <div className="w-6 h-20 bg-gradient-to-t from-[#ff5500] via-[#ff6600] to-transparent rounded-full blur-sm" />
+          </motion.div>
+        </motion.div>
+      )}
+
+      {/* Main Form Modal */}
+      {!isSubmitted && !isAnimating && (
+        <motion.div
+          key="main-form-modal"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onClick={handleClose}
+        >
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          
+          {/* Modal */}
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ type: "spring", duration: 0.5 }}
+            className={`relative w-full max-w-2xl max-h-[95vh] overflow-y-auto rounded-3xl shadow-2xl ${
+              theme === 'dark' 
+                ? 'bg-gradient-to-br from-gray-900 to-black border border-gray-700/50' 
+                : 'bg-gradient-to-br from-white to-gray-50 border border-white/50'
+            }`}
+            onClick={(e) => e.stopPropagation()}
+            onKeyDown={handleModalKeyDown}
+            tabIndex={-1}
+          >
           {/* Header */}
           <div className="relative p-6 pb-4">
             {/* Progress bar */}
@@ -241,6 +411,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
                       type="text"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onKeyDown={handleKeyDown}
                       placeholder="John Doe"
                       className={`w-full px-4 py-4 rounded-xl border-2 transition-all duration-300 text-lg ${
                         theme === 'dark'
@@ -313,7 +484,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
                         )}
                         
                         <div className="flex items-start gap-3">
-                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-lg bg-gradient-to-br ${getColorClasses(project.color).split(' ')[0]} ${getColorClasses(project.color).split(' ')[1]} flex-shrink-0`}>
+                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white bg-gradient-to-br ${getColorClasses(project.color).split(' ')[0]} ${getColorClasses(project.color).split(' ')[1]} flex-shrink-0`}>
                             {project.icon}
                           </div>
                           <div className="flex-1 min-w-0">
@@ -405,6 +576,7 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onKeyDown={handleKeyDown}
                       placeholder="your@email.com"
                       className={`w-full px-4 py-4 rounded-xl border-2 transition-all duration-300 text-lg ${
                         theme === 'dark'
@@ -449,9 +621,87 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
             )}
 
 
-          </div>
+            </div>
+          </motion.div>
         </motion.div>
-      </motion.div>
+      )}
+
+      {/* Success Screen Modal */}
+      {isSubmitted && (
+        <motion.div
+          key="success-modal"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={handleClose}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            onClick={(e) => e.stopPropagation()}
+            className={`max-w-2xl w-full max-h-[90vh] overflow-y-auto p-12 rounded-3xl ${
+              theme === 'dark' 
+                ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
+                : 'bg-white border border-gray-200 shadow-2xl'
+            }`}
+          >
+            <div className="text-center">
+              <div className="mb-6 flex justify-center">
+                <Image
+                  src="/logo/icon/logo-light.png"
+                  alt="Site & Sight Logo"
+                  width={80}
+                  height={80}
+                  className="w-20 h-20"
+                />
+              </div>
+              <h1 className={`text-4xl font-black mb-6 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
+                Thank You!
+              </h1>
+              <p className={`text-xl mb-8 ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                We've received your project details and will get back to you within 24 hours with ideas and next steps.
+              </p>
+              <div className={`p-6 rounded-xl mb-8 ${
+                theme === 'dark' ? 'bg-gray-800/50' : 'bg-orange-50'
+              }`}>
+                <h3 className={`font-bold mb-2 ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
+                  What happens next?
+                </h3>
+                <ul className={`text-left space-y-2 ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                  <li className="flex items-center">
+                    <span className="text-[#ff5500] mr-2">1.</span>
+                    We'll review your project requirements
+                  </li>
+                  <li className="flex items-center">
+                    <span className="text-[#ff5500] mr-2">2.</span>
+                    Prepare initial concepts and timeline
+                  </li>
+                  <li className="flex items-center">
+                    <span className="text-[#ff5500] mr-2">3.</span>
+                    Schedule a call to discuss your vision
+                  </li>
+                </ul>
+              </div>
+              <button
+                onClick={handleClose}
+                className="px-8 py-3 bg-[#ff5500] text-white rounded-xl hover:bg-[#ff6600] transition-colors font-semibold"
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 } 
