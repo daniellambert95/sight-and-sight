@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { useTheme } from "../utils/ThemeProvider";
+import { RocketLaunchIcon, StarIcon, ChatBubbleLeftRightIcon, TrophyIcon } from '@heroicons/react/24/solid';
 
 // Animated Counter Component
 function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: number, suffix?: string, duration?: number }) {
@@ -60,10 +61,34 @@ export default function StatsSection() {
 
   // Statistics data with animated counters
   const stats = [
-    { number: 50, suffix: "+", label: "Projects Completed", icon: "🚀", duration: 2.5 },
-    { number: 100, suffix: "%", label: "Client Satisfaction", icon: "⭐", duration: 2 },
-    { number: 24, suffix: "/7", label: "Support Available", icon: "💬", duration: 1.5 },
-    { number: 6, suffix: "+", label: "Years Experience", icon: "🏆", duration: 1 }
+    { 
+      number: 50, 
+      suffix: "+", 
+      label: "Projects Completed", 
+      icon: <RocketLaunchIcon className="w-8 h-8 text-[#ff5500]" />, 
+      duration: 2.5 
+    },
+    { 
+      number: 100, 
+      suffix: "%", 
+      label: "Client Satisfaction", 
+      icon: <StarIcon className="w-8 h-8 text-[#ff5500]" />, 
+      duration: 2 
+    },
+    { 
+      number: 24, 
+      suffix: "/7", 
+      label: "Support Available", 
+      icon: <ChatBubbleLeftRightIcon className="w-8 h-8 text-[#ff5500]" />, 
+      duration: 1.5 
+    },
+    { 
+      number: 6, 
+      suffix: "+", 
+      label: "Years Experience", 
+      icon: <TrophyIcon className="w-8 h-8 text-[#ff5500]" />, 
+      duration: 1 
+    }
   ];
 
   return (
@@ -85,7 +110,7 @@ export default function StatsSection() {
                 ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
                 : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
             }`}>
-              📊 Our Impact
+            Our Impact
             </span>
             <div className="w-12 h-0.5 bg-[#ff5500]"></div>
           </div>
@@ -116,7 +141,7 @@ export default function StatsSection() {
               <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               
               <div className="relative z-10">
-                <div className="text-4xl mb-4">{stat.icon}</div>
+                <div className="flex justify-center mb-4">{stat.icon}</div>
                 <div className={`mb-2 ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>

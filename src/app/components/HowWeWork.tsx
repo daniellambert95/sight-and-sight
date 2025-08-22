@@ -80,7 +80,7 @@ export default function HowWeWork() {
                 ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
                 : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
             }`}>
-              ⚡ Our Process
+              Our Process
             </span>
             <div className="w-12 h-0.5 bg-[#ff5500]"></div>
           </div>

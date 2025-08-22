@@ -84,11 +84,20 @@ const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
         </div>
         
         <motion.div 
-          className="w-full max-w-xl mx-auto mt-16"
+          className="w-full max-w-xl mx-auto mt-12"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
+          {/* Secondary text above form */}
+          <div className="text-center mb-6">
+            <p className={`text-lg md:text-xl  ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}>
+              Get free and exclusive web design tips, SEO insights, and be the first to hear about our latest projects
+            </p>
+          </div>
+          
           <div className={`p-4 rounded-3xl backdrop-blur-sm shadow-2xl border ${
             theme === 'dark' 
               ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border-gray-700/50' 

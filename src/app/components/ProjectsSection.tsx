@@ -206,7 +206,7 @@ export default function ProjectsSection() {
                 ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
                 : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
             } shadow-lg backdrop-blur-sm`}>
-              ✨ SELECTED WORKS
+              Selected Works
             </span>
             <motion.div 
               className="w-12 h-0.5 bg-gradient-to-l from-transparent to-[#ff5500]"

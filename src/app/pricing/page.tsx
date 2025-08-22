@@ -66,7 +66,7 @@ export default function Pricing() {
   ];
 
   const stats = [
-    { value: "50+", label: "Projects Delivered" },
+    { value: "10+", label: "Projects Delivered" },
     { value: "100%", label: "Client Satisfaction" },
     { value: "24h", label: "Response Time" },
     { value: "100%", label: "Custom Built" }

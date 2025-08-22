@@ -2,31 +2,77 @@
 
 import { motion } from 'framer-motion';
 import { useTheme } from "../utils/ThemeProvider";
+import { Marquee } from "@/components/magicui/marquee";
+
+// Testimonial Card Component
+const TestimonialCard = ({
+  name,
+  position,
+  content,
+  rating,
+  theme
+}: {
+  name: string;
+  position: string;
+  content: string;
+  rating: number;
+  theme: string;
+}) => {
+  return (
+    <figure
+      className={`relative h-full w-80 cursor-pointer overflow-hidden rounded-2xl border p-6 mx-4 ${
+        theme === 'dark' 
+          ? 'border-gray-700/50 bg-gray-800/80 hover:bg-gray-800/90' 
+          : 'border-gray-200/50 bg-white/90 hover:bg-white'
+      } backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] shadow-xl`}
+    >
+      {/* Stars */}
+      <div className="flex gap-1 mb-4">
+        {[...Array(rating)].map((_, i) => (
+          <svg 
+            key={i} 
+            className="w-4 h-4 text-[#ff5500] fill-current" 
+            viewBox="0 0 20 20" 
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        ))}
+      </div>
+      
+      {/* Quote */}
+      <blockquote className={`text-sm leading-relaxed mb-4 ${
+        theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+      }`}>
+        "{content}"
+      </blockquote>
+      
+      {/* Author */}
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white">
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
+          </svg>
+        </div>
+        <div>
+          <figcaption className={`text-sm font-semibold ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
+            {name}
+          </figcaption>
+          <p className={`text-xs ${
+            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+          }`}>{position}</p>
+        </div>
+      </div>
+    </figure>
+  );
+};
 
 export default function TestimonialsSection() {
   const { theme } = useTheme();
 
-  // Animation variants
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6 }
-    }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  // Testimonials data
+  // Testimonials data - expanded for marquee effect
   const testimonials = [
     {
       name: "James Carter",
@@ -35,18 +81,39 @@ export default function TestimonialsSection() {
       rating: 5
     },
     {
-      name: "Geoff Miller",
+      name: "Geoff Miller", 
       position: "Creative Director, MDZN Dubai",
-      content: "S&S creatively and expertly delivered on their promise for my new website millerdesign.ai. Their process was efficient  professional and seamless as they also contributed extra help with copywriting, seo, design, analytics, and were a pleasure to work with along the way. Genuinely have no complaints and very satisfied we chose them as our web partner. 5 stars",
+      content: "S&S creatively and expertly delivered on their promise for my new website millerdesign.ai. Their process was efficient professional and seamless as they also contributed extra help with copywriting, seo, design, analytics, and were a pleasure to work with along the way.",
       rating: 5
     },
     {
-      name: "Engin ",
-      position: "Cofounder, PinkPizza Berlin",
-      content: "Daniel really helped with our online presence by setting up and optimizing our Google Maps listing so we could start receiving reviews while also creating stunning branded menus and website. The results exceeded our expectations and we highly recommend his web design expertise.",
+      name: "Engin",
+      position: "Cofounder, PinkPizza Berlin", 
+      content: "Daniel really helped with our online presence by setting up and optimizing our Google Maps listing so we could start receiving reviews while also creating stunning branded menus and website.",
       rating: 5
-    }
+    },
+    {
+      name: "Ronan Byrne",
+      position: "Founder, Streamline HR",
+      content: "Outstanding work! The website they created exceeded all our expectations. The design is modern, fast, and email signup rates are much better than expected.",
+      rating: 5
+    },
+    // {
+    //   name: "Michael Rodriguez",
+    //   position: "CEO, GreenTech Solutions", 
+    //   content: "Professional, creative, and results-driven. Site & Sight transformed our digital presence and helped us reach new customers. Highly recommended!",
+    //   rating: 5
+    // },
+    // {
+    //   name: "Lisa Chen",
+    //   position: "Founder, Wellness Studio",
+    //   content: "The team understood our vision perfectly and delivered a beautiful, functional website that truly represents our brand. The SEO results have been incredible!",
+    //   rating: 5
+    // }
   ];
+
+  const firstRow = testimonials.slice(0, Math.ceil(testimonials.length / 2));
+  const secondRow = testimonials.slice(Math.ceil(testimonials.length / 2));
 
   return (
     <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
@@ -67,7 +134,7 @@ export default function TestimonialsSection() {
                 ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
                 : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
             }`}>
-              💬 Testimonials
+              Testimonials
             </span>
             <div className="w-12 h-0.5 bg-[#ff5500]"></div>
           </div>
@@ -83,67 +150,31 @@ export default function TestimonialsSection() {
           </p>
         </motion.div>
 
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-        >
-          {testimonials.map((testimonial, index) => (
-            <motion.div 
-              key={index}
-              variants={fadeIn}
-              className={`group relative p-8 rounded-3xl transition-all duration-500 hover:scale-[1.02] ${
-                theme === 'dark' 
-                  ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50 shadow-2xl shadow-gray-900/50' 
-                  : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50 shadow-2xl shadow-gray-200/50'
-              } backdrop-blur-sm`}
-            >
-              {/* Glow effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              
-              <div className="relative z-10">
-                {/* Stars */}
-                <div className="flex gap-1 mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <svg 
-                      key={i} 
-                      className="w-5 h-5 text-[#ff5500] fill-current" 
-                      viewBox="0 0 20 20" 
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                
-                {/* Quote */}
-                <p className={`text-lg leading-relaxed mb-6 italic ${
-                  theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                }`}>
-                  "{testimonial.content}"
-                </p>
-                
-                {/* Author */}
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white">
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                      <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <div className={`font-bold ${
-                      theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>{testimonial.name}</div>
-                    <div className={`text-sm ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                    }`}>{testimonial.position}</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* Marquee Container */}
+        <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+          <Marquee pauseOnHover className="[--duration:30s]">
+            {firstRow.map((testimonial, index) => (
+              <TestimonialCard key={index} {...testimonial} theme={theme} />
+            ))}
+          </Marquee>
+          <Marquee reverse pauseOnHover className="[--duration:30s]">
+            {secondRow.map((testimonial, index) => (
+              <TestimonialCard key={index} {...testimonial} theme={theme} />
+            ))}
+          </Marquee>
+          
+          {/* Gradient overlays */}
+          <div className={`pointer-events-none absolute inset-y-0 left-0 w-1/4 ${
+            theme === 'dark' 
+              ? 'bg-gradient-to-r from-black to-transparent' 
+              : 'bg-gradient-to-r from-white to-transparent'
+          }`}></div>
+          <div className={`pointer-events-none absolute inset-y-0 right-0 w-1/4 ${
+            theme === 'dark' 
+              ? 'bg-gradient-to-l from-black to-transparent' 
+              : 'bg-gradient-to-l from-white to-transparent'
+          }`}></div>
+        </div>
       </div>
     </section>
   );

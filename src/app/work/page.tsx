@@ -220,7 +220,7 @@ export default function WorkPage() {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               {[
-                { number: "50+", label: "Projects Completed" },
+                { number: "10+", label: "Projects Completed" },
                 { number: "200%", label: "Average Growth" },
                 { number: "98%", label: "Client Satisfaction" }
               ].map((stat, index) => (
