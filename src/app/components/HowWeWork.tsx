@@ -167,9 +167,8 @@ function ProcessFlowWithBeams({ theme, staggerContainer, fadeIn, workSteps }: an
         ))}
       </motion.div>
 
-      {/* Single Continuous Animated Beam - Hidden on mobile, visible on desktop */}
+      {/* Desktop Animated Beam */}
       <div className="hidden lg:block">
-        {/* One smooth continuous beam from far left to far right */}
         <AnimatedBeam
           containerRef={containerRef}
           fromRef={startRef}
@@ -180,6 +179,11 @@ function ProcessFlowWithBeams({ theme, staggerContainer, fadeIn, workSteps }: an
           duration={4}
           pathWidth={6}
         />
+      </div>
+
+      {/* Mobile Only Simple Orange Line */}
+      <div className="block md:hidden">
+        <div className="absolute left-1/2 top-8 bottom-8 w-1 bg-gradient-to-b from-[#ff5500] to-[#ff6600] -translate-x-1/2 rounded-full"></div>
       </div>
     </div>
   );

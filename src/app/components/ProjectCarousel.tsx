@@ -38,7 +38,7 @@ const projects: Project[] = [
     route: "/work/streamline-hr",
     websiteUrl: "streamline-hr.vercel.app",
     liveUrl: "https://streamline-hr.vercel.app",
-    metrics: "50% faster hiring",
+    metrics: "+500 waitlist signups",
     featured: true
   },
   {
@@ -46,7 +46,7 @@ const projects: Project[] = [
     title: "Der Baumchirurg",
     subtitle: "Tree Surgery & Maintenance",
     client: "Der Baumchirurg",
-    description: "Professional website for tree surgery services featuring portfolio showcase, expert consultation booking, and comprehensive service information for Berlin and Brandenburg region.",
+    description: "Professional website for tree surgery services featuring an intuitive consultation booking system and comprehensive service information for the Berlin and Brandenburg region.",
     imageUrl: "/images/work/derbaumchirurg/desktop.webp",
     mobileImageUrl: "/images/work/derbaumchirurg/mobile.webp",
     category: ["Web Design", "SEO", "Branding"],
@@ -54,7 +54,7 @@ const projects: Project[] = [
     route: "/work/derbaumchirurg",
     websiteUrl: "baumpflegeberlin-brandenburg.de",
     liveUrl: "https://www.baumpflegeberlin-brandenburg.de",
-    metrics: "+150% leads",
+    metrics: "+200% closed deals per month",
     featured: true
   },
   {
@@ -62,7 +62,7 @@ const projects: Project[] = [
     title: "MDZN",
     subtitle: "Miller Design Studio",
     client: "Miller Design",
-    description: "A sophisticated website for a premium design studio showcasing their expert services, creative portfolio, and design philosophy with seamless user experience and modern aesthetics.",
+    description: "A clean and minimal website for a premium Dubai design studio showcasing their expert services, creative portfolio, and design philosophy with a seamless user experience and modern aesthetics.",
     imageUrl: "/images/work/mdzn/desktop.webp",
     mobileImageUrl: "/images/work/mdzn/mobile.webp",
     category: ["Web Design", "SEO", "Branding"],
@@ -70,7 +70,7 @@ const projects: Project[] = [
     route: "/work",
     websiteUrl: "millerdesign.ai",
     liveUrl: "https://www.millerdesign.ai",
-    metrics: "+200% inquiries",
+    metrics: "+150% client inquiries per month",
     featured: true
   },
   {
@@ -78,7 +78,7 @@ const projects: Project[] = [
     title: "Pink Pizza",
     subtitle: "Berlin's Trendy Pizzeria",
     client: "Pink Pizza Berlin",
-    description: "Modern website with online ordering system, interactive menu design, seamless Google Maps integration, and vibrant branding that captures the essence of Berlin's food scene.",
+    description: "Modern website with online ordering system, interactive menu design, seamless Google Maps integration, and vibrant branding that captures the essence of Pink Pizza's brand.",
     imageUrl: "/images/work/pinkpizzaberlin/desktop.webp",
     mobileImageUrl: "/images/work/pinkpizzaberlin/mobile.webp",
     category: ["Web Design", "Branding", "E-commerce"],
@@ -86,7 +86,7 @@ const projects: Project[] = [
     route: "/work/pinkpizzaberlin",
     websiteUrl: "pinkpizza-berlin.de",
     liveUrl: "https://www.pinkpizza-berlin.de",
-    metrics: "+300% orders",
+    metrics: "+220% increase in restaurant traffic",
     featured: true
   }
 ];
@@ -273,11 +273,7 @@ export default function ProjectCarousel() {
                       {currentProject.subtitle}
                     </p>
                     
-                    <p className={`text-sm ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-                    }`}>
-                      Client: {currentProject.client}
-                    </p>
+                    
                   </div>
 
                   {/* Metrics */}
@@ -285,11 +281,6 @@ export default function ProjectCarousel() {
                     <div className="mb-6">
                       <div className="text-3xl font-black text-[#ff5500] mb-1">
                         {currentProject.metrics}
-                      </div>
-                      <div className={`text-sm ${
-                        theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                      }`}>
-                        Project Impact
                       </div>
                     </div>
                   )}

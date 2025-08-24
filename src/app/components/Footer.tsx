@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { useTheme } from '../utils/ThemeProvider';
 import Logo from './Logo';
 import ProjectModal from './ProjectModal';
+import { ChatBubbleLeftRightIcon, SwatchIcon, TrophyIcon } from '@heroicons/react/24/outline';
 
 export default function Footer() {
   const footerRef = useRef(null);
@@ -63,7 +64,7 @@ export default function Footer() {
             variants={titleVariants}
             className="mb-16"
           >
-            <h2 className="text-6xl md:text-8xl lg:text-9xl text-white font-black leading-none mb-4" >
+            <h2 className={`text-6xl md:text-8xl lg:text-9xl ${theme === 'dark' ? 'text-black' : 'text-white'} font-black leading-none mb-4`} >
               <span className="block ">Let's create something</span>
               <span className="block"><em className="italic">unique</em> together</span>
             </h2>
@@ -76,20 +77,20 @@ export default function Footer() {
           >
             {/* Contact Us */}
             <motion.div variants={footerItems} className="text-center">
-              <h3 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide" style={{ fontFamily: 'var(--font-league-spartan)' }}>
+              <h3 className={`text-2xl font-bold ${theme === 'dark' ? 'text-black' : 'text-white'} mb-6 uppercase tracking-wide`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
                 Contact Us
               </h3>
-              <div className="space-y-3 text-white/90 text-lg">
+              <div className={`space-y-3 ${theme === 'dark' ? 'text-black/90' : 'text-white/90'} text-lg`}>
                 <motion.a 
                   href="mailto:hello@siteandsight.com"
-                  className="block hover:text-white transition-colors duration-300"
+                  className={`block ${theme === 'dark' ? 'hover:text-black' : 'hover:text-white'} transition-colors duration-300`}
                   whileHover={{ y: -2 }}
                 >
                   hello@siteandsight.com
                 </motion.a>
                 <motion.a 
                   href="tel:+353123456789"
-                  className="block hover:text-white transition-colors duration-300"
+                  className={`block ${theme === 'dark' ? 'hover:text-black' : 'hover:text-white'} transition-colors duration-300`}
                   whileHover={{ y: -2 }}
                 >
                   +353 (0)1 234 5678
@@ -99,10 +100,10 @@ export default function Footer() {
 
             {/* Visit Us */}
             <motion.div variants={footerItems} className="text-center">
-              <h3 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide" style={{ fontFamily: 'var(--font-league-spartan)' }}>
+              <h3 className={`text-2xl font-bold ${theme === 'dark' ? 'text-black' : 'text-white'} mb-6 uppercase tracking-wide`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
                 Visit Us
               </h3>
-              <div className="text-white/90 text-lg">
+              <div className={`${theme === 'dark' ? 'text-black/90' : 'text-white/90'} text-lg`}>
                 <p>Dublin, Ireland</p>
                 <p className="mt-2 text-base">Available worldwide</p>
               </div>
@@ -110,7 +111,7 @@ export default function Footer() {
 
             {/* Follow Us */}
             <motion.div variants={footerItems} className="text-center">
-              <h3 className="text-2xl font-bold text-white mb-6 uppercase tracking-wide" style={{ fontFamily: 'var(--font-league-spartan)' }}>
+              <h3 className={`text-2xl font-bold ${theme === 'dark' ? 'text-black' : 'text-white'} mb-6 uppercase tracking-wide`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
                 Follow Us
               </h3>
               <div className="flex justify-center space-x-6">
@@ -148,7 +149,7 @@ export default function Footer() {
                     href={social.href} 
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-[#ff5500] transition-all duration-300"
+                    className={`w-12 h-12 ${theme === 'dark' ? 'bg-black/20' : 'bg-white/20'} rounded-full flex items-center justify-center ${theme === 'dark' ? 'text-black' : 'text-white'} ${theme === 'dark' ? 'hover:bg-black hover:text-white' : 'hover:bg-white hover:text-[#ff5500]'} transition-all duration-300`}
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -166,7 +167,7 @@ export default function Footer() {
           >
             <button 
               onClick={() => setIsModalOpen(true)}
-              className="group relative inline-flex items-center justify-center px-10 py-5 bg-white text-[#ff5500] rounded-2xl hover:bg-gray-100 transition-all duration-300 text-xl font-semibold shadow-2xl transform hover:scale-105"
+              className={`group relative inline-flex items-center justify-center px-10 py-5 ${theme === 'dark' ? 'bg-black text-white hover:bg-gray-800' : 'bg-white text-[#ff5500] hover:bg-gray-100'} rounded-2xl transition-all duration-300 text-xl font-semibold shadow-2xl transform hover:scale-105`}
               style={{ fontFamily: 'var(--font-league-spartan)' }}
             >
               <span className="relative z-10">Start Your Project</span>
@@ -177,7 +178,7 @@ export default function Footer() {
             
             <Link 
               href="/pricing" 
-              className="group relative inline-flex items-center justify-center px-10 py-5 border-2 border-white text-white rounded-2xl hover:bg-white hover:text-[#ff5500] transition-all duration-300 text-xl font-semibold transform hover:scale-105"
+              className={`group relative inline-flex items-center justify-center px-10 py-5 border-2 ${theme === 'dark' ? 'border-black text-black hover:bg-black hover:text-white' : 'border-white text-white hover:bg-white hover:text-[#ff5500]'} rounded-2xl transition-all duration-300 text-xl font-semibold transform hover:scale-105`}
               style={{ fontFamily: 'var(--font-league-spartan)' }}
             >
               <span className="relative z-10">View Pricing</span>
@@ -190,18 +191,18 @@ export default function Footer() {
           {/* Features List */}
           <motion.div 
             variants={footerItems}
-            className="flex flex-wrap justify-center gap-8 text-white/90 text-lg mb-16"
+            className={`flex flex-wrap justify-center gap-8 ${theme === 'dark' ? 'text-black/90' : 'text-white/90'} text-lg mb-16`}
           >
             <div className="flex items-center">
-              <span className="text-green-400 mr-2">✓</span>
+              <ChatBubbleLeftRightIcon className={`w-6 h-6 ${theme === 'dark' ? 'text-black' : 'text-white'} mr-3`} />
               <span>Free consultation</span>
             </div>
             <div className="flex items-center">
-              <span className="text-green-400 mr-2">✓</span>
+              <SwatchIcon className={`w-6 h-6 ${theme === 'dark' ? 'text-black' : 'text-white'} mr-3`} />
               <span>Custom solutions</span>
             </div>
             <div className="flex items-center">
-              <span className="text-green-400 mr-2">✓</span>
+              <TrophyIcon className={`w-6 h-6 ${theme === 'dark' ? 'text-black' : 'text-white'} mr-3`} />
               <span>Proven results</span>
             </div>
           </motion.div>

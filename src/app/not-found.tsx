@@ -13,10 +13,20 @@ export default function NotFound() {
   const [clickCount, setClickCount] = useState(0);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Ensure we're on the client side to prevent hydration mismatches
   useEffect(() => {
     setIsClient(true);
+    
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
 
   // Fun messages that change based on click count
@@ -167,7 +177,7 @@ export default function NotFound() {
       
       {/* Floating particles for visual interest */}
       <FloatingParticles 
-        particleCount={30}
+        particleCount={isMobile ? 15 : 30}
         particleColor="#ff5500"
         backgroundColor="transparent"
         particleSize={8}

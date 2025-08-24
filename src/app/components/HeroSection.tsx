@@ -1,7 +1,7 @@
 'use client';
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import DotPattern from "./DotPattern";
 import FloatingParticles from "./FloatingParticles";
@@ -12,6 +12,18 @@ export default function HeroSection() {
   const heroRef = useRef(null);
   const { theme } = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
   
   // Shared animation values
   const entranceTransition = {
@@ -32,7 +44,7 @@ export default function HeroSection() {
 
       {/* Floating particles */}
       <FloatingParticles 
-        particleCount={40}
+        particleCount={isMobile ? 20 : 40}
         particleColor="#ff5500"
         backgroundColor="transparent"
         particleSize={10}

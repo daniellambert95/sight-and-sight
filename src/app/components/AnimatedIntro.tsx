@@ -132,7 +132,10 @@ const AnimatedIntro: React.FC<AnimatedIntroProps> = ({ onComplete }) => {
   const dotColor = theme === 'dark' ? '#666' : '#ccc';
 
   return (
-    <div className={`fixed inset-0 z-50 ${bgClass} overflow-hidden transition-all duration-700 ${isExiting ? 'opacity-0' : 'opacity-100'}`}>
+    <div 
+      className={`fixed inset-0 z-50 ${bgClass} overflow-hidden transition-all duration-700 ${isExiting ? 'opacity-0' : 'opacity-100'} cursor-pointer`}
+      onClick={handleSkip}
+    >
       {/* Minimal background effect */}
       <div className="absolute inset-0">
         <div className={`absolute inset-0 ${theme === 'dark' ? 'bg-gradient-to-b from-black via-gray-950 to-black' : 'bg-gradient-to-b from-white via-gray-50 to-white'}`} />

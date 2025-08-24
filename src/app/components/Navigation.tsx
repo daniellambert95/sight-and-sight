@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
+import ContactModal from './ContactModal';
 import { useTheme } from '../utils/ThemeProvider';
 
 interface NavigationProps {
@@ -13,12 +14,22 @@ interface NavigationProps {
 
 export default function Navigation({ currentPage }: NavigationProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [contactModalOpen, setContactModalOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const { theme } = useTheme();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const openContactModal = () => {
+    setContactModalOpen(true);
+    setMobileMenuOpen(false); // Close mobile menu if open
+  };
+
+  const closeContactModal = () => {
+    setContactModalOpen(false);
   };
 
   // Handle scroll behavior
@@ -164,13 +175,13 @@ export default function Navigation({ currentPage }: NavigationProps) {
               animate="visible"
               variants={ctaVariants}
             >
-              <Link
-                href="/contact"
+              <button
+                onClick={openContactModal}
                 className="px-7 py-3 bg-[#ff5500] text-white rounded-md hover:bg-[#e64d00] transition-colors text-lg font-semibold"
                 style={{ fontFamily: 'var(--font-league-spartan)' }}
               >
-                Let's talk
-              </Link>
+                Let&apos;s talk
+              </button>
             </motion.div>
           </div>
         </div>
@@ -294,18 +305,23 @@ export default function Navigation({ currentPage }: NavigationProps) {
               variants={mobileNavItemVariants}
               className="pt-8"
             >
-              <Link
-                href="/contact"
+              <button
+                onClick={openContactModal}
                 className="px-12 py-4 bg-[#ff5500] text-white rounded-lg hover:bg-[#e64d00] transition-all duration-300 text-xl font-bold shadow-lg hover:shadow-xl transform hover:scale-105"
-                onClick={() => setMobileMenuOpen(false)}
                 style={{ fontFamily: 'var(--font-league-spartan)' }}
               >
-                Let's talk
-              </Link>
+                Let&apos;s talk
+              </button>
             </motion.div>
           </nav>
         </div>
       </motion.div>
+
+      {/* Contact Modal */}
+      <ContactModal 
+        isOpen={contactModalOpen} 
+        onClose={closeContactModal} 
+      />
     </>
   );
 } 
