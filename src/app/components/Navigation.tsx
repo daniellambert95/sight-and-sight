@@ -137,6 +137,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
               { name: 'SERVICES', path: '/services', current: currentPage === 'services' },
               { name: 'PRICING', path: '/pricing', current: currentPage === 'pricing' },
               { name: 'WORK', path: '/work', current: currentPage === 'work' },
+              { name: 'BLOG', path: '/blog', current: currentPage === 'blog' },
               { name: 'FAQ', path: '/faq', current: currentPage === 'faq' },
               { name: 'ABOUT', path: '/about', current: currentPage === 'about' }
             ].map((item, index) => (
@@ -273,6 +274,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
               { name: 'SERVICES', path: '/services', current: currentPage === 'services' },
               { name: 'PRICING', path: '/pricing', current: currentPage === 'pricing' },
               { name: 'WORK', path: '/work', current: currentPage === 'work' },
+              { name: 'BLOG', path: '/blog', current: currentPage === 'blog' },
               { name: 'FAQ', path: '/faq', current: currentPage === 'faq' },
               { name: 'ABOUT', path: '/about', current: currentPage === 'about' }
             ].map((item, index) => (

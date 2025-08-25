@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@portabletext/react": "^4.0.1",
+    "@sanity/client": "^7.9.0",
+    "@sanity/image-url": "^1.1.0",
     "@supabase/supabase-js": "^2.49.8",
     "@types/animejs": "^3.1.13",
     "animejs": "^4.0.2",
@@ -19,6 +22,7 @@
     "lucide-react": "^0.511.0",
     "motion": "^12.23.12",
     "next": "15.3.0",
+    "next-sanity": "^10.0.14",
     "react": "^19.0.0",
     "react-calendly": "^4.4.0",
     "react-dom": "^19.0.0",
