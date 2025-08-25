@@ -98,6 +98,12 @@ export default function TestimonialsSection() {
       content: "Outstanding work! The website they created exceeded all our expectations. The design is modern, fast, and email signup rates are much better than expected.",
       rating: 5
     },
+    {
+      name: "Thorsten",
+      position: "Owner, Restaurant Osterberger",
+      content: "You have conveyed this in a totally great and understandable way, I am completely inspired and full of drive to implement your improvements. Best wishes also to Killian.",
+      rating: 5
+    },
     // {
     //   name: "Michael Rodriguez",
     //   position: "CEO, GreenTech Solutions", 

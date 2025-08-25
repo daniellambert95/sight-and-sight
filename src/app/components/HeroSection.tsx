@@ -82,7 +82,7 @@ export default function HeroSection() {
                 fontFamily: 'var(--font-league-spartan)'
               }}
             >
-              With SEO that delivers.
+              With SEO & automations <br /> that deliver.
             </span>
           </motion.h1>
           
