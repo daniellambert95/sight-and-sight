@@ -153,7 +153,7 @@ export default function Services() {
       <Navigation currentPage="services" />
       
       {/* Hero Section - Clean & Minimal */}
-      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-20 md:pt-24 transition-colors duration-300 ${
+      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-32 transition-colors duration-300 ${
         theme === 'dark' 
           ? 'bg-gradient-to-br from-black via-gray-950 to-black' 
           : 'bg-gradient-to-br from-white to-gray-50'
