@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useInView } from 'framer-motion';
+import { useInView, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../utils/ThemeProvider';
@@ -11,9 +11,33 @@ import { ChatBubbleLeftRightIcon, SwatchIcon, TrophyIcon } from '@heroicons/reac
 
 export default function Footer() {
   const footerRef = useRef(null);
+  const headlineRef = useRef(null);
   const isInView = useInView(footerRef, { once: true, margin: "-10% 0px" });
   const { theme } = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  // Scroll-based animation for headline
+  const { scrollYProgress } = useScroll({
+    target: headlineRef,
+    offset: ["start end", "end start"]
+  });
+  
+  // Transform scroll progress into opacity and y values for each word (finishing by 60%)
+  const word1Opacity = useTransform(scrollYProgress, [0.1, 0.25], [0, 1]);
+  const word1Y = useTransform(scrollYProgress, [0.1, 0.25], [50, 0]);
+  
+  const word2Opacity = useTransform(scrollYProgress, [0.15, 0.3], [0, 1]);
+  const word2Y = useTransform(scrollYProgress, [0.15, 0.3], [50, 0]);
+  
+  const word3Opacity = useTransform(scrollYProgress, [0.2, 0.35], [0, 1]);
+  const word3Y = useTransform(scrollYProgress, [0.2, 0.35], [50, 0]);
+  
+  const uniqueOpacity = useTransform(scrollYProgress, [0.25, 0.4], [0, 1]);
+  const uniqueY = useTransform(scrollYProgress, [0.25, 0.4], [50, 0]);
+  const uniqueScale = useTransform(scrollYProgress, [0.25, 0.4], [0.8, 1]);
+  
+  const togetherOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1]);
+  const togetherY = useTransform(scrollYProgress, [0.4, 0.6], [50, 0]);
   
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -37,16 +61,6 @@ export default function Footer() {
     }
   };
 
-  const titleVariants = {
-    hidden: { opacity: 0, y: 40 },
-    show: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.8
-      }
-    }
-  };
   
   return (
     <motion.footer 
@@ -59,16 +73,48 @@ export default function Footer() {
       {/* Hero Section with Bold Message */}
       <section className="relative min-h-screen bg-[#ff5500] flex items-center justify-center px-8 md:px-16 pt-20">
         <div className="max-w-7xl mx-auto text-center">
-          {/* Main Headline */}
-          <motion.div
-            variants={titleVariants}
-            className="mb-16"
-          >
-            <h2 className={`text-6xl md:text-8xl lg:text-9xl ${theme === 'dark' ? 'text-black' : 'text-white'} font-black leading-none mb-4`} >
-              <span className="block ">Let's create something</span>
-              <span className="block"><em className="italic">unique</em> together</span>
+          {/* Main Headline with Scroll-Synced Word Reveal */}
+          <div ref={headlineRef} className="mb-16">
+            <h2 className={`text-6xl md:text-8xl lg:text-9xl ${theme === 'dark' ? 'text-black' : 'text-white'} font-black leading-none mb-4`}>
+              <span className="block mb-4">
+                <motion.span
+                  className="inline-block mr-4"
+                  style={{ opacity: word1Opacity, y: word1Y }}
+                >
+                  Let's
+                </motion.span>
+                <motion.span
+                  className="inline-block mr-4"
+                  style={{ opacity: word2Opacity, y: word2Y }}
+                >
+                  create
+                </motion.span>
+                <motion.span
+                  className="inline-block mr-4"
+                  style={{ opacity: word3Opacity, y: word3Y }}
+                >
+                  something
+                </motion.span>
+              </span>
+              <span className="block">
+                <motion.em 
+                  className="italic mr-6"
+                  style={{ 
+                    opacity: uniqueOpacity, 
+                    y: uniqueY, 
+                    scale: uniqueScale 
+                  }}
+                >
+                  unique
+                </motion.em>
+                <motion.span
+                  style={{ opacity: togetherOpacity, y: togetherY }}
+                >
+                  together
+                </motion.span>
+              </span>
             </h2>
-          </motion.div>
+          </div>
 
           {/* Contact Info Grid */}
           <motion.div 

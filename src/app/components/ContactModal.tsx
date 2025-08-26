@@ -300,7 +300,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                         ? 'bg-gray-800 border-gray-700 focus:border-[#ff5500] text-white'
                         : 'bg-gray-50 border-gray-300 focus:border-[#ff5500] text-gray-900'
                     } focus:outline-none focus:ring-2 focus:ring-[#ff5500]/20`}
-                    placeholder="Tell us what's on your mind—big ideas, small details, or anything in between..."
+                    placeholder="Tell us what's on your mind... big ideas, small details, or anything in between."
                   />
                 </div>
 

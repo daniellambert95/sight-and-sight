@@ -1,49 +1,31 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import Link from 'next/link';
 import { useTheme } from '../utils/ThemeProvider';
+import { 
+  CodeBracketIcon, 
+  ChartBarIcon, 
+  CpuChipIcon,
+  ComputerDesktopIcon,
+  ShoppingCartIcon,
+  RocketLaunchIcon,
+  CogIcon,
+  MagnifyingGlassIcon,
+  CursorArrowRaysIcon,
+  EnvelopeIcon,
+  DocumentTextIcon,
+  SpeakerWaveIcon,
+  ChatBubbleLeftRightIcon,
+  BoltIcon,
+  ClipboardDocumentListIcon
+} from '@heroicons/react/24/outline';
 
 export default function Services() {
   const { theme } = useTheme();
   const [selectedService, setSelectedService] = useState<any>(null);
-
-  // Animation variants
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6 }
-    }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const modalVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
-      scale: 1,
-      transition: { duration: 0.3 }
-    },
-    exit: { 
-      opacity: 0, 
-      scale: 0.8,
-      transition: { duration: 0.3 }
-    }
-  };
 
   const openModal = (service: any) => {
     setSelectedService(service);
@@ -53,71 +35,38 @@ export default function Services() {
     setSelectedService(null);
   };
 
-  // Organized services by category with updated content
+  // Organized services by category with updated content (Creative Design & Video removed)
   const serviceCategories = [
     {
       id: "web-development",
       category: "Web Development",
       color: "orange",
-      icon: "🌐",
+      icon: <CodeBracketIcon className="w-8 h-8 text-white" />,
       description: "Custom websites built with cutting-edge technology and optimized for performance",
       services: [
         {
           title: "Custom Website Development",
           description: "Modern, responsive websites built with React, Next.js and the latest web technologies for optimal performance and user experience.",
-          icon: "💻",
+          icon: <ComputerDesktopIcon className="w-6 h-6 text-white" />,
           features: ["React & Next.js", "Responsive Design", "Performance Optimization", "SEO Foundation"]
         },
         {
           title: "E-commerce Solutions",
           description: "Complete online store development with secure payment processing, inventory management, and customer-friendly interfaces.",
-          icon: "🛒",
+          icon: <ShoppingCartIcon className="w-6 h-6 text-white" />,
           features: ["Payment Integration", "Inventory Management", "Mobile Commerce", "Analytics Dashboard"]
         },
         {
           title: "Website Deployment & Hosting",
           description: "Seamless deployment with reliable hosting solutions, 99.9% uptime guarantee, SSL certificates, and ongoing maintenance.",
-          icon: "🚀",
+          icon: <RocketLaunchIcon className="w-6 h-6 text-white" />,
           features: ["99.9% Uptime", "SSL Certificates", "Regular Backups", "Performance Monitoring"]
         },
         {
           title: "Web Applications",
           description: "Custom web applications tailored to your business needs with user authentication, database integration, and scalable architecture.",
-          icon: "⚙️",
+          icon: <CogIcon className="w-6 h-6 text-white" />,
           features: ["User Authentication", "Database Integration", "API Development", "Scalable Architecture"]
-        }
-      ]
-    },
-    {
-      id: "creative-services",
-      category: "Creative Design & Video",
-      color: "orange",
-      icon: "🎨",
-      description: "Eye-catching visuals, brand identity, and professional video content that makes your business unforgettable",
-      services: [
-        {
-          title: "Brand Identity Design",
-          description: "Complete brand identity packages including logo design, color schemes, typography, and brand guidelines that reflect your unique voice.",
-          icon: "🎯",
-          features: ["Logo Design", "Brand Guidelines", "Color Palette", "Typography System"]
-        },
-        {
-          title: "Graphic Design",
-          description: "Eye-catching print and digital graphics including marketing materials, social media content, and promotional designs.",
-          icon: "📐",
-          features: ["Marketing Materials", "Social Media Graphics", "Print Design", "Digital Assets"]
-        },
-        {
-          title: "Video Editing & Production",
-          description: "Professional video editing services that transform raw footage into compelling visual stories with perfect pacing and seamless transitions.",
-          icon: "🎬",
-          features: ["Professional Editing", "Color Correction", "Audio Enhancement", "Multi-format Delivery"]
-        },
-        {
-          title: "Motion Graphics & Animation",
-          description: "Dynamic motion graphics and animations that bring your brand to life and enhance your storytelling across all platforms.",
-          icon: "✨",
-          features: ["2D/3D Animation", "Motion Graphics", "Visual Effects", "Brand Animation"]
         }
       ]
     },
@@ -125,37 +74,37 @@ export default function Services() {
       id: "digital-marketing",
       category: "Digital Marketing & SEO",
       color: "orange",
-      icon: "📈",
+      icon: <ChartBarIcon className="w-8 h-8 text-white" />,
       description: "Data-driven strategies to boost your online visibility and drive qualified traffic",
       services: [
         {
           title: "Search Engine Optimization (SEO)",
           description: "Comprehensive SEO strategies to improve your search rankings, increase organic traffic, and enhance online visibility.",
-          icon: "📊",
+          icon: <MagnifyingGlassIcon className="w-6 h-6 text-white" />,
           features: ["Keyword Research", "On-page Optimization", "Technical SEO", "Performance Tracking"]
         },
         {
           title: "Search Engine Marketing (SEM)",
           description: "Strategic paid advertising campaigns including Google Ads management, conversion tracking, and ROI optimization.",
-          icon: "🎯",
+          icon: <CursorArrowRaysIcon className="w-6 h-6 text-white" />,
           features: ["Google Ads", "Conversion Tracking", "ROI Optimization", "Campaign Management"]
         },
         {
           title: "Email Marketing",
           description: "Targeted email campaigns that convert leads into customers and foster brand loyalty through strategic automation and personalization.",
-          icon: "📧",
+          icon: <EnvelopeIcon className="w-6 h-6 text-white" />,
           features: ["Campaign Design", "Automation", "Segmentation", "Performance Analytics"]
         },
         {
           title: "Content Marketing",
           description: "Strategic content creation including blog writing, social media content, and copywriting that engages your audience and drives conversions.",
-          icon: "📝",
+          icon: <DocumentTextIcon className="w-6 h-6 text-white" />,
           features: ["Blog Writing", "Social Media Content", "Copywriting", "Content Strategy"]
         },
         {
           title: "PR & Communications",
           description: "Strategic public relations to enhance your brand image, manage reputation, and reach your target audience effectively.",
-          icon: "📣",
+          icon: <SpeakerWaveIcon className="w-6 h-6 text-white" />,
           features: ["Press Releases", "Media Relations", "Brand Messaging", "Crisis Communication"]
         }
       ]
@@ -164,46 +113,38 @@ export default function Services() {
       id: "automation",
       category: "Automation & AI Solutions",
       color: "orange",
-      icon: "🤖",
+      icon: <CpuChipIcon className="w-8 h-8 text-white" />,
       description: "Smart solutions that streamline your business processes and enhance customer experience",
       services: [
         {
           title: "AI Chatbots",
           description: "Intelligent chatbots for customer support, lead generation, and appointment booking that provide 24/7 assistance to your customers.",
-          icon: "🤖",
+          icon: <ChatBubbleLeftRightIcon className="w-6 h-6 text-white" />,
           features: ["24/7 Customer Support", "Lead Generation", "Appointment Booking", "Multi-language Support"]
         },
         {
           title: "Workflow Automation",
           description: "Custom automation solutions that streamline repetitive tasks, improve efficiency, and reduce manual work across your business operations.",
-          icon: "⚡",
+          icon: <BoltIcon className="w-6 h-6 text-white" />,
           features: ["Task Automation", "Process Optimization", "Integration Setup", "Performance Monitoring"]
         },
         {
           title: "AI Integration",
           description: "Integration of AI tools and technologies into your existing systems to enhance productivity and decision-making capabilities.",
-          icon: "🧠",
+          icon: <CpuChipIcon className="w-6 h-6 text-white" />,
           features: ["AI Tool Integration", "Data Analysis", "Predictive Analytics", "Custom AI Solutions"]
         },
         {
           title: "Business Process Optimization",
           description: "Analysis and optimization of your business processes using automation tools to increase efficiency and reduce operational costs.",
-          icon: "📋",
+          icon: <ClipboardDocumentListIcon className="w-6 h-6 text-white" />,
           features: ["Process Analysis", "Efficiency Optimization", "Cost Reduction", "Training & Support"]
         }
       ]
     }
   ];
 
-  const getColorClasses = (color: string) => {
-    return {
-      bg: 'bg-orange-500',
-      text: 'text-orange-500',
-      border: 'border-orange-500',
-      bgLight: 'bg-orange-500/20',
-      bgGradient: 'from-orange-500/10 to-transparent'
-    };
-  };
+
 
   return (
     <div className={`min-h-screen flex flex-col ${
@@ -211,549 +152,392 @@ export default function Services() {
     }`}>
       <Navigation currentPage="services" />
       
-      {/* Hero Section - Modern Creative Design */}
-      <section className={`relative min-h-[80vh] flex items-center overflow-hidden transition-colors duration-300 pt-20 ${
+      {/* Hero Section - Clean & Minimal */}
+      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-20 md:pt-24 transition-colors duration-300 ${
         theme === 'dark' 
-          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
-          : 'bg-gradient-to-br from-white via-orange-50 to-orange-100'
+          ? 'bg-gradient-to-br from-black via-gray-950 to-black' 
+          : 'bg-gradient-to-br from-white to-gray-50'
       }`}>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 w-full py-16">
-          <div className="text-center">
-            {/* Badge */}
-            <motion.div 
-              className="inline-flex items-center gap-3 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                theme === 'dark'
-                  ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                  : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
-              }`}>
-                🛠️ Our Services
-              </span>
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            </motion.div>
-
-            {/* Main Heading */}
-            <motion.h1 
-              className={`text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-none ${
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            {/* Left Column - Main Content */}
+            <div className="space-y-8">
+              <h1 className={`text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-none tracking-tight ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <span className="block">Digital</span>
-              <span className="block text-[#ff5500]">solutions</span>
-              <span className={`block text-4xl md:text-5xl lg:text-6xl font-bold mt-4 ${
-                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
               }`}>
-                that deliver results
-              </span>
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p 
-              className={`text-xl md:text-2xl lg:text-3xl font-light mb-12 max-w-4xl mx-auto ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-              }`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              We offer a <span className="font-semibold text-[#ff5500]">comprehensive range</span> of digital services to help your business thrive in the online world.
-            </motion.p>
-
-            {/* Service Tags */}
-            <motion.div 
-              className="flex flex-wrap justify-center gap-3 mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              {['Web Development', 'Creative Design', 'Video Production', 'Digital Marketing', 'SEO & PR', 'Automation & AI'].map((service, index) => (
-                <span 
-                  key={service}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium backdrop-blur-md shadow-lg border ${
-                    theme === 'dark' 
-                      ? 'bg-black/40 border-gray-700/50 text-gray-300' 
-                      : 'bg-white/70 border-white/50 text-gray-700'
-                  }`}
-                >
-                  {service}
+                <span className="block">Digital</span>
+                <span className="block text-[#ff5500]">Solutions</span>
+                <span className={`block text-3xl md:text-4xl lg:text-5xl font-light mt-6 ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                  that drive results
                 </span>
-              ))}
-            </motion.div>
-
-            {/* CTA Button */}
-            <motion.div 
-              className="flex justify-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <Link 
-                href="/contact"
-                className="group relative inline-flex items-center justify-center px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105"
-              >
-                <span className="relative z-10">Get Started Today</span>
-                <svg className="w-6 h-6 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-                {/* Button glow effect */}
-                <div className="absolute inset-0 bg-[#ff5500] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Services Categories - Modern Creative Style */}
-      <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-900' : 'bg-gradient-to-br from-white to-gray-50'
-      }`}>
-
-        <div className="relative z-10 max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                theme === 'dark'
-                  ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                  : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
+              </h1>
+              
+              <p className={`text-xl md:text-2xl font-light max-w-2xl ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
               }`}>
-                💼 What We Offer
-              </span>
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            </div>
-
-            <motion.h2 
-              className={`text-4xl md:text-5xl font-black mb-6 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              Our <span className="text-[#ff5500]">comprehensive</span> services
-            </motion.h2>
-            <p className={`text-xl max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-            }`}>
-              From web development to creative design, video production, digital marketing, and AI automation
-            </p>
-          </div>
-
-          {/* Service Categories */}
-          <motion.div 
-            className="space-y-20"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {serviceCategories.map((category, categoryIndex) => {
-              const colorClasses = getColorClasses(category.color);
-              return (
-                <motion.div 
-                  key={categoryIndex}
-                  id={category.id}
-                  variants={fadeIn}
-                  className="space-y-8"
+                We craft comprehensive digital experiences through strategic web development, 
+                intelligent marketing, and cutting-edge automation solutions.
+              </p>
+              
+              <div className="pt-8">
+                <Link 
+                  href="/contact"
+                  className="group inline-flex items-center gap-4 px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
                 >
-                  {/* Category Header */}
-                  <div className="text-center mb-12">
-                    <div className={`w-20 h-20 rounded-3xl ${colorClasses.bg} flex items-center justify-center text-white text-3xl shadow-lg mx-auto mb-6`}>
-                      {category.icon}
-                    </div>
-                    <h3 className={`text-3xl md:text-4xl font-black mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                      {category.category}
-                    </h3>
-                    <p className={`text-lg max-w-2xl mx-auto mb-6 ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
-                      {category.description}
-                    </p>
-                    <div className={`inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-bold ${colorClasses.bgLight} ${colorClasses.text}`}>
-                      {category.services.length} SERVICES AVAILABLE
-                    </div>
-                  </div>
-
-                  {/* Services Grid - Smaller Cards */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {category.services.map((service, serviceIndex) => (
-                      <motion.div 
-                        key={serviceIndex}
-                        variants={fadeIn}
-                        className={`group relative p-6 rounded-2xl transition-all duration-500 hover:scale-105 cursor-pointer ${
-                          theme === 'dark' 
-                            ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50 shadow-xl shadow-gray-900/50' 
-                            : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50 shadow-xl shadow-gray-200/50'
-                        } backdrop-blur-sm`}
-                        onClick={() => openModal(service)}
-                      >
-                        {/* Card Glow Effect */}
-                        <div className={`absolute inset-0 bg-gradient-to-br ${colorClasses.bgGradient} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-                        
-                        <div className="relative z-10 text-center">
-                          {/* Service Icon */}
-                          <div className={`w-12 h-12 rounded-xl ${colorClasses.bg} flex items-center justify-center text-white text-xl shadow-lg mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                            {service.icon}
-                          </div>
-                          
-                          <h4 className={`text-lg font-black mb-3 ${
-                            theme === 'dark' ? 'text-white' : 'text-gray-900'
-                          }`}>{service.title}</h4>
-                          
-                          <p className={`text-sm leading-relaxed mb-4 ${
-                            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                          }`}>
-                            {service.description.substring(0, 80)}...
-                          </p>
-
-                          <div className={`inline-flex items-center gap-2 text-sm font-semibold ${colorClasses.text} hover:gap-3 transition-all duration-300`}>
-                            Learn More
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section>
-      
-      {/* Process Section - Modern Creative Style */}
-      <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' : 'bg-gradient-to-br from-gray-50 via-white to-orange-50'
-      }`}>
-
-        <div className="relative z-10 max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                theme === 'dark'
-                  ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                  : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
-              }`}>
-                ⚙️ Our Process
-              </span>
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
+                  <span>Start Your Project</span>
+                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+              </div>
             </div>
-
-            <motion.h2 
-              className={`text-4xl md:text-5xl font-black mb-6 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              How we <span className="text-[#ff5500]">deliver</span> excellence
-            </motion.h2>
-            <p className={`text-xl max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-            }`}>
-              Our proven four-step process ensures exceptional results every time
-            </p>
-          </div>
-
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {[
-              {
-                step: "01",
-                title: "Discovery",
-                description: "We learn about your business, goals, and requirements through detailed consultations.",
-                icon: "search"
-              },
-              {
-                step: "02",
-                title: "Strategy",
-                description: "We develop a tailored strategy to meet your specific needs and objectives.",
-                icon: "clipboard"
-              },
-              {
-                step: "03",
-                title: "Implementation",
-                description: "We bring your project to life with expert execution and attention to detail.",
-                icon: "zap"
-              },
-              {
-                step: "04",
-                title: "Support",
-                description: "We provide ongoing support to ensure continued success and optimization.",
-                icon: "settings"
-              }
-            ].map((item, index) => (
-              <motion.div 
-                key={index}
-                variants={fadeIn}
-                className={`group relative text-center ${
-                  theme === 'dark' 
-                    ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50 shadow-2xl shadow-gray-900/50' 
-                    : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50 shadow-2xl shadow-gray-200/50'
-                } p-8 rounded-3xl backdrop-blur-sm transition-all duration-500 hover:scale-105`}
-              >
-                {/* Card Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
-                <div className="relative z-10">
-                  {/* Step Icon */}
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl text-white mb-6 shadow-lg mx-auto bg-gradient-to-br from-orange-500 to-orange-600">
-                    {item.icon === "search" && (
-                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                      </svg>
-                    )}
-                    {item.icon === "clipboard" && (
-                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                      </svg>
-                    )}
-                    {item.icon === "zap" && (
-                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    )}
-                    {item.icon === "settings" && (
-                      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    )}
-                  </div>
-
-                  {/* Step Number */}
-                  {/* <div className="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-bold mb-4 bg-orange-500/20 text-orange-500">
-                    STEP {item.step}
-                  </div> */}
-
-                  <h3 className={`text-2xl font-black mb-4 ${
+            
+            {/* Right Column - Statistics */}
+            <div className="space-y-12 lg:space-y-16">
+              {[
+                { number: "3", label: "Core Service Areas", sublabel: "Web, Marketing, Automation" },
+                { number: "10+", label: "Projects Delivered", sublabel: "Across various industries" },
+                { number: "24/7", label: "Support Available", sublabel: "For all our clients" }
+              ].map((stat, index) => (
+                <div 
+                  key={index}
+                  className="border-l-2 border-[#ff5500] pl-8"
+                >
+                  <div className={`text-4xl md:text-5xl font-black mb-2 ${
                     theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>{item.title}</h3>
-                  
-                  <p className={`leading-relaxed ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                   }`}>
-                    {item.description}
-                  </p>
-                </div>
-
-                {/* Connection Arrow (except for last item) */}
-                {index < 3 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2 z-20">
-                    <svg className={`w-8 h-8 ${theme === 'dark' ? 'text-gray-600' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
+                    {stat.number}
                   </div>
-                )}
-              </motion.div>
-            ))}
-          </motion.div>
+                  <div className={`text-lg font-semibold mb-1 ${
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    {stat.label}
+                  </div>
+                  <div className={`text-sm ${
+                    theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
+                  }`}>
+                    {stat.sublabel}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
       
-      {/* Call to Action - Modern Creative Style */}
-      <section className={`relative py-24 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-black via-gray-900 to-gray-800' : 'bg-gradient-to-br from-white via-orange-50 to-white'
+      {/* Our Approach Section */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
       }`}>
-
-        <motion.div 
-          className="relative z-10 max-w-5xl mx-auto text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {/* Badge */}
-          <div className="inline-flex items-center gap-3 mb-8">
-            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-              theme === 'dark'
-                ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
-            }`}>
-              🚀 Get Started
-            </span>
-            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-5 gap-16 lg:gap-24">
+            {/* Left Column - Title and Description */}
+            <div className="lg:col-span-2 space-y-8">
+              <h2 className={`text-5xl md:text-6xl lg:text-7xl font-black leading-none ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
+                Our
+                <br />
+                <span className="text-[#ff5500]">Approach</span>
+              </h2>
+              
+              <p className={`text-lg md:text-xl font-light leading-relaxed ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+              }`}>
+                We believe in creating digital solutions that are not just visually powerful, 
+                but functionally effective. Our collaborative, research-driven approach ensures 
+                every project delivers exceptional results.
+              </p>
+            </div>
+            
+            {/* Right Column - Service Areas Grid */}
+            <div className="lg:col-span-3">
+              <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+                {[
+                  {
+                    title: "Discovery",
+                    description: "Understanding your brand, audience, and goals to create a strong foundation.",
+                    number: "01"
+                  },
+                  {
+                    title: "Strategy & Design",
+                    description: "Translating insights into striking visuals and cohesive brand identities.",
+                    number: "02"
+                  },
+                  {
+                    title: "Execution",
+                    description: "Bringing designs to life with seamless digital experiences and high-performance builds.",
+                    number: "03"
+                  },
+                  {
+                    title: "Iteration & Refinement",
+                    description: "Ensuring every project is fine-tuned for maximum impact and performance.",
+                    number: "04"
+                  }
+                ].map((item, index) => (
+                  <div 
+                    key={index}
+                    className="space-y-6 pb-8 border-b border-gray-200 dark:border-gray-800"
+                  >
+                    <div className="text-4xl md:text-5xl font-black" style={{ color: 'rgba(255, 85, 0, 0.7)' }}>
+                      {item.number}
+                    </div>
+                    
+                    <h3 className={`text-2xl md:text-3xl font-bold ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {item.title}
+                    </h3>
+                    
+                    <p className={`text-lg font-light leading-relaxed ${
+                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-
-          {/* Main Heading */}
-          <h2 className={`text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-none ${
+        </div>
+      </section>
+      
+      {/* Services Grid */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-black' : 'bg-white'
+      }`}>
+        <div className="max-w-7xl mx-auto space-y-24">
+          {serviceCategories.map((category, categoryIndex) => (
+            <div key={categoryIndex} className="space-y-16">
+              {/* Category Header */}
+              <div className="text-center space-y-6">
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] text-3xl shadow-2xl">
+                  {category.icon}
+                </div>
+                
+                <h3 className={`text-4xl md:text-5xl lg:text-6xl font-black ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
+                  {category.category}
+                </h3>
+                
+                <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                }`}>
+                  {category.description}
+                </p>
+              </div>
+              
+              {/* Services Grid */}
+              <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+                {category.services.map((service, serviceIndex) => (
+                  <div
+                    key={serviceIndex}
+                    className={`group relative cursor-pointer ${
+                      theme === 'dark' 
+                        ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50' 
+                        : 'bg-white/60 border border-gray-200/50'
+                    } backdrop-blur-sm rounded-3xl p-8 hover:scale-[1.02] transition-all duration-500 shadow-xl`}
+                    onClick={() => openModal(service)}
+                  >
+                    <div className="space-y-6">
+                      <div className="flex items-center justify-between">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center text-2xl shadow-lg">
+                          {service.icon}
+                        </div>
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <svg className="w-6 h-6 text-[#ff5500]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          </svg>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <h3 className={`text-2xl font-bold mb-4 group-hover:text-[#ff5500] transition-colors duration-300 ${
+                          theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          {service.title}
+                        </h3>
+                        <p className={`text-lg leading-relaxed ${
+                          theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                        }`}>
+                          {service.description}
+                        </p>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <h4 className={`text-sm font-semibold uppercase tracking-wide ${
+                          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                        }`}>Key Features</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {service.features.slice(0, 3).map((feature: string, idx: number) => (
+                            <span key={idx} className={`px-3 py-1 rounded-full text-sm ${
+                              theme === 'dark' 
+                                ? 'bg-gray-800 text-gray-300' 
+                                : 'bg-gray-100 text-gray-600'
+                            }`}>
+                              {feature}
+                            </span>
+                          ))}
+                          {service.features.length > 3 && (
+                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              theme === 'dark' 
+                                ? 'bg-[#ff5500]/20 text-[#ff5500]' 
+                                : 'bg-[#ff5500]/10 text-[#ff5500]'
+                            }`}>
+                              +{service.features.length - 3} more
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Hover gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+      
+      {/* Call to Action */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
+      }`}>
+        <div className="max-w-5xl mx-auto text-center space-y-12">
+          <h2 className={`text-5xl md:text-6xl lg:text-7xl font-black leading-tight ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
-            <span className="block">Ready to elevate</span>
-            <span className="block">your <span className="text-[#ff5500]">digital presence?</span></span>
+            Ready to elevate your
+            <br />
+            <span className="text-[#ff5500]">digital presence?</span>
           </h2>
 
-          <p className={`text-xl md:text-2xl lg:text-3xl font-light mb-12 max-w-4xl mx-auto ${
+          <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
             theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
           }`}>
-            Let's discuss how our <span className="font-semibold text-[#ff5500]">comprehensive services</span> can help you achieve your business goals.
+            Let's discuss how our comprehensive services can help you achieve your business goals.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
+          <div className="flex flex-col sm:flex-row justify-center gap-6 pt-8">
             <Link 
               href="/contact" 
-              className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-xl font-semibold shadow-2xl hover:shadow-3xl transform hover:scale-105"
+              className="group inline-flex items-center justify-center px-10 py-5 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-xl font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
             >
-              <span className="relative z-10">Get in Touch</span>
+              <span>Get in Touch</span>
               <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-              {/* Button glow effect */}
-              <div className="absolute inset-0 bg-[#ff5500] rounded-2xl blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-300"></div>
             </Link>
             
             <Link 
               href="/pricing" 
-              className={`group relative inline-flex items-center justify-center px-10 py-5 rounded-2xl text-xl font-semibold transition-all duration-300 border-2 backdrop-blur-sm ${
+              className={`group inline-flex items-center justify-center px-10 py-5 rounded-2xl text-xl font-semibold transition-all duration-300 border-2 ${
                 theme === 'dark' 
-                  ? 'bg-white/10 text-white border-white/30 hover:bg-white/20 hover:border-white/50' 
-                  : 'bg-black/5 text-gray-900 border-gray-900/30 hover:bg-black/10 hover:border-gray-900/50'
-              } shadow-xl hover:shadow-2xl transform hover:scale-105`}
+                  ? 'bg-transparent text-white border-gray-700 hover:bg-gray-800 hover:border-gray-600' 
+                  : 'bg-transparent text-gray-900 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+              } shadow-xl`}
             >
-              <span className="relative z-10">View Pricing</span>
+              <span>View Pricing</span>
               <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
               </svg>
             </Link>
           </div>
-
-          {/* Additional Info */}
-          <div className="mt-12 flex flex-wrap justify-center gap-8 text-sm">
-            <div className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Free consultation</span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Custom solutions</span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Expert team</span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Proven results</span>
-            </div>
-          </div>
-        </motion.div>
+        </div>
       </section>
       
       <Footer />
 
       {/* Service Detail Modal */}
-      <AnimatePresence>
-        {selectedService && (
-          <motion.div 
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeModal}
+      {selectedService && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={closeModal}
+        >
+          <div 
+            className={`relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-8 ${
+              theme === 'dark' 
+                ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
+                : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
+            } shadow-2xl`}
+            onClick={(e) => e.stopPropagation()}
           >
-            <motion.div 
-              className={`relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-8 ${
-                theme === 'dark' 
-                  ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
-                  : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
-              } shadow-2xl`}
-              variants={modalVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              onClick={(e) => e.stopPropagation()}
+            {/* Close button */}
+            <button 
+              onClick={closeModal}
+              className={`absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center ${
+                theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
+              } transition-colors`}
             >
-              {/* Close button */}
-              <button 
-                onClick={closeModal}
-                className={`absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center ${
-                  theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
-                } transition-colors`}
-              >
-                ×
-              </button>
+              ×
+            </button>
 
-              {/* Service icon and title */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg bg-gradient-to-br from-orange-500 to-orange-600">
-                  {selectedService.icon}
-                </div>
-                <div>
-                  <h3 className={`text-2xl font-black ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>{selectedService.title}</h3>
-                  <p className="text-lg font-semibold text-orange-500">Professional Service</p>
-                </div>
+            {/* Service icon and title */}
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg bg-gradient-to-br from-orange-500 to-orange-600">
+                {selectedService.icon}
               </div>
-
-              {/* Detailed description */}
-              <p className={`mb-6 text-lg leading-relaxed ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-              }`}>
-                {selectedService.description}
-              </p>
-
-              {/* Features */}
-              <div className="mb-8">
-                <h4 className={`text-xl font-bold mb-4 ${
+              <div>
+                <h3 className={`text-2xl font-black ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>What's included:</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {selectedService.features.map((item: string, index: number) => (
-                    <div key={index} className="flex items-center">
-                      <div className="w-5 h-5 rounded-full flex items-center justify-center mr-3 bg-orange-500/20">
-                        <span className="text-xs text-orange-500">✓</span>
-                      </div>
-                      <span className={`text-sm ${
-                        theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                      }`}>
-                        {item}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+                }`}>{selectedService.title}</h3>
+                <p className="text-lg font-semibold text-orange-500">Professional Service</p>
               </div>
+            </div>
 
-              {/* Primary CTA + subtle secondary link */}
-              <div className="text-center">
-                <Link 
-                  href="/contact"
-                  className="w-full bg-[#ff5500] hover:bg-[#ff6600] text-white font-semibold py-3 px-6 rounded-xl transition-colors text-center block mb-3"
-                  onClick={closeModal}
-                >
-                  Get a Quote
-                </Link>
-                <Link 
-                  href="/pricing"
-                  className="text-sm text-orange-500 hover:text-orange-600 underline"
-                  onClick={closeModal}
-                >
-                  View general pricing
-                </Link>
+            {/* Detailed description */}
+            <p className={`mb-6 text-lg leading-relaxed ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}>
+              {selectedService.description}
+            </p>
+
+            {/* Features */}
+            <div className="mb-8">
+              <h4 className={`text-xl font-bold mb-4 ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>What's included:</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {selectedService.features.map((item: string, index: number) => (
+                  <div key={index} className="flex items-center">
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center mr-3 bg-orange-500/20">
+                      <span className="text-xs text-orange-500">✓</span>
+                    </div>
+                    <span className={`text-sm ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                    }`}>
+                      {item}
+                    </span>
+                  </div>
+                ))}
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+
+            {/* Primary CTA + subtle secondary link */}
+            <div className="text-center">
+              <Link 
+                href="/contact"
+                className="w-full bg-[#ff5500] hover:bg-[#ff6600] text-white font-semibold py-3 px-6 rounded-xl transition-colors text-center block mb-3"
+                onClick={closeModal}
+              >
+                Get a Quote
+              </Link>
+              <Link 
+                href="/pricing"
+                className="text-sm text-orange-500 hover:text-orange-600 underline"
+                onClick={closeModal}
+              >
+                View general pricing
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 
