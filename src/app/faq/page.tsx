@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PlusIcon, MinusIcon, QuestionMarkCircleIcon, ChatBubbleLeftRightIcon, ClockIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
+import { PlusIcon, MinusIcon, QuestionMarkCircleIcon, ChatBubbleLeftRightIcon, ComputerDesktopIcon, MagnifyingGlassIcon, PaintBrushIcon, CpuChipIcon } from '@heroicons/react/24/outline'
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
 import { useTheme } from '../utils/ThemeProvider'
@@ -10,165 +10,173 @@ import { useTheme } from '../utils/ThemeProvider'
 type FAQItem = {
   question: string
   answer: string
-  category: 'general' | 'process' | 'pricing' | 'technical'
+  category: 'general' | 'web-development' | 'digital-marketing' | 'creative-branding' | 'automation-ai'
 }
 
 const faqs: FAQItem[] = [
   // General Questions
   {
-    question: "What services does Site & Sight offer?",
-    answer: "We offer a comprehensive range of digital services including web design and development, brand identity design, e-commerce solutions, SEO optimization, digital marketing, and ongoing website maintenance. Our team specializes in creating modern, responsive websites that not only look stunning but also drive business results.",
+    question: "What sets Site & Sight apart from other digital marketing agencies and website developers?",
+    answer: "Site & Sight brings a wealth of experience, care and results to all our clients' projects. Your success is our success. We will work continuously to create tangible results that allow your business to grow and achieve your desired outcomes. Our team is a combination of skilled professionals in the design, digital marketing and online asset field. We listen, understand and create from your goals, tailoring the final product to your specifications.",
     category: "general"
   },
   {
-    question: "What makes Site & Sight different from other agencies?",
-    answer: "Our unique approach combines strategic thinking with creative excellence. We focus on the intersection of beautiful design and functional performance, ensuring every project delivers measurable results. Our team brings together expertise in design, development, marketing, and business strategy to create holistic digital solutions.",
+    question: "What type of support can your agency provide my business?",
+    answer: "As a client, you can expect a professional level of service and care for the delivery of your goals. We will meet, discuss, and guide you through the process, mapping out a clear timeline. During this process, we will be on call if you wish to send us further information or have any queries. We will also provide you with regular updates on the project's status. We are always happy to share advice and best industry practices for you to use after the brief has come to an end.",
     category: "general"
   },
   {
-    question: "Do you work with businesses of all sizes?",
-    answer: "Absolutely! We work with everyone from startups and small local businesses to established enterprises. Our scalable approach means we can tailor our services and solutions to fit your specific needs and budget, whether you're just starting out or looking to expand your digital presence.",
+    question: "Which industries do you specialise in?",
+    answer: "We are passionate about crafting marketing and digital messages for hospitality, service-based industries, e-commerce, creative industries, technology, and healthcare. We do not limit ourselves and are excited to take on new opportunities that you can provide. Don't hesitate to contact us if your business does not exactly fall into these categories.",
     category: "general"
   },
   {
-    question: "What industries do you specialize in?",
-    answer: "While we work across various industries, we have particular expertise in restaurants and hospitality, professional services, e-commerce, technology, healthcare, and creative industries. Our diverse experience allows us to bring fresh perspectives and proven strategies to any sector.",
+    question: "Is a digital marketing agency right for me and my business?",
+    answer: "Whether a digital marketing agency is right for your business will depend on your goals and the time available. We are committed to providing a professional service with tangible results, no matter your budget or size. If you are curious to see if this is the right fit, please reach out and schedule a call. We are happy to tailor our packages to your needs.",
     category: "general"
   },
   {
-    question: "Do you work with international clients?",
-    answer: "Yes, we work with clients worldwide. Our team is experienced in managing projects across different time zones and cultural contexts. We've successfully delivered projects for clients in Europe, North America, and beyond.",
+    question: "How does the billing process work for Site & Sight?",
+    answer: "The billing process is dependent on the package or range of services you wish to purchase. These can be tailored to your specifications so that all aspects of your business's digital communication methods are met. These are priced at an hourly, project-based, or retainer rate depending on the specifications. We are happy to work out a payment plan depending on circumstances.",
     category: "general"
   },
   {
-    question: "Can you help with SEO and marketing?",
-    answer: "Absolutely! We offer comprehensive SEO services, content marketing, social media management, and digital advertising to grow your online presence. Our integrated approach ensures your website not only looks great but also attracts and converts visitors effectively.",
+    question: "What work do digital agencies do?",
+    answer: "Digital agencies take care of online communication and promotion. This comes in different forms, including your website, content, PPC ad campaigns, and SEO. Digital agencies are a valuable asset to utilise to make sure you are making the most from your online presence.",
+    category: "general"
+  },
+  {
+    question: "What locations do you operate in?",
+    answer: "We are based in Dublin and Berlin. Our services are available internationally. We can help no matter where your location is and can respond promptly, no matter the time difference. Contact us here 24/7!",
+    category: "general"
+  },
+  {
+    question: "I don't see my question listed here. How can I contact you?",
+    answer: "If your query is not listed, we encourage you to reach out to us directly here. Alternatively, send us an email at hello@siteandsight.com.",
     category: "general"
   },
 
-  // Process Questions
+  // Web Development Questions
   {
-    question: "How do you approach new design projects?",
-    answer: "We start with a comprehensive discovery phase to understand your business goals, target audience, and unique challenges. Then we create a strategic roadmap, develop initial concepts, iterate based on your feedback, and deliver a polished final product. Throughout the process, we maintain open communication and collaboration.",
-    category: "process"
+    question: "How long does a website take to build?",
+    answer: "Website development varies in time length depending on complexity, requirements and whether it is a redesign or a website from scratch. Redesigns can take 4-6 weeks, while a brand identity and website project with SEO content can take up to 13 weeks. E-Commerce website creation typically takes 6-10 weeks. For all projects, a clear timeline will be indicated before creation.",
+    category: "web-development"
   },
   {
-    question: "How quickly can you start my project?",
-    answer: "We typically begin new projects within 1-2 weeks, depending on our current workload and project complexity. For urgent projects, we can often accommodate faster start times. During our initial consultation, we'll provide you with a realistic timeline based on your specific requirements.",
-    category: "process"
+    question: "Will I own and operate my website after Site & Sight builds it?",
+    answer: "You will have full ownership with training included on how to manage your new E-Commerce store or website. After handing it over, we will check in with you to make sure everything is running smoothly once you have been operating it for a few months. Maintenance packages are also available to make sure your site is running securely and optimally.",
+    category: "web-development"
   },
   {
-    question: "How long does a typical project take?",
-    answer: "Project timelines vary based on scope and complexity. A simple website redesign might take 4-6 weeks, while a complete brand identity and website project could take 8-12 weeks. E-commerce sites typically require 6-10 weeks. We'll provide a detailed timeline during our initial consultation based on your specific requirements.",
-    category: "process"
+    question: "What tools and software do you use for E-Commerce and website creation?",
+    answer: "We utilise React and Next.js to create websites. These are integrated with a CMS (Content Management System), responsive frameworks, HTML/CSS, JavaScript, and other programming languages. E-Commerce stores are developed using WordPress and Shopify. We like to stay informed with the latest industry trends and processes, and will use this in the development of your site. Take a look at how these have turned out for previous clients!",
+    category: "web-development"
   },
   {
-    question: "What's your design process like?",
-    answer: "Our design process is collaborative and iterative. We begin with discovery and research, move into strategy and wireframing, then create visual designs with multiple revision rounds. Finally, we develop and test everything before launch. We keep you involved every step of the way to ensure the final result exceeds your expectations.",
-    category: "process"
+    question: "How much does web design and development cost?",
+    answer: "Prices vary depending on your requirements and goals. For a full and comprehensive quote, click here and tell us what you need.",
+    category: "web-development"
   },
   {
-    question: "How do you handle project revisions and feedback?",
-    answer: "We include structured revision rounds in every project phase. Our collaborative approach welcomes your feedback, and we work iteratively to refine the design until it perfectly matches your vision. We use modern project management tools to streamline feedback collection and implementation.",
-    category: "process"
-  },
-  {
-    question: "Can I be involved in the design process?",
-    answer: "Absolutely! We believe the best results come from close collaboration with our clients. You'll have regular check-ins, review sessions, and opportunities to provide input throughout the project. Your insights about your business and customers are invaluable to creating the right solution.",
-    category: "process"
-  },
-  {
-    question: "What happens after my website launches?",
-    answer: "We provide comprehensive training on managing your new website, along with documentation and ongoing support. We also offer various maintenance packages to keep your site secure, updated, and performing optimally. Many clients also work with us on ongoing marketing and optimization efforts.",
-    category: "process"
+    question: "Will redesigning my website affect my SEO ranking?",
+    answer: "Giving your website a new and authentic feel does not necessarily mean that your current rankings on Google will suffer. It is possible to maintain or even improve your current rankings during this process. All our redesigns come with SEO development, including content, keywords, preserving existing URLs, and submission of sitemaps to allow an easy transition to your domain.",
+    category: "web-development"
   },
 
-  // Pricing Questions
+  // Creative Branding & Logos Questions
   {
-    question: "How much does a website cost?",
-    answer: "Website costs vary significantly based on complexity, features, and design requirements. A simple business website might start around €2,000-€5,000, while custom e-commerce solutions can range from €5,000-€15,000+. We offer transparent pricing and will provide a detailed quote based on your specific needs and budget.",
-    category: "pricing"
+    question: "What can I gain from your branding and logo services?",
+    answer: "From large-scale brand identity projects to smaller runs of digital content and animations, Site & Sight will create a look that feels appropriate to your business and appeals to your audience. How you dress is how you're perceived. Allow us to create a look for your business that your audience will gravitate towards. We will take the time to understand the message you want to convey and develop it into unique assets.",
+    category: "creative-branding"
   },
   {
-    question: "Can I upgrade from One-Time to Monthly package later?",
-    answer: "Yes, you can upgrade to our Monthly package at any time. We'll apply a prorated credit for any unused portion of add-on services. This flexibility allows you to start with our One-Time package and transition to ongoing support when your business needs evolve.",
-    category: "pricing"
+    question: "Can you provide results for projects that require a quick turnaround?",
+    answer: "We understand that you may be short on time. Urgent design requirements can be accommodated, and we are committed to providing results that don't falter on quality.",
+    category: "creative-branding"
   },
   {
-    question: "What does 'Unlimited Edits' include in the Monthly package?",
-    answer: "Unlimited Edits covers content updates, image changes, minor design adjustments, and regular maintenance tasks. This includes updating text, adding new pages, changing images, and small design modifications. Major redesigns or completely new features may require additional quotes, but most day-to-day updates are included.",
-    category: "pricing"
+    question: "How does creative branding and logos benefit my business?",
+    answer: "Brand recognition, trust, marketing effectiveness, and differentiation of your business all increase with a strong visual aesthetic. Audiences engage with what they find attractive. Our services will create a visually appealing look that ties your business together. Achieve your competitive advantage and stand out from the crowd today.",
+    category: "creative-branding"
   },
   {
-    question: "Do you offer payment plans or financing?",
-    answer: "Yes! We understand that quality web design is an investment. We offer flexible payment plans that can be structured around project milestones or monthly payments. We're happy to work with you to find a payment structure that fits your cash flow and budget.",
-    category: "pricing"
-  },
-  {
-    question: "What's included in your pricing?",
-    answer: "Our pricing includes design and development, content integration, basic SEO setup, mobile responsiveness, browser testing, and post-launch support. We're transparent about what's included and will clearly outline any additional costs for extra features or services during the proposal phase.",
-    category: "pricing"
-  },
-  {
-    question: "Do you provide hosting for all websites?",
-    answer: "Yes, all our packages include professional hosting with 99.9% uptime guarantee, SSL certificates, and regular backups. Our One-Time package includes hosting for €24/month, while our Monthly and Yearly packages include hosting at no additional cost.",
-    category: "pricing"
-  },
-  {
-    question: "Do you offer website maintenance?",
-    answer: "Yes! We provide ongoing maintenance and support packages to keep your website updated, secure, and performing optimally. These services include regular backups, security monitoring, content updates, performance optimization, and technical support.",
-    category: "pricing"
-  },
-  {
-    question: "Do you offer ongoing maintenance packages?",
-    answer: "Yes, we offer several maintenance packages ranging from basic security updates to comprehensive marketing and optimization services. These typically include regular backups, security monitoring, content updates, performance optimization, and technical support. Packages start from €100/month.",
-    category: "pricing"
+    question: "Do your creative branding and logo design services charge by the hour or by project?",
+    answer: "We charge on a project basis, allowing easier budgeting for our clients and valuable deliverables that live up to expectations. To get a quote, let us know your ideas here.",
+    category: "creative-branding"
   },
 
-  // Technical Questions
+  // Digital Marketing and SEO Questions
   {
-    question: "What platforms and technologies do you use?",
-    answer: "We primarily work with modern technologies like Next.js, React, WordPress, Shopify, and custom solutions depending on your needs. We choose the best platform based on your specific requirements, budget, and long-term goals. All our websites are built with modern standards for speed, security, and SEO.",
-    category: "technical"
+    question: "Is digital marketing and SEO still relevant?",
+    answer: "Digital marketing and SEO practices are highly relevant for allowing your business to grow and develop online. 83% of consumers use Google to find local businesses (Bright Local), and a four-star rating is essential for consumers to trust what you're selling (Reviews On My Website). To neglect this sizeable percentage of potential clients by not utilising relevant content, keywords, and local SEO means you are leaving yourself exposed to the competition that is.",
+    category: "digital-marketing"
   },
   {
-    question: "What kind of chatbot solutions do you offer?",
-    answer: "We offer AI-powered chatbots for customer support, lead generation, appointment booking, and custom solutions tailored to your specific business needs. All chatbots are fully integrated with your website and can be customized to match your brand. Solutions range from basic FAQ bots to advanced AI assistants that can handle complex customer interactions.",
-    category: "technical"
+    question: "How long does SEO take to be successful?",
+    answer: "SEO is not a one-action fix. It requires many configurations that build up over time. With that in mind, results can be seen as early as 3-6 months after a website is fully optimised, with established success arriving 6-12 months after continued monitoring.",
+    category: "digital-marketing"
   },
   {
-    question: "Can you build custom features not listed in your packages?",
-    answer: "Absolutely! We love creative challenges and can build custom solutions for unique requirements. Whether you need specialized functionality, custom integrations, or innovative features, our team can develop tailored solutions. Contact our sales team to discuss your specific needs and we'll provide a custom quote.",
-    category: "technical"
+    question: "How will I measure the effectiveness of Site & Sight's digital marketing services?",
+    answer: "Key performance indicators (KPI's) will be used to measure the impact of your SEO, SEM, email or content marketing targets. When we meet, we will discuss exactly what you want to achieve, whether it's landing new clients, developing a larger following, expanding your reach to new audiences, or simply increasing sales. Regular reporting with transparent communication will be available to you throughout the project.",
+    category: "digital-marketing"
   },
   {
-    question: "Will my website be mobile-friendly?",
-    answer: "Absolutely! All our websites are built with a mobile-first approach and are fully responsive across all devices. With mobile traffic accounting for over 60% of web browsing, we ensure your site looks and performs beautifully on smartphones, tablets, and desktops.",
-    category: "technical"
+    question: "What is the best way to approach SEO?",
+    answer: "We follow a four-step process that is grounded in best practices and experience. We would advise anyone doing the process themselves to do the same. This involves: Research: High-value keywords, user search intent, long tail keywords and competitor rankings. High Quality Content: The development of content articles, blogs, and information that resonates with your customer base. This is created to be user-friendly, easy to understand and approachable. This content will be regularly updated on your site, giving users a reason to return. Optimisation: All current content will be examined for dead links, irrelevant or outdated content, and restructured to suit search engine criteria for ranking. Local SEO (Google My Business, Tripadvisor) will be recalibrated, allowing users to find information easily. Trust Building: The acquisition of credible backlinks to your site, creating authority for your domain.",
+    category: "digital-marketing"
   },
   {
-    question: "How do you handle SEO and website performance?",
-    answer: "SEO and performance are built into every project from the ground up. We implement technical SEO best practices, optimize images and code, ensure fast loading times, and set up proper analytics tracking. We can also provide ongoing SEO services to help improve your search rankings over time.",
-    category: "technical"
+    question: "Should my business use pay-per-click advertising?",
+    answer: "If you are offering your products and services online, you should consider PPC as a way to reach your target audience. Thanks to the intuitive nature of Google Ads, Meta Ads, and LinkedIn ads, we can target your audience directly and audiences of similar interests, allowing your business to build awareness, sales, and drive website traffic.",
+    category: "digital-marketing"
   },
   {
-    question: "Can you integrate with my existing tools and systems?",
-    answer: "Yes! We have experience integrating with a wide variety of third-party tools including CRM systems, email marketing platforms, payment processors, booking systems, and more. We'll work with your existing tech stack to ensure seamless operation and data flow.",
-    category: "technical"
+    question: "How much do your SEO and PPC services cost?",
+    answer: "SEO and PPC costs vary in cost depending on your objectives and time frame. We can format our pricing and structure to suit whatever goals. To get a quote, reach out to us here and let us know what you're looking to achieve.",
+    category: "digital-marketing"
+  },
+
+  // Automation and AI Solutions Questions
+  {
+    question: "What can AI automation do for me and my business?",
+    answer: "Selling a service or product is a time-consuming process. Energy and resources need to be dedicated to mundane and repetitive tasks that, although essential, remove your availability for scaling and growth. Our AI automation will remove this issue with task automation, cost reduction, and efficiency. As a business owner, the gift of time is invaluable. Allow yourself to have as much as possible.",
+    category: "automation-ai"
   },
   {
-    question: "Will I own my website and can I make updates myself?",
-    answer: "Yes, you own your website completely. We provide full training on content management and basic updates. For non-technical clients, we also offer content update services. All websites come with user-friendly admin areas that make updating content straightforward.",
-    category: "technical"
+    question: "How can AI automation be applied to my business?",
+    answer: "Context and industry will decide how automation can best be applied to your business. The core focus of apps is customer support chat services, task automation, data analysis, and business process optimisation. These allow standard but important information (shipping, return times, product details) to be answered quickly. Data entry, invoice management, and file organisation will be taken care of in the background. Learn detailed breakdowns of your consumer profiles, spending habits and more with trend recognition, speed, and the ability to learn from the data acquired.",
+    category: "automation-ai"
+  },
+  {
+    question: "Can your automations be integrated into my CRM?",
+    answer: "Our automations and their results can be funnelled directly to CRM's. This allows your staff to have quick access to results and integrate the processes easily into their workflow.",
+    category: "automation-ai"
+  },
+  {
+    question: "Is my customer's data safe with your AI automations?",
+    answer: "Data privacy and your company's reputation are a responsibility we will uphold. Our systems operate within the GDPR framework.",
+    category: "automation-ai"
+  },
+  {
+    question: "How long does it take to implement an automation or AI project?",
+    answer: "Depending on the scope and size of your requirements, our automations can be integrated and fully operable on your systems within 1-2 months.",
+    category: "automation-ai"
+  },
+  {
+    question: "How much do AI automations cost?",
+    answer: "Site & Sight's AI automations can be provided as a subscription package with regular maintenance and updates, or sold as a one-time purchase. We are happy to provide a quote. Contact us here.",
+    category: "automation-ai"
   }
 ]
 
 const categories = [
   { id: 'all', name: 'All Questions', icon: QuestionMarkCircleIcon, count: faqs.length },
   { id: 'general', name: 'General', icon: ChatBubbleLeftRightIcon, count: faqs.filter(faq => faq.category === 'general').length },
-  { id: 'process', name: 'Process', icon: ClockIcon, count: faqs.filter(faq => faq.category === 'process').length },
-  { id: 'pricing', name: 'Pricing', icon: CurrencyDollarIcon, count: faqs.filter(faq => faq.category === 'pricing').length },
-  { id: 'technical', name: 'Technical', icon: QuestionMarkCircleIcon, count: faqs.filter(faq => faq.category === 'technical').length }
+  { id: 'web-development', name: 'Web Development', icon: ComputerDesktopIcon, count: faqs.filter(faq => faq.category === 'web-development').length },
+  { id: 'digital-marketing', name: 'Digital Marketing', icon: MagnifyingGlassIcon, count: faqs.filter(faq => faq.category === 'digital-marketing').length },
+  { id: 'creative-branding', name: 'Creative Branding', icon: PaintBrushIcon, count: faqs.filter(faq => faq.category === 'creative-branding').length },
+  { id: 'automation-ai', name: 'Automation & AI', icon: CpuChipIcon, count: faqs.filter(faq => faq.category === 'automation-ai').length }
 ]
 
 export default function FAQPage() {

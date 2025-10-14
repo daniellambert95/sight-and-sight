@@ -1,832 +1,667 @@
 'use client';
 
 import { useState } from 'react';
-import Link from "next/link";
-import Navigation from "../components/Navigation";
-import Footer from "../components/Footer";
-import { motion } from "framer-motion";
+import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
+import Link from 'next/link';
 import { useTheme } from '../utils/ThemeProvider';
+import { 
+  ComputerDesktopIcon, 
+  ShoppingCartIcon,
+  CpuChipIcon,
+  ChartBarIcon,
+  CursorArrowRaysIcon,
+  PlayIcon,
+  ArrowTopRightOnSquareIcon,
+  EyeIcon,
+  CalendarIcon,
+  UserIcon
+} from '@heroicons/react/24/outline';
 
-export default function WorkPage() {
+export default function Work() {
   const { theme } = useTheme();
-  const [activeFilter, setActiveFilter] = useState('all');
+  const [selectedProject, setSelectedProject] = useState<typeof featuredProjects[0] | null>(null);
+  const [filter, setFilter] = useState('all');
 
-  // Animation variants
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6 }
-    }
+  const openModal = (project: typeof featuredProjects[0]) => {
+    setSelectedProject(project);
   };
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
+  const closeModal = () => {
+    setSelectedProject(null);
   };
 
-  // Enhanced project data with real metrics and better descriptions
-  const projects = [
+  // Featured work with enhanced storytelling
+  const featuredProjects = [
     {
-      id: 'pinkpizzaberlin',
+      id: "pink-pizza-berlin",
       title: "Pink Pizza Berlin",
-      category: "restaurant",
-      tags: ["Web Design", "E-commerce", "Local SEO"],
-      description: "Transformed a local Berlin pizzeria's digital presence with online ordering, resulting in 300% increase in digital orders.",
+      subtitle: "Digital Transformation & E-commerce",
       client: "Pink Pizza Berlin",
       year: "2024",
-      metrics: "+300% online orders",
-      featured: true,
-      image: "/projects/pink-pizza-thumb.jpg",
-      color: "bg-pink-500"
+      duration: "3 months",
+      category: "E-commerce & Local Business",
+      description: "Complete digital transformation for a beloved Berlin pizzeria, creating an engaging online presence that increased digital orders by 300%.",
+      longDescription: "Pink Pizza Berlin needed to adapt to the digital-first world while maintaining their authentic neighborhood charm. We developed a comprehensive e-commerce solution that seamlessly blended their vibrant brand personality with powerful functionality.",
+      challenge: "Creating an online ordering system that captures the warmth and authenticity of a local Berlin pizzeria while driving significant business growth.",
+      solution: "A vibrant, user-friendly website with integrated online ordering, dynamic menu management, and customer engagement features that reflect the brand's personality.",
+      results: {
+        primary: "+300% online orders",
+        secondary: [
+          { metric: "85%", label: "Customer retention" },
+          { metric: "45%", label: "Average order value increase" },
+          { metric: "2.3x", label: "Monthly revenue growth" }
+        ]
+      },
+      technologies: ["Next.js", "Stripe", "Tailwind CSS", "Vercel", "Sanity CMS"],
+      services: ["UI/UX Design", "E-commerce Development", "Payment Integration", "Content Management"],
+      image: "/images/work/pinkpizzaberlin/hero.jpg",
+      color: "from-pink-500 to-red-500",
+      featured: true
     },
     {
-      id: 'derbaumchirurg',
+      id: "der-baumchirurg",
       title: "Der Baumchirurg",
-      category: "service",
-      tags: ["Web Design", "Local SEO", "Lead Generation"],
-      description: "Professional website for a tree surgery company, optimized for local search and lead generation.",
+      subtitle: "Professional Service Website",
       client: "Der Baumchirurg",
       year: "2024",
-      metrics: "+150% leads",
-      featured: true,
-      image: "/projects/baumchirurg-thumb.jpg",
-      color: "bg-green-600"
+      duration: "2 months",
+      category: "Service Business",
+      description: "Professional website for tree surgery services that positioned them as Berlin's premier arborist company.",
+      longDescription: "Der Baumchirurg required a professional digital presence that would establish trust and expertise in the competitive Berlin market while generating qualified leads.",
+      challenge: "Building credibility and trust for a specialized service business while making technical services accessible to homeowners and property managers.",
+      solution: "A clean, professional website showcasing expertise through detailed service descriptions, portfolio gallery, and seamless booking system.",
+      results: {
+        primary: "+150% leads",
+        secondary: [
+          { metric: "92%", label: "Lead quality score" },
+          { metric: "60%", label: "Booking conversion rate" },
+          { metric: "4.8/5", label: "Customer satisfaction" }
+        ]
+      },
+      technologies: ["React", "Node.js", "Google APIs", "MongoDB"],
+      services: ["Web Design", "Local SEO", "Lead Generation", "Content Strategy"],
+      image: "/images/work/derbaumchirurg/hero.jpg",
+      color: "from-green-600 to-emerald-600",
+      featured: true
     },
     {
-      id: 'techstartup',
+      id: "techflow-growth",
       title: "TechFlow Startup",
-      category: "tech",
-      tags: ["Branding", "Web Design", "UI/UX"],
-      description: "Complete brand identity and website for a Berlin-based fintech startup securing their Series A funding.",
+      subtitle: "Series A Growth Strategy",
       client: "TechFlow",
       year: "2023",
-      metrics: "Series A secured",
-      featured: false,
-      image: "/projects/techflow-thumb.jpg",
-      color: "bg-blue-600"
+      duration: "6 months",
+      category: "Fintech Startup",
+      description: "Strategic digital marketing campaign that positioned a Berlin fintech startup for successful Series A funding.",
+      longDescription: "TechFlow needed to establish market credibility and attract investors while building a strong brand presence in the competitive fintech space.",
+      challenge: "Building investor confidence and market presence for an early-stage fintech startup in a crowded market.",
+      solution: "Comprehensive brand strategy, content marketing, and investor outreach campaign that demonstrated traction and market potential.",
+      results: {
+        primary: "Series A secured",
+        secondary: [
+          { metric: "€2.5M", label: "Funding raised" },
+          { metric: "150%", label: "Brand awareness increase" },
+          { metric: "25+", label: "Media mentions" }
+        ]
+      },
+      technologies: ["Google Analytics", "HubSpot", "LinkedIn APIs", "Content CMS"],
+      services: ["Brand Strategy", "Content Marketing", "Investor Relations", "Growth Analytics"],
+      image: "/images/work/techflow/hero.jpg",
+      color: "from-blue-600 to-indigo-600",
+      featured: false
     },
     {
-      id: 'ecommerce',
-      title: "Sustainable Fashion Store",
-      category: "ecommerce",
-      tags: ["E-commerce", "UI/UX", "Conversion Optimization"],
-      description: "E-commerce platform redesign focusing on sustainability messaging and conversion optimization.",
+      id: "greenthread-optimization",
+      title: "GreenThread Fashion",
+      subtitle: "E-commerce Optimization",
       client: "GreenThread",
       year: "2023",
-      metrics: "+85% conversion rate",
-      featured: false,
-      image: "/projects/greenthread-thumb.jpg",
-      color: "bg-emerald-600"
+      duration: "4 months",
+      category: "Sustainable Fashion",
+      description: "Conversion rate optimization that transformed a sustainable fashion brand's online performance.",
+      longDescription: "GreenThread's sustainable fashion message was strong, but their e-commerce experience wasn't converting visitors into customers effectively.",
+      challenge: "Improving conversion rates while maintaining the brand's sustainability message and values-driven customer experience.",
+      solution: "UX optimization, A/B testing, and conversion funnel improvements that aligned with sustainable values while driving performance.",
+      results: {
+        primary: "+85% conversion rate",
+        secondary: [
+          { metric: "40%", label: "Cart abandonment reduction" },
+          { metric: "65%", label: "Return customer rate" },
+          { metric: "30%", label: "Average order value increase" }
+        ]
+      },
+      technologies: ["Google Optimize", "Hotjar", "Google Ads", "Shopify Plus"],
+      services: ["UX Optimization", "A/B Testing", "Conversion Tracking", "Performance Analytics"],
+      image: "/images/work/greenthread/hero.jpg",
+      color: "from-emerald-500 to-green-600",
+      featured: false
     },
     {
-      id: 'videoshowcase',
-      title: "Motion Graphics Showcase",
-      category: "video",
-      tags: ["Video Editing", "Motion Graphics", "Brand Videos"],
-      description: "Collection of promotional videos and motion graphics for various Berlin businesses.",
+      id: "motion-graphics-portfolio",
+      title: "Berlin Motion Collective",
+      subtitle: "Video & Motion Graphics",
       client: "Multiple Clients",
       year: "2024",
-      metrics: "50M+ views",
-      featured: false,
-      image: "/projects/video-thumb.jpg",
-      color: "bg-purple-600"
+      duration: "Ongoing",
+      category: "Creative Services",
+      description: "A collection of promotional videos and motion graphics that brought Berlin businesses to life.",
+      longDescription: "Our motion graphics work spans across multiple Berlin businesses, creating engaging visual content that drives brand awareness and customer engagement.",
+      challenge: "Creating distinctive motion graphics that capture each brand's unique personality while maintaining high production standards.",
+      solution: "Custom motion graphics and video content tailored to each client's brand identity and marketing objectives.",
+      results: {
+        primary: "50M+ views",
+        secondary: [
+          { metric: "15+", label: "Client campaigns" },
+          { metric: "3.2M", label: "Average video views" },
+          { metric: "8.5%", label: "Engagement rate" }
+        ]
+      },
+      technologies: ["After Effects", "Premiere Pro", "Cinema 4D", "DaVinci Resolve"],
+      services: ["Motion Graphics", "Video Production", "Brand Videos", "Social Media Content"],
+      image: "/images/work/motion/hero.jpg",
+      color: "from-purple-600 to-pink-600",
+      featured: false
     },
     {
-      id: 'realestate',
-      title: "Berlin Real Estate Agency",
-      category: "service",
-      tags: ["Web Design", "CRM Integration", "Lead Generation"],
-      description: "Modern website with property showcase and CRM integration for a premium Berlin real estate agency.",
+      id: "berlin-premier-properties",
+      title: "Berlin Premier Properties",
+      subtitle: "Real Estate CRM Integration",
       client: "Berlin Premier Properties",
       year: "2023",
-      metrics: "+200% qualified leads",
-      featured: false,
-      image: "/projects/realestate-thumb.jpg",
-      color: "bg-orange-600"
-    },
+      duration: "5 months",
+      category: "Real Estate",
+      description: "Custom CRM integration that streamlined operations for Berlin's premium real estate agency.",
+      longDescription: "Berlin Premier Properties needed to modernize their client management and property showcase systems to compete in the digital real estate market.",
+      challenge: "Integrating complex property data with client management while maintaining the luxury brand experience.",
+      solution: "Custom CRM integration with property showcase, client tracking, and automated workflows that enhanced both agent efficiency and client experience.",
+      results: {
+        primary: "+200% qualified leads",
+        secondary: [
+          { metric: "75%", label: "Process efficiency gain" },
+          { metric: "90%", label: "Client satisfaction" },
+          { metric: "40%", label: "Faster deal closure" }
+        ]
+      },
+      technologies: ["Salesforce", "React", "API Integration", "AWS"],
+      services: ["CRM Integration", "Property Management", "Client Tracking", "Workflow Automation"],
+      image: "/images/work/properties/hero.jpg",
+      color: "from-orange-600 to-red-600",
+      featured: false
+    }
   ];
 
-  const categories = [
-    { id: 'all', name: 'All Projects', count: projects.length },
-    { id: 'restaurant', name: 'Restaurants', count: projects.filter(p => p.category === 'restaurant').length },
-    { id: 'service', name: 'Service Businesses', count: projects.filter(p => p.category === 'service').length },
-    { id: 'tech', name: 'Tech & Startups', count: projects.filter(p => p.category === 'tech').length },
-    { id: 'ecommerce', name: 'E-commerce', count: projects.filter(p => p.category === 'ecommerce').length },
-    { id: 'video', name: 'Video & Motion', count: projects.filter(p => p.category === 'video').length },
-  ];
-
-  const filteredProjects = activeFilter === 'all' 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
-
-  const featuredProjects = projects.filter(p => p.featured);
+  const filteredProjects = filter === 'all' ? featuredProjects : featuredProjects.filter(p => p.category.toLowerCase().includes(filter));
 
   return (
     <div className={`min-h-screen flex flex-col ${
       theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'
     }`}>
       <Navigation currentPage="work" />
-
-      {/* Hero Section - Modern Creative Design */}
-      <section className={`relative min-h-[80vh] flex items-center overflow-hidden transition-colors duration-300 pt-20 ${
+      
+      {/* Hero Section - Split Screen with Dynamic Typography */}
+      <section className={`relative min-h-screen flex items-center px-6 md:px-12 lg:px-24 pt-20 transition-colors duration-300 ${
         theme === 'dark' 
-          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
-          : 'bg-gradient-to-br from-white via-purple-50 to-blue-50'
+          ? 'bg-gradient-to-br from-black via-gray-950 to-gray-900' 
+          : 'bg-gradient-to-br from-white via-gray-50 to-white'
       }`}>
-        {/* Geometric Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Large Circle */}
-          <div className={`absolute -top-32 -right-32 w-80 h-80 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/30'
-          }`}></div>
-          {/* Medium Circle */}
-          <div className={`absolute bottom-20 -left-16 w-48 h-48 rounded-full opacity-15 ${
-            theme === 'dark' ? 'bg-purple-500' : 'bg-purple-300'
-          }`}></div>
-          {/* Small geometric shapes */}
-          <div className={`absolute top-1/4 right-1/4 w-8 h-8 rotate-45 opacity-30 ${
-            theme === 'dark' ? 'bg-blue-500' : 'bg-blue-400'
-          }`}></div>
-          <div className={`absolute bottom-1/3 left-1/4 w-6 h-6 rotate-45 opacity-25 ${
-            theme === 'dark' ? 'bg-green-500' : 'bg-green-400'
-          }`}></div>
-          <div className={`absolute top-1/2 left-1/3 w-4 h-4 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-orange-500' : 'bg-orange-400'
-          }`}></div>
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-[#ff5500] blur-3xl"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full bg-purple-500 blur-3xl"></div>
         </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 w-full py-16">
-          <div className="text-center">
-            {/* Badge */}
-            <motion.div 
-              className="inline-flex items-center gap-3 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                theme === 'dark'
-                  ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                  : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
-              }`}>
-                🎨 Our Work
-              </span>
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            </motion.div>
-
-            {/* Main Heading */}
-            <motion.h1 
-              className={`text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-none ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <span className="block">Real projects,</span>
-              <span className="block text-[#ff5500]">real results.</span>
-              <span className={`block text-4xl md:text-5xl lg:text-6xl font-bold mt-4 ${
-                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-              }`}>
-               
-              </span>
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p 
-              className={`text-xl md:text-2xl lg:text-3xl font-light mb-12 max-w-4xl mx-auto ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-              }`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              See how we've helped Berlin businesses <span className="font-semibold text-[#ff5500]">grow their digital presence</span> and drive measurable success.
-            </motion.p>
-
-            {/* Stats */}
-            <motion.div 
-              className="flex flex-wrap justify-center gap-8 mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              {[
-                { number: "10+", label: "Projects Completed" },
-                { number: "200%", label: "Average Growth" },
-                { number: "98%", label: "Client Satisfaction" }
-              ].map((stat, index) => (
-                <div 
-                  key={index}
-                  className={`px-6 py-4 rounded-2xl backdrop-blur-md shadow-lg border ${
-                    theme === 'dark' 
-                      ? 'bg-black/40 border-gray-700/50 text-gray-300' 
-                      : 'bg-white/70 border-white/50 text-gray-700'
-                  }`}
-                >
-                  <div className="text-2xl font-black text-[#ff5500]">{stat.number}</div>
-                  <div className="text-sm font-medium">{stat.label}</div>
-                </div>
-              ))}
-            </motion.div>
-
-            {/* CTA Button */}
-            <motion.div 
-              className="flex justify-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <button 
-                onClick={() => window.scrollTo({ top: window.innerHeight * 0.8, behavior: 'smooth' })}
-                className="group relative inline-flex items-center justify-center px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105"
-              >
-                <span className="relative z-10">Explore Our Work</span>
-                <svg className="w-6 h-6 ml-2 transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-                {/* Button glow effect */}
-                <div className="absolute inset-0 bg-[#ff5500] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
-              </button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Projects - Modern Creative Style */}
-      <section id="featured-projects" className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-900' : 'bg-gradient-to-br from-white to-gray-50'
-      }`}>
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 right-20 w-32 h-32 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-blue-500' : 'bg-blue-300'
-          }`}></div>
-          <div className={`absolute bottom-20 left-10 w-20 h-20 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-green-500' : 'bg-green-300'
-          }`}></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                theme === 'dark'
-                  ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                  : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
-              }`}>
-                ⭐ Featured
-              </span>
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            </div>
-
-            <motion.h2 
-              className={`text-4xl md:text-5xl font-black mb-6 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              Case <span className="text-[#ff5500]">studies</span>
-            </motion.h2>
-            <p className={`text-xl max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-            }`}>
-              Deep dives into our most successful projects
-            </p>
-          </div>
-
-          <motion.div 
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {featuredProjects.map((project) => (
-              <motion.div 
-                key={project.id}
-                variants={fadeIn}
-                className={`group relative rounded-3xl overflow-hidden transition-all duration-500 hover:scale-[1.02] ${
-                  theme === 'dark' 
-                    ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50 shadow-2xl shadow-gray-900/50' 
-                    : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50 shadow-2xl shadow-gray-200/50'
-                } backdrop-blur-sm`}
-              >
-                {/* Card Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
-                <div className="relative z-10">
-                  {/* Project Image Area */}
-                  <div className={`h-64 ${project.color} relative overflow-hidden`}>
-                    <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                    
-                    {/* Featured Badge */}
-                    <div className="absolute top-6 left-6">
-                      <span className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
-                        ⭐ Featured
-                      </span>
-                    </div>
-                    
-                    {/* Metrics */}
-                    <div className="absolute bottom-6 left-6 text-white">
-                      <div className="text-3xl font-black">{project.metrics}</div>
-                      <div className="text-sm opacity-80">Project Impact</div>
-                    </div>
-
-                    {/* View Button */}
-                    <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-white hover:bg-white/30 transition-colors">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Project Content */}
-                  <div className="p-8">
-                    <div className="flex items-start justify-between mb-4">
-                      <h3 className={`text-2xl font-black ${
-                        theme === 'dark' ? 'text-white' : 'text-gray-900'
-                      }`}>{project.title}</h3>
-                      <span className={`text-sm font-semibold px-3 py-1 rounded-full ${
-                        theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'
-                      }`}>{project.year}</span>
-                    </div>
-                    
-                    <div className="mb-4">
-                      <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                        {project.client}
-                      </span>
-                    </div>
-                    
-                    <p className={`mb-6 leading-relaxed ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
-                      {project.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {project.tags.map((tag) => (
-                        <span 
-                          key={tag} 
-                          className={`text-xs px-3 py-1 rounded-full ${
-                            theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-700'
-                          }`}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    
-                    <Link 
-                      href={`/work/${project.id}`}
-                      className="inline-flex items-center text-[#ff5500] font-bold hover:text-[#ff6600] transition-colors group/link"
-                    >
-                      <span>View Case Study</span>
-                      <svg className="w-5 h-5 ml-2 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Project Filter & Grid - Modern Creative Style */}
-      <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' : 'bg-gradient-to-br from-gray-50 via-white to-purple-50'
-      }`}>
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 left-10 w-40 h-40 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-purple-500' : 'bg-purple-300'
-          }`}></div>
-          <div className={`absolute bottom-20 right-20 w-32 h-32 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-orange-500' : 'bg-orange-300'
-          }`}></div>
-          <div className={`absolute top-1/3 right-1/3 w-8 h-8 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-blue-500' : 'bg-blue-400'
-          }`}></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                theme === 'dark'
-                  ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                  : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
-              }`}>
-                🎯 All Projects
-              </span>
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            </div>
-
-            <motion.h2 
-              className={`text-4xl md:text-5xl font-black mb-6 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              Our <span className="text-[#ff5500]">portfolio</span>
-            </motion.h2>
-            <p className={`text-xl max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-            }`}>
-              Browse through our complete collection of projects
-            </p>
-          </div>
-
-          {/* Filter Buttons */}
-          <motion.div 
-            className="flex flex-wrap justify-center gap-4 mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setActiveFilter(category.id)}
-                className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 ${
-                  activeFilter === category.id
-                    ? 'bg-[#ff5500] text-white shadow-lg'
-                    : theme === 'dark'
-                    ? 'bg-gray-800/60 text-gray-300 border border-gray-700/50 hover:bg-gray-700/60'
-                    : 'bg-white/80 text-gray-700 border border-white/50 hover:bg-gray-50'
-                } backdrop-blur-sm`}
-              >
-                {category.name}
-                <span className={`ml-2 text-sm ${
-                  activeFilter === category.id ? 'text-white/80' : 'text-gray-500'
+        
+        <div className="relative max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center min-h-[80vh]">
+            {/* Left Column - Typography */}
+            <div className="lg:col-span-7 space-y-8">
+              <div className="space-y-4">
+                <div className={`text-sm font-semibold tracking-wider uppercase ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                 }`}>
-                  ({category.count})
-                </span>
-              </button>
-            ))}
-          </motion.div>
-
-          {/* Projects Grid */}
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            layout
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {filteredProjects.map((project) => (
-              <motion.div 
-                key={project.id}
-                layout
-                variants={fadeIn}
-                className={`group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 ${
-                  theme === 'dark' 
-                    ? 'bg-gradient-to-br from-gray-800/60 to-gray-900/60 border border-gray-700/50 shadow-xl shadow-gray-900/50' 
-                    : 'bg-gradient-to-br from-white/80 to-gray-50/80 border border-white/50 shadow-xl shadow-gray-200/50'
-                } backdrop-blur-sm`}
-              >
-                {/* Card Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  Portfolio / Case Studies
+                </div>
+                <h1 className={`text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
+                  <span className="block">Creative</span>
+                  <span className="block text-[#ff5500]">Work</span>
+                  <span className="block">That</span>
+                  <span className="block">Delivers</span>
+                </h1>
+              </div>
+              
+              <div className="max-w-xl space-y-6">
+                <p className={`text-xl leading-relaxed ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                }`}>
+                  Each project tells a story of transformation. From concept to execution, 
+                  we craft digital experiences that drive real business results.
+                </p>
                 
-                <div className="relative z-10">
-                  {/* Project Image */}
-                  <div className={`h-48 ${project.color} relative overflow-hidden`}>
-                    <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-30 transition-all duration-300"></div>
-                    
-                    {project.featured && (
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 rounded-full text-xs font-bold">
-                          ⭐ Featured
-                        </span>
-                      </div>
-                    )}
-                    
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <div className="text-lg font-bold">{project.metrics}</div>
-                    </div>
-
-                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center text-white">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </div>
-                    </div>
+                <div className="flex flex-wrap gap-4">
+                  <div className={`px-4 py-2 rounded-full border ${
+                    theme === 'dark' 
+                      ? 'border-gray-700 text-gray-300' 
+                      : 'border-gray-300 text-gray-700'
+                  }`}>
+                    6 Case Studies
                   </div>
-                  
-                  {/* Project Content */}
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className={`text-lg font-bold ${
-                        theme === 'dark' ? 'text-white' : 'text-gray-900'
-                      }`}>{project.title}</h3>
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'
-                      }`}>{project.year}</span>
-                    </div>
-                    
-                    <div className="mb-3">
-                      <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                        {project.client}
-                      </span>
-                    </div>
-                    
-                    <p className={`text-sm mb-4 leading-relaxed ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
-                      {project.description.length > 100 
-                        ? `${project.description.substring(0, 100)}...` 
-                        : project.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {project.tags.slice(0, 2).map((tag) => (
-                        <span 
-                          key={tag} 
-                          className={`text-xs px-2 py-1 rounded-full ${
-                            theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-700'
-                          }`}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                      {project.tags.length > 2 && (
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-700'
-                        }`}>
-                          +{project.tags.length - 2}
-                        </span>
-                      )}
-                    </div>
-                    
-                    <Link 
-                      href={`/work/${project.id}`}
-                      className="inline-flex items-center text-[#ff5500] font-semibold hover:text-[#ff6600] transition-colors text-sm group/link"
-                    >
-                      <span>View Project</span>
-                      <svg className="w-4 h-4 ml-1 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </Link>
+                  <div className={`px-4 py-2 rounded-full border ${
+                    theme === 'dark' 
+                      ? 'border-gray-700 text-gray-300' 
+                      : 'border-gray-300 text-gray-700'
+                  }`}>
+                    Berlin Based
+                  </div>
+                  <div className={`px-4 py-2 rounded-full border ${
+                    theme === 'dark' 
+                      ? 'border-gray-700 text-gray-300' 
+                      : 'border-gray-300 text-gray-700'
+                  }`}>
+                    2023-2024
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Video Showcase Section - Modern Creative Style */}
-      <section id="video-showcase" className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-900' : 'bg-gradient-to-br from-white to-gray-50'
-      }`}>
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 right-10 w-36 h-36 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-red-500' : 'bg-red-300'
-          }`}></div>
-          <div className={`absolute bottom-20 left-20 w-28 h-28 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-purple-500' : 'bg-purple-300'
-          }`}></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                theme === 'dark'
-                  ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                  : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
-              }`}>
-                🎬 Video & Motion
-              </span>
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
+              </div>
             </div>
-
-            <motion.h2 
-              className={`text-4xl md:text-5xl font-black mb-6 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              Video <span className="text-[#ff5500]">showcase</span>
-            </motion.h2>
-            <p className={`text-xl max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-            }`}>
-              Motion graphics and video content that brings brands to life
-            </p>
-          </div>
-
-          {/* Video Grid */}
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
-          >
-            {[
-              {
-                title: "Brand Promotional Videos",
-                description: "Dynamic promotional content for Berlin businesses",
-                duration: "30-60 seconds",
-                views: "2M+ views",
-                color: "bg-gradient-to-br from-red-500 to-pink-600"
-              },
-              {
-                title: "Motion Graphics & Animations",
-                description: "Engaging animated content for social media and web",
-                duration: "15-30 seconds", 
-                views: "1.5M+ views",
-                color: "bg-gradient-to-br from-purple-500 to-blue-600"
-              }
-            ].map((video, index) => (
-              <motion.div 
-                key={index}
-                variants={fadeIn}
-                className={`group relative rounded-3xl overflow-hidden transition-all duration-500 hover:scale-[1.02] ${
-                  theme === 'dark' 
-                    ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50 shadow-2xl shadow-gray-900/50' 
-                    : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50 shadow-2xl shadow-gray-200/50'
-                } backdrop-blur-sm`}
-              >
-                {/* Card Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
-                <div className="relative z-10">
-                  {/* Video Preview Area */}
-                  <div className={`h-64 ${video.color} relative overflow-hidden flex items-center justify-center`}>
-                    <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-40 transition-all duration-300"></div>
-                    
-                    {/* Play Button */}
-                    <div className="relative z-10 w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 cursor-pointer">
-                      <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
+            
+            {/* Right Column - Project Preview */}
+            <div className="lg:col-span-5">
+              <div className={`relative rounded-3xl overflow-hidden ${
+                theme === 'dark' 
+                  ? 'bg-gradient-to-br from-gray-800 to-gray-900' 
+                  : 'bg-gradient-to-br from-gray-100 to-white'
+              } shadow-2xl`}>
+                <div className="p-8 space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className={`text-sm font-medium ${
+                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
+                      Latest Project
                     </div>
-                    
-                    {/* Video Stats */}
-                    <div className="absolute bottom-6 left-6 text-white">
-                      <div className="text-2xl font-black">{video.views}</div>
-                      <div className="text-sm opacity-80">{video.duration}</div>
-                    </div>
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
                   </div>
                   
-                  {/* Video Content */}
-                  <div className="p-8">
-                    <h3 className={`text-2xl font-black mb-4 ${
+                  <div>
+                    <h3 className={`text-2xl font-bold mb-2 ${
                       theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>{video.title}</h3>
-                    
-                    <p className={`mb-6 leading-relaxed ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
                     }`}>
-                      {video.description}
+                      {featuredProjects[0].title}
+                    </h3>
+                    <p className={`text-sm mb-4 ${
+                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
+                      {featuredProjects[0].subtitle}
                     </p>
-                    
-                    <button className="inline-flex items-center text-[#ff5500] font-bold hover:text-[#ff6600] transition-colors group/link">
-                      <span>Watch Showcase</span>
-                      <svg className="w-5 h-5 ml-2 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h1m4 0h1m6-10V7a3 3 0 01-3 3H9a3 3 0 01-3-3V4a3 3 0 013-3h8a3 3 0 013 3z" />
-                      </svg>
+                    <p className={`leading-relaxed ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      {featuredProjects[0].description}
+                    </p>
+                  </div>
+                  
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div className="text-2xl font-bold text-[#ff5500]">
+                      {featuredProjects[0].results.primary}
+                    </div>
+                    <button 
+                      onClick={() => openModal(featuredProjects[0])}
+                      className="text-[#ff5500] hover:text-[#ff6600] transition-colors"
+                    >
+                      <EyeIcon className="w-5 h-5" />
                     </button>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Call to Action - Modern Creative Style */}
-      <section className={`relative py-24 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-gray-900 via-black to-gray-800' : 'bg-gradient-to-br from-white via-blue-50 to-white'
+      {/* Filter Section */}
+      <section className={`py-16 px-6 md:px-12 lg:px-24 ${
+        theme === 'dark' ? 'bg-gray-950' : 'bg-gray-50'
       }`}>
-        {/* Background Geometric Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className={`absolute top-20 right-10 w-48 h-48 rounded-full opacity-10 ${
-            theme === 'dark' ? 'bg-[#ff5500]' : 'bg-[#ff5500]/20'
-          }`}></div>
-          <div className={`absolute bottom-10 left-20 w-32 h-32 rotate-45 opacity-15 ${
-            theme === 'dark' ? 'bg-blue-400' : 'bg-blue-300'
-          }`}></div>
-          <div className={`absolute top-1/3 left-1/4 w-12 h-12 rounded-full opacity-20 ${
-            theme === 'dark' ? 'bg-purple-500' : 'bg-purple-400'
-          }`}></div>
-          <div className={`absolute bottom-1/3 right-1/3 w-8 h-8 rotate-45 opacity-25 ${
-            theme === 'dark' ? 'bg-green-500' : 'bg-green-400'
-          }`}></div>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-4">
+            {['all', 'e-commerce', 'service', 'fintech', 'fashion', 'creative', 'real estate'].map((category) => (
+              <button
+                key={category}
+                onClick={() => setFilter(category)}
+                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+                  filter === category
+                    ? 'bg-[#ff5500] text-white'
+                    : theme === 'dark'
+                    ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                    : 'bg-white text-gray-700 hover:bg-gray-100'
+                } shadow-lg hover:shadow-xl transform hover:scale-105`}
+              >
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </button>
+            ))}
+          </div>
         </div>
+      </section>
 
-        <motion.div 
-          className="relative z-10 max-w-5xl mx-auto text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {/* Badge */}
-          <div className="inline-flex items-center gap-3 mb-8">
-            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-              theme === 'dark'
-                ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
+      {/* Asymmetric Projects Grid */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 ${
+        theme === 'dark' ? 'bg-black' : 'bg-white'
+      }`}>
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="mb-20">
+            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-black mb-6 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              🚀 Start Your Project
-            </span>
-            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
+              Featured <span className="text-[#ff5500]">Case Studies</span>
+            </h2>
+            <p className={`text-xl max-w-3xl ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              Explore how we've transformed businesses through strategic design and development
+            </p>
           </div>
 
-          {/* Main Heading */}
-          <h2 className={`text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-none ${
+          {/* Asymmetric Grid Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 auto-rows-auto">
+            {filteredProjects.map((project, index) => {
+              // Define different grid sizes for visual interest
+              const gridLayouts = [
+                'lg:col-span-8 lg:row-span-2', // Large
+                'lg:col-span-4 lg:row-span-1', // Small
+                'lg:col-span-5 lg:row-span-1', // Medium
+                'lg:col-span-7 lg:row-span-1', // Medium-Large
+                'lg:col-span-6 lg:row-span-2', // Medium-Tall
+                'lg:col-span-6 lg:row-span-1', // Medium
+              ];
+              
+              const isLarge = index === 0 || index === 4;
+              const gridClass = gridLayouts[index % gridLayouts.length];
+              
+              return (
+                <div
+                  key={project.id}
+                  className={`${gridClass} group relative overflow-hidden rounded-3xl cursor-pointer`}
+                  onClick={() => openModal(project)}
+                >
+                  {/* Background Gradient */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-90`}></div>
+                  
+                  {/* Content Overlay */}
+                  <div className="relative z-10 p-8 h-full flex flex-col justify-between text-white min-h-[300px]">
+                    {/* Header */}
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <CalendarIcon className="w-4 h-4 opacity-75" />
+                          <span className="text-sm font-medium opacity-90">{project.year}</span>
+                        </div>
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                          <ArrowTopRightOnSquareIcon className="w-6 h-6" />
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <div className="text-sm font-medium opacity-75 mb-2">{project.category}</div>
+                        <h3 className="text-2xl md:text-3xl font-bold leading-tight mb-2">
+                          {project.title}
+                        </h3>
+                        <p className="text-lg opacity-90 mb-4">{project.subtitle}</p>
+                        {isLarge && (
+                          <p className="text-base opacity-80 max-w-md">
+                            {project.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Footer */}
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <div className="text-2xl font-black">{project.results.primary}</div>
+                          <div className="text-sm opacity-75">Primary Result</div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <UserIcon className="w-4 h-4 opacity-75" />
+                          <span className="text-sm font-medium opacity-90">{project.client}</span>
+                        </div>
+                      </div>
+                      
+                      {isLarge && (
+                        <div className="flex flex-wrap gap-2">
+                          {project.services.slice(0, 3).map((service, idx) => (
+                            <span key={idx} className="px-3 py-1 bg-white/20 rounded-full text-sm font-medium">
+                              {service}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      
+      {/* Call to Action */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
+      }`}>
+        <div className="max-w-5xl mx-auto text-center space-y-12">
+          <h2 className={`text-5xl md:text-6xl lg:text-7xl font-black leading-tight ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
-            <span className="block">Ready to create</span>
-            <span className="block">your <span className="text-[#ff5500]">success story?</span></span>
+            Ready to join our
+            <br />
+            <span className="text-[#ff5500]">success stories?</span>
           </h2>
 
-          <p className={`text-xl md:text-2xl lg:text-3xl font-light mb-12 max-w-4xl mx-auto ${
+          <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
             theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
           }`}>
-            Let's discuss your project and create something <span className="font-semibold text-[#ff5500]">extraordinary</span> together.
-            <span className="block mt-2">Your success story starts here.</span>
+            Let&apos;s discuss how we can help you achieve similar results and transform your digital presence.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
+          <div className="flex flex-col sm:flex-row justify-center gap-6 pt-8">
             <Link 
               href="/contact" 
-              className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-xl font-semibold shadow-2xl hover:shadow-3xl transform hover:scale-105"
+              className="group inline-flex items-center justify-center px-10 py-5 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-xl font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
             >
-              <span className="relative z-10">Start Your Project</span>
+              <span>Start Your Project</span>
               <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-              {/* Button glow effect */}
-              <div className="absolute inset-0 bg-[#ff5500] rounded-2xl blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-300"></div>
             </Link>
             
             <Link 
-              href="/pricing" 
-              className={`group relative inline-flex items-center justify-center px-10 py-5 rounded-2xl text-xl font-semibold transition-all duration-300 border-2 backdrop-blur-sm ${
+              href="/services" 
+              className={`group inline-flex items-center justify-center px-10 py-5 rounded-2xl text-xl font-semibold transition-all duration-300 border-2 ${
                 theme === 'dark' 
-                  ? 'bg-white/10 text-white border-white/30 hover:bg-white/20 hover:border-white/50' 
-                  : 'bg-black/5 text-gray-900 border-gray-900/30 hover:bg-black/10 hover:border-gray-900/50'
-              } shadow-xl hover:shadow-2xl transform hover:scale-105`}
+                  ? 'bg-transparent text-white border-gray-700 hover:bg-gray-800 hover:border-gray-600' 
+                  : 'bg-transparent text-gray-900 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+              } shadow-xl`}
             >
-              <span className="relative z-10">View Pricing</span>
+              <span>View Services</span>
               <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </Link>
           </div>
+        </div>
+      </section>
+      
+      <Footer />
 
-          {/* Additional Info */}
-          <div className="mt-12 flex flex-wrap justify-center gap-8 text-sm">
-            <div className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Free consultation</span>
+      {/* Enhanced Project Detail Modal */}
+      {selectedProject && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={closeModal}
+        >
+          <div 
+            className={`relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl ${
+              theme === 'dark' 
+                ? 'bg-gradient-to-br from-gray-900 to-black border border-gray-700' 
+                : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
+            } shadow-2xl`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header with gradient background */}
+            <div className={`relative p-8 bg-gradient-to-br ${selectedProject.color} text-white rounded-t-3xl`}>
+              <button 
+                onClick={closeModal}
+                className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center bg-white/20 hover:bg-white/30 text-white transition-colors"
+              >
+                ×
+              </button>
+              
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="text-sm font-medium opacity-90">{selectedProject.category}</div>
+                  <div className="text-sm font-medium opacity-90">•</div>
+                  <div className="text-sm font-medium opacity-90">{selectedProject.year}</div>
+                  <div className="text-sm font-medium opacity-90">•</div>
+                  <div className="text-sm font-medium opacity-90">{selectedProject.duration}</div>
+                </div>
+                
+                <div>
+                  <h3 className="text-4xl font-black mb-2">{selectedProject.title}</h3>
+                  <p className="text-xl opacity-90 mb-4">{selectedProject.subtitle}</p>
+                </div>
+                
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-3xl font-black">{selectedProject.results.primary}</div>
+                    <div className="text-sm opacity-75">Primary Result</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-lg font-bold">Client</div>
+                    <div className="text-sm opacity-90">{selectedProject.client}</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Custom solutions</span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Proven results</span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Berlin-based team</span>
+
+            {/* Content */}
+            <div className="p-8 space-y-8">
+              {/* Project Overview */}
+              <div>
+                <h4 className={`text-xl font-bold mb-4 ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>Project Overview</h4>
+                <p className={`text-lg leading-relaxed mb-6 ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                  {selectedProject.longDescription}
+                </p>
+              </div>
+
+              {/* Challenge & Solution */}
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className={`text-lg font-bold mb-3 text-red-500`}>Challenge</h4>
+                  <p className={`text-sm leading-relaxed ${
+                    theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  }`}>
+                    {selectedProject.challenge}
+                  </p>
+                </div>
+                <div>
+                  <h4 className={`text-lg font-bold mb-3 text-green-500`}>Solution</h4>
+                  <p className={`text-sm leading-relaxed ${
+                    theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  }`}>
+                    {selectedProject.solution}
+                  </p>
+                </div>
+              </div>
+
+              {/* Results */}
+              <div>
+                <h4 className={`text-xl font-bold mb-4 ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>Results & Impact</h4>
+                <div className="grid md:grid-cols-3 gap-6">
+                  {selectedProject.results.secondary.map((result, index) => (
+                    <div key={index} className={`p-4 rounded-2xl ${
+                      theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'
+                    }`}>
+                      <div className="text-2xl font-black text-[#ff5500] mb-1">{result.metric}</div>
+                      <div className={`text-sm ${
+                        theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                      }`}>{result.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Services & Technologies */}
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 className={`text-lg font-bold mb-3 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>Services Provided</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.services.map((service, index) => (
+                      <span key={index} className={`px-3 py-1 rounded-full text-sm ${
+                        theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700'
+                      }`}>
+                        {service}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                
+                <div>
+                  <h4 className={`text-lg font-bold mb-3 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>Technologies Used</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.technologies.map((tech, index) => (
+                      <span key={index} className={`px-3 py-1 rounded-full text-sm border ${
+                        theme === 'dark' 
+                          ? 'border-gray-600 text-gray-300' 
+                          : 'border-gray-300 text-gray-700'
+                      }`}>
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="text-center pt-6 border-t border-gray-200 dark:border-gray-700">
+                <div className="space-y-4">
+                  <Link 
+                    href="/contact"
+                    className="inline-flex items-center gap-3 px-8 py-4 bg-[#ff5500] hover:bg-[#ff6600] text-white font-semibold rounded-2xl transition-colors"
+                    onClick={closeModal}
+                  >
+                    <span>Start Similar Project</span>
+                    <ArrowTopRightOnSquareIcon className="w-5 h-5" />
+                  </Link>
+                  <div>
+                    <Link 
+                      href="/services"
+                      className="text-sm text-[#ff5500] hover:text-[#ff6600] underline"
+                      onClick={closeModal}
+                    >
+                      View all services
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </motion.div>
-      </section>
-
-      <Footer />
+        </div>
+      )}
     </div>
   );
-} 
+}
