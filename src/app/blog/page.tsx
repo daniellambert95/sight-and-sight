@@ -142,74 +142,54 @@ export default function BlogPage() {
     }`}>
       <Navigation currentPage="blog" />
 
-      {/* Hero Section - Clean & Minimal */}
-      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-32 transition-colors duration-300 ${
+      {/* Hero Section - Compact */}
+      <section className={`relative py-12 md:py-16 px-4 md:px-12 lg:px-24 pt-32 md:pt-40 transition-colors duration-300 ${
         theme === 'dark' 
           ? 'bg-gradient-to-br from-black via-gray-950 to-black' 
           : 'bg-gradient-to-br from-white to-gray-50'
       }`}>
         <div className="max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* Left Column - Main Content */}
-            <div className="space-y-8">
-              <h1 className={`text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-none tracking-tight ${
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 lg:gap-24 items-center">
+            {/* Left Column - Main Content (Responsive) */}
+            <div className="space-y-4 md:space-y-6 text-center lg:text-left lg:ml-24">
+              <h1 className={`text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-none tracking-tight ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}>
                 <span className="block">Digital</span>
                 <span className="block text-[#ff5500]">Insights</span>
-                <span className={`block text-3xl md:text-4xl lg:text-5xl font-light mt-6 ${
+                <span className={`block text-xl md:text-3xl lg:text-4xl font-light mt-2 md:mt-4 ${
                   theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                 }`}>
                   that inspire action
                 </span>
               </h1>
-              
-              <p className={`text-xl md:text-2xl font-light max-w-2xl ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-                Expert insights, proven strategies, and actionable tips to elevate your digital presence and drive meaningful results.
-              </p>
-              
-              <div className="pt-8">
-                <div className="inline-flex items-center gap-4 px-8 py-4 bg-[#ff5500]/10 border border-[#ff5500]/20 rounded-2xl text-lg font-semibold">
-                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>
-                    Latest articles below
-                  </span>
-                  <svg className="w-5 h-5 text-[#ff5500]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                  </svg>
-                </div>
-              </div>
             </div>
             
-            {/* Right Column - Statistics */}
-            <div className="space-y-12 lg:space-y-16">
-              {[
-                { number: "Weekly", label: "Fresh Content", sublabel: "New articles every week" },
-                { number: "Expert", label: "Industry Insights", sublabel: "From seasoned professionals" },
-                { number: "Actionable", label: "Proven Strategies", sublabel: "Real-world results" }
-              ].map((stat, index) => (
-                <div 
-                  key={index}
-                  className="border-l-2 border-[#ff5500] pl-8"
-                >
-                  <div className={`text-2xl md:text-3xl font-black mb-2 ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>
-                    {stat.number}
+            {/* Right Column - Statistics (Horizontal on Mobile, Vertical on Desktop) */}
+            <div className="w-full">
+              <div className="grid grid-cols-3 md:grid-cols-1 lg:grid-cols-1 gap-4 md:gap-6 lg:gap-8">
+                {[
+                  { number: "Weekly", label: "Fresh Content" },
+                  { number: "Expert", label: "Industry Insights" },
+                  { number: "Actionable", label: "Proven Strategies" }
+                ].map((stat, index) => (
+                  <div 
+                    key={index}
+                    className="border-l-2 border-[#ff5500] pl-3 md:pl-6 lg:pl-8 text-center md:text-center lg:text-left"
+                  >
+                    <div className={`text-base md:text-xl lg:text-2xl xl:text-3xl font-black mb-1 ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {stat.number}
+                    </div>
+                    <div className={`text-xs md:text-base lg:text-lg font-semibold ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      {stat.label}
+                    </div>
                   </div>
-                  <div className={`text-lg font-semibold mb-1 ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                  }`}>
-                    {stat.label}
-                  </div>
-                  <div className={`text-sm ${
-                    theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
-                  }`}>
-                    {stat.sublabel}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -219,7 +199,7 @@ export default function BlogPage() {
         <>
           {/* Featured Post Section */}
           {featuredPost && (
-            <section className={`py-8 px-4 md:px-8 lg:px-16 ${
+            <section className={`py-4 px-4 md:px-8 lg:px-16 ${
               theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
             }`}>
               <div className="max-w-6xl mx-auto">
