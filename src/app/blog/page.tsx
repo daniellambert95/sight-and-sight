@@ -142,32 +142,76 @@ export default function BlogPage() {
     }`}>
       <Navigation currentPage="blog" />
 
-      {/* Header Section */}
-      <section className={`pt-40 pb-12 px-4 md:px-8 lg:px-16 ${
-        theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
+      {/* Hero Section - Clean & Minimal */}
+      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-32 transition-colors duration-300 ${
+        theme === 'dark' 
+          ? 'bg-gradient-to-br from-black via-gray-950 to-black' 
+          : 'bg-gradient-to-br from-white to-gray-50'
       }`}>
-        <div className="max-w-6xl mx-auto text-center">
-          <motion.h1 
-            className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}
-            style={{ fontFamily: 'var(--font-league-spartan)' }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Blog
-          </motion.h1>
-          <motion.p 
-            className={`text-lg md:text-xl max-w-2xl mx-auto ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-          >
-            Insights, tips, and strategies to elevate your digital presence
-          </motion.p>
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            {/* Left Column - Main Content */}
+            <div className="space-y-8">
+              <h1 className={`text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-none tracking-tight ${
+                theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}>
+                <span className="block">Digital</span>
+                <span className="block text-[#ff5500]">Insights</span>
+                <span className={`block text-3xl md:text-4xl lg:text-5xl font-light mt-6 ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                  that inspire action
+                </span>
+              </h1>
+              
+              <p className={`text-xl md:text-2xl font-light max-w-2xl ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+              }`}>
+                Expert insights, proven strategies, and actionable tips to elevate your digital presence and drive meaningful results.
+              </p>
+              
+              <div className="pt-8">
+                <div className="inline-flex items-center gap-4 px-8 py-4 bg-[#ff5500]/10 border border-[#ff5500]/20 rounded-2xl text-lg font-semibold">
+                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>
+                    Latest articles below
+                  </span>
+                  <svg className="w-5 h-5 text-[#ff5500]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            {/* Right Column - Statistics */}
+            <div className="space-y-12 lg:space-y-16">
+              {[
+                { number: "Weekly", label: "Fresh Content", sublabel: "New articles every week" },
+                { number: "Expert", label: "Industry Insights", sublabel: "From seasoned professionals" },
+                { number: "Actionable", label: "Proven Strategies", sublabel: "Real-world results" }
+              ].map((stat, index) => (
+                <div 
+                  key={index}
+                  className="border-l-2 border-[#ff5500] pl-8"
+                >
+                  <div className={`text-2xl md:text-3xl font-black mb-2 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    {stat.number}
+                  </div>
+                  <div className={`text-lg font-semibold mb-1 ${
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    {stat.label}
+                  </div>
+                  <div className={`text-sm ${
+                    theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
+                  }`}>
+                    {stat.sublabel}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
