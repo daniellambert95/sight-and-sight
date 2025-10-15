@@ -27,17 +27,17 @@ const faqs: FAQItem[] = [
   },
   {
     question: "Which industries do you specialise in?",
-    answer: "We are passionate about crafting marketing and digital messages for hospitality, service-based industries, e-commerce, creative industries, technology, and healthcare. We do not limit ourselves and are excited to take on new opportunities that you can provide. Don't hesitate to contact us if your business does not exactly fall into these categories.",
+    answer: "We are passionate about crafting marketing and digital messages for hospitality, service-based industries, e-commerce, creative industries, technology, and healthcare. We do not limit ourselves and are excited to take on new opportunities that you can provide. Don't hesitate to <a href='/contact' className='text-[#ff5500] hover:text-[#e64d00] underline'>contact us</a> if your business does not exactly fall into these categories.",
     category: "general"
   },
   {
     question: "Is a digital marketing agency right for me and my business?",
-    answer: "Whether a digital marketing agency is right for your business will depend on your goals and the time available. We are committed to providing a professional service with tangible results, no matter your budget or size. If you are curious to see if this is the right fit, please reach out and schedule a call. We are happy to tailor our packages to your needs.",
+    answer: "Whether a digital marketing agency is right for your business will depend on your goals and the time available. We are committed to providing a professional service with tangible results, no matter your budget or size. If you are curious to see if this is the right fit, please <a href='/contact' className='text-[#ff5500] hover:text-[#e64d00] underline'>reach out</a> and schedule a call. We are happy to tailor our packages to your needs.",
     category: "general"
   },
   {
     question: "How does the billing process work for Site & Sight?",
-    answer: "The billing process is dependent on the package or range of services you wish to purchase. These can be tailored to your specifications so that all aspects of your business's digital communication methods are met. These are priced at an hourly, project-based, or retainer rate depending on the specifications. We are happy to work out a payment plan depending on circumstances.",
+    answer: "The billing process is dependent on the package or range of services you wish to purchase. These <a href='/pricing' className='text-[#ff5500] hover:text-[#e64d00] underline'>can be tailored</a> to your specifications so that all aspects of your business's digital communication methods are met. These are priced at an hourly, project-based, or retainer rate depending on the specifications. We are happy to work out a payment plan depending on circumstances.",
     category: "general"
   },
   {
@@ -47,12 +47,12 @@ const faqs: FAQItem[] = [
   },
   {
     question: "What locations do you operate in?",
-    answer: "We are based in Dublin and Berlin. Our services are available internationally. We can help no matter where your location is and can respond promptly, no matter the time difference. Contact us here 24/7!",
+    answer: "We are based in Dublin and Berlin. Our services are available internationally. We can help no matter where your location is and can respond promptly, no matter the time difference. Contact us <a href='/contact' className='text-[#ff5500] hover:text-[#e64d00] underline'>here</a> 24/7!",
     category: "general"
   },
   {
     question: "I don't see my question listed here. How can I contact you?",
-    answer: "If your query is not listed, we encourage you to reach out to us directly here. Alternatively, send us an email at hello@siteandsight.com.",
+    answer: "If your query is not listed, we encourage you to reach out to us directly <a href='/contact' className='text-[#ff5500] hover:text-[#e64d00] underline'>here</a>. Alternatively, send us an email at <a href='mailto:hello@siteandsight.com' className='text-[#ff5500] hover:text-[#e64d00] underline'>hello@siteandsight.com</a>.",
     category: "general"
   },
 
@@ -69,12 +69,12 @@ const faqs: FAQItem[] = [
   },
   {
     question: "What tools and software do you use for E-Commerce and website creation?",
-    answer: "We utilise React and Next.js to create websites. These are integrated with a CMS (Content Management System), responsive frameworks, HTML/CSS, JavaScript, and other programming languages. E-Commerce stores are developed using WordPress and Shopify. We like to stay informed with the latest industry trends and processes, and will use this in the development of your site. Take a look at how these have turned out for previous clients!",
+    answer: "We utilise React and Next.js to create websites. These are integrated with a CMS (Content Management System), responsive frameworks, HTML/CSS, JavaScript, and other programming languages. E-Commerce stores are developed using WordPress and Shopify. We like to stay informed with the latest industry trends and processes, and will use this in the development of your site. Take a look at how these have turned out for <a href='/work' className='text-[#ff5500] hover:text-[#e64d00] underline'>previous clients!</a>",
     category: "web-development"
   },
   {
     question: "How much does web design and development cost?",
-    answer: "Prices vary depending on your requirements and goals. For a full and comprehensive quote, click here and tell us what you need.",
+    answer: "Prices vary depending on your requirements and goals. For a full and comprehensive quote, <a href='/pricing' className='text-[#ff5500] hover:text-[#e64d00] underline'>click here</a> and tell us what you need.",
     category: "web-development"
   },
   {
@@ -101,14 +101,14 @@ const faqs: FAQItem[] = [
   },
   {
     question: "Do your creative branding and logo design services charge by the hour or by project?",
-    answer: "We charge on a project basis, allowing easier budgeting for our clients and valuable deliverables that live up to expectations. To get a quote, let us know your ideas here.",
+    answer: "We charge on a project basis, allowing easier budgeting for our clients and valuable deliverables that live up to expectations. To get a quote, let us know your ideas <a href='/pricing' className='text-[#ff5500] hover:text-[#e64d00] underline'>here</a>.",
     category: "creative-branding"
   },
 
   // Digital Marketing and SEO Questions
   {
     question: "Is digital marketing and SEO still relevant?",
-    answer: "Digital marketing and SEO practices are highly relevant for allowing your business to grow and develop online. 83% of consumers use Google to find local businesses (Bright Local), and a four-star rating is essential for consumers to trust what you're selling (Reviews On My Website). To neglect this sizeable percentage of potential clients by not utilising relevant content, keywords, and local SEO means you are leaving yourself exposed to the competition that is.",
+    answer: "Digital marketing and SEO practices are highly relevant for allowing your business to grow and develop online. 83% of consumers use Google to find local businesses (<a href='https://www.brightlocal.com/research/local-consumer-review-survey/' className='text-[#ff5500] hover:text-[#e64d00] underline' target='_blank' rel='noopener noreferrer'>Bright Local</a>), and a four-star rating is essential for consumers to trust what you're selling (<a href='https://reviewsonmywebsite.com/blog/state-of-online-reviews' className='text-[#ff5500] hover:text-[#e64d00] underline' target='_blank' rel='noopener noreferrer'>Reviews On My Website</a>). To neglect this sizeable percentage of potential clients by not utilising relevant content, keywords, and local SEO means you are leaving yourself exposed to the competition that is.",
     category: "digital-marketing"
   },
   {
@@ -133,7 +133,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: "How much do your SEO and PPC services cost?",
-    answer: "SEO and PPC costs vary in cost depending on your objectives and time frame. We can format our pricing and structure to suit whatever goals. To get a quote, reach out to us here and let us know what you're looking to achieve.",
+    answer: "SEO and PPC costs vary in cost depending on your objectives and time frame. We can format our pricing and structure to suit whatever goals. To get a quote, reach out to us <a href='/pricing' className='text-[#ff5500] hover:text-[#e64d00] underline'>here</a> and let us know what you're looking to achieve.",
     category: "digital-marketing"
   },
 
@@ -165,7 +165,7 @@ const faqs: FAQItem[] = [
   },
   {
     question: "How much do AI automations cost?",
-    answer: "Site & Sight's AI automations can be provided as a subscription package with regular maintenance and updates, or sold as a one-time purchase. We are happy to provide a quote. Contact us here.",
+    answer: "Site & Sight's AI automations can be provided as a subscription package with regular maintenance and updates, or sold as a one-time purchase. We are happy to provide a quote. Contact us <a href='/pricing' className='text-[#ff5500] hover:text-[#e64d00] underline'>here</a>.",
     category: "automation-ai"
   }
 ]
@@ -228,54 +228,117 @@ export default function FAQPage() {
       <Navigation currentPage="faq" />
       
       {/* Hero Section */}
-      <section className={`relative min-h-[60vh] flex items-center overflow-hidden transition-colors duration-300 pt-20 ${
+      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-12 transition-colors duration-300 ${
         theme === 'dark' 
-          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
-          : 'bg-gradient-to-br from-white via-blue-50 to-purple-50'
+          ? 'bg-gradient-to-br from-black via-gray-950 to-black' 
+          : 'bg-gradient-to-br from-white to-gray-50'
       }`}>
-
-        <div className="container px-4 mx-auto max-w-6xl relative z-10">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerContainer}
-            className="text-center"
-          >
-            <motion.div variants={fadeIn} className="mb-6">
-              <span className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${
-                theme === 'dark' 
-                  ? 'bg-[#ff5500]/20 text-[#ff5500]' 
-                  : 'bg-[#ff5500]/10 text-[#ff5500]'
-              }`}>
-                Frequently Asked Questions
-              </span>
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            {/* Left Column - Main Content */}
+            <div className="space-y-8">
+              <motion.h1 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className={`text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-none tracking-tight ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}
+              >
+                <span className="block">Got</span>
+                <span className="block text-[#ff5500]">Questions?</span>
+                <span className={`block text-3xl md:text-4xl lg:text-5xl font-light mt-6 ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                  we&apos;ve got answers
+                </span>
+              </motion.h1>
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className={`text-xl md:text-2xl font-light max-w-2xl ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                }`}
+              >
+                Find everything you need to know about our process, pricing, and services. 
+                Clear answers to help you make informed decisions.
+              </motion.p>
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="pt-8"
+              >
+                <a 
+                  href="#faq-section"
+                  className="group inline-flex items-center gap-4 px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
+                >
+                  <span>Browse Questions</span>
+                  <svg className="w-5 h-5 transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  </svg>
+                </a>
+              </motion.div>
+            </div>
+            
+            {/* Right Column - Question Categories Preview */}
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="hidden lg:block space-y-6 ml-16"
+            >
+              {categories.filter(cat => cat.id !== 'all').map((category, index) => {
+                const IconComponent = category.icon;
+                return (
+                  <motion.div
+                    key={category.id}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                    className={`group p-6 rounded-2xl cursor-pointer transition-all duration-300 border-2 ${
+                      theme === 'dark' 
+                        ? 'bg-white/5 border-gray-800 hover:bg-white/10 hover:border-[#ff5500]/50' 
+                        : 'bg-white/80 border-gray-200 hover:bg-white hover:border-[#ff5500]/50'
+                    } shadow-lg hover:shadow-xl hover:scale-[1.02]`}
+                    onClick={() => {
+                      handleCategoryChange(category.id);
+                      document.getElementById('faq-section')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <IconComponent className="w-6 h-6" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className={`font-bold text-lg group-hover:text-[#ff5500] transition-colors duration-300 ${
+                          theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        }`}>
+                          {category.name}
+                        </h3>
+                        <p className={`text-sm ${
+                          theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                        }`}>
+                          {category.count} questions
+                        </p>
+                      </div>
+                      <svg className="w-5 h-5 text-[#ff5500] opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </motion.div>
-            
-            <motion.h1 
-              variants={fadeIn}
-              className="text-5xl md:text-6xl lg:text-7xl font-black mb-6"
-              style={{ fontFamily: 'var(--font-league-spartan)' }}
-            >
-              <span className={theme === 'dark' ? 'text-white' : 'text-black'}>
-                Got 
-              </span>
-              <span className="text-[#ff5500]"> Questions?</span>
-            </motion.h1>
-            
-            <motion.p 
-              variants={fadeIn}
-              className={`text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-              }`}
-            >
-              We've got answers. Find everything you need to know about our process, pricing, and services.
-            </motion.p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section id="faq-section" className="relative py-20 overflow-hidden">
         <div className="container px-4 mx-auto max-w-6xl">
           {/* Category Filter */}
           <motion.div 
@@ -362,11 +425,12 @@ export default function FAQPage() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <div className={`px-8 pb-8 text-lg leading-relaxed ${
-                          theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                        }`}>
-                          {faq.answer}
-                        </div>
+                        <div 
+                          className={`px-8 pb-8 text-lg leading-relaxed ${
+                            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                          }`}
+                          dangerouslySetInnerHTML={{ __html: faq.answer }}
+                        />
                       </motion.div>
                     )}
                   </AnimatePresence>

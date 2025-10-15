@@ -1,12 +1,64 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import QuoteModal from '../components/QuoteModal';
 import { useTheme } from '../utils/ThemeProvider';
+import { 
+  BoltIcon,
+  PaintBrushIcon,
+  DevicePhoneMobileIcon,
+  RocketLaunchIcon,
+  WrenchScrewdriverIcon,
+  SparklesIcon,
+  MagnifyingGlassIcon,
+  ChartBarIcon
+} from '@heroicons/react/24/outline';
+
+// Animated Counter Component with AOS
+function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: number, suffix?: string, duration?: number }) {
+  const [count, setCount] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+          let startTime: number | null = null;
+          const animate = (currentTime: number) => {
+            if (startTime === null) startTime = currentTime;
+            const progress = (currentTime - startTime) / (duration * 1000);
+            
+            if (progress < 1) {
+              setCount(Math.floor(target * progress));
+              requestAnimationFrame(animate);
+            } else {
+              setCount(target);
+            }
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target, duration, hasAnimated]);
+
+  return (
+    <div ref={ref} className="text-3xl font-black text-[#ff5500] mb-2">
+      {count}{suffix}
+    </div>
+  );
+}
 
 export default function Pricing() {
   const { theme } = useTheme();
@@ -14,9 +66,16 @@ export default function Pricing() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   
   const heroRef = useRef(null);
-  const cardsRef = useRef(null);
   const isHeroInView = useInView(heroRef, { once: true });
-  const isCardsInView = useInView(cardsRef, { once: true });
+  
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 100
+    });
+  }, []);
 
   const openQuoteModal = () => {
     setShowQuoteModal(true);
@@ -28,48 +87,60 @@ export default function Pricing() {
 
   const pricingFeatures = [
     {
-      icon: "⚡",
+      icon: <BoltIcon className="w-8 h-8 text-white" />,
       title: "Lightning Fast",
       description: "Get your project delivered faster than you can say 'responsive design'",
       highlight: true
     },
     {
-      icon: "🎨",
+      icon: <PaintBrushIcon className="w-8 h-8 text-white" />,
       title: "Custom Design",
       description: "Tailored specifically to your brand and vision",
       highlight: false
     },
     {
-      icon: "📱",
+      icon: <DevicePhoneMobileIcon className="w-8 h-8 text-white" />,
       title: "Mobile First",
       description: "Optimized for every device imaginable",
       highlight: false
     },
     {
-      icon: "🚀",
+      icon: <RocketLaunchIcon className="w-8 h-8 text-white" />,
       title: "Performance",
       description: "Blazing fast load times guaranteed",
       highlight: true
     },
     {
-      icon: "🔧",
+      icon: <WrenchScrewdriverIcon className="w-8 h-8 text-white" />,
       title: "Maintenance",
       description: "Ongoing support and updates included",
       highlight: false
     },
     {
-      icon: "💎",
+      icon: <SparklesIcon className="w-8 h-8 text-white" />,
       title: "Premium Quality",
       description: "Award-winning designs that convert",
+      highlight: true
+    },
+    {
+      icon: <MagnifyingGlassIcon className="w-8 h-8 text-white" />,
+      title: "SEO Optimized",
+      description: "Built-in search engine optimization to boost your visibility",
+      highlight: false
+    },
+    {
+      icon: <ChartBarIcon className="w-8 h-8 text-white" />,
+      title: "Analytics Ready",
+      description: "Comprehensive tracking and insights to measure success",
       highlight: true
     }
   ];
 
   const stats = [
-    { value: "10+", label: "Projects Delivered" },
-    { value: "100%", label: "Client Satisfaction" },
-    { value: "24h", label: "Response Time" },
-    { value: "100%", label: "Custom Built" }
+    { target: 10, suffix: "+", label: "Projects Delivered", duration: 2.5 },
+    { target: 100, suffix: "%", label: "Client Satisfaction", duration: 2 },
+    { target: 24, suffix: "h", label: "Response Time", duration: 1.5 },
+    { target: 100, suffix: "%", label: "Custom Built", duration: 2 }
   ];
 
   return (
@@ -80,7 +151,7 @@ export default function Pricing() {
       
 
       {/* Hero Section */}
-      <section ref={heroRef} className={`relative flex-1 flex items-center justify-center px-6 py-32 md:py-42 overflow-hidden ${
+      <section ref={heroRef} className={`relative flex-1 flex items-center justify-center px-6 py-34 md:py-42 overflow-hidden ${
         theme === 'dark' 
           ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
           : 'bg-gradient-to-br from-white via-orange-50 to-orange-100'
@@ -99,7 +170,7 @@ export default function Pricing() {
               animate={isHeroInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 1, type: "spring", bounce: 0.4 }}
             >
-              Let's build something{' '}
+              Let&apos;s build something{' '}
               <motion.span 
                 className="relative inline-block text-[#ff5500]"
                 whileHover={{ scale: 1.1, rotate: 2 }}
@@ -147,7 +218,11 @@ export default function Pricing() {
                   transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
                   whileHover={{ scale: 1.05, y: -5 }}
                 >
-                  <div className="text-3xl font-black text-[#ff5500] mb-2">{stat.value}</div>
+                  <AnimatedCounter 
+                    target={stat.target} 
+                    suffix={stat.suffix} 
+                    duration={stat.duration}
+                  />
                   <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
                     {stat.label}
                   </div>
@@ -169,13 +244,13 @@ export default function Pricing() {
               />
               <span className="relative z-10 flex items-center">
                 Get Your Custom Quote 
-                <motion.span
+                <motion.div
                   className="ml-2 inline-block"
                   animate={{ rotate: [0, 15, 0] }}
                   transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
                 >
-                  🚀
-                </motion.span>
+                  <RocketLaunchIcon className="w-5 h-5" />
+                </motion.div>
               </span>
               
               {/* Animated Border */}
@@ -191,57 +266,44 @@ export default function Pricing() {
       </section>
 
       {/* Features Cards Section */}
-      <section ref={cardsRef} className={`py-20 px-6 ${
+      <section className={`py-20 px-6 ${
         theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
       }`}>
         <div className="max-w-6xl mx-auto">
-          <motion.h2 
+          <h2 
             className={`text-4xl md:text-5xl font-black text-center mb-16 ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}
-            initial={{ opacity: 0, y: 30 }}
-            animate={isCardsInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
+            data-aos="fade-up" 
+            data-aos-duration="800"
           >
             Why Choose 
             <span className="text-[#ff5500]"> Site</span> &
             <span className="text-[#ff5500]"> Sight</span>?
-          </motion.h2>
+          </h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {pricingFeatures.map((feature, index) => (
-              <motion.div
+              <div
                 key={index}
-                className={`relative p-8 rounded-3xl backdrop-blur-sm transition-all duration-300 cursor-pointer border-2 border-[#ff5500] ${
+                className={`relative p-8 rounded-3xl backdrop-blur-sm transition-all duration-1000 ease-out cursor-pointer border-2 border-[#ff5500] hover:scale-105 hover:-translate-y-2 ${
                   theme === 'dark' 
                     ? 'bg-white/5 hover:bg-white/10' 
                     : 'bg-white/80 hover:bg-white'
                 }`}
-                initial={{ opacity: 0, y: 50 }}
-                animate={isCardsInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ 
-                  scale: 1.02, 
-                  y: -8
-                }}
+                data-aos="fade-up"
+                data-aos-duration="600"
+                data-aos-delay={index * 100}
                 onMouseEnter={() => setHoveredCard(index)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <motion.div 
-                  className="text-5xl mb-4"
-                  animate={hoveredCard === index ? { 
-                    scale: 1.1,
-                    rotate: 5
-                  } : { 
-                    scale: 1,
-                    rotate: 0
-                  }}
-                  transition={{ 
-                    duration: 0.3
-                  }}
+                <div 
+                  className={`w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center mb-4 shadow-lg transition-transform duration-700 ease-out ${
+                    hoveredCard === index ? 'scale-110 rotate-6' : 'scale-100 rotate-0'
+                  }`}
                 >
                   {feature.icon}
-                </motion.div>
+                </div>
                 
                 <h3 className={`text-xl font-bold mb-3 ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
@@ -254,30 +316,28 @@ export default function Pricing() {
                 }`}>
                   {feature.description}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
 
           {/* Bottom CTA */}
-          <motion.div 
+          <div 
             className="text-center mt-20"
-            initial={{ opacity: 0 }}
-            animate={isCardsInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            data-aos="fade-up" 
+            data-aos-duration="800" 
+            data-aos-delay="400"
           >
             <p className={`text-lg mb-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
               Ready to transform your digital presence?
             </p>
             
-            <motion.button
+            <button
               onClick={openQuoteModal}
-              className="px-10 py-4 bg-transparent border-2 border-[#ff5500] text-[#ff5500] rounded-2xl hover:bg-[#ff5500] hover:text-white transition-all duration-300 text-lg font-bold"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="px-10 py-4 bg-transparent border-2 border-[#ff5500] text-[#ff5500] rounded-2xl hover:bg-[#ff5500] hover:text-white transition-all duration-300 text-lg font-bold hover:scale-105 active:scale-95"
             >
               Start Your Project Today
-            </motion.button>
-          </motion.div>
+            </button>
+          </div>
         </div>
       </section>
 

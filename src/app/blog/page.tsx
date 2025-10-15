@@ -143,7 +143,7 @@ export default function BlogPage() {
       <Navigation currentPage="blog" />
 
       {/* Hero Section - Compact */}
-      <section className={`relative py-12 md:py-16 px-4 md:px-12 lg:px-24 pt-32 md:pt-40 transition-colors duration-300 ${
+      <section className={`relative py-12 md:py-16 px-4 md:px-12 lg:px-24 pt-36 md:pt-40 transition-colors duration-300 ${
         theme === 'dark' 
           ? 'bg-gradient-to-br from-black via-gray-950 to-black' 
           : 'bg-gradient-to-br from-white to-gray-50'

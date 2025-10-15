@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../utils/ThemeProvider';
+import { RocketLaunchIcon } from '@heroicons/react/24/solid';
 
 interface FormData {
   name: string;
@@ -286,11 +287,11 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     
     setIsAnimating(true);
     
-    // After animation completes, show success screen
+    // After animation completes, show success screen (7s animation + 1s extra)
     setTimeout(() => {
       setIsAnimating(false);
       setIsSubmitted(true);
-    }, 6000); // 6 second animation
+    }, 8000); // 8 second total wait
   };
 
   const canProceedFromStep = (step: number) => {
@@ -359,14 +360,14 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 z-50 flex items-center justify-center overflow-hidden"
+          className="fixed inset-0 bg-black z-50 flex items-center justify-center overflow-hidden"
         >
-          {/* Stars background */}
+          {/* Orange brand-colored stars background */}
           <div className="absolute inset-0">
-            {[...Array(50)].map((_, i) => (
+            {[...Array(30)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-1 h-1 bg-white rounded-full"
+                className="absolute w-1 h-1 bg-[#ff5500] rounded-full"
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
@@ -376,9 +377,10 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                   scale: [0, 1, 0],
                 }}
                 transition={{
-                  duration: Math.random() * 2 + 1,
+                  duration: Math.random() * 3 + 2,
                   repeat: Infinity,
-                  delay: Math.random() * 2,
+                  delay: Math.random() * 3,
+                  ease: "easeInOut"
                 }}
               />
             ))}
@@ -386,97 +388,59 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
 
           {/* Success message that appears from the start */}
           <motion.div
-            className="absolute bottom-1/3 text-center text-white"
+            className="absolute bottom-1/3 text-center text-white z-10"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              duration: 0.8,
-              delay: 0.2
+              duration: 1.2,
+              delay: 0.5,
+              ease: "easeOut"
             }}
           >
-            <h2 className="text-4xl font-black mb-4">🎯 Proposal Incoming!</h2>
-            <p className="text-xl">Your request is flying through cyberspace...</p>
+            <h2 className="text-4xl font-black mb-4">Proposal Submitted!</h2>
+            <p className="text-xl">We'll reach out and be in contact soon...</p>
           </motion.div>
 
-          {/* Just the rocket that flies up slowly */}
+          {/* Rocket that flies straight up - smooth continuous movement */}
           <motion.div
-            className="absolute z-20 text-6xl"
+            className="absolute z-20"
             initial={{ 
               opacity: 1, 
               scale: 1,
-              x: 0,
               y: 0,
             }}
             animate={{
-              opacity: [1, 1, 1, 0.6],
-              scale: [1, 1.1, 1.3, 0.4],
-              x: [0, 8, 25, 60],
-              y: [0, -80, -300, -800],
-              rotate: [0, 3, 12, 30],
+              opacity: 0,
+              scale: 0.3,
+              y: -1300,
             }}
             transition={{
-              duration: 6,
-              delay: 0.5
+              duration: 7,
+              delay: 1,
+              ease: "linear"
             }}
           >
-            🚀
+            {/* Orange rocket facing up */}
+            <RocketLaunchIcon className="w-12 h-12 text-[#ff5500] transform -rotate-45" />
           </motion.div>
 
-          {/* Trail effect for the rocket - synced */}
+          {/* Single synchronized thin flame trail - smooth continuous movement */}
           <motion.div
             className="absolute z-15"
-            initial={{ opacity: 0, scale: 0 }}
+            initial={{ opacity: 0, scale: 1, y: 60 }}
             animate={{
-              opacity: [0, 1, 0.9, 0.5, 0],
-              scale: [0, 1, 1.8, 2.5, 3.5],
-              y: [40, -40, -180, -420, -800],
-              x: [0, 4, 12, 30, 60],
+              opacity: 1,
+              scale: 4,
+              y: -1300,
             }}
             transition={{
-              duration: 6,
-              delay: 0.7
+              duration: 7,
+              delay: 1.1,
+              ease: "linear"
             }}
           >
-            <div className="w-8 h-20 bg-gradient-to-t from-orange-500 via-yellow-400 to-transparent rounded-full blur-sm" />
+            <div className="w-6 h-20 bg-gradient-to-t from-[#ff5500] via-[#ff6600] to-transparent rounded-full blur-sm" />
           </motion.div>
-
-          {/* Multiple flame particles following the rocket - all synced */}
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute z-10 w-3 h-6 bg-gradient-to-t from-red-500 to-orange-300 rounded-full blur-sm"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{
-                opacity: [0, 1, 0.8, 0.4, 0],
-                scale: [0, 1, 1.3, 1.8, 2.2],
-                y: [25, -25 - i * 15, -120 - i * 30, -280 - i * 50, -600 - i * 70],
-                x: [0, 2 + i * 1.5, 8 + i * 2.5, 20 + i * 5, 45 + i * 8],
-              }}
-              transition={{
-                duration: 5.8,
-                delay: 0.8 + i * 0.1
-              }}
-            />
-          ))}
-
-          {/* Additional smaller flame particles for more effect */}
-          {[...Array(4)].map((_, i) => (
-            <motion.div
-              key={`small-${i}`}
-              className="absolute z-8 w-2 h-4 bg-gradient-to-t from-yellow-500 to-orange-200 rounded-full blur-sm"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{
-                opacity: [0, 0.8, 0.6, 0.2, 0],
-                scale: [0, 0.8, 1.1, 1.5, 2],
-                y: [20, -20 - i * 10, -100 - i * 25, -240 - i * 40, -520 - i * 60],
-                x: [0, 1 + i, 6 + i * 2, 15 + i * 3, 35 + i * 6],
-              }}
-              transition={{
-                duration: 5.5,
-                delay: 1 + i * 0.15
-              }}
-            />
-          ))}
         </motion.div>
       )}
 

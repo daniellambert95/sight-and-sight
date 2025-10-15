@@ -75,7 +75,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto text-center">
           {/* Main Headline with Scroll-Synced Word Reveal */}
           <div ref={headlineRef} className="mb-16">
-            <h2 className={`text-6xl md:text-8xl lg:text-9xl ${theme === 'dark' ? 'text-black' : 'text-white'} font-black leading-none mb-4`}>
+            <h2 className={`text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl ${theme === 'dark' ? 'text-black' : 'text-white'} font-black leading-none mb-4`}>
               <span className="block mb-4">
                 <motion.span
                   className="inline-block mr-4"
@@ -98,7 +98,7 @@ export default function Footer() {
               </span>
               <span className="block">
                 <motion.em 
-                  className="italic mr-6"
+                  className="italic mr-4 sm:mr-4 md:mr-6"
                   style={{ 
                     opacity: uniqueOpacity, 
                     y: uniqueY, 

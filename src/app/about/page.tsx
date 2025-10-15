@@ -69,7 +69,7 @@ export default function AboutPage() {
       <Navigation currentPage="about" />
 
       {/* Hero Section - Clean & Minimal */}
-      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-32 transition-colors duration-300 ${
+      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-36 md:pt-32 transition-colors duration-300 ${
         theme === 'dark' 
           ? 'bg-gradient-to-br from-black via-gray-950 to-black' 
           : 'bg-gradient-to-br from-white to-gray-50'
@@ -235,7 +235,7 @@ export default function AboutPage() {
       </section>
 
       {/* Our Approach Section */}
-      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+      <section className={`relative py-20 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
         theme === 'dark' ? 'bg-black' : 'bg-white'
       }`}>
         <div className="max-w-7xl mx-auto">
@@ -409,7 +409,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values Section */}
-      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+      <section className={`relative py-20 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
         theme === 'dark' ? 'bg-black' : 'bg-white'
       }`}>
         <div className="max-w-7xl mx-auto">
