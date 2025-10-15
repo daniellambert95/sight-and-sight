@@ -3,7 +3,30 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../utils/ThemeProvider';
-import { RocketLaunchIcon } from '@heroicons/react/24/solid';
+import { 
+  RocketLaunchIcon,
+  GlobeAltIcon,
+  ComputerDesktopIcon,
+  ShoppingCartIcon,
+  CogIcon,
+  BuildingOfficeIcon,
+  PaintBrushIcon,
+  ChartBarIcon,
+  MagnifyingGlassIcon,
+  EnvelopeIcon,
+  DocumentTextIcon,
+  SpeakerWaveIcon,
+  BoltIcon,
+  CpuChipIcon,
+  ClipboardDocumentListIcon,
+  CurrencyEuroIcon,
+  ClockIcon,
+  PhoneIcon,
+  PencilSquareIcon,
+  CheckCircleIcon,
+  LightBulbIcon,
+  SparklesIcon
+} from '@heroicons/react/24/solid';
 
 interface FormData {
   name: string;
@@ -52,93 +75,81 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     {
       id: 'web-creative',
       name: 'Web Development & Creative Design',
-      icon: '🌐',
+      icon: <GlobeAltIcon className="w-8 h-8 text-[#ff5500]" />,
       description: 'Websites, apps & visual design',
       services: [
         { 
           id: 'website', 
           name: 'Website Development', 
-          icon: '💻',
+          icon: <ComputerDesktopIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Custom responsive websites'
         },
         { 
           id: 'ecommerce', 
           name: 'E-commerce Solutions', 
-          icon: '🛒',
+          icon: <ShoppingCartIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Online stores & payment systems'
         },
         { 
           id: 'webapp', 
           name: 'Web Applications', 
-          icon: '⚙️',
+          icon: <CogIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Custom software & dashboards'
         },
         { 
           id: 'hosting', 
           name: 'Hosting & Deployment', 
-          icon: '🚀',
+          icon: <RocketLaunchIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Reliable hosting & maintenance'
         },
         { 
           id: 'brand-design', 
           name: 'Brand Identity Design', 
-          icon: '🎯',
+          icon: <BuildingOfficeIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Logo design & brand guidelines'
         },
         { 
           id: 'graphic-design', 
           name: 'Graphic Design', 
-          icon: '📐',
+          icon: <PaintBrushIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Marketing materials & print design'
         },
-        { 
-          id: 'video-editing', 
-          name: 'Video Editing & Production', 
-          icon: '🎬',
-          description: 'Professional video editing'
-        },
-        { 
-          id: 'motion-graphics', 
-          name: 'Motion Graphics & Animation', 
-          icon: '✨',
-          description: 'Animated graphics & visual effects'
-        }
       ]
     },
     {
       id: 'digital-marketing',
       name: 'Digital Marketing & SEO',
-      icon: '📈',
+      icon: <ChartBarIcon className="w-8 h-8 text-[#ff5500]" />,
       description: 'Online visibility & growth',
       services: [
         { 
           id: 'seo', 
           name: 'SEO Optimization', 
-          icon: '📊',
+          icon: <ChartBarIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Search engine optimization'
         },
         { 
           id: 'sem', 
           name: 'Search Engine Marketing', 
-          icon: '🎯',
+          icon: <MagnifyingGlassIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Google Ads & PPC campaigns'
         },
         { 
           id: 'email-marketing', 
           name: 'Email Marketing', 
-          icon: '📧',
+          icon: <EnvelopeIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Email campaigns & automation'
         },
         { 
           id: 'content-marketing', 
           name: 'Content Marketing', 
-          icon: '📝',
+          icon: <DocumentTextIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Blog writing & social media'
         },
         { 
           id: 'pr-communications', 
           name: 'PR & Communications', 
-          icon: '📣',
+          icon: <SpeakerWaveIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Public relations & media'
         }
       ]
@@ -146,31 +157,31 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     {
       id: 'automation',
       name: 'Automation & AI Solutions',
-      icon: '🤖',
+      icon: <CpuChipIcon className="w-8 h-8 text-[#ff5500]" />,
       description: 'Smart business solutions',
       services: [
         { 
           id: 'ai-chatbots', 
           name: 'AI Chatbots', 
-          icon: '🤖',
+          icon: <CpuChipIcon className="w-6 h-6 text-[#ff5500]" />,
           description: '24/7 customer support automation'
         },
         { 
           id: 'workflow-automation', 
           name: 'Workflow Automation', 
-          icon: '⚡',
+          icon: <BoltIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Process optimization & automation'
         },
         { 
           id: 'ai-integration', 
           name: 'AI Integration', 
-          icon: '🧠',
+          icon: <CpuChipIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'AI tools & custom solutions'
         },
         { 
           id: 'consulting', 
           name: 'Business Process Optimization', 
-          icon: '📋',
+          icon: <ClipboardDocumentListIcon className="w-6 h-6 text-[#ff5500]" />,
           description: 'Strategy & process consulting'
         }
       ]
@@ -897,7 +908,10 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                           Submitting...
                         </div>
                       ) : (
-                        'Get My Proposal 🚀'
+                        <div className="flex items-center gap-2">
+                          Submit
+                          <RocketLaunchIcon className="w-5 h-5" />
+                        </div>
                       )}
                     </button>
                   </div>
