@@ -92,17 +92,6 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
       color: 'orange'
     },
     {
-      id: 'video-editing',
-      title: 'Video & Motion Graphics',
-      description: 'Professional video content',
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-        </svg>
-      ),
-      color: 'orange'
-    },
-    {
       id: 'automation',
       title: 'Automation & AI',
       description: 'Smart business solutions',
@@ -139,17 +128,61 @@ export default function ProjectModal({ isOpen, onClose }: ProjectModalProps) {
   };
 
   const handleSubmit = async () => {
-    // Here you would typically send the data to your backend
-    console.log('Form submitted:', formData);
-    
-    // Start the celebration animation
-    setIsAnimating(true);
-    
-    // After animation completes, show success screen (8s animation + 1s extra)
-    setTimeout(() => {
+    try {
+      // Format project types list for email
+      const projectTypesList = formData.projectTypes.join(', ');
+
+      // Create formatted message for email
+      const emailMessage = `
+Project Inquiry Details:
+
+Contact Information:
+- Name: ${formData.name}
+- Email: ${formData.email}
+
+Project Types Selected:
+${projectTypesList}
+
+${formData.customProject ? `Project Details:\n${formData.customProject}` : ''}
+
+---
+Form: Project Inquiry Modal
+Submitted: ${new Date().toLocaleString()}
+      `.trim();
+
+      // Start the celebration animation
+      setIsAnimating(true);
+
+      // Submit to Web3Forms
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          subject: `New Project Inquiry from ${formData.name}`,
+          from_name: formData.name,
+          email: formData.email,
+          message: emailMessage,
+          to_email: "hello@siteandsight.com"
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error('Form submission failed');
+      }
+
+      // After successful submission and animation completes, show success screen (8s animation + 1s extra)
+      setTimeout(() => {
+        setIsAnimating(false);
+        setIsSubmitted(true);
+      }, 9000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
       setIsAnimating(false);
-      setIsSubmitted(true);
-    }, 9000);
+      alert('Unable to submit your project inquiry. Please try again or contact us directly at hello@siteandsight.com');
+    }
   };
 
   const handleClose = () => {

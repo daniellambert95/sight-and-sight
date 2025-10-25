@@ -99,19 +99,67 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setIsSubmitting(false);
-    setSubmitted(true);
-    
-    // Close modal after 2 seconds
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', message: '', services: [] });
-      onClose();
-    }, 2000);
+
+    try {
+      // Format services list for email
+      const servicesList = formData.services
+        .map(serviceId => services.find(s => s.id === serviceId)?.name)
+        .filter(Boolean)
+        .join(', ');
+
+      // Create formatted message for email
+      const emailMessage = `
+Contact Form Submission:
+
+Contact Information:
+- Name: ${formData.name}
+- Email: ${formData.email}
+
+Services Interested In:
+${servicesList || 'Not specified'}
+
+Message:
+${formData.message}
+
+---
+Form: Contact Modal
+Submitted: ${new Date().toLocaleString()}
+      `.trim();
+
+      // Submit to Web3Forms
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          subject: `New Contact Form Submission from ${formData.name}`,
+          from_name: formData.name,
+          email: formData.email,
+          message: emailMessage,
+          to_email: "hello@siteandsight.com"
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error('Form submission failed');
+      }
+
+      setIsSubmitting(false);
+      setSubmitted(true);
+
+      // Close modal after 2 seconds
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: '', email: '', message: '', services: [] });
+        onClose();
+      }, 2000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setIsSubmitting(false);
+      alert('Unable to send your message. Please try again or contact us directly at hello@siteandsight.com');
+    }
   };
 
   if (!isOpen) return null;

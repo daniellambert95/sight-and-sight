@@ -295,14 +295,69 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     if (currentStep !== totalSteps || !formData.name || !formData.email) {
       return;
     }
-    
+
     setIsAnimating(true);
-    
-    // After animation completes, show success screen (7s animation + 1s extra)
-    setTimeout(() => {
+
+    try {
+      // Format services list for email
+      const servicesList = formData.services
+        .map(serviceId => allServices.find(s => s.id === serviceId)?.name)
+        .filter(Boolean)
+        .join(', ');
+
+      // Create formatted message for email
+      const emailMessage = `
+Quote Request Details:
+
+Contact Information:
+- Name: ${formData.name}
+- Email: ${formData.email}
+- Company: ${formData.company || 'Not provided'}
+
+Services Requested:
+${servicesList}
+
+Budget: ${formatBudget(budgetValue)}
+Timeline: ${formatTimeline(timelineValue)}
+
+Project Description:
+${formData.description || 'Not provided'}
+
+---
+Form: Quote Request Modal
+Submitted: ${new Date().toLocaleString()}
+      `.trim();
+
+      // Submit to Web3Forms
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          subject: `New Quote Request from ${formData.name}`,
+          from_name: formData.name,
+          email: formData.email,
+          message: emailMessage,
+          to_email: "hello@siteandsight.com"
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error('Form submission failed');
+      }
+
+      // After successful submission, show success screen (7s animation + 1s extra)
+      setTimeout(() => {
+        setIsAnimating(false);
+        setIsSubmitted(true);
+      }, 8000); // 8 second total wait
+    } catch (error) {
+      console.error('Error submitting form:', error);
       setIsAnimating(false);
-      setIsSubmitted(true);
-    }, 8000); // 8 second total wait
+      alert('Unable to submit your request. Please try again or contact us directly at hello@siteandsight.com');
+    }
   };
 
   const canProceedFromStep = (step: number) => {
