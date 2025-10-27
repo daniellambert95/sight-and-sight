@@ -1,15 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { useState } from 'react';
+import Link from 'next/link';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import QuoteModal from '../components/QuoteModal';
 import { useTheme } from '../utils/ThemeProvider';
-import { 
+import {
   BoltIcon,
   PaintBrushIcon,
   DevicePhoneMobileIcon,
@@ -17,65 +14,15 @@ import {
   WrenchScrewdriverIcon,
   SparklesIcon,
   MagnifyingGlassIcon,
-  ChartBarIcon
+  ChartBarIcon,
+  ChatBubbleLeftRightIcon,
+  CurrencyDollarIcon,
+  CheckCircleIcon
 } from '@heroicons/react/24/outline';
-
-// Animated Counter Component with AOS
-function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: number, suffix?: string, duration?: number }) {
-  const [count, setCount] = useState(0);
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true);
-          let startTime: number | null = null;
-          const animate = (currentTime: number) => {
-            if (startTime === null) startTime = currentTime;
-            const progress = (currentTime - startTime) / (duration * 1000);
-            
-            if (progress < 1) {
-              setCount(Math.floor(target * progress));
-              requestAnimationFrame(animate);
-            } else {
-              setCount(target);
-            }
-          };
-          requestAnimationFrame(animate);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [target, duration, hasAnimated]);
-
-  return (
-    <div ref={ref} className="text-3xl font-black text-[#ff5500] mb-2">
-      {count}{suffix}
-    </div>
-  );
-}
 
 export default function Pricing() {
   const { theme } = useTheme();
   const [showQuoteModal, setShowQuoteModal] = useState(false);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  
-  const heroRef = useRef(null);
-  const isHeroInView = useInView(heroRef, { once: true });
-  
-  useEffect(() => {
-    AOS.init({
-      duration: 800,
-      easing: 'ease-out-cubic',
-      once: true,
-      offset: 100
-    });
-  }, []);
 
   const openQuoteModal = () => {
     setShowQuoteModal(true);
@@ -85,62 +32,93 @@ export default function Pricing() {
     setShowQuoteModal(false);
   };
 
-  const pricingFeatures = [
+  const pricingFactors = [
+    {
+      icon: <PaintBrushIcon className="w-8 h-8 text-white" />,
+      title: "Design Complexity",
+      description: "Custom designs tailored to your brand identity and user experience goals"
+    },
+    {
+      icon: <WrenchScrewdriverIcon className="w-8 h-8 text-white" />,
+      title: "Features & Functionality",
+      description: "E-commerce, CMS, integrations, and custom features built to your specifications"
+    },
+    {
+      icon: <DevicePhoneMobileIcon className="w-8 h-8 text-white" />,
+      title: "Project Scope",
+      description: "Number of pages, content volume, and overall project size"
+    },
+    {
+      icon: <RocketLaunchIcon className="w-8 h-8 text-white" />,
+      title: "Timeline & Support",
+      description: "Launch timeline and ongoing maintenance requirements"
+    }
+  ];
+
+  const features = [
     {
       icon: <BoltIcon className="w-8 h-8 text-white" />,
       title: "Lightning Fast",
-      description: "Get your project delivered faster than you can say 'responsive design'",
-      highlight: true
+      description: "Optimized performance and blazing fast load times guaranteed"
     },
     {
       icon: <PaintBrushIcon className="w-8 h-8 text-white" />,
       title: "Custom Design",
-      description: "Tailored specifically to your brand and vision",
-      highlight: false
+      description: "Tailored specifically to your brand and vision"
     },
     {
       icon: <DevicePhoneMobileIcon className="w-8 h-8 text-white" />,
       title: "Mobile First",
-      description: "Optimized for every device imaginable",
-      highlight: false
+      description: "Optimized for every device imaginable"
     },
     {
       icon: <RocketLaunchIcon className="w-8 h-8 text-white" />,
       title: "Performance",
-      description: "Blazing fast load times guaranteed",
-      highlight: true
+      description: "Built for speed and scalability"
     },
     {
       icon: <WrenchScrewdriverIcon className="w-8 h-8 text-white" />,
       title: "Maintenance",
-      description: "Ongoing support and updates included",
-      highlight: false
+      description: "Ongoing support and updates included"
     },
     {
       icon: <SparklesIcon className="w-8 h-8 text-white" />,
       title: "Premium Quality",
-      description: "Award-winning designs that convert",
-      highlight: true
+      description: "Award-winning designs that convert"
     },
     {
       icon: <MagnifyingGlassIcon className="w-8 h-8 text-white" />,
       title: "SEO Optimized",
-      description: "Built-in search engine optimization to boost your visibility",
-      highlight: false
+      description: "Built-in search engine optimization to boost visibility"
     },
     {
       icon: <ChartBarIcon className="w-8 h-8 text-white" />,
       title: "Analytics Ready",
-      description: "Comprehensive tracking and insights to measure success",
-      highlight: true
+      description: "Comprehensive tracking and insights included"
     }
   ];
 
-  const stats = [
-    { target: 10, suffix: "+", label: "Projects Delivered", duration: 2.5 },
-    { target: 100, suffix: "%", label: "Client Satisfaction", duration: 2 },
-    { target: 24, suffix: "h", label: "Response Time", duration: 1.5 },
-    { target: 100, suffix: "%", label: "Custom Built", duration: 2 }
+  const process = [
+    {
+      step: "01",
+      title: "Tell Us About Your Project",
+      description: "Share your vision, goals, and requirements through our simple quote form"
+    },
+    {
+      step: "02",
+      title: "We Analyze Your Needs",
+      description: "Our team reviews your project and prepares a detailed proposal"
+    },
+    {
+      step: "03",
+      title: "Receive Your Custom Quote",
+      description: "Get a transparent, itemized quote tailored to your specific needs"
+    },
+    {
+      step: "04",
+      title: "Kick Off Your Project",
+      description: "Once approved, we begin bringing your vision to life"
+    }
   ];
 
   return (
@@ -148,195 +126,334 @@ export default function Pricing() {
       theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'
     }`}>
       <Navigation currentPage="pricing" />
-      
 
-      {/* Hero Section */}
-      <section ref={heroRef} className={`relative flex-1 flex items-center justify-center px-6 py-34 md:py-42 overflow-hidden ${
-        theme === 'dark' 
-          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
-          : 'bg-gradient-to-br from-white via-orange-50 to-orange-100'
+      {/* Hero Section - Clean & Minimal */}
+      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-36 md:pt-32 transition-colors duration-300 ${
+        theme === 'dark'
+          ? 'bg-gradient-to-br from-black via-gray-950 to-black'
+          : 'bg-gradient-to-br from-white to-gray-50'
       }`}>
-        <div className="max-w-6xl mx-auto text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.h1 
-              className={`text-6xl md:text-8xl font-black mb-8 ${
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            {/* Left Column - Main Content */}
+            <div className="space-y-8">
+              <h1 className={`text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-none tracking-tight ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={isHeroInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 1, type: "spring", bounce: 0.4 }}
-            >
-              Let&apos;s build something{' '}
-              <motion.span 
-                className="relative inline-block text-[#ff5500]"
-                whileHover={{ scale: 1.1, rotate: 2 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                amazing
-                <motion.div
-                  className="absolute -bottom-2 left-0 w-full h-1 bg-[#ff5500] origin-left"
-                  initial={{ scaleX: 0 }}
-                  animate={isHeroInView ? { scaleX: 1 } : {}}
-                  transition={{ duration: 1, delay: 1 }}
-                />
-              </motion.span>
-            </motion.h1>
-            
-            <motion.p 
-              className={`text-xl md:text-2xl mb-12 max-w-3xl mx-auto ${
+              }`}>
+                <span className="block">Flexible</span>
+                <span className="block text-[#ff5500]">Pricing</span>
+                <span className={`block text-3xl md:text-4xl lg:text-5xl font-light mt-6 ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                  tailored to your needs
+                </span>
+              </h1>
+
+              <p className={`text-xl md:text-2xl font-light max-w-2xl ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-              }`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              Tell us about your project in just a few steps and get a{' '}
-              <span className="font-bold text-[#ff5500]">custom proposal</span> that will blow your mind
-            </motion.p>
+              }`}>
+                Every project is unique. We create custom proposals based on your specific needs,
+                goals, and budget—with complete transparency and no hidden fees.
+              </p>
 
-            {/* Stats Row */}
-            <motion.div 
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 max-w-4xl mx-auto"
-              initial={{ opacity: 0, y: 40 }}
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.5 }}
-            >
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  className={`p-6 rounded-2xl backdrop-blur-sm ${
-                    theme === 'dark' 
-                      ? 'bg-white/10 border border-white/20' 
-                      : 'bg-white/50 border border-orange-200'
-                  }`}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={isHeroInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
+              <div className="pt-8">
+                <button
+                  onClick={openQuoteModal}
+                  className="group inline-flex items-center gap-4 px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
                 >
-                  <AnimatedCounter 
-                    target={stat.target} 
-                    suffix={stat.suffix} 
-                    duration={stat.duration}
-                  />
-                  <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                    {stat.label}
+                  <span>Get Your Custom Quote</span>
+                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column - Why Custom Pricing */}
+            <div className="space-y-8">
+              <div className={`p-8 rounded-3xl ${
+                theme === 'dark'
+                  ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
+                  : 'bg-white/60 border border-gray-200/50'
+              } backdrop-blur-sm shadow-xl`}>
+                <div className="space-y-6">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center shadow-lg">
+                    <CurrencyDollarIcon className="w-8 h-8 text-white" />
                   </div>
-                </motion.div>
-              ))}
-            </motion.div>
 
-            <motion.button
-              onClick={openQuoteModal}
-              className="group relative px-12 py-6 bg-gradient-to-r from-[#ff5500] to-[#ff6600] text-white rounded-2xl text-xl font-bold shadow-2xl overflow-hidden"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              whileHover={{ scale: 1.05, boxShadow: "0 25px 50px -12px rgba(255, 85, 0, 0.5)" }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-[#ff6600] to-[#ff5500] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              />
-              <span className="relative z-10 flex items-center">
-                Get Your Custom Quote 
-                <motion.div
-                  className="ml-2 inline-block"
-                  animate={{ rotate: [0, 15, 0] }}
-                  transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
-                >
-                  <RocketLaunchIcon className="w-5 h-5" />
-                </motion.div>
-              </span>
-              
-              {/* Animated Border */}
-              <motion.div
-                className="absolute inset-0 rounded-2xl border-2 border-[#ff5500] opacity-0 group-hover:opacity-100"
-                initial={{ scale: 1 }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.button>
-          </motion.div>
+                  <h3 className={`text-2xl font-bold ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    Why Custom Pricing?
+                  </h3>
+
+                  <div className="space-y-4">
+                    {[
+                      "Pay only for what you need—no unnecessary features or costs",
+                      "Flexible solutions that scale with your business",
+                      "Transparent breakdown of all costs and deliverables",
+                      "Fair pricing based on project scope and complexity"
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-start gap-3">
+                        <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#ff5500] mt-0.5" />
+                        <span className={`text-base ${
+                          theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                        }`}>
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Features Cards Section */}
-      <section className={`py-20 px-6 ${
-        theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
+      {/* What Affects Your Quote Section */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
       }`}>
-        <div className="max-w-6xl mx-auto">
-          <h2 
-            className={`text-4xl md:text-5xl font-black text-center mb-16 ${
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center space-y-6 mb-20">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] shadow-2xl">
+              <ChatBubbleLeftRightIcon className="w-10 h-10 text-white" />
+            </div>
+
+            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-black ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}
-            data-aos="fade-up" 
-            data-aos-duration="800"
-          >
-            Why Choose 
-            <span className="text-[#ff5500]"> Site</span> &
-            <span className="text-[#ff5500]"> Sight</span>?
-          </h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {pricingFeatures.map((feature, index) => (
+            }`}>
+              What Affects <span className="text-[#ff5500]">Your Quote</span>
+            </h2>
+
+            <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+            }`}>
+              We consider several factors to create a fair and accurate proposal for your project
+            </p>
+          </div>
+
+          {/* Pricing Factors Grid */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {pricingFactors.map((factor, index) => (
               <div
                 key={index}
-                className={`relative p-8 rounded-3xl backdrop-blur-sm transition-all duration-1000 ease-out cursor-pointer border-2 border-[#ff5500] hover:scale-105 hover:-translate-y-2 ${
-                  theme === 'dark' 
-                    ? 'bg-white/5 hover:bg-white/10' 
-                    : 'bg-white/80 hover:bg-white'
-                }`}
-                data-aos="fade-up"
-                data-aos-duration="600"
-                data-aos-delay={index * 100}
-                onMouseEnter={() => setHoveredCard(index)}
-                onMouseLeave={() => setHoveredCard(null)}
+                className={`group relative cursor-pointer ${
+                  theme === 'dark'
+                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
+                    : 'bg-white/60 border border-gray-200/50'
+                } backdrop-blur-sm rounded-3xl p-8 hover:scale-[1.02] transition-all duration-500 shadow-xl`}
               >
-                <div 
-                  className={`w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center mb-4 shadow-lg transition-transform duration-700 ease-out ${
-                    hoveredCard === index ? 'scale-110 rotate-6' : 'scale-100 rotate-0'
-                  }`}
-                >
-                  {feature.icon}
+                <div className="space-y-6">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    {factor.icon}
+                  </div>
+
+                  <div>
+                    <h3 className={`text-2xl font-bold mb-3 group-hover:text-[#ff5500] transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {factor.title}
+                    </h3>
+                    <p className={`text-lg leading-relaxed ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                    }`}>
+                      {factor.description}
+                    </p>
+                  </div>
                 </div>
-                
-                <h3 className={`text-xl font-bold mb-3 ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
-                  {feature.title}
-                </h3>
-                
-                <p className={`${
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                }`}>
-                  {feature.description}
-                </p>
+
+                {/* Hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className={`relative py-20 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-black' : 'bg-white'
+      }`}>
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center space-y-6 mb-20">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] shadow-2xl">
+              <RocketLaunchIcon className="w-10 h-10 text-white" />
+            </div>
+
+            <h3 className={`text-4xl md:text-5xl lg:text-6xl font-black ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              How It <span className="text-[#ff5500]">Works</span>
+            </h3>
+
+            <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+            }`}>
+              Our simple process to get you a custom quote
+            </p>
+          </div>
+
+          {/* Process Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {process.map((item, index) => (
+              <div
+                key={index}
+                className={`group relative ${
+                  theme === 'dark'
+                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
+                    : 'bg-white/60 border border-gray-200/50'
+                } backdrop-blur-sm rounded-3xl p-8 transition-all duration-500 shadow-xl`}
+              >
+                <div className="space-y-6">
+                  <div className="flex items-center justify-between">
+                    <div className={`text-5xl font-black ${
+                      theme === 'dark' ? 'text-gray-800' : 'text-gray-200'
+                    }`}>
+                      {item.step}
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className={`text-xl font-bold mb-3 ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {item.title}
+                    </h3>
+                    <p className={`text-base leading-relaxed ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                    }`}>
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
 
-          {/* Bottom CTA */}
-          <div 
-            className="text-center mt-20"
-            data-aos="fade-up" 
-            data-aos-duration="800" 
-            data-aos-delay="400"
-          >
-            <p className={`text-lg mb-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              Ready to transform your digital presence?
-            </p>
-            
+          {/* CTA in Process Section */}
+          <div className="text-center mt-16">
             <button
               onClick={openQuoteModal}
-              className="px-10 py-4 bg-transparent border-2 border-[#ff5500] text-[#ff5500] rounded-2xl hover:bg-[#ff5500] hover:text-white transition-all duration-300 text-lg font-bold hover:scale-105 active:scale-95"
+              className="group inline-flex items-center justify-center px-10 py-5 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-xl font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
             >
-              Start Your Project Today
+              <span>Start Your Quote Now</span>
+              <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* What's Always Included Section */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
+      }`}>
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center space-y-6 mb-20">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] shadow-2xl">
+              <SparklesIcon className="w-10 h-10 text-white" />
+            </div>
+
+            <h3 className={`text-4xl md:text-5xl lg:text-6xl font-black ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+              Always <span className="text-[#ff5500]">Included</span>
+            </h3>
+
+            <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+            }`}>
+              Every project comes with these premium features as standard
+            </p>
+          </div>
+
+          {/* Features Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className={`group relative cursor-pointer ${
+                  theme === 'dark'
+                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
+                    : 'bg-white/60 border border-gray-200/50'
+                } backdrop-blur-sm rounded-3xl p-8 hover:scale-[1.02] transition-all duration-500 shadow-xl`}
+              >
+                <div className="space-y-6">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    {feature.icon}
+                  </div>
+
+                  <div>
+                    <h3 className={`text-xl font-bold mb-3 group-hover:text-[#ff5500] transition-colors duration-300 ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`}>
+                      {feature.title}
+                    </h3>
+                    <p className={`text-base leading-relaxed ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                    }`}>
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-black' : 'bg-white'
+      }`}>
+        <div className="max-w-5xl mx-auto text-center space-y-12">
+          <h2 className={`text-5xl md:text-6xl lg:text-7xl font-black leading-tight ${
+            theme === 'dark' ? 'text-white' : 'text-gray-900'
+          }`}>
+            Ready for your
+            <br />
+            <span className="text-[#ff5500]">custom quote?</span>
+          </h2>
+
+          <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
+            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+          }`}>
+            Tell us about your project and we'll create a detailed proposal tailored specifically to your needs and budget.
+          </p>
+
+          <div className="flex flex-col sm:flex-row justify-center gap-6 pt-8">
+            <button
+              onClick={openQuoteModal}
+              className="group inline-flex items-center justify-center px-10 py-5 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-xl font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
+            >
+              <span>Get Your Quote</span>
+              <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+
+            <Link
+              href="/work"
+              className={`group inline-flex items-center justify-center px-10 py-5 rounded-2xl text-xl font-semibold transition-all duration-300 border-2 ${
+                theme === 'dark'
+                  ? 'bg-transparent text-white border-gray-700 hover:bg-gray-800 hover:border-gray-600'
+                  : 'bg-transparent text-gray-900 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+              } shadow-xl`}
+            >
+              <span>View Our Work</span>
+              <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
@@ -347,4 +464,4 @@ export default function Pricing() {
       <Footer />
     </div>
   );
-} 
+}
