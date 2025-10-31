@@ -1,24 +1,42 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTheme } from '../utils/ThemeProvider';
+import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import {
   ArrowTopRightOnSquareIcon,
   CalendarIcon,
   UserIcon,
-  GlobeAltIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon
+  GlobeAltIcon
 } from '@heroicons/react/24/outline';
+import TestimonialsSection from '../components/TestimonialsSection';
 
 export default function Work() {
   const { theme } = useTheme();
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [filter, setFilter] = useState('all');
-  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Refs for parallax effects
+  const heroRef = useRef(null);
+  const filterRef = useRef(null);
+  const projectsRef = useRef(null);
+  const testimonialsRef = useRef(null);
+  const ctaRef = useRef(null);
+
+  // Parallax scroll animations
+  const { scrollYProgress: heroScrollProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+
+  // Transform values for parallax
+  const backgroundY = useTransform(heroScrollProgress, [0, 1], ['0%', '50%']);
+  const heroContentY = useTransform(heroScrollProgress, [0, 1], ['0%', '30%']);
+  const heroOpacity = useTransform(heroScrollProgress, [0, 0.5], [1, 0]);
 
   const openModal = (project: typeof projects[0]) => {
     setSelectedProject(project);
@@ -52,7 +70,7 @@ export default function Work() {
       },
       technologies: ["Next.js", "React", "Tailwind CSS", "Vercel"],
       services: ["Web Design", "Dual-Market Strategy", "Lead Generation", "Local SEO"],
-      image: "/images/work/carter/hero.jpg",
+      image: "/images/work/cartertreecare/cartertreecare.webp",
       color: "from-green-600 to-emerald-600",
       featured: true,
       liveUrl: "https://cartertreecare.com",
@@ -80,7 +98,7 @@ export default function Work() {
       },
       technologies: ["Next.js", "Sanity CMS", "Tailwind CSS", "Vercel"],
       services: ["Web Design", "Portfolio Development", "CMS Integration", "Brand Showcase"],
-      image: "/images/work/millerdzn/hero.jpg",
+      image: "/images/work/mdzn/millerdzn.webp",
       color: "from-purple-600 to-pink-600",
       featured: true,
       liveUrl: "https://millerdzn.com"
@@ -107,7 +125,7 @@ export default function Work() {
       },
       technologies: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
       services: ["Web Design", "Agency Branding", "Portfolio System", "Client Onboarding"],
-      image: "/images/work/momentum/hero.jpg",
+      image: "/images/work/momentum/mo-mentum.webp",
       color: "from-blue-600 to-indigo-600",
       featured: true,
       liveUrl: "https://momentum.ie"
@@ -119,7 +137,7 @@ export default function Work() {
       client: "Pink Pizza Berlin",
       year: "2024",
       duration: "2 months",
-      category: "E-commerce",
+      category: "Gastronomy",
       description: "Complete digital transformation for a Prenzlauer Berg pizzeria, dramatically increasing local visibility and customer traffic.",
       longDescription: "Pink Pizza Berlin needed to establish a strong digital presence in the competitive Berlin food scene. We created a website and implemented a comprehensive local SEO strategy.",
       challenge: "Increasing foot traffic and brand visibility for a local pizzeria in Berlin's competitive Prenzlauer Berg neighborhood.",
@@ -134,7 +152,7 @@ export default function Work() {
       },
       technologies: ["Next.js", "Google Maps API", "Tailwind CSS", "Local SEO"],
       services: ["Web Design", "Google Maps Optimization", "Local SEO", "Review Management"],
-      image: "/images/work/pinkpizza/hero.jpg",
+      image: "/images/work/pinkpizzaberlin/pinkpizzaberlin.webp",
       color: "from-pink-500 to-red-500",
       featured: false,
       liveUrl: "https://pinkpizzaberlin.de"
@@ -161,7 +179,7 @@ export default function Work() {
       },
       technologies: ["Next.js", "Node.js", "PostgreSQL", "AWS", "TypeScript"],
       services: ["Full-Stack Development", "Database Design", "Security Implementation", "UI/UX Design"],
-      image: "/images/work/streamline/hero.jpg",
+      image: "/images/work/streamline-hr/streamlinehr.webp",
       color: "from-blue-500 to-cyan-500",
       featured: false,
       liveUrl: "https://streamlinehr.com"
@@ -172,27 +190,8 @@ export default function Work() {
     ? projects
     : projects.filter(p => p.category.toLowerCase().includes(filter.toLowerCase()));
 
-  const categories = ['all', 'Service Business', 'Creative/Agency', 'E-commerce', 'Enterprise/SaaS'];
+  const categories = ['all', 'Service Business', 'Creative/Agency', 'Gastronomy', 'Enterprise/SaaS'];
 
-  // Featured projects for carousel
-  const featuredProjects = projects.filter(p => p.featured);
-
-  // Auto-rotate carousel
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % featuredProjects.length);
-    }, 5000); // Change slide every 5 seconds
-
-    return () => clearInterval(timer);
-  }, [featuredProjects.length]);
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % featuredProjects.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + featuredProjects.length) % featuredProjects.length);
-  };
 
   return (
     <div className={`min-h-screen flex flex-col ${
@@ -200,235 +199,110 @@ export default function Work() {
     }`}>
       <Navigation currentPage="work" />
 
-      {/* Hero Section - Clean & Minimal */}
-      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-36 md:pt-32 transition-colors duration-300 ${
-        theme === 'dark'
-          ? 'bg-gradient-to-br from-black via-gray-950 to-black'
-          : 'bg-gradient-to-br from-white to-gray-50'
-      }`}>
-        <div className="max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* Left Column - Main Content */}
-            <div className="space-y-8">
-              <h1 className={`text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-none tracking-tight ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                <span className="block">Our</span>
-                <span className="block text-[#ff5500]">Work</span>
-                <span className={`block text-3xl md:text-4xl lg:text-5xl font-light mt-6 ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+      {/* Hero Section - Modern Graphic Design with Parallax */}
+      <section ref={heroRef} className="relative h-screen flex items-center overflow-hidden pt-24">
+        <div className="max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-24">
+
+          {/* Main Typography */}
+          <div className="relative">
+
+            {/* Large "WORK" text as background - Parallax Effect */}
+            <motion.div 
+              style={{ y: backgroundY, opacity: heroOpacity }}
+              className="absolute -top-32 md:-top-40 lg:-top-20 -left-8 md:-left-12 lg:-left-16 pointer-events-none select-none"
+            >
+              <h2 className={`text-[12rem] sm:text-[16rem] md:text-[20rem] lg:text-[25rem] xl:text-[28rem] font-black leading-none tracking-tighter ${
+                theme === 'dark'
+                  ? 'text-gray-800'
+                  : 'text-black/[0.03]'
+              }`}
+              style={{ fontFamily: 'var(--font-league-spartan)' }}>
+                WORK
+              </h2>
+            </motion.div>
+
+            {/* Main Content - Parallax Effect */}
+            <motion.div 
+              style={{ y: heroContentY }}
+              className="relative z-10 space-y-8 md:space-y-10 lg:space-y-12"
+            >
+              {/* Hero Title */}
+              <div>
+                <h1 className={`text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] font-black leading-[0.9] tracking-tighter ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}
+                style={{ fontFamily: 'var(--font-league-spartan)' }}>
+                  <span className="block">Our</span>
+                  <span className="block text-[#ff5500] italic">Work</span>
+                </h1>
+              </div>
+
+              {/* Description & CTAs */}
+              <div className="max-w-2xl space-y-6">
+                <p className={`text-lg md:text-xl lg:text-2xl font-light leading-relaxed ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                }`}
+                style={{ fontFamily: 'var(--font-inter)' }}>
+                  Real projects, real results. From local businesses to enterprise solutions,
+                  we craft digital experiences that deliver measurable impact.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-6 pt-4">
+                  <Link
+                    href="/contact"
+                    className="group inline-flex items-center justify-center px-10 py-5 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-xl font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
+                  >
+                    <span>Start Your Project</span>
+                    <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </Link>
+
+                  <Link
+                    href="#projects"
+                    className={`group inline-flex items-center justify-center px-10 py-5 rounded-2xl text-xl font-semibold transition-all duration-300 border-2 ${
+                      theme === 'dark'
+                        ? 'bg-transparent text-white border-gray-700 hover:bg-gray-800 hover:border-gray-600'
+                        : 'bg-transparent text-gray-900 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
+                    } shadow-xl`}
+                  >
+                    <span>View Work</span>
+                    <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Decorative Elements */}
+              <div className="flex items-center gap-4 pt-6">
+                <div className={`h-0.5 w-16 md:w-24 ${
+                  theme === 'dark' ? 'bg-white/50' : 'bg-black/50'
+                }`} />
+                <div className={`text-xs md:text-sm font-semibold uppercase tracking-widest ${
+                  theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
                 }`}>
-                  real projects, real results
-                </span>
-              </h1>
-
-              <p className={`text-xl md:text-2xl font-light max-w-2xl ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-                From local businesses to enterprise solutions, we craft digital experiences
-                that deliver measurable results and drive real growth.
-              </p>
-
-              <div className="pt-8">
-                <Link
-                  href="/contact"
-                  className="group inline-flex items-center gap-4 px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
-                >
-                  <span>Start Your Project</span>
-                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Column - Featured Projects Carousel */}
-            <div className="space-y-8">
-              {/* Real Impact Stats - Top 2 Only */}
-              <div className="grid grid-cols-2 gap-6">
-                <div className={`p-6 rounded-2xl ${
-                  theme === 'dark'
-                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
-                    : 'bg-white/60 border border-gray-200/50'
-                } backdrop-blur-sm shadow-xl`}>
-                  <div className="text-4xl font-black text-[#ff5500] mb-2">100+</div>
-                  <div className={`text-sm font-semibold ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                  }`}>
-                    5-Star Reviews
-                  </div>
-                  <div className={`text-xs mt-1 ${
-                    theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
-                  }`}>
-                    Pink Pizza Berlin
-                  </div>
-                </div>
-
-                <div className={`p-6 rounded-2xl ${
-                  theme === 'dark'
-                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
-                    : 'bg-white/60 border border-gray-200/50'
-                } backdrop-blur-sm shadow-xl`}>
-                  <div className="text-4xl font-black text-[#ff5500] mb-2">1 Week</div>
-                  <div className={`text-sm font-semibold ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                  }`}>
-                    To First Client
-                  </div>
-                  <div className={`text-xs mt-1 ${
-                    theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
-                  }`}>
-                    Carter Tree Care
-                  </div>
+                  Scroll to Explore
                 </div>
               </div>
 
-              {/* Featured Projects Carousel */}
-              <div className="relative">
-                <div className={`overflow-hidden rounded-3xl ${
-                  theme === 'dark'
-                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
-                    : 'bg-white/60 border border-gray-200/50'
-                } backdrop-blur-sm shadow-xl`}>
-                  <div className="relative h-full min-h-[400px]">
-                    {/* Slides */}
-                    {featuredProjects.map((project, index) => (
-                      <div
-                        key={project.id}
-                        className={`absolute inset-0 p-8 transition-all duration-500 ${
-                          index === currentSlide
-                            ? 'opacity-100 translate-x-0'
-                            : index < currentSlide
-                            ? 'opacity-0 -translate-x-full'
-                            : 'opacity-0 translate-x-full'
-                        }`}
-                      >
-                        <div className="h-full flex flex-col justify-between">
-                          <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                              <span className="px-3 py-1 bg-[#ff5500]/20 text-[#ff5500] rounded-full text-xs font-bold">
-                                FEATURED PROJECT {index + 1}/{featuredProjects.length}
-                              </span>
-                              <span className={`text-xs font-medium ${
-                                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                              }`}>
-                                {project.category}
-                              </span>
-                            </div>
-
-                            <div>
-                              <h3 className={`text-3xl font-bold mb-3 ${
-                                theme === 'dark' ? 'text-white' : 'text-gray-900'
-                              }`}>
-                                {project.title}
-                              </h3>
-                              <p className={`text-base mb-4 ${
-                                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                              }`}>
-                                {project.subtitle}
-                              </p>
-                              <p className={`text-sm leading-relaxed ${
-                                theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
-                              }`}>
-                                {project.description}
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="space-y-4">
-                            <div className={`pt-6 border-t ${
-                              theme === 'dark' ? 'border-gray-700' : 'border-gray-200'
-                            }`}>
-                              <div className="flex items-center justify-between mb-4">
-                                <div>
-                                  <div className="text-2xl font-black text-[#ff5500]">
-                                    {project.results.primary}
-                                  </div>
-                                  <div className={`text-xs ${
-                                    theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
-                                  }`}>
-                                    Key Result
-                                  </div>
-                                </div>
-                                <div className="text-right">
-                                  <div className={`text-sm font-semibold ${
-                                    theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                                  }`}>
-                                    {project.client}
-                                  </div>
-                                  <div className={`text-xs ${
-                                    theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
-                                  }`}>
-                                    {project.year}
-                                  </div>
-                                </div>
-                              </div>
-
-                              <button
-                                onClick={() => openModal(project)}
-                                className="w-full py-3 bg-[#ff5500] hover:bg-[#ff6600] text-white font-semibold rounded-2xl transition-colors flex items-center justify-center gap-2"
-                              >
-                                <span>View Case Study</span>
-                                <ArrowTopRightOnSquareIcon className="w-4 h-4" />
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Navigation Arrows */}
-                  <button
-                    onClick={prevSlide}
-                    className={`absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
-                      theme === 'dark'
-                        ? 'bg-gray-800 hover:bg-gray-700 text-white'
-                        : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
-                    }`}
-                  >
-                    <ChevronLeftIcon className="w-6 h-6" />
-                  </button>
-                  <button
-                    onClick={nextSlide}
-                    className={`absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
-                      theme === 'dark'
-                        ? 'bg-gray-800 hover:bg-gray-700 text-white'
-                        : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
-                    }`}
-                  >
-                    <ChevronRightIcon className="w-6 h-6" />
-                  </button>
-
-                  {/* Dots Indicator */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                    {featuredProjects.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentSlide(index)}
-                        className={`w-2 h-2 rounded-full transition-all ${
-                          index === currentSlide
-                            ? 'bg-[#ff5500] w-8'
-                            : theme === 'dark'
-                            ? 'bg-gray-600'
-                            : 'bg-gray-400'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Filter Section */}
-      <section className={`py-16 px-6 md:px-12 lg:px-24 ${
+      <section ref={filterRef} className={`py-16 px-6 md:px-12 lg:px-24 ${
         theme === 'dark' ? 'bg-gray-950' : 'bg-gray-50'
       }`}>
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-wrap justify-center gap-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10% 0px" }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-wrap justify-center gap-4"
+          >
             {categories.map((category) => (
               <button
                 key={category}
@@ -444,20 +318,27 @@ export default function Work() {
                 {category === 'all' ? 'All Projects' : category}
               </button>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Projects Grid */}
-      <section className={`relative py-32 px-6 md:px-12 lg:px-24 ${
+      <section ref={projectsRef} id="projects" className={`relative py-32 px-6 md:px-12 lg:px-24 ${
         theme === 'dark' ? 'bg-black' : 'bg-white'
       }`}>
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="mb-20">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10% 0px" }}
+            transition={{ duration: 0.6 }}
+            className="mb-20"
+          >
             <h2 className={`text-4xl md:text-5xl lg:text-6xl font-black mb-6 ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+            }`}
+            style={{ fontFamily: 'var(--font-league-spartan)' }}>
               Featured <span className="text-[#ff5500]">Projects</span>
             </h2>
             <p className={`text-xl max-w-3xl ${
@@ -465,7 +346,7 @@ export default function Work() {
             }`}>
               Explore how we've transformed businesses through strategic design and development
             </p>
-          </div>
+          </motion.div>
 
           {/* Projects Grid - Clean Cards with Images */}
           <div className="grid md:grid-cols-2 gap-8">
@@ -479,27 +360,20 @@ export default function Work() {
                     : 'bg-white/60 border border-gray-200/50'
                 } backdrop-blur-sm rounded-3xl overflow-hidden hover:scale-[1.02] transition-all duration-500 shadow-xl`}
               >
-                {/* Project Image Placeholder */}
+                {/* Project Image */}
                 <div className={`relative h-64 overflow-hidden ${
                   theme === 'dark' ? 'bg-gray-800' : 'bg-gray-200'
                 }`}>
-                  {/* Placeholder with project initial */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className={`text-8xl font-black opacity-20 ${
-                      theme === 'dark' ? 'text-gray-700' : 'text-gray-300'
-                    }`}>
-                      {project.title.charAt(0)}
-                    </div>
-                  </div>
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                   {/* Category Badge */}
                   <div className="absolute top-4 left-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm ${
-                      project.featured
-                        ? 'bg-[#ff5500]/90 text-white'
-                        : theme === 'dark'
-                        ? 'bg-gray-900/80 text-gray-300'
-                        : 'bg-white/80 text-gray-700'
-                    }`}>
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm bg-[#ff5500]/90 text-white">
                       {project.category}
                     </span>
                   </div>
@@ -592,123 +466,19 @@ export default function Work() {
       </section>
 
       {/* Testimonials Section */}
-      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
-      }`}>
-        <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center space-y-6 mb-20">
-            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-black ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
-              What Our Clients <span className="text-[#ff5500]">Say</span>
-            </h2>
-            <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-            }`}>
-              Real results from real businesses who trusted us with their digital transformation
-            </p>
-          </div>
-
-          {/* Testimonials Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                name: "James Carter",
-                position: "Business owner, Der Baumchirurg",
-                content: "Customers are flying in after getting my site designed by Daniel. The main focus was SEO but it also looks amazing! Very satisfied!",
-                rating: 5
-              },
-              {
-                name: "Geoff Miller",
-                position: "Creative Director, MDZN Dubai",
-                content: "S&S creatively and expertly delivered on their promise for my new website millerdesign.ai. Their process was efficient professional and seamless as they also contributed extra help with copywriting, seo, design, analytics, and were a pleasure to work with along the way.",
-                rating: 5
-              },
-              {
-                name: "Engin",
-                position: "Cofounder, PinkPizza Berlin",
-                content: "Daniel really helped with our online presence by setting up and optimizing our Google Maps listing so we could start receiving reviews while also creating stunning branded menus and website.",
-                rating: 5
-              },
-              {
-                name: "Ronan Byrne",
-                position: "Founder, Streamline HR",
-                content: "Outstanding work! The website they created exceeded all our expectations. The design is modern, fast, and email signup rates are much better than expected.",
-                rating: 5
-              },
-              {
-                name: "Thorsten",
-                position: "Owner, Restaurant Osterberger",
-                content: "You have conveyed this in a totally great and understandable way, I am completely inspired and full of drive to implement your improvements. Best wishes also to Killian.",
-                rating: 5
-              }
-            ].map((testimonial, index) => (
-              <div
-                key={index}
-                className={`group relative ${
-                  theme === 'dark'
-                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
-                    : 'bg-white/60 border border-gray-200/50'
-                } backdrop-blur-sm rounded-3xl p-8 hover:scale-[1.02] transition-all duration-500 shadow-xl`}
-              >
-                <div className="space-y-6">
-                  {/* Stars */}
-                  <div className="flex gap-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <svg
-                        key={i}
-                        className="w-5 h-5 text-[#ff5500] fill-current"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-
-                  {/* Quote */}
-                  <blockquote className={`text-base leading-relaxed ${
-                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                  }`}>
-                    &quot;{testimonial.content}&quot;
-                  </blockquote>
-
-                  {/* Author */}
-                  <div className="flex items-center gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white flex-shrink-0">
-                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path>
-                      </svg>
-                    </div>
-                    <div>
-                      <div className={`text-base font-bold ${
-                        theme === 'dark' ? 'text-white' : 'text-gray-900'
-                      }`}>
-                        {testimonial.name}
-                      </div>
-                      <p className={`text-sm ${
-                        theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                      }`}>
-                        {testimonial.position}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Hover gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TestimonialsSection />
 
       {/* Call to Action */}
-      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+      <section ref={ctaRef} className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
         theme === 'dark' ? 'bg-black' : 'bg-white'
       }`}>
-        <div className="max-w-5xl mx-auto text-center space-y-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10% 0px" }}
+          transition={{ duration: 0.6 }}
+          className="max-w-5xl mx-auto text-center space-y-12"
+        >
           <h2 className={`text-5xl md:text-6xl lg:text-7xl font-black leading-tight ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>
@@ -748,7 +518,7 @@ export default function Work() {
               </svg>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <Footer />
@@ -786,7 +556,7 @@ export default function Work() {
                 </div>
 
                 <div>
-                  <h3 className="text-4xl font-black mb-2">{selectedProject.title}</h3>
+                  <h3 className="text-4xl font-black mb-2" style={{ fontFamily: 'var(--font-league-spartan)' }}>{selectedProject.title}</h3>
                   <p className="text-xl opacity-90 mb-4">{selectedProject.subtitle}</p>
                 </div>
 
@@ -805,6 +575,20 @@ export default function Work() {
 
             {/* Content */}
             <div className="p-8 space-y-8">
+              {/* Project Image */}
+              <div className={`relative w-full h-[400px] rounded-2xl overflow-hidden ${
+                theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'
+              }`}>
+                <Image
+                  src={selectedProject.image}
+                  alt={selectedProject.title}
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 1024px) 100vw, 1024px"
+                  priority
+                />
+              </div>
+
               {/* Project Overview */}
               <div>
                 <h4 className={`text-xl font-bold mb-4 ${
