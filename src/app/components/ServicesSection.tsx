@@ -1,23 +1,25 @@
 'use client';
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import Link from "next/link";
 import { useTheme } from "../utils/ThemeProvider";
 import { ShineBorder } from "@/components/magicui/shine-border";
+import ScrollRevealText from './ScrollRevealText';
 
 export default function ServicesSection() {
   const { theme } = useTheme();
   const [hoveredService, setHoveredService] = useState<string | null>(null);
   const [selectedService, setSelectedService] = useState<any>(null);
 
-  // Animation variants
+  // Animation variants with blur fade-in
   const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6 }
+      filter: 'blur(0px)',
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
     }
   };
 
@@ -148,19 +150,25 @@ export default function ServicesSection() {
     setSelectedService(null);
   };
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, -30]);
+
   return (
     <>
-      <section className={`relative py-24 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
-      }`}>
-
+      <section 
+        ref={sectionRef}
+        className={`relative py-24 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
+          theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
+        }`}
+      >
         <div className="relative z-10 max-w-7xl mx-auto">
-          <motion.div 
-            className="text-center mb-20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-          >
+          <ScrollRevealText direction="up" delay={0.1}>
+            <div className="text-center mb-20">
             <div className="inline-flex items-center gap-3 mb-8">
               <motion.div 
                 className="w-16 h-0.5 bg-gradient-to-r from-transparent to-[#ff5500]"
@@ -198,33 +206,31 @@ export default function ServicesSection() {
                 />
               </span>
             </h2>
-            <p className={`text-2xl max-w-4xl mx-auto leading-relaxed ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              From stunning websites to powerful SEO strategies, we've got everything you need to succeed online
-            </p>
-          </motion.div>
+              <p className={`text-2xl max-w-4xl mx-auto leading-relaxed ${
+                theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+                From stunning websites to powerful SEO strategies, we've got everything you need to succeed online
+              </p>
+            </div>
+          </ScrollRevealText>
 
           {/* Services Grid - 4 cards in one row */}
           <motion.div 
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
+            style={{ y }}
           >
-            {services.map((service) => (
-              <motion.div 
-                key={service.id}
-                variants={fadeIn}
-                className={`group relative p-8 rounded-3xl transition-all duration-500 cursor-pointer overflow-hidden ${
-                  theme === 'dark' 
-                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-700/50' 
-                    : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50'
-                } backdrop-blur-sm hover:scale-[1.02] shadow-xl hover:shadow-2xl`}
-                onMouseEnter={() => setHoveredService(service.id)}
-                onMouseLeave={() => setHoveredService(null)}
-                onClick={() => openModal(service)}
-              >
+            {services.map((service, index) => (
+              <ScrollRevealText key={service.id} direction="up" delay={index * 0.1}>
+                <div 
+                  className={`group relative p-8 rounded-3xl transition-all duration-500 cursor-pointer overflow-hidden ${
+                    theme === 'dark' 
+                      ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-700/50' 
+                      : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50'
+                  } backdrop-blur-sm hover:scale-[1.02] shadow-xl hover:shadow-2xl`}
+                  onMouseEnter={() => setHoveredService(service.id)}
+                  onMouseLeave={() => setHoveredService(null)}
+                  onClick={() => openModal(service)}
+                >
                 <ShineBorder shineColor={["#ff5500", "#ff6600", "#ff7700"]} />
                 
                 
@@ -259,17 +265,14 @@ export default function ServicesSection() {
                     </svg>
                   </div>
                 </div>
-              </motion.div>
+                </div>
+              </ScrollRevealText>
             ))}
           </motion.div>
 
           {/* Call to Action */}
-          <motion.div 
-            className="text-center mt-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
+          <ScrollRevealText direction="up" delay={0.5}>
+            <div className="text-center mt-16">
             <Link 
               href="/services"
               className="group relative inline-flex items-center justify-center px-10 py-5 bg-gradient-to-r from-[#ff5500] via-[#ff6600] to-[#ff7700] text-white rounded-2xl hover:shadow-2xl transition-all duration-500 text-xl font-bold transform hover:scale-105 overflow-hidden"
@@ -281,7 +284,8 @@ export default function ServicesSection() {
               
               <div className="absolute inset-0 bg-gradient-to-r from-[#ff6600] to-[#ff8800] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </Link>
-          </motion.div>
+            </div>
+          </ScrollRevealText>
         </div>
       </section>
 

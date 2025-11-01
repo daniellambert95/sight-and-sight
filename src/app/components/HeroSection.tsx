@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import DotPattern from "./DotPattern";
 import FloatingParticles from "./FloatingParticles";
 import ProjectModal from "./ProjectModal";
@@ -36,6 +36,14 @@ export default function HeroSection() {
     transition: { duration: 0.8 }
   };
 
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
   return (
     <section 
       ref={heroRef} 
@@ -52,7 +60,10 @@ export default function HeroSection() {
         className="z-[1]"
       />
       
-      <div className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 w-full flex items-center justify-center pt-40 pb-20 lg:py-0 lg:min-h-screen">
+      <motion.div 
+        className="relative z-20 max-w-7xl mx-auto px-8 md:px-16 w-full flex items-center justify-center pt-40 pb-20 lg:py-0 lg:min-h-screen"
+        style={{ y, opacity }}
+      >
         {/* Content Column - Centered */}
         <motion.div 
           className="w-full max-w-4xl text-center"
@@ -195,7 +206,7 @@ export default function HeroSection() {
             ))}
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Project Modal */}
       <ProjectModal 

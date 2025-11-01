@@ -1,9 +1,10 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { useRef, useEffect, useState } from 'react';
 import { useTheme } from "../utils/ThemeProvider";
 import { RocketLaunchIcon, StarIcon, ChatBubbleLeftRightIcon, TrophyIcon } from '@heroicons/react/24/solid';
+import ScrollRevealText from './ScrollRevealText';
 
 // Animated Counter Component
 function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: number, suffix?: string, duration?: number }) {
@@ -39,13 +40,14 @@ function AnimatedCounter({ target, suffix = "", duration = 2 }: { target: number
 export default function StatsSection() {
   const { theme } = useTheme();
 
-  // Animation variants
+  // Animation variants with blur fade-in
   const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6 }
+      filter: 'blur(0px)',
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
     }
   };
 
@@ -91,52 +93,57 @@ export default function StatsSection() {
     }
   ];
 
-  return (
-    <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
-    }`}>
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
 
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.5]);
+
+  return (
+    <section 
+      ref={sectionRef}
+      className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
+      }`}
+    >
       <div className="relative z-10 max-w-7xl mx-auto">
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-              theme === 'dark'
-                ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
+        <ScrollRevealText direction="up" delay={0.1}>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-3 mb-6">
+              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
+              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
+                theme === 'dark'
+                  ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
+                  : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
+              }`}>
+              Our Impact
+              </span>
+              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
+            </div>
+            <h2 className={`text-4xl md:text-5xl font-black ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-            Our Impact
-            </span>
-            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
+              Results that <span className="text-[#ff5500]">speak volumes</span>
+            </h2>
           </div>
-          <h2 className={`text-4xl md:text-5xl font-black ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
-          }`}>
-            Results that <span className="text-[#ff5500]">speak volumes</span>
-          </h2>
-        </motion.div>
+        </ScrollRevealText>
 
         <motion.div 
           className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8"
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
+          style={{ y }}
         >
           {stats.map((stat, index) => (
-            <motion.div 
-              key={index}
-              variants={fadeIn}
-              className={`group relative text-center p-8 rounded-3xl transition-all duration-500 hover:scale-105 ${
-                theme === 'dark' 
-                  ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-700/50 shadow-2xl shadow-black/50' 
-                  : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50 shadow-2xl shadow-gray-200/50'
-              } backdrop-blur-sm`}
-            >
+            <ScrollRevealText key={index} direction="up" delay={index * 0.1}>
+              <div 
+                className={`group relative text-center p-8 rounded-3xl transition-all duration-500 hover:scale-105 ${
+                  theme === 'dark' 
+                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-700/50 shadow-2xl shadow-black/50' 
+                    : 'bg-gradient-to-br from-white/90 to-gray-50/90 border border-white/50 shadow-2xl shadow-gray-200/50'
+                } backdrop-blur-sm`}
+              >
               {/* Glow effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/10 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               
@@ -153,9 +160,10 @@ export default function StatsSection() {
                 </div>
                 <div className={`text-sm font-semibold ${
                   theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                }`}>{stat.label}</div>
+                }`}>{stat.label}                </div>
               </div>
-            </motion.div>
+              </div>
+            </ScrollRevealText>
           ))}
         </motion.div>
       </div>

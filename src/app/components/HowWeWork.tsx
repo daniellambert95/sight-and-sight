@@ -1,22 +1,24 @@
 'use client';
 
 import React, { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import ScrollReveal from "./animations/ScrollReveal";
 import { useTheme } from "../utils/ThemeProvider";
 import { AnimatedBeam } from "@/components/magicui/animated-beam";
 import { cn } from "@/lib/utils";
+import ScrollRevealText from "./ScrollRevealText";
 
 export default function HowWeWork() {
   const { theme } = useTheme();
   
-  // Animation variants
+  // Animation variants with blur fade-in
   const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6 }
+      filter: 'blur(0px)',
+      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
     }
   };
 
@@ -61,18 +63,24 @@ export default function HowWeWork() {
     }
   ];
 
-  return (
-    <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
-    }`}>
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
 
+  const y = useTransform(scrollYProgress, [0, 1], [0, -30]);
+
+  return (
+    <section 
+      ref={sectionRef}
+      className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
+      }`}
+    >
       <div className="relative z-10 max-w-7xl mx-auto">
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
+        <ScrollRevealText direction="up" delay={0.1}>
+          <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-6">
             <div className="w-12 h-0.5 bg-[#ff5500]"></div>
             <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
@@ -89,17 +97,18 @@ export default function HowWeWork() {
           }`}>
             How we <span className="text-[#ff5500]">work</span>
           </h2>
-          <p className={`text-xl max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-          }`}>
-            Our proven 4-step process ensures your project is delivered on time, on budget, and exceeds expectations
-          </p>
-        </motion.div>
+            <p className={`text-xl max-w-3xl mx-auto ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              Our proven 4-step process ensures your project is delivered on time, on budget, and exceeds expectations
+            </p>
+          </div>
+        </ScrollRevealText>
 
         {/* Process Flow Timeline */}
-        <div className="relative max-w-6xl mx-auto">
+        <motion.div className="relative max-w-6xl mx-auto" style={{ y }}>
           <ProcessFlowWithBeams theme={theme} staggerContainer={staggerContainer} fadeIn={fadeIn} workSteps={workSteps} />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

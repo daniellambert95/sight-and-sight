@@ -1,8 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import { useTheme } from "../utils/ThemeProvider";
 import { Marquee } from "@/components/magicui/marquee";
+import ScrollRevealText from './ScrollRevealText';
 
 // Testimonial Card Component
 const TestimonialCard = ({
@@ -71,6 +73,13 @@ const TestimonialCard = ({
 
 export default function TestimonialsSection() {
   const { theme } = useTheme();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, -30]);
 
   // Testimonials data - expanded for marquee effect
   const testimonials = [
@@ -122,17 +131,15 @@ export default function TestimonialsSection() {
   const secondRow = testimonials.slice(Math.ceil(testimonials.length / 2));
 
   return (
-    <section className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
-    }`}>
-
+    <section 
+      ref={sectionRef}
+      className={`relative py-20 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-gradient-to-br from-black to-gray-950' : 'bg-gradient-to-br from-white to-gray-50'
+      }`}
+    >
       <div className="relative z-10 max-w-7xl mx-auto">
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
+        <ScrollRevealText direction="up" delay={0.1}>
+          <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-6">
             <div className="w-12 h-0.5 bg-[#ff5500]"></div>
             <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
@@ -149,15 +156,16 @@ export default function TestimonialsSection() {
           }`}>
             What our <span className="text-[#ff5500]">clients say</span>
           </h2>
-          <p className={`text-xl max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-          }`}>
-            Real results from real businesses who trusted us with their digital transformation
-          </p>
-        </motion.div>
+            <p className={`text-xl max-w-3xl mx-auto ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              Real results from real businesses who trusted us with their digital transformation
+            </p>
+          </div>
+        </ScrollRevealText>
 
         {/* Marquee Container */}
-        <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+        <motion.div className="relative flex w-full flex-col items-center justify-center overflow-hidden" style={{ y }}>
           <Marquee pauseOnHover className="[--duration:30s]">
             {firstRow.map((testimonial, index) => (
               <TestimonialCard key={index} {...testimonial} theme={theme} />
@@ -180,7 +188,7 @@ export default function TestimonialsSection() {
               ? 'bg-gradient-to-l from-black to-transparent' 
               : 'bg-gradient-to-l from-white to-transparent'
           }`}></div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

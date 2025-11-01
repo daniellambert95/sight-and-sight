@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '../utils/ThemeProvider';
+import ScrollRevealText from './ScrollRevealText';
 
 interface Project {
   id: string;
@@ -26,22 +27,6 @@ interface Project {
 
 const projects: Project[] = [
   {
-    id: "streamline-hr",
-    title: "Streamline HR",
-    subtitle: "AI-Powered HR Management",
-    client: "Streamline HR",
-    description: "Cutting-edge employee management and applicant tracking system that utilizes artificial intelligence to speed up HR processes, streamline operations, and enhance recruitment efficiency.",
-    imageUrl: "/images/work/streamline-hr/desktop.webp",
-    mobileImageUrl: "/images/work/streamline-hr/mobile.webp",
-    category: ["Web App Development", "AI Integration", "UI/UX"],
-    year: "2025",
-    route: "/work/streamline-hr",
-    websiteUrl: "streamline-hr.vercel.app",
-    liveUrl: "https://streamline-hr.vercel.app",
-    metrics: "+500 waitlist signups",
-    featured: true
-  },
-  {
     id: "cartertreecare",
     title: "Carter Tree Care",
     subtitle: "Tree Surgery & Maintenance",
@@ -55,6 +40,22 @@ const projects: Project[] = [
     websiteUrl: "cartertreecare.ie",
     liveUrl: "https://www.cartertreecare.ie",
     metrics: "+200% closed deals per month",
+    featured: true
+  },
+  {
+    id: "streamline-hr",
+    title: "Streamline HR",
+    subtitle: "AI-Powered HR Management",
+    client: "Streamline HR",
+    description: "Cutting-edge employee management and applicant tracking system that utilizes artificial intelligence to speed up HR processes, streamline operations, and enhance recruitment efficiency.",
+    imageUrl: "/images/work/streamline-hr/desktop.webp",
+    mobileImageUrl: "/images/work/streamline-hr/mobile.webp",
+    category: ["Web App Development", "AI Integration", "UI/UX"],
+    year: "2025",
+    route: "/work/streamline-hr",
+    websiteUrl: "streamline-hr.vercel.app",
+    liveUrl: "https://streamline-hr.vercel.app",
+    metrics: "+500 waitlist signups",
     featured: true
   },
   {
@@ -136,23 +137,27 @@ export default function ProjectCarousel() {
     setTimeout(() => setIsTransitioning(false), 800);
   };
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, -40]);
+
   return (
     <section 
+      ref={sectionRef}
       className={`relative min-h-screen py-20 px-4 md:px-8 overflow-hidden transition-all duration-700 ${
         theme === 'dark' 
           ? 'bg-black' 
           : 'bg-white'
       }`}
     >
-
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
-        <motion.div 
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <ScrollRevealText direction="up" delay={0.1}>
+          <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 mb-6">
             <div className="w-12 h-0.5 bg-[#ff5500]"></div>
             <span className={`px-4 py-2 rounded-full text-sm font-bold ${
@@ -171,15 +176,16 @@ export default function ProjectCarousel() {
             Our <span className="text-[#ff5500]">Work</span> in Action
           </h2>
           
-          <p className={`text-xl max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-          }`}>
-            Experience our projects like never before – see the actual websites in action
-          </p>
-        </motion.div>
+            <p className={`text-xl max-w-3xl mx-auto ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}>
+              Experience our projects like never before – see the actual websites in action
+            </p>
+          </div>
+        </ScrollRevealText>
 
         {/* Main Carousel Container */}
-        <div className="relative">
+        <motion.div className="relative" style={{ y }}>
           {/* Navigation Arrows */}
           <button
             onClick={prevProject}
@@ -362,7 +368,7 @@ export default function ProjectCarousel() {
               </div>
             </motion.div>
           </AnimatePresence>
-        </div>
+        </motion.div>
 
         {/* Dot Navigation */}
         <div className="flex justify-center mt-12 gap-3">

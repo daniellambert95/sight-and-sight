@@ -1,12 +1,98 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { useTheme } from '../utils/ThemeProvider';
+import { 
+  EnvelopeIcon,
+  MapPinIcon,
+  PaperAirplaneIcon,
+  ChatBubbleLeftRightIcon,
+  GlobeAltIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  SparklesIcon,
+  ArrowUpIcon
+} from '@heroicons/react/24/outline';
 
 export default function ContactPage() {
   const { theme } = useTheme();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    terms: false
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Create formatted message for email
+      const emailMessage = `
+Contact Form Submission:
+
+Contact Information:
+- Name: ${formData.name}
+- Email: ${formData.email}
+- Subject: ${formData.subject}
+
+Message:
+${formData.message}
+
+---
+Form: Contact Page
+Submitted: ${new Date().toLocaleString()}
+      `.trim();
+
+      // Submit to Web3Forms
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          subject: `Contact Form: ${formData.subject}`,
+          from_name: formData.name,
+          email: formData.email,
+          message: emailMessage,
+          to_email: "hello@siteandsight.com"
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error('Form submission failed');
+      }
+
+      setIsSubmitting(false);
+      setSubmitted(true);
+
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: '', email: '', subject: '', message: '', terms: false });
+      }, 3000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setIsSubmitting(false);
+      alert('Unable to send your message. Please try again or contact us directly at hello@siteandsight.com');
+    }
+  };
 
   // Animation variants
   const fadeIn = {
@@ -35,103 +121,95 @@ export default function ContactPage() {
       {/* Navigation */}
       <Navigation currentPage="contact" />
 
-      {/* Hero Section - Modern Creative Design */}
-      <section className={`relative min-h-[80vh] flex items-center overflow-hidden transition-colors duration-300 pt-20 ${
+      {/* Hero Section - Clean & Minimal */}
+      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-36 md:pt-32 transition-colors duration-300 ${
         theme === 'dark' 
-          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-black' 
-          : 'bg-gradient-to-br from-white via-orange-50 to-purple-50'
+          ? 'bg-gradient-to-br from-black via-gray-950 to-black' 
+          : 'bg-gradient-to-br from-white to-gray-50'
       }`}>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 w-full py-16">
-          <div className="text-center">
-            {/* Badge */}
-            <motion.div 
-              className="inline-flex items-center gap-3 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                theme === 'dark'
-                  ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                  : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
-              }`}>
-                📧 Get In Touch
-              </span>
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            </motion.div>
-
-            {/* Main Heading */}
-            <motion.h1 
-              className={`text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-none ${
+        <div className="max-w-7xl mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            {/* Left Column - Main Content */}
+            <div className="space-y-8">
+              <h1 className={`text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-none tracking-tight ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <span className="block">Let's create</span>
-              <span className="block text-[#ff5500]">something</span>
-              <span className={`block text-4xl md:text-5xl lg:text-6xl font-bold mt-4 ${
-                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
               }`}>
-                amazing together
-              </span>
-            </motion.h1>
-
-            {/* Subtitle */}
-            <motion.p 
-              className={`text-xl md:text-2xl lg:text-3xl font-light mb-12 max-w-4xl mx-auto ${
+                <span className="block">Get in</span>
+                <span className="block text-[#ff5500]">Touch</span>
+                <span className={`block text-3xl md:text-4xl lg:text-5xl font-light mt-6 ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                  let's create something amazing
+                </span>
+              </h1>
+              
+              <p className={`text-xl md:text-2xl font-light max-w-2xl ${
                 theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-              }`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              Have a project in mind? We'd love to hear from you. Let's discuss how we can help bring your <span className="font-semibold text-[#ff5500]">vision to life</span>.
-            </motion.p>
-
-            {/* Contact Methods */}
-            <motion.div 
-              className="flex flex-wrap justify-center gap-6 mb-12"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <a 
-                href="mailto:hello@siteandsight.com"
-                className={`px-6 py-3 rounded-xl font-medium backdrop-blur-md shadow-lg border transition-all duration-300 hover:scale-105 ${
-                  theme === 'dark' 
-                    ? 'bg-black/40 border-gray-700/50 text-gray-300 hover:border-[#ff5500]/50' 
-                    : 'bg-white/70 border-white/50 text-gray-700 hover:border-[#ff5500]/50'
-                }`}
-              >
-                📧 hello@siteandsight.com
-              </a>
-              <a 
-                href="tel:+11234567890"
-                className={`px-6 py-3 rounded-xl font-medium backdrop-blur-md shadow-lg border transition-all duration-300 hover:scale-105 ${
-                  theme === 'dark' 
-                    ? 'bg-black/40 border-gray-700/50 text-gray-300 hover:border-[#ff5500]/50' 
-                    : 'bg-white/70 border-white/50 text-gray-700 hover:border-[#ff5500]/50'
-                }`}
-              >
-                📞 +1 (123) 456-7890
-              </a>
-            </motion.div>
-
-            {/* CTA */}
-            <motion.div 
-              className="flex justify-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <span className={`text-lg ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                Or fill out the form below 👇
-              </span>
-            </motion.div>
+              }`}>
+                Have a project in mind? We'd love to hear from you. Fill out the form below or reach out directly.
+              </p>
+              
+              <div className="space-y-4">
+                <a 
+                  href="mailto:hello@siteandsight.com"
+                  className={`inline-flex items-center gap-3 text-lg font-medium group ${
+                    theme === 'dark' ? 'text-gray-300 hover:text-[#ff5500]' : 'text-gray-700 hover:text-[#ff5500]'
+                  } transition-colors`}
+                >
+                  <EnvelopeIcon className="w-6 h-6 text-[#ff5500]" />
+                  hello@siteandsight.com
+                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+                <a 
+                  href="https://wa.me/353870387525"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`inline-flex items-center gap-3 text-lg font-medium group ${
+                    theme === 'dark' ? 'text-gray-300 hover:text-[#ff5500]' : 'text-gray-700 hover:text-[#ff5500]'
+                  } transition-colors`}
+                >
+                  <svg className="w-6 h-6 md:ml-4 lg:ml-0 xl:ml-4 text-[#ff5500]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                  </svg>
+                  +353 87 038 7525
+                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            
+            {/* Right Column - Quick Info */}
+            <div className="space-y-12 lg:space-y-16">
+              {[
+                { icon: <CheckCircleIcon className="w-8 h-8" />, label: "Response time", sublabel: "Within 24 hours" },
+                { icon: <MapPinIcon className="w-8 h-8" />, label: "Locations", sublabel: "Dublin, Berlin, Dubai" },
+                { icon: <ClockIcon className="w-8 h-8" />, label: "Office Hours", sublabel: "Monday-Friday, 9am-6pm GMT" }
+              ].map((item, index) => (
+                <div 
+                  key={index}
+                  className="border-l-2 border-[#ff5500] pl-8"
+                >
+                  <div className={`flex items-center gap-3 mb-2 ${
+                    theme === 'dark' ? 'text-[#ff5500]' : 'text-[#ff5500]'
+                  }`}>
+                    {item.icon}
+                  </div>
+                  <div className={`text-lg font-semibold mb-1 ${
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    {item.label}
+                  </div>
+                  <div className={`text-sm ${
+                    theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
+                  }`}>
+                    {item.sublabel}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -157,12 +235,13 @@ export default function ContactPage() {
             <div className="mb-8">
               <div className="inline-flex items-center gap-3 mb-4">
                 <div className="w-8 h-0.5 bg-[#ff5500]"></div>
-                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                <span className={`px-3 py-1 rounded-full text-sm font-semibold inline-flex items-center gap-2 ${
                   theme === 'dark'
                     ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
                     : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
                 }`}>
-                  💬 Send Message
+                  <ChatBubbleLeftRightIcon className="w-4 h-4" />
+                  Send Message
                 </span>
                 <div className="w-8 h-0.5 bg-[#ff5500]"></div>
               </div>
@@ -173,7 +252,26 @@ export default function ContactPage() {
               </h2>
             </div>
 
-            <form className="space-y-6">
+{submitted ? (
+              <div className="flex items-center justify-center py-16">
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-[#ff5500] rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircleIcon className="w-10 h-10 text-white" />
+                  </div>
+                  <h3 className={`text-3xl font-black mb-4 ${
+                    theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    Message Sent <span className="text-[#ff5500]">Successfully!</span>
+                  </h3>
+                  <p className={`text-lg ${
+                    theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
+                    Thank you for reaching out. We'll get back to you within 24 hours.
+                  </p>
+                </div>
+              </div>
+            ) : (
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className={`block text-sm font-semibold mb-2 ${
                   theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
@@ -184,6 +282,8 @@ export default function ContactPage() {
                   type="text"
                   id="name"
                   name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#ff5500] focus:border-transparent ${
                     theme === 'dark' 
                       ? 'bg-gray-800/50 border-gray-600 text-white placeholder-gray-400' 
@@ -204,6 +304,8 @@ export default function ContactPage() {
                   type="email"
                   id="email"
                   name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#ff5500] focus:border-transparent ${
                     theme === 'dark' 
                       ? 'bg-gray-800/50 border-gray-600 text-white placeholder-gray-400' 
@@ -224,6 +326,8 @@ export default function ContactPage() {
                   type="text"
                   id="subject"
                   name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
                   className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#ff5500] focus:border-transparent ${
                     theme === 'dark' 
                       ? 'bg-gray-800/50 border-gray-600 text-white placeholder-gray-400' 
@@ -244,6 +348,8 @@ export default function ContactPage() {
                   id="message"
                   name="message"
                   rows={6}
+                  value={formData.message}
+                  onChange={handleInputChange}
                   className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#ff5500] focus:border-transparent resize-none ${
                     theme === 'dark' 
                       ? 'bg-gray-800/50 border-gray-600 text-white placeholder-gray-400' 
@@ -260,6 +366,8 @@ export default function ContactPage() {
                     id="terms"
                     name="terms"
                     type="checkbox"
+                    checked={formData.terms}
+                    onChange={handleInputChange}
                     className="h-5 w-5 text-[#ff5500] focus:ring-[#ff5500] border-gray-300 rounded mt-1"
                     required
                   />
@@ -274,17 +382,17 @@ export default function ContactPage() {
               <div>
                 <button
                   type="submit"
-                  className="group relative inline-flex items-center justify-center w-full px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105"
+                  disabled={isSubmitting}
+                  className="group relative inline-flex items-center justify-center w-full px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
-                  <span className="relative z-10">Send Message</span>
-                  <svg className="w-6 h-6 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
+                  <span className="relative z-10">{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                  <PaperAirplaneIcon className="w-6 h-6 ml-2 transition-transform group-hover:translate-x-1 group-hover:rotate-12" />
                   {/* Button glow effect */}
                   <div className="absolute inset-0 bg-[#ff5500] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
                 </button>
               </div>
             </form>
+            )}
           </motion.div>
           
           {/* Contact Information */}
@@ -298,12 +406,13 @@ export default function ContactPage() {
             <div className="mb-8">
               <div className="inline-flex items-center gap-3 mb-4">
                 <div className="w-8 h-0.5 bg-[#ff5500]"></div>
-                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                <span className={`px-3 py-1 rounded-full text-sm font-semibold inline-flex items-center gap-2 ${
                   theme === 'dark'
                     ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
                     : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
                 }`}>
-                  📍 Contact Info
+                  <MapPinIcon className="w-4 h-4" />
+                  Contact Info
                 </span>
                 <div className="w-8 h-0.5 bg-[#ff5500]"></div>
               </div>
@@ -334,8 +443,8 @@ export default function ContactPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div className="relative z-10 flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white text-xl shadow-lg">
-                    📧
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white shadow-lg">
+                    <EnvelopeIcon className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
                     <h3 className={`text-xl font-bold mb-2 ${
@@ -354,7 +463,7 @@ export default function ContactPage() {
                 </div>
               </motion.div>
 
-              {/* Phone Card */}
+              {/* WhatsApp Card */}
               <motion.div 
                 variants={fadeIn}
                 className={`group relative p-6 rounded-2xl transition-all duration-500 hover:scale-[1.02] ${
@@ -367,20 +476,22 @@ export default function ContactPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div className="relative z-10 flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white text-xl shadow-lg">
-                    📞
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white shadow-lg">
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
                   </div>
                   <div className="flex-1">
                     <h3 className={`text-xl font-bold mb-2 ${
                       theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>Call Us</h3>
+                    }`}>WhatsApp Us</h3>
                     <p className={`text-sm mb-2 ${
                       theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                     }`}>
                       Office Hours: Monday-Friday, 9am-6pm GMT
                     </p>
-                    <a href="tel:+11234567890" className="text-[#ff5500] font-semibold hover:text-orange-600 transition-colors">
-                      +1 (123) 456-7890
+                    <a href="https://wa.me/353870387525" target="_blank" rel="noopener noreferrer" className="text-[#ff5500] font-semibold hover:text-orange-600 transition-colors">
+                      +353 87 038 7525
                     </a>
                   </div>
                 </div>
@@ -399,8 +510,8 @@ export default function ContactPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
                 <div className="relative z-10 flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white text-xl shadow-lg">
-                    📍
+                  <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white shadow-lg">
+                    <MapPinIcon className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
                     <h3 className={`text-xl font-bold mb-2 ${
@@ -411,7 +522,7 @@ export default function ContactPage() {
                     }`}>
                       <p>Dublin, Ireland</p>
                       <p>Berlin, Germany</p>
-                      <p>London, UK</p>
+                      <p>Dubai, UAE</p>
                     </div>
                   </div>
                 </div>
@@ -431,8 +542,8 @@ export default function ContactPage() {
                 
                 <div className="relative z-10">
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white text-xl shadow-lg">
-                      🌐
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff5500] to-orange-600 flex items-center justify-center text-white shadow-lg">
+                      <GlobeAltIcon className="w-6 h-6" />
                     </div>
                     <div className="flex-1">
                       <h3 className={`text-xl font-bold ${
@@ -479,77 +590,7 @@ export default function ContactPage() {
 
       
 
-      {/* Call to Action - Modern Creative Style */}
-      <section className={`relative py-24 px-8 md:px-16 overflow-hidden transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-black via-gray-900 to-gray-800' : 'bg-gradient-to-br from-white via-orange-50 to-white'
-      }`}>
-
-        <motion.div 
-          className="relative z-10 max-w-5xl mx-auto text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          {/* Badge */}
-          <div className="inline-flex items-center gap-3 mb-8">
-            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-              theme === 'dark'
-                ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
-            }`}>
-              🚀 Start Your Project
-            </span>
-            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-          </div>
-
-          {/* Main Heading */}
-          <h2 className={`text-4xl md:text-6xl lg:text-7xl font-black mb-8 leading-none ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
-          }`}>
-            <span className="block">Ready to</span>
-            <span className="block text-[#ff5500]">start building?</span>
-          </h2>
-
-          <p className={`text-xl md:text-2xl lg:text-3xl font-light mb-12 max-w-4xl mx-auto ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-          }`}>
-            We're excited to learn about your project and help you <span className="font-semibold text-[#ff5500]">achieve your goals</span>.
-            <span className="block mt-2">Let's create something amazing together.</span>
-          </p>
-
-          {/* Additional Info */}
-          <div className="mb-12 flex flex-wrap justify-center gap-8 text-sm">
-            <div className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Free consultation</span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Quick response time</span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-green-500 mr-2">✓</span>
-              <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>Award-winning designs</span>
-            </div>
-          </div>
-
-          {/* Scroll to top button */}
-          <button 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className={`inline-flex items-center justify-center px-8 py-4 rounded-2xl text-lg font-semibold transition-all duration-300 border-2 backdrop-blur-sm ${
-              theme === 'dark' 
-                ? 'bg-white/10 text-white border-white/30 hover:bg-white/20 hover:border-white/50' 
-                : 'bg-black/5 text-gray-900 border-gray-900/30 hover:bg-black/10 hover:border-gray-900/50'
-            } shadow-xl hover:shadow-2xl transform hover:scale-105`}
-          >
-            <span className="relative z-10">Back to Top</span>
-            <svg className="w-6 h-6 ml-2 transition-transform hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
-          </button>
-        </motion.div>
-      </section>
+     
 
       {/* Footer */}
       <Footer />
