@@ -138,15 +138,15 @@ export default function BlogPage() {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${
-      theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-black'
+      theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'
     }`}>
       <Navigation currentPage="blog" />
 
       {/* Hero Section - Compact */}
       <section className={`relative py-12 md:py-16 px-4 md:px-12 lg:px-24 pt-36 md:pt-40 transition-colors duration-300 ${
         theme === 'dark' 
-          ? 'bg-gradient-to-br from-black via-gray-950 to-black' 
-          : 'bg-gradient-to-br from-white to-gray-50'
+          ? 'bg-gradient-to-br from-black via-black to-black' 
+          : 'bg-gradient-to-br from-white to-white'
       }`}>
         <div className="max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 lg:gap-24 items-center">
@@ -200,7 +200,7 @@ export default function BlogPage() {
           {/* Featured Post Section */}
           {featuredPost && (
             <section className={`py-4 px-4 md:px-8 lg:px-16 ${
-              theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
+              theme === 'dark' ? 'bg-black' : 'bg-white'
             }`}>
               <div className="max-w-6xl mx-auto">
                 <motion.div 
@@ -275,7 +275,7 @@ export default function BlogPage() {
           {/* Recent Posts Section */}
           {recentPosts.length > 0 && (
             <section className={`py-16 px-4 md:px-8 lg:px-16 ${
-              theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'
+              theme === 'dark' ? 'bg-black' : 'bg-white'
             }`}>
               <div className="max-w-6xl mx-auto">
                 <div className="flex items-center justify-between mb-12">
@@ -306,7 +306,9 @@ export default function BlogPage() {
                 {/* Featured Recent Post */}
                 <motion.div
                   className={`rounded-2xl overflow-hidden shadow-xl mb-12 ${
-                    theme === 'dark' ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
+                    theme === 'dark' 
+                      ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-700/50' 
+                      : 'bg-white border border-gray-200'
                   }`}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -373,7 +375,9 @@ export default function BlogPage() {
                       key={post._id}
                       variants={fadeIn}
                       className={`rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 ${
-                        theme === 'dark' ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
+                        theme === 'dark' 
+                          ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-700/50' 
+                          : 'bg-white border border-gray-200'
                       }`}
                     >
                       <div className="relative h-48">

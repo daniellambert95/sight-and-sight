@@ -9,7 +9,7 @@ import ContactModal from './ContactModal';
 import { useTheme } from '../utils/ThemeProvider';
 
 interface NavigationProps {
-  currentPage: 'home' | 'work' | 'about' | 'services' |  'blog' | 'pricing' | 'contact' | 'faq';
+  currentPage: 'home' | 'work' | 'about' | 'services' |  'blog' | 'pricing' | 'contact' | 'faq' | 'cookies' | 'privacy' | 'terms';
 }
 
 export default function Navigation({ currentPage }: NavigationProps) {
