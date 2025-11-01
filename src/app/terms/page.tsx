@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { useTheme } from '../utils/ThemeProvider';
@@ -436,6 +437,37 @@ export default function TermsOfServicePage() {
           </motion.section>
         </div>
       </main>
+
+      {/* CTA Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.4 }}
+        className={`py-20 px-8 md:px-16 transition-colors duration-300 ${
+          theme === 'dark' ? 'bg-gradient-to-br from-gray-900 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
+        }`}
+      >
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className={`text-3xl md:text-4xl font-black mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
+            Have Questions About Our Terms?
+          </h2>
+          <p className={`text-lg mb-8 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+            Our team is ready to help clarify any questions you may have about our terms of service.
+          </p>
+          <Link
+            href="/contact"
+            className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-xl font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105"
+            style={{ fontFamily: 'var(--font-league-spartan)' }}
+          >
+            <span className="relative z-10">Contact Us</span>
+            <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+            {/* Button glow effect */}
+            <div className="absolute inset-0 bg-[#ff5500] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+          </Link>
+        </div>
+      </motion.section>
 
       <Footer />
     </div>

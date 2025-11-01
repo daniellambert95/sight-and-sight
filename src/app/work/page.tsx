@@ -182,7 +182,7 @@ export default function Work() {
       image: "/images/work/streamline-hr/streamlinehr.webp",
       color: "from-blue-500 to-cyan-500",
       featured: false,
-      liveUrl: "https://streamlinehr.com"
+      liveUrl: "https://streamline-hr.vercel.app"
     }
   ];
 
