@@ -210,9 +210,9 @@ export default function TermsOfServicePage() {
                 </h3>
                 <p className="text-sm">
                   <strong>Important:</strong> For hosting and subscription-based services, if payment is not received within 
-                  14 days of the due date, we reserve the right to suspend or terminate the hosting service and take down 
+                  14 days of the due date, we reserve the right to suspend the hosting service and take down 
                   the website. We will provide at least 7 days' notice before taking such action. Once payment is received, 
-                  services will be restored within 48 hours.
+                  services will be restored within 24 hours.
                 </p>
               </div>
             </div>
