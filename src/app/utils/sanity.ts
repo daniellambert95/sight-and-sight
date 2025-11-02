@@ -35,7 +35,7 @@ const FIELD_DETECTION_QUERY = `*[_type == "post"][0]{
 }`;
 
 // Updated queries based on confirmed schema
-const POSTS_QUERY = `*[_type == "post" && defined(slug.current)] | order(publishedAt desc)[0...12]{
+const POSTS_QUERY = `*[_type == "post" && defined(slug.current)] | order(publishedAt desc)[0...50]{
   _id,
   title,
   slug,
@@ -55,6 +55,7 @@ const POSTS_QUERY = `*[_type == "post" && defined(slug.current)] | order(publish
     title,
     slug
   },
+  tags,
   excerpt,
   description
 }`;
@@ -79,6 +80,7 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
     title,
     slug
   },
+  tags,
   excerpt,
   description
 }`;

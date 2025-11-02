@@ -441,6 +441,31 @@ export default function BlogPostPage() {
                   theme === 'dark' ? 'prose-invert' : ''
                 }`}>
                   {Array.isArray(post.body) && <PortableText value={post.body} components={portableTextComponents} />}
+                  
+                  {/* Tags as Hashtags */}
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className={`text-sm font-semibold ${
+                          theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                        }`}>
+                          Tags:
+                        </span>
+                        {post.tags.map((tag: string, index: number) => (
+                          <span
+                            key={index}
+                            className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-colors duration-200 ${
+                              theme === 'dark'
+                                ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            }`}
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </article>
               </motion.div>
 
@@ -565,28 +590,32 @@ export default function BlogPostPage() {
                         
                         {/* No Image Fallback */}
                         {!(relatedPost.mainImage || relatedPost.image || relatedPost.featuredImage || relatedPost.coverImage) && (
-                          <div className={`h-48 flex items-center justify-center ${
-                            theme === 'dark' ? 'bg-gradient-to-br from-gray-800 to-gray-900' : 'bg-gradient-to-br from-gray-100 to-gray-200'
-                          }`}>
-                            <div className={`text-5xl ${
-                              theme === 'dark' ? 'text-gray-600' : 'text-gray-400'
-                            }`}>📝</div>
+                          <div className="h-48 bg-gradient-to-br from-[#ff5500] to-[#e64d00] relative overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 to-red-500/20"></div>
                           </div>
                         )}
                         
                         {/* Content */}
                         <div className="p-6">
-                          {/* Categories */}
-                          {relatedPost.categories && relatedPost.categories.length > 0 && (
+                          {/* Tags or Categories */}
+                          {((relatedPost.tags && relatedPost.tags.length > 0) || (relatedPost.categories && relatedPost.categories.length > 0)) && (
                             <div className="flex flex-wrap gap-2 mb-3">
-                              {relatedPost.categories.slice(0, 1).map((category: any) => (
+                              {relatedPost.tags && relatedPost.tags.length > 0 ? (
                                 <span 
-                                  key={category._id}
                                   className="text-xs px-2 py-1 bg-[#ff5500]/20 text-[#ff5500] rounded-full font-medium"
                                 >
-                                  {category.title}
+                                  {relatedPost.tags[0]}
                                 </span>
-                              ))}
+                              ) : (
+                                relatedPost.categories.slice(0, 1).map((category: any) => (
+                                  <span 
+                                    key={category._id}
+                                    className="text-xs px-2 py-1 bg-[#ff5500]/20 text-[#ff5500] rounded-full font-medium"
+                                  >
+                                    {category.title}
+                                  </span>
+                                ))
+                              )}
                             </div>
                           )}
 

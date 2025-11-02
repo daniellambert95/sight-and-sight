@@ -73,7 +73,7 @@ export default function Work() {
       image: "/images/work/cartertreecare/cartertreecare.webp",
       color: "from-green-600 to-emerald-600",
       featured: true,
-      liveUrl: "https://cartertreecare.com",
+      liveUrl: "https://cartertreecare.ie",
       germanUrl: "https://derbaumchirurg.de"
     },
     {
@@ -101,7 +101,7 @@ export default function Work() {
       image: "/images/work/mdzn/millerdzn.webp",
       color: "from-purple-600 to-pink-600",
       featured: true,
-      liveUrl: "https://millerdzn.com"
+      liveUrl: "https://millerdesign.ai"
     },
     {
       id: "momentum",
@@ -128,7 +128,7 @@ export default function Work() {
       image: "/images/work/momentum/mo-mentum.webp",
       color: "from-blue-600 to-indigo-600",
       featured: true,
-      liveUrl: "https://momentum.ie"
+      liveUrl: "https://mo-mentum.ie"
     },
     {
       id: "pink-pizza-berlin",
@@ -155,7 +155,7 @@ export default function Work() {
       image: "/images/work/pinkpizzaberlin/pinkpizzaberlin.webp",
       color: "from-pink-500 to-red-500",
       featured: false,
-      liveUrl: "https://pinkpizzaberlin.de"
+      liveUrl: "https://pinkpizza-berlin.de"
     },
     {
       id: "streamline-hr",

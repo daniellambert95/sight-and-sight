@@ -19,17 +19,81 @@ export default function TableOfContents() {
     const extractHeadings = () => {
       // Wait for content to render
       setTimeout(() => {
-        const headingElements = document.querySelectorAll('article h1, article h2, article h3, article h4');
-        const headingList = Array.from(headingElements).map((heading, index) => {
-          const level = parseInt(heading.tagName.charAt(1));
-          const text = heading.textContent?.trim() || '';
-          // Create a more reliable ID from the text
-          const id = `toc-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${index}`;
-          heading.id = id; // Add ID to the heading element
-          return { id, text, level };
+        // Find the main article content
+        const article = document.querySelector('article');
+        if (!article) return;
+        
+        // Find sections that contain related articles (look for "More Insights" heading)
+        const allSections = document.querySelectorAll('section');
+        let relatedArticlesSection: Element | null = null;
+        allSections.forEach(section => {
+          const sectionText = section.textContent || '';
+          if (sectionText.includes('More Insights') || sectionText.includes('Continue exploring')) {
+            relatedArticlesSection = section;
+          }
         });
+        
+        const allHeadings = article.querySelectorAll('h1, h2, h3, h4');
+        
+        // Filter out headings that are in the related articles section or after "Conclusion"
+        const headingList: Heading[] = [];
+        let foundConclusion = false;
+        
+        Array.from(allHeadings).forEach((heading, index) => {
+          const text = heading.textContent?.trim() || '';
+          const level = parseInt(heading.tagName.charAt(1));
+          
+          // Check if this heading is inside the related articles section
+          const isInRelatedSection = relatedArticlesSection?.contains(heading) || false;
+          
+          // Check if heading is in a section that contains related posts grid
+          const parentSection = heading.closest('section');
+          const hasRelatedGrid = parentSection?.querySelector('[class*="grid"][class*="gap-8"]') || false;
+          const isInRelatedArea = hasRelatedGrid && parentSection !== article.closest('section');
+          
+          // Check if we've reached "Conclusion" - stop after it
+          if (text.toLowerCase().includes('conclusion')) {
+            foundConclusion = true;
+            // Include conclusion itself
+            const id = `toc-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${index}`;
+            heading.id = id;
+            headingList.push({ id, text, level });
+            return;
+          }
+          
+          // If we found conclusion, don't add any more headings
+          if (foundConclusion) {
+            return;
+          }
+          
+          // Skip headings in related articles section or related area
+          if (isInRelatedSection || isInRelatedArea) {
+            return;
+          }
+          
+          // Skip common blog post title patterns that might appear as headings
+          const blogTitlePatterns = [
+            /mobile-first design/i,
+            /brand identity design/i,
+            /high-converting landing/i,
+            /more insights/i,
+            /related articles/i,
+            /continue exploring/i,
+            /view all articles/i
+          ];
+          
+          const isBlogTitle = blogTitlePatterns.some(pattern => pattern.test(text));
+          if (isBlogTitle) {
+            return;
+          }
+          
+          // Include this heading
+          const id = `toc-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${index}`;
+          heading.id = id;
+          headingList.push({ id, text, level });
+        });
+        
         setHeadings(headingList);
-        console.log('Extracted headings:', headingList);
       }, 1000); // Increased timeout to ensure content is fully rendered
     };
 
@@ -110,14 +174,60 @@ export default function TableOfContents() {
         const headingElements = document.querySelectorAll('article h1, article h2, article h3, article h4');
         console.log('All headings found:', headingElements);
         
-        // Force re-extraction and try again
-        const headingList = Array.from(headingElements).map((heading, index) => {
-          const level = parseInt(heading.tagName.charAt(1));
+        // Force re-extraction and try again with filtering
+        const article = document.querySelector('article');
+        const allSections = document.querySelectorAll('section');
+        let relatedArticlesSection: Element | null = null;
+        allSections.forEach(section => {
+          const sectionText = section.textContent || '';
+          if (sectionText.includes('More Insights') || sectionText.includes('Continue exploring')) {
+            relatedArticlesSection = section;
+          }
+        });
+        
+        let foundConclusion = false;
+        const headingList: Heading[] = [];
+        
+        Array.from(headingElements).forEach((heading, index) => {
           const text = heading.textContent?.trim() || '';
+          const level = parseInt(heading.tagName.charAt(1));
+          
+          const isInRelatedSection = relatedArticlesSection?.contains(heading) || false;
+          const parentSection = heading.closest('section');
+          const hasRelatedGrid = parentSection?.querySelector('[class*="grid"][class*="gap-8"]') || false;
+          const isInRelatedArea = hasRelatedGrid && parentSection !== article?.closest('section');
+          
+          if (text.toLowerCase().includes('conclusion')) {
+            foundConclusion = true;
+            const id = `toc-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${index}`;
+            heading.id = id;
+            headingList.push({ id, text, level });
+            return;
+          }
+          
+          if (foundConclusion || isInRelatedSection || isInRelatedArea) {
+            return;
+          }
+          
+          const blogTitlePatterns = [
+            /mobile-first design/i,
+            /brand identity design/i,
+            /high-converting landing/i,
+            /more insights/i,
+            /related articles/i,
+            /continue exploring/i,
+            /view all articles/i
+          ];
+          
+          if (blogTitlePatterns.some(pattern => pattern.test(text))) {
+            return;
+          }
+          
           const id = `toc-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${index}`;
           heading.id = id;
-          return { id, text, level };
+          headingList.push({ id, text, level });
         });
+        
         setHeadings(headingList);
         
         // Try scrolling again after extraction
