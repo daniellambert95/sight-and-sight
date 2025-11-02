@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import CookieConsent from './CookieConsent';
+import AIChatbot from './AIChatbot';
 
 interface ClientLayoutProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export default function ClientLayout({ children }: ClientLayoutProps) {
     <div className="min-h-screen">
       {children}
       <CookieConsent />
+      <AIChatbot />
     </div>
   );
 } 
