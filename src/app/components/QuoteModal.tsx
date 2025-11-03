@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../utils/ThemeProvider';
+import { isValidEmail } from '@/lib/utils';
 import { 
   RocketLaunchIcon,
   GlobeAltIcon,
@@ -283,6 +284,12 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       return;
     }
     
+    // Validate email format
+    if (!isValidEmail(formData.email)) {
+      alert('Please enter a valid email address');
+      return;
+    }
+    
     setIsSubmitting(true);
     
     // Remove artificial delay - submit immediately
@@ -293,6 +300,12 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
   const handleExplicitSubmit = async () => {
     // Only allow submission from final step with required fields
     if (currentStep !== totalSteps || !formData.name || !formData.email) {
+      return;
+    }
+    
+    // Validate email format
+    if (!isValidEmail(formData.email)) {
+      alert('Please enter a valid email address');
       return;
     }
 
@@ -364,7 +377,7 @@ Submitted: ${new Date().toLocaleString()}
     switch (step) {
       case 1: return formData.services.length > 0;
       case 2: return budgetValue > 0 && timelineValue >= 0;
-      case 3: return formData.name !== '' && formData.email !== '';
+      case 3: return formData.name.trim().length > 0 && formData.email.trim().length > 0 && isValidEmail(formData.email);
       default: return false;
     }
   };
@@ -950,9 +963,9 @@ Submitted: ${new Date().toLocaleString()}
                     <button
                       type="button"
                       onClick={handleExplicitSubmit}
-                      disabled={isSubmitting || !formData.name || !formData.email}
+                      disabled={isSubmitting || !formData.name || !formData.email || !isValidEmail(formData.email)}
                       className={`px-12 py-3 rounded-xl font-bold text-lg transition-all ${
-                        isSubmitting || !formData.name || !formData.email
+                        isSubmitting || !formData.name || !formData.email || !isValidEmail(formData.email)
                           ? 'opacity-50 cursor-not-allowed bg-gray-400'
                           : 'bg-[#ff5500] hover:bg-[#ff6600] text-white transform hover:scale-105 shadow-xl'
                       }`}

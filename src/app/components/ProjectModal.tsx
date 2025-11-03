@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../utils/ThemeProvider';
 import { RocketLaunchIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
+import { isValidEmail } from '@/lib/utils';
 
 interface ProjectModalProps {
   isOpen: boolean;
@@ -234,7 +235,7 @@ Submitted: ${new Date().toLocaleString()}
         }
         return formData.projectTypes.length > 0;
       case 3:
-        return formData.email && formData.email.includes('@');
+        return formData.email.trim().length > 0 && isValidEmail(formData.email);
       default:
         return false;
     }

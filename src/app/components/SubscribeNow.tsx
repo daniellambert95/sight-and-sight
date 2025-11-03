@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useTheme } from '../utils/ThemeProvider';
 import { motion } from 'framer-motion';
 import { supabase } from '../utils/supabase';
+import { isValidEmail } from '@/lib/utils';
 
 const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -15,7 +16,7 @@ const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email || !email.includes('@')) {
+    if (!email || !isValidEmail(email)) {
       setMessage({ type: 'error', text: 'Please enter a valid email address' });
       return;
     }

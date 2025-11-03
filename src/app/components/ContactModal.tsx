@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useTheme } from '../utils/ThemeProvider';
 import { InlineWidget } from 'react-calendly';
+import { isValidEmail } from '@/lib/utils';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -98,6 +99,14 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate email format
+    if (!isValidEmail(formData.email)) {
+      alert('Please enter a valid email address');
+      setIsSubmitting(false);
+      return;
+    }
+    
     setIsSubmitting(true);
 
     try {

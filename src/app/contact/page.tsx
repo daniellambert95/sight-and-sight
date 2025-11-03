@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { useTheme } from '../utils/ThemeProvider';
+import { isValidEmail } from '@/lib/utils';
 import { 
   EnvelopeIcon,
   MapPinIcon,
@@ -39,6 +40,14 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate email format
+    if (!isValidEmail(formData.email)) {
+      alert('Please enter a valid email address');
+      setIsSubmitting(false);
+      return;
+    }
+    
     setIsSubmitting(true);
 
     try {
