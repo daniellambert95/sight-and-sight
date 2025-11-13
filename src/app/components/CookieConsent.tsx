@@ -4,14 +4,13 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CookieModal from './CookieModal';
 import { hasConsent, acceptAllCookies } from '../utils/cookieConsent';
-import { usePathname } from 'next/navigation';
 
 export default function CookieConsent() {
   const [mounted, setMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const pathname = usePathname();
 
+  // Don't render anything until mounted (prevents hydration mismatch)
   useEffect(() => {
     // Ensure we're on the client before checking localStorage
     setMounted(true);
@@ -23,42 +22,30 @@ export default function CookieConsent() {
     }
     
     // Check if we're on the home page and need to wait for intro animation
-    const isHomePage = pathname === '/';
+    const isHomePage = typeof window !== 'undefined' && window.location.pathname === '/';
     
-    if (typeof window === 'undefined') return;
+    // Check if intro animation has completed and homepage is visible
+    const introComplete = typeof window !== 'undefined' ? sessionStorage.getItem('intro-complete') : null;
     
-    // Check if intro has been shown in this session
-    const introShown = sessionStorage.getItem('intro-shown');
-    
-    // If on home page and intro hasn't been shown yet, wait for it
-    if (isHomePage && !introShown) {
-      // Wait for intro animation to complete (8 seconds + small buffer)
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 8500); // 8 seconds for animation + 500ms buffer
-      
-      // Also listen for when intro completes (if user skips early)
+    // If on home page and intro hasn't completed yet, wait for it
+    if (isHomePage && !introComplete) {
+      // Listen for when intro completes and homepage is visible
       const checkInterval = setInterval(() => {
-        const currentIntroShown = sessionStorage.getItem('intro-shown');
-        if (currentIntroShown === 'true') {
+        const currentIntroComplete = sessionStorage.getItem('intro-complete');
+        if (currentIntroComplete === 'true') {
           setIsVisible(true);
           clearInterval(checkInterval);
-          clearTimeout(timer);
         }
       }, 100);
       
       return () => {
-        clearTimeout(timer);
         clearInterval(checkInterval);
       };
     } else {
-      // On other pages or if intro already shown, show with small delay for smooth animation
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 1000);
-      return () => clearTimeout(timer);
+      // On other pages or if intro already completed, show immediately
+      setIsVisible(true);
     }
-  }, [pathname]);
+  }, []);
 
   // Don't render anything until mounted (prevents hydration mismatch)
   if (!mounted) return null;

@@ -27,19 +27,25 @@ export default function Home() {
       setShowIntro(true);
       // Mark as shown for this session
       sessionStorage.setItem('intro-shown', 'true');
+      // Clear intro-complete flag since we're showing animation
+      sessionStorage.removeItem('intro-complete');
     } else {
       // Animation already shown this session - skip directly to main content
       setShowMainContent(true);
+      // Mark that homepage is ready (no animation to wait for)
+      sessionStorage.setItem('intro-complete', 'true');
     }
 
     // Reset animation state when user leaves the site
     const handleBeforeUnload = () => {
       sessionStorage.removeItem('intro-shown');
+      sessionStorage.removeItem('intro-complete');
     };
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
         sessionStorage.removeItem('intro-shown');
+        sessionStorage.removeItem('intro-complete');
       }
     };
 
@@ -56,7 +62,11 @@ export default function Home() {
 
   const handleIntroComplete = () => {
     setShowIntro(false);
-    setTimeout(() => setShowMainContent(true), 100);
+    setTimeout(() => {
+      setShowMainContent(true);
+      // Mark that intro animation has completed and homepage is visible
+      sessionStorage.setItem('intro-complete', 'true');
+    }, 100);
   };
 
   return (

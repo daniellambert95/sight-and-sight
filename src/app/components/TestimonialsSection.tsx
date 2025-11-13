@@ -113,6 +113,12 @@ export default function TestimonialsSection() {
       content: "You have conveyed this in a totally great and understandable way, I am completely inspired and full of drive to implement your improvements. Best wishes also to Killian.",
       rating: 5
     },
+    {
+      name: "Andrew Mowatt",
+      position: "Founder of Momentum, mo-mentum.ie",
+      content: "My experience working with Daniel/site & sight was nothing but positive. Daniel really puts attention to detail when working with clients, it also helps the fact he has lots of experience in the design space so he was also able to bring this into creating the deadly website for my content creation business. Something I value ALOT when working with people is open and honest communication, and Daniel has that - There was ongoing support and attention to getting the site to a place where we were both happy. I would definitely recommend Site and Sight if your looking for a solid job!",
+      rating: 5
+    },
     // {
     //   name: "Michael Rodriguez",
     //   position: "CEO, GreenTech Solutions", 

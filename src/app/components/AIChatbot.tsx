@@ -3,34 +3,56 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import AIChatModal from './AIChatModal';
-import { usePathname } from 'next/navigation';
-
-const VISIBILITY_DELAY = 5000;
 
 export default function AIChatbot() {
   const [mounted, setMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const pathname = usePathname();
 
+  // Don't render anything until mounted (prevents hydration mismatch)
   useEffect(() => {
     setMounted(true);
-    const timer = setTimeout(() => setIsVisible(true), VISIBILITY_DELAY);
-    return () => clearTimeout(timer);
-  }, [pathname]);
+    
+    // Check if we're on the home page and need to wait for intro animation
+    const isHomePage = typeof window !== 'undefined' && window.location.pathname === '/';
+    
+    // Check if intro animation has completed and homepage is visible
+    const introComplete = typeof window !== 'undefined' ? sessionStorage.getItem('intro-complete') : null;
+    
+    // If on home page and intro hasn't completed yet, wait for it
+    if (isHomePage && !introComplete) {
+      // Listen for when intro completes and homepage is visible
+      const checkInterval = setInterval(() => {
+        const currentIntroComplete = sessionStorage.getItem('intro-complete');
+        if (currentIntroComplete === 'true') {
+          setIsVisible(true);
+          clearInterval(checkInterval);
+        }
+      }, 100);
+      
+      return () => {
+        clearInterval(checkInterval);
+      };
+    } else {
+      // On other pages or if intro already completed, show immediately
+      setIsVisible(true);
+    }
+  }, []);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
 
+  // Don't render anything until mounted (prevents hydration mismatch)
   if (!mounted || !isVisible) return null;
 
   return (
     <>
       <motion.button
-        initial={{ opacity: 0, scale: 0.8 }}
+        initial={{ opacity: 0, y: 20, scale: 0.8 }}
         animate={{ 
           opacity: isModalOpen ? 0.5 : 1,
+          y: 0,
           scale: 1,
         }}
         whileHover={{ scale: isModalOpen ? 1 : 1.1 }}
