@@ -10,6 +10,7 @@ import StatsSection from "./components/StatsSection";
 import ServicesSection from "./components/ServicesSection";
 import ProjectCarousel from "./components/ProjectCarousel";
 import TestimonialsSection from "./components/TestimonialsSection";
+import TrustedPartnersSection from "./components/TrustedPartnersSection";
 import AnimatedIntro from "./components/AnimatedIntro";
 import { useTheme } from "./utils/ThemeProvider";
 
@@ -93,6 +94,10 @@ export default function Home() {
 
           {/* Cinematic Project Carousel */}
           <ProjectCarousel />
+          
+          {/* Trusted Partners Section */}
+          <TrustedPartnersSection />
+          
 
           {/* How We Work Section */}
           <HowWeWork />
