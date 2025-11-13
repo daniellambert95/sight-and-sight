@@ -21,6 +21,8 @@ const partners = [
   { name: 'OpenAI', logo: '/images/trusted-partners/open-ai.webp' },
   { name: 'Claude', logo: '/images/trusted-partners/claude.webp' },
   { name: 'Figma', logo: '/images/trusted-partners/figma.webp' },
+  { name: 'Canva', logo: '/images/trusted-partners/canva.webp' },
+  { name: 'Bunny CDN', logo: '/images/trusted-partners/bunny-cdn.webp' },
   { name: 'Google Analytics', logo: '/images/trusted-partners/google-analytics.webp' },
   { name: 'Google Ads', logo: '/images/trusted-partners/google-ads.webp' },
   { name: 'Brevo', logo: '/images/trusted-partners/brevo.webp' },
