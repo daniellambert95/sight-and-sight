@@ -112,8 +112,13 @@ export default function ProjectCarousel() {
   const { theme } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   const currentProject = projects[currentIndex];
+
+  // Minimum swipe distance (in px) to trigger a swipe
+  const minSwipeDistance = 50;
 
   const nextProject = useCallback(() => {
     if (isTransitioning) return;
@@ -123,18 +128,42 @@ export default function ProjectCarousel() {
   }, [isTransitioning]);
 
 
-  const prevProject = () => {
+  const prevProject = useCallback(() => {
     if (isTransitioning) return;
     setIsTransitioning(true);
     setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
     setTimeout(() => setIsTransitioning(false), 800);
-  };
+  }, [isTransitioning]);
 
   const goToProject = (index: number) => {
     if (isTransitioning || index === currentIndex) return;
     setIsTransitioning(true);
     setCurrentIndex(index);
     setTimeout(() => setIsTransitioning(false), 800);
+  };
+
+  // Touch event handlers for swipe gestures
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextProject();
+    } else if (isRightSwipe) {
+      prevProject();
+    }
   };
 
   const sectionRef = useRef<HTMLElement>(null);
@@ -192,12 +221,12 @@ export default function ProjectCarousel() {
             disabled={isTransitioning}
             className={`absolute left-4 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 ${
               theme === 'dark'
-                ? 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
-                : 'bg-black/10 hover:bg-black/20 text-gray-900 border border-black/20'
-            } backdrop-blur-sm shadow-lg hover:scale-110 disabled:opacity-50 disabled:hover:scale-100`}
+                ? 'bg-white/30 hover:bg-white/40 text-white border border-white/40'
+                : 'bg-white/60 hover:bg-white/80 text-gray-900 border border-white/60'
+            } backdrop-blur-md shadow-lg hover:scale-110 disabled:opacity-50 disabled:hover:scale-100`}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
@@ -206,12 +235,12 @@ export default function ProjectCarousel() {
             disabled={isTransitioning}
             className={`absolute right-4 top-1/2 -translate-y-1/2 z-20 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 ${
               theme === 'dark'
-                ? 'bg-white/10 hover:bg-white/20 text-white border border-white/20'
-                : 'bg-black/10 hover:bg-black/20 text-gray-900 border border-black/20'
-            } backdrop-blur-sm shadow-lg hover:scale-110 disabled:opacity-50 disabled:hover:scale-100`}
+                ? 'bg-white/30 hover:bg-white/40 text-white border border-white/40'
+                : 'bg-white/60 hover:bg-white/80 text-gray-900 border border-white/60'
+            } backdrop-blur-md shadow-lg hover:scale-110 disabled:opacity-50 disabled:hover:scale-100`}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
 
@@ -224,6 +253,9 @@ export default function ProjectCarousel() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
             >
               {/* Main Content Area - With Margins for Scrolling */}
               <div className="w-full px-4 md:px-8 lg:px-16">
@@ -291,8 +323,8 @@ export default function ProjectCarousel() {
                         {/* Gradient Overlays for depth and readability */}
                         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 pointer-events-none"></div>
 
-                        {/* Top Badge - Category */}
-                        <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                        {/* Year Badge - Bottom Right */}
+                        <div className="absolute bottom-24 right-4">
                           <div className="bg-[#ff5500]/90 backdrop-blur-sm px-4 py-2 rounded-full">
                             <span className="text-white text-xs font-bold">{currentProject.year}</span>
                           </div>
