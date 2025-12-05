@@ -3,19 +3,21 @@
 import React, { useState } from 'react';
 import { useTheme } from '../utils/ThemeProvider';
 import { motion } from 'framer-motion';
-import { supabase } from '../utils/supabase';
 import { isValidEmail } from '@/lib/utils';
+import NamePopupModal from './NamePopupModal';
 
 const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{type: 'success' | 'error', text: string} | null>(null);
+  const [showNameModal, setShowNameModal] = useState(false);
+  const [tempEmail, setTempEmail] = useState('');
   const { theme } = useTheme();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !isValidEmail(email)) {
       setMessage({ type: 'error', text: 'Please enter a valid email address' });
       return;
@@ -24,28 +26,36 @@ const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
     setIsLoading(true);
     setMessage(null);
 
-    try {
-      const { data, error } = await supabase
-        .from('newsletter_subscriptions')
-        .insert([{ email: email.toLowerCase().trim() }])
-        .select();
+    // Store email and show name modal directly (no Supabase)
+    setTempEmail(email.toLowerCase().trim());
+    setShowNameModal(true);
+    setEmail('');
+    setIsLoading(false);
+  };
 
-      if (error) {
-        if (error.code === '23505') {
-          setMessage({ type: 'error', text: 'This email is already subscribed!' });
-        } else {
-          console.error('Supabase error:', error);
-          setMessage({ type: 'error', text: 'Something went wrong. Please try again.' });
-        }
-      } else {
-        setMessage({ type: 'success', text: 'Successfully subscribed! Check your inbox for a welcome email.' });
-        setEmail('');
+  const handleNameSubmit = async (name: string) => {
+    try {
+      const response = await fetch('/api/brevo/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: tempEmail, name }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error('Brevo API error:', data);
+        throw new Error(data.error || 'Failed to complete subscription');
       }
+
+      setShowNameModal(false);
+      setMessage({
+        type: 'success',
+        text: 'Successfully subscribed! Check your inbox for a welcome email.'
+      });
     } catch (error) {
-      console.error('Network error:', error);
-      setMessage({ type: 'error', text: 'Network error. Please check your connection and try again.' });
-    } finally {
-      setIsLoading(false);
+      console.error('Brevo error:', error);
+      throw error;
     }
   };
   
@@ -148,6 +158,13 @@ const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
           </div>
         </motion.div>
       </div>
+
+      <NamePopupModal
+        isOpen={showNameModal}
+        email={tempEmail}
+        onSubmit={handleNameSubmit}
+        onClose={() => setShowNameModal(false)}
+      />
     </section>
   );
 };
