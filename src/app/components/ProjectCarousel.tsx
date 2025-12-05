@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -227,9 +227,10 @@ export default function ProjectCarousel() {
             >
               {/* Main Content Area - With Margins for Scrolling */}
               <div className="w-full px-4 md:px-8 lg:px-16">
-                {/* Project Preview - With margins on sides */}
+                {/* Project Preview - Desktop: iframe with URL bar, Mobile: full-width image */}
                 <div className="w-full mb-8 max-w-6xl mx-auto">
-                  <div className="relative w-full">
+                  {/* Desktop View - iframe with browser chrome */}
+                  <div className="hidden md:block relative w-full">
                     {/* Simple URL Bar */}
                     <div className={`flex items-center justify-center p-4 rounded-t-2xl ${
                       theme === 'dark' ? 'bg-gray-800/50 border border-gray-700/50' : 'bg-white/80 border border-gray-200/50'
@@ -261,8 +262,8 @@ export default function ProjectCarousel() {
                           />
                         ) : (
                           <div className="w-full h-full relative">
-                            <Image 
-                              src={currentProject.imageUrl} 
+                            <Image
+                              src={currentProject.imageUrl}
                               alt={`${currentProject.title} Desktop Preview`}
                               fill
                               className="object-cover object-top rounded-b-2xl"
@@ -272,10 +273,120 @@ export default function ProjectCarousel() {
                       </div>
                     </div>
                   </div>
+
+                  {/* Mobile View - Modern card-based showcase */}
+                  <div className="md:hidden relative w-full space-y-6">
+                    {/* Hero Image Card */}
+                    <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl">
+                      {/* Image Container */}
+                      <div className="relative w-full aspect-[9/16]">
+                        <Image
+                          src={currentProject.mobileImageUrl || currentProject.imageUrl}
+                          alt={`${currentProject.title} Mobile Preview`}
+                          fill
+                          className="object-cover object-top"
+                          priority
+                        />
+
+                        {/* Gradient Overlays for depth and readability */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 pointer-events-none"></div>
+
+                        {/* Top Badge - Category */}
+                        <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                          <div className="bg-[#ff5500]/90 backdrop-blur-sm px-4 py-2 rounded-full">
+                            <span className="text-white text-xs font-bold">{currentProject.year}</span>
+                          </div>
+                        </div>
+
+                        {/* Bottom Content Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="w-2 h-2 bg-[#ff5500] rounded-full animate-pulse"></div>
+                            <span className="text-sm font-semibold opacity-90">{currentProject.websiteUrl}</span>
+                          </div>
+                          <h3 className="text-3xl font-black mb-2" style={{ fontFamily: 'var(--font-league-spartan)' }}>
+                            {currentProject.title}
+                          </h3>
+                          <p className="text-sm opacity-90 mb-3">{currentProject.subtitle}</p>
+
+                          {/* Category Pills */}
+                          <div className="flex flex-wrap gap-2">
+                            {currentProject.category.slice(0, 3).map((cat) => (
+                              <span
+                                key={cat}
+                                className="px-3 py-1 rounded-full text-xs font-medium bg-white/20 backdrop-blur-sm border border-white/30"
+                              >
+                                {cat}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Stats & CTA Card */}
+                    <div className={`relative rounded-2xl p-6 ${
+                      theme === 'dark'
+                        ? 'bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50'
+                        : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
+                    } backdrop-blur-sm shadow-xl`}>
+                      {/* Metric */}
+                      {currentProject.metrics && (
+                        <div className="text-center mb-6">
+                          <div className="text-2xl font-black text-[#ff5500] mb-1">
+                            {currentProject.metrics}
+                          </div>
+                          <div className={`text-xs font-medium ${
+                            theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                          }`}>
+                            Results Delivered
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Description */}
+                      <p className={`text-sm leading-relaxed mb-6 text-center ${
+                        theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                      }`}>
+                        {currentProject.description}
+                      </p>
+
+                      {/* Action Buttons */}
+                      <div className="flex flex-col gap-3">
+                        {currentProject.liveUrl && (
+                          <a
+                            href={currentProject.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-3.5 px-6 bg-gradient-to-r from-[#ff5500] to-[#ff8844] text-white text-center rounded-xl font-bold hover:shadow-lg transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2"
+                          >
+                            View Live Site
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </a>
+                        )}
+
+                        <Link
+                          href="/work"
+                          className={`w-full py-3.5 px-6 text-center rounded-xl font-bold transition-all duration-300 transform hover:scale-[1.02] border-2 flex items-center justify-center gap-2 ${
+                            theme === 'dark'
+                              ? 'bg-white/5 text-white border-white/20 hover:bg-white/10'
+                              : 'bg-black/5 text-gray-900 border-gray-300 hover:bg-black/10'
+                          }`}
+                        >
+                          View All Work
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          </svg>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Project Details - Centered below preview */}
-                <div className="text-center">
+                {/* Project Details - Centered below preview (Desktop only) */}
+                <div className="hidden md:block text-center">
                   {/* Project Title & Info */}
                   <div className="mb-8">
                     <div className="flex items-center justify-center gap-4 mb-4">

@@ -171,10 +171,12 @@ export default function CookieModal({ isOpen, onClose }: CookieModalProps) {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <button
-                      onClick={handleAcceptAll}
-                      className="flex-1 px-6 py-3 bg-[#ff5500] text-white rounded-lg hover:bg-[#e64d00] transition-colors font-semibold text-sm"
+                      onClick={() => setShowCustomize(true)}
+                      className={`flex-1 px-6 py-3 rounded-lg border-2 border-[#ff5500] text-[#ff5500] hover:bg-[#ff5500]/10 transition-colors font-semibold text-sm ${
+                        theme === 'dark' ? 'bg-transparent' : 'bg-white'
+                      }`}
                     >
-                      Accept All
+                      Customize
                     </button>
                     <button
                       onClick={handleRejectAll}
@@ -187,12 +189,10 @@ export default function CookieModal({ isOpen, onClose }: CookieModalProps) {
                       Reject All
                     </button>
                     <button
-                      onClick={() => setShowCustomize(true)}
-                      className={`flex-1 px-6 py-3 rounded-lg border-2 border-[#ff5500] text-[#ff5500] hover:bg-[#ff5500]/10 transition-colors font-semibold text-sm ${
-                        theme === 'dark' ? 'bg-transparent' : 'bg-white'
-                      }`}
+                      onClick={handleAcceptAll}
+                      className="flex-1 px-6 py-3 bg-[#ff5500] text-white rounded-lg hover:bg-[#e64d00] transition-colors font-semibold text-sm"
                     >
-                      Customize
+                      Accept All
                     </button>
                   </div>
                 </div>

@@ -1,10 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, League_Spartan } from "next/font/google";
-import Script from "next/script";
 import ClientLayout from "@/app/components/ClientLayout";
 import { ThemeProvider } from "@/app/utils/ThemeProvider";
 import StructuredData from "@/app/components/StructuredData";
+import GoogleAnalytics from "@/app/components/GoogleAnalytics";
+import MetaPixel from "@/app/components/MetaPixel";
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -19,8 +20,6 @@ const leagueSpartan = League_Spartan({
 });
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.siteandsight.com';
-const googleAnalyticsId = process.env.NEXT_PUBLIC_GA_ID || '';
-const facebookPixelId = process.env.NEXT_PUBLIC_FB_PIXEL_ID || '';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -115,52 +114,10 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/favicon.ico" />
       </head>
       <body className="min-h-screen overflow-x-hidden transition-colors duration-300">
-        {/* Google tag (gtag.js) */}
-        {googleAnalyticsId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${googleAnalyticsId}');
-              `}
-            </Script>
-          </>
-        )}
-        {/* Meta Pixel Code */}
-        {facebookPixelId && (
-          <>
-            <Script id="meta-pixel" strategy="afterInteractive">
-              {`
-                !function(f,b,e,v,n,t,s)
-                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-                n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                n.queue=[];t=b.createElement(e);t.async=!0;
-                t.src=v;s=b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t,s)}(window, document,'script',
-                'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '${facebookPixelId}');
-                fbq('track', 'PageView');
-              `}
-            </Script>
-            <noscript>
-              <img 
-                height="1" 
-                width="1" 
-                style={{display: 'none'}}
-                src={`https://www.facebook.com/tr?id=${facebookPixelId}&ev=PageView&noscript=1`}
-                alt=""
-              />
-            </noscript>
-          </>
-        )}
-        {/* End Meta Pixel Code */}
+        {/* Conditional Analytics - Only load with user consent */}
+        <GoogleAnalytics />
+        <MetaPixel />
+
         <StructuredData />
         <ThemeProvider>
           <ClientLayout>

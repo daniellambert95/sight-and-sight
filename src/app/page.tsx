@@ -94,10 +94,9 @@ export default function Home() {
 
           {/* Cinematic Project Carousel */}
           <ProjectCarousel />
-          
+
           {/* Trusted Partners Section */}
           <TrustedPartnersSection />
-          
 
           {/* How We Work Section */}
           <HowWeWork />
