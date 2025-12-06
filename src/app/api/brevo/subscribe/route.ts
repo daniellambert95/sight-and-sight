@@ -58,6 +58,9 @@ export async function POST(request: NextRequest) {
           NAME: name,
         };
 
+        // Note: Sender is configured in the template, but you can override here if needed
+        // sendSmtpEmail.sender = { name: "Site and Sight", email: "noreply@siteandsight.com" };
+
         await emailApiInstance.sendTransacEmail(sendSmtpEmail);
       } catch (emailError) {
         console.error('Failed to send welcome email:', emailError);

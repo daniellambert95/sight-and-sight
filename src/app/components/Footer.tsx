@@ -330,13 +330,13 @@ export default function Footer() {
             <motion.div variants={footerItems}>
               <h3 className={`text-lg font-semibold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Site Map</h3>
               <ul className="space-y-3">
-                {['About', 'Work', 'FAQ', 'Pricing', 'Services', 'Contact'].map((item) => (
-                  <motion.li 
+                {['About', 'Work', 'Blog', 'FAQ', 'Pricing', 'Services', 'Contact'].map((item) => (
+                  <motion.li
                     key={item}
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    <Link 
+                    <Link
                       href={item === 'About' ? '/about' : `/${item.toLowerCase()}`}
                       className={`hover:text-[#ff5500] transition-colors duration-300 ${
                         theme === 'dark' ? 'text-gray-300' : 'text-gray-600'

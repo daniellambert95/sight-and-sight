@@ -12,12 +12,12 @@ export interface CookiePreferences {
 const STORAGE_KEY = 'cookie-consent-preferences';
 const CONSENT_VERSION = '1.0.0';
 
-// Default preferences (accept all cookies by default)
+// Default preferences (only essential cookies by default - GDPR compliant)
 export const defaultPreferences: CookiePreferences = {
   essential: true,
-  analytics: true,
-  marketing: true,
-  functional: true,
+  analytics: false,
+  marketing: false,
+  functional: false,
   timestamp: 0,
   version: CONSENT_VERSION,
 };
@@ -27,11 +27,10 @@ export const cookieCategories = {
   essential: {
     id: 'essential' as CookieCategory,
     name: 'Essential Cookies',
-    description: 'These cookies are necessary for the website to function properly. They cannot be disabled.',
+    description: 'These cookies are necessary for the website to function properly. They enable basic features and cannot be disabled.',
     cookies: [
-      'Session management cookies',
-      'Security and authentication cookies',
-      'Form submission cookies',
+      'cookie-consent-preferences - Stores your cookie preferences',
+      'Next.js session cookies - Required for website functionality',
     ],
     required: true,
   },
@@ -59,11 +58,9 @@ export const cookieCategories = {
   functional: {
     id: 'functional' as CookieCategory,
     name: 'Functional Cookies',
-    description: 'These cookies enable enhanced functionality and personalization, such as remembering your preferences.',
+    description: 'These cookies enable enhanced functionality and personalization, such as remembering your theme preference (dark/light mode).',
     cookies: [
-      'User preference cookies',
-      'Form data cookies',
-      'Language and region preferences',
+      'theme - Stores your dark/light mode preference',
     ],
     required: false,
   },

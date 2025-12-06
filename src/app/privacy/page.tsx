@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Navigation from '../components/Navigation';
@@ -65,14 +64,14 @@ export default function PrivacyPolicyPage() {
             </h2>
             <div className={`space-y-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>
-                Site & Sight ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy 
-                explains how we collect, use, disclose, and safeguard your information when you visit our website or 
-                use our services, including web development, SEO and digital marketing, creative design, automation 
-                solutions, and hosting services.
+                Site & Sight ("we", "our", or "us") is committed to protecting your privacy. This Privacy Policy
+                explains how we collect, use, disclose, and safeguard your information when you visit our website
+                (siteandsight.com) or use our services, including web development, SEO and digital marketing,
+                creative design, automation solutions, and hosting and maintenance services.
               </p>
               <p>
-                This policy complies with the General Data Protection Regulation (GDPR) and Irish data protection laws. 
-                By using our services, you consent to the data practices described in this policy.
+                This policy complies with the General Data Protection Regulation (GDPR) and Irish data protection laws.
+                By using our website and services, you acknowledge that you have read and understood this policy.
               </p>
             </div>
           </motion.section>
@@ -122,35 +121,39 @@ export default function PrivacyPolicyPage() {
               <p>We collect the following types of personal data:</p>
               <div className={`p-6 rounded-xl border-2 ${theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-gray-50 border-gray-200'}`}>
                 <h3 className={`text-lg font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                  Personal Information
+                  Personal Information You Provide
                 </h3>
                 <ul className="space-y-2 text-sm list-disc list-inside ml-2">
-                  <li>Name and contact details (email address, phone number, postal address)</li>
-                  <li>Company name and business information</li>
-                  <li>Payment and billing information</li>
-                  <li>Account credentials and login information</li>
+                  <li>Name and email address (via contact forms, project inquiry forms, pricing calculator, and newsletter subscription)</li>
+                  <li>Project details and requirements you submit through our forms</li>
+                  <li>Company name and business information (when voluntarily provided)</li>
+                  <li>Payment information processed through Stripe for hosting and maintenance fees</li>
                 </ul>
               </div>
               <div className={`p-6 rounded-xl border-2 ${theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-gray-50 border-gray-200'}`}>
                 <h3 className={`text-lg font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                  Technical Information
+                  Technical Information Collected
                 </h3>
                 <ul className="space-y-2 text-sm list-disc list-inside ml-2">
-                  <li>IP address and browser type</li>
-                  <li>Device information and operating system</li>
-                  <li>Website usage data and analytics</li>
-                  <li>Cookies and tracking technologies (see our Cookie Policy)</li>
+                  <li>IP address, browser type, and device information</li>
+                  <li>Website usage data via Google Analytics (only with your consent)</li>
+                  <li>Marketing data via Meta Pixel (only with your consent)</li>
+                  <li>Cookies and similar tracking technologies (see our{' '}
+                    <Link href="/cookies" className="text-[#ff5500] hover:text-[#e64d00] underline">
+                      Cookie Policy
+                    </Link>)
+                  </li>
                 </ul>
               </div>
               <div className={`p-6 rounded-xl border-2 ${theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-gray-50 border-gray-200'}`}>
                 <h3 className={`text-lg font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                  Project Information
+                  Client Project Information
                 </h3>
                 <ul className="space-y-2 text-sm list-disc list-inside ml-2">
-                  <li>Project requirements and specifications</li>
-                  <li>Content and materials provided for projects</li>
-                  <li>Communication records and correspondence</li>
-                  <li>Hosting and domain information</li>
+                  <li>Project requirements and specifications submitted through our forms</li>
+                  <li>Content, images, and materials you provide for your projects</li>
+                  <li>Email correspondence and communication records</li>
+                  <li>Hosting and domain information for clients using our hosting services</li>
                 </ul>
               </div>
             </div>
@@ -170,24 +173,28 @@ export default function PrivacyPolicyPage() {
               <p>We use your personal data for the following purposes:</p>
               <ul className="space-y-3 list-disc list-inside ml-4">
                 <li>
-                  <strong>Service Delivery:</strong> To provide web development, SEO, digital marketing, creative design, 
-                  automation solutions, and hosting services as requested
+                  <strong>Service Delivery:</strong> To provide web development, SEO, digital marketing, creative design,
+                  automation solutions, hosting, and maintenance services as requested
                 </li>
                 <li>
-                  <strong>Communication:</strong> To respond to inquiries, provide customer support, and send project updates
+                  <strong>Communication:</strong> To respond to form submissions and inquiries via email, provide customer
+                  support, and send project updates
                 </li>
                 <li>
-                  <strong>Billing:</strong> To process payments, manage subscriptions, and handle accounting
+                  <strong>Payment Processing:</strong> To process recurring monthly payments for hosting and maintenance
+                  services via Stripe, and to send invoices for custom services via email
                 </li>
                 <li>
-                  <strong>Improvement:</strong> To analyze website usage, improve our services, and enhance user experience
+                  <strong>Newsletter:</strong> To send periodic newsletters with web design tips, SEO insights, and project
+                  updates (only if you subscribe via our newsletter form)
                 </li>
                 <li>
-                  <strong>Marketing:</strong> To send promotional materials (with your consent) about our services and 
-                  industry insights
+                  <strong>Website Improvement:</strong> To analyze website usage (with your consent via cookies), improve
+                  our services, and enhance user experience
                 </li>
                 <li>
-                  <strong>Legal Compliance:</strong> To comply with legal obligations and protect our legal rights
+                  <strong>Legal Compliance:</strong> To comply with legal obligations, resolve disputes, and protect our
+                  legal rights
                 </li>
               </ul>
             </div>
@@ -226,19 +233,21 @@ export default function PrivacyPolicyPage() {
             </h2>
             <div className={`space-y-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>
-                We may share your personal data with trusted third-party service providers who assist us in operating our 
-                business and providing services:
+                We share your personal data only with trusted third-party service providers who help us operate our
+                business and deliver our services:
               </p>
               <ul className="space-y-2 list-disc list-inside ml-4">
-                <li><strong>Hosting Providers:</strong> For website hosting and server management</li>
-                <li><strong>Payment Processors:</strong> For secure payment processing</li>
-                <li><strong>Analytics Services:</strong> Google Analytics and other analytics tools (see Cookie Policy)</li>
-                <li><strong>Marketing Platforms:</strong> Meta Pixel and other advertising platforms (with consent)</li>
-                <li><strong>Communication Tools:</strong> Email service providers and customer support platforms</li>
+                <li><strong>Vercel:</strong> Website hosting platform where our website is hosted</li>
+                <li><strong>Stripe:</strong> Payment processor for recurring hosting and maintenance fees</li>
+                <li><strong>Brevo (formerly Sendinblue):</strong> Email marketing platform for newsletter subscriptions and communications</li>
+                <li><strong>Web3Forms:</strong> Form submission service that forwards contact form, project inquiry, and pricing calculator submissions to our email</li>
+                <li><strong>Google Analytics:</strong> Website analytics (only loaded with your consent via cookie preferences)</li>
+                <li><strong>Meta Pixel:</strong> Marketing and advertising analytics (only loaded with your consent via cookie preferences)</li>
+                <li><strong>Sanity.io:</strong> Content management system for our blog content</li>
               </ul>
               <p>
-                We do not sell your personal data. All third-party service providers are contractually obligated to protect 
-                your data and use it only for specified purposes.
+                <strong>We do not sell, rent, or trade your personal data.</strong> All third-party service providers
+                are contractually required to protect your data and use it only for the specific purposes we authorize.
               </p>
             </div>
           </motion.section>
@@ -255,15 +264,35 @@ export default function PrivacyPolicyPage() {
             </h2>
             <div className={`space-y-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>
-                We retain your personal data only for as long as necessary to fulfill the purposes outlined in this policy, 
-                unless a longer retention period is required by law. Specifically:
+                We retain your personal data only for as long as necessary to fulfill the purposes outlined in this
+                policy or as required by law:
               </p>
               <ul className="space-y-2 list-disc list-inside ml-4">
-                <li>Customer account data: Retained while your account is active and for 7 years after account closure for legal and accounting purposes</li>
-                <li>Project files and content: Retained for the duration of the project and 3 years after completion</li>
-                <li>Marketing data: Retained until you withdraw consent or opt-out</li>
-                <li>Hosting and domain data: Retained while services are active and 1 year after termination</li>
+                <li><strong>Contact and Project Inquiry Data:</strong> Retained for the duration of our business
+                relationship and until you request deletion</li>
+                <li><strong>Client Project Files:</strong> Retained while we provide services to you and until you
+                request deletion</li>
+                <li><strong>Newsletter Subscriptions:</strong> Retained until you unsubscribe or request deletion</li>
+                <li><strong>Payment Records:</strong> Retained for 7 years as required by Irish tax and accounting laws</li>
+                <li><strong>Analytics and Cookie Data:</strong> Retained according to our cookie settings (see{' '}
+                  <Link href="/cookies" className="text-[#ff5500] hover:text-[#e64d00] underline">
+                    Cookie Policy
+                  </Link>)
+                </li>
+                <li><strong>Hosting Client Data:</strong> Retained while you use our hosting services and until you
+                request deletion after service termination</li>
               </ul>
+              <p className="mt-4">
+                You have the right to request deletion of your personal data at any time by contacting us at{' '}
+                <a
+                  href="mailto:hello@siteandsight.com"
+                  className="text-[#ff5500] hover:text-[#e64d00] underline"
+                >
+                  hello@siteandsight.com
+                </a>
+                . We will delete your data within 30 days of your request, except where we are required by law to
+                retain certain information.
+              </p>
             </div>
           </motion.section>
 
@@ -357,13 +386,21 @@ export default function PrivacyPolicyPage() {
             </h2>
             <div className={`space-y-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>
-                Some of our service providers may be located outside the European Economic Area (EEA). When we transfer 
-                your data to such providers, we ensure appropriate safeguards are in place, such as:
+                Some of our service providers are located outside the European Economic Area (EEA), including:
               </p>
               <ul className="space-y-2 list-disc list-inside ml-4">
-                <li>Standard Contractual Clauses approved by the European Commission</li>
-                <li>Adequacy decisions recognizing equivalent data protection standards</li>
-                <li>Other legally recognized transfer mechanisms</li>
+                <li><strong>Vercel (United States):</strong> Website hosting</li>
+                <li><strong>Stripe (United States):</strong> Payment processing</li>
+                <li><strong>Google Analytics (United States):</strong> Website analytics (only with consent)</li>
+                <li><strong>Meta (United States):</strong> Marketing analytics (only with consent)</li>
+              </ul>
+              <p className="mt-4">
+                When we transfer your data outside the EEA, we ensure appropriate safeguards are in place:
+              </p>
+              <ul className="space-y-2 list-disc list-inside ml-4">
+                <li>Standard Contractual Clauses (SCCs) approved by the European Commission</li>
+                <li>Adequacy decisions where the European Commission has determined equivalent data protection standards</li>
+                <li>Service providers certified under the EU-U.S. Data Privacy Framework where applicable</li>
               </ul>
             </div>
           </motion.section>

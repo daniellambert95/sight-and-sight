@@ -26,7 +26,6 @@ const SubscribeNow = ({ text = "SUBSCRIBE NOW" }) => {
     setIsLoading(true);
     setMessage(null);
 
-    // Store email and show name modal directly (no Supabase)
     setTempEmail(email.toLowerCase().trim());
     setShowNameModal(true);
     setEmail('');

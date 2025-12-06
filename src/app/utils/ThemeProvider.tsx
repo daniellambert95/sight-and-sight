@@ -17,14 +17,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Check for user preference in localStorage
     const savedTheme = localStorage.getItem('theme') as Theme;
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     if (savedTheme) {
+      // User has a saved preference, use it
       setTheme(savedTheme);
       document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-    } else if (prefersDark) {
-      setTheme('dark');
-      document.documentElement.classList.add('dark');
+    } else {
+      // New users always start with light mode (ignore system preference)
+      setTheme('light');
+      document.documentElement.classList.remove('dark');
     }
   }, []);
 

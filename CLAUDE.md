@@ -19,7 +19,7 @@ Requires Node.js 18.x or higher. Uses Turbopack for fast development builds.
 - **React 19** with concurrent features
 - **TypeScript 5** for type safety
 - **Tailwind CSS 4** for styling with dark mode support
-- **Supabase** for database (newsletter subscriptions)
+- **Brevo** for newsletter subscriptions and email marketing
 - **Sanity CMS** for blog content management
 
 ### Key Technologies
@@ -47,7 +47,7 @@ Uses Google Fonts with CSS variables:
 ```
 src/app/
 ├── components/           # Main UI components
-├── utils/               # Utilities (ThemeProvider, Supabase, Sanity)
+├── utils/               # Utilities (ThemeProvider, Sanity)
 ├── blog/                # Blog pages
 │   ├── page.tsx         # Blog listing page
 │   └── [slug]/          # Dynamic blog post pages
@@ -70,10 +70,11 @@ Pages: Home, Work, About, Services, Blog, Pricing, Contact, FAQ
 - Scroll-based navbar hide/show behavior
 - Blog integration with dynamic routing
 
-### Database Integration
-- Supabase client configured in `src/app/utils/supabase.ts`
-- Environment variables: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- Newsletter subscription interface defined for type safety
+### Newsletter Integration
+- Brevo (formerly Sendinblue) API integration for newsletter subscriptions
+- Environment variables: `BREVO_API_KEY`, `BREVO_LIST_ID`, `BREVO_TEMPLATE_ID`
+- Newsletter subscription with name popup modal
+- Welcome email sent via Brevo transactional templates
 
 ### Sanity CMS Integration
 - Sanity client configured in `src/app/utils/sanity.ts`

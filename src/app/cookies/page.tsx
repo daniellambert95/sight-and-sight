@@ -1,15 +1,76 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { useTheme } from '../utils/ThemeProvider';
-import { cookieCategories } from '../utils/cookieConsent';
+import { cookieCategories, getCookiePreferences, saveCookiePreferences, type CookiePreferences } from '../utils/cookieConsent';
 
 export default function CookiePolicyPage() {
   const { theme } = useTheme();
+  const [preferences, setPreferences] = useState<CookiePreferences | null>(null);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    const current = getCookiePreferences();
+    setPreferences(current || {
+      essential: true,
+      analytics: false,
+      marketing: false,
+      functional: false,
+      timestamp: 0,
+      version: '1.0.0'
+    });
+  }, []);
+
+  const handleToggle = (category: keyof CookiePreferences) => {
+    if (category === 'essential' || category === 'timestamp' || category === 'version') return;
+
+    setPreferences(prev => prev ? {
+      ...prev,
+      [category]: !prev[category]
+    } : null);
+  };
+
+  const handleSavePreferences = () => {
+    if (preferences) {
+      saveCookiePreferences(preferences);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    }
+  };
+
+  const handleAcceptAll = () => {
+    const allAccepted = {
+      essential: true,
+      analytics: true,
+      marketing: true,
+      functional: true,
+      timestamp: Date.now(),
+      version: '1.0.0'
+    };
+    setPreferences(allAccepted);
+    saveCookiePreferences(allAccepted);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 3000);
+  };
+
+  const handleRejectAll = () => {
+    const allRejected = {
+      essential: true,
+      analytics: false,
+      marketing: false,
+      functional: false,
+      timestamp: Date.now(),
+      version: '1.0.0'
+    };
+    setPreferences(allRejected);
+    saveCookiePreferences(allRejected);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 3000);
+  };
 
   return (
     <div className="min-h-screen">
@@ -148,26 +209,28 @@ export default function CookiePolicyPage() {
             </h2>
             <div className={`space-y-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>
-                In addition to our own cookies, we may also use various third-party cookies to report usage statistics 
-                of the website, deliver advertisements, and so on. These third-party services include:
+                In addition to our own cookies, we use third-party cookies only with your consent to report usage
+                statistics and deliver relevant advertisements. These third-party services include:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>
-                  <strong>Google Analytics</strong> - We use Google Analytics to understand how visitors interact with 
-                  our website. This helps us improve our services and user experience.
+                  <strong>Google Analytics</strong> - Only loaded with your consent. We use Google Analytics to
+                  understand how visitors interact with our website, which helps us improve our services and user
+                  experience. Google Analytics sets cookies like _ga, _gid, and _ga_* to collect anonymous usage data.
                 </li>
                 <li>
-                  <strong>Meta Pixel (Facebook)</strong> - We use Meta Pixel to measure the effectiveness of our 
-                  advertising campaigns and to deliver relevant ads to you.
-                </li>
-                <li>
-                  <strong>Google Search Console</strong> - We use Google Search Console to monitor and maintain our 
-                  website's presence in Google search results.
+                  <strong>Meta Pixel (Facebook)</strong> - Only loaded with your consent. We use Meta Pixel to measure
+                  the effectiveness of our advertising campaigns and to deliver relevant ads. Meta Pixel sets cookies
+                  like _fbp and fr for tracking purposes.
                 </li>
               </ul>
               <p>
-                These third-party cookies are subject to the respective privacy policies of these third parties. 
-                We recommend that you review their privacy policies to understand how they use cookies.
+                <strong>Important:</strong> These third-party cookies are only loaded after you provide explicit consent
+                via our cookie banner or cookie preferences below. They are not loaded by default.
+              </p>
+              <p>
+                These third-party cookies are subject to the respective privacy policies of Google and Meta.
+                We recommend reviewing their privacy policies to understand how they use cookies.
               </p>
             </div>
           </motion.section>
@@ -184,13 +247,14 @@ export default function CookiePolicyPage() {
             </h2>
             <div className={`space-y-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
               <p>
-                You have the right to decide whether to accept or reject cookies. You can exercise your cookie rights 
-                by clicking on the cookie icon in the bottom-left corner of our website at any time.
+                You have the right to decide whether to accept or reject cookies. You can manage your cookie preferences
+                using the Cookie Preference Manager below on this page at any time.
               </p>
               <p>
-                You can set or amend your web browser controls to accept or refuse cookies. If you choose to reject 
-                cookies, you may still use our website, though your access to some functionality and areas of our 
-                website may be restricted.
+                You can also set or amend your web browser controls to accept or refuse cookies. If you choose to reject
+                cookies, you may still use our website, though your access to some functionality (like analytics to help
+                us improve the site) will be restricted. Essential cookies cannot be disabled as they are necessary for
+                the website to function.
               </p>
               <div className={`p-4 rounded-lg ${theme === 'dark' ? 'bg-gray-800/50' : 'bg-gray-50'}`}>
                 <h4 className={`font-semibold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
@@ -225,10 +289,116 @@ export default function CookiePolicyPage() {
               Updates to This Cookie Policy
             </h2>
             <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              We may update this Cookie Policy from time to time to reflect changes in the cookies we use or for other 
-              operational, legal, or regulatory reasons. Please revisit this Cookie Policy regularly to stay informed 
+              We may update this Cookie Policy from time to time to reflect changes in the cookies we use or for other
+              operational, legal, or regulatory reasons. Please revisit this Cookie Policy regularly to stay informed
               about our use of cookies.
             </p>
+          </motion.section>
+
+          {/* Cookie Preference Manager */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="mb-12"
+          >
+            <h2 className={`text-2xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+              Cookie Preference Manager
+            </h2>
+            <div className={`p-6 rounded-xl border-2 ${theme === 'dark' ? 'bg-gray-800/50 border-gray-700' : 'bg-gray-50 border-gray-200'}`}>
+              <p className={`mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                Manage your cookie preferences below. Changes take effect immediately.
+              </p>
+
+              {preferences && (
+                <div className="space-y-4">
+                  {Object.values(cookieCategories).map((category) => (
+                    <div
+                      key={category.id}
+                      className={`p-4 rounded-lg border ${
+                        theme === 'dark' ? 'bg-gray-900/50 border-gray-700' : 'bg-white border-gray-200'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex-1">
+                          <h3 className={`text-lg font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                            {category.name}
+                          </h3>
+                          <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                            {category.description}
+                          </p>
+                        </div>
+                        <div className="ml-4">
+                          {category.required ? (
+                            <span className="px-4 py-2 text-sm font-medium rounded-lg bg-gray-500 text-white cursor-not-allowed">
+                              Always Active
+                            </span>
+                          ) : (
+                            <button
+                              onClick={() => handleToggle(category.id)}
+                              className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                                preferences[category.id]
+                                  ? 'bg-[#ff5500]'
+                                  : theme === 'dark'
+                                  ? 'bg-gray-700'
+                                  : 'bg-gray-300'
+                              }`}
+                            >
+                              <span
+                                className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                                  preferences[category.id] ? 'translate-x-7' : 'translate-x-1'
+                                }`}
+                              />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-col sm:flex-row gap-3 mt-6 pt-6 border-t border-gray-700">
+                    <button
+                      onClick={handleRejectAll}
+                      className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                        theme === 'dark'
+                          ? 'bg-gray-700 hover:bg-gray-600 text-white'
+                          : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
+                      }`}
+                    >
+                      Reject All
+                    </button>
+                    <button
+                      onClick={handleAcceptAll}
+                      className="px-6 py-3 bg-[#ff5500] text-white rounded-lg hover:bg-[#e64d00] font-semibold transition-colors"
+                    >
+                      Accept All
+                    </button>
+                    <button
+                      onClick={handleSavePreferences}
+                      className="px-6 py-3 bg-[#ff5500] text-white rounded-lg hover:bg-[#e64d00] font-semibold transition-colors flex-1"
+                    >
+                      Save Preferences
+                    </button>
+                  </div>
+
+                  {/* Success Message */}
+                  {saved && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`mt-4 p-3 rounded-lg ${
+                        theme === 'dark'
+                          ? 'bg-green-900/50 text-green-300 border border-green-700'
+                          : 'bg-green-100 text-green-800 border border-green-200'
+                      }`}
+                    >
+                      ✓ Your cookie preferences have been saved successfully!
+                    </motion.div>
+                  )}
+                </div>
+              )}
+            </div>
           </motion.section>
 
           {/* Contact */}

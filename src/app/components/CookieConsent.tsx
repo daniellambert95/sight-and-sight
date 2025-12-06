@@ -51,10 +51,6 @@ export default function CookieConsent() {
   // Don't render anything until mounted (prevents hydration mismatch)
   if (!mounted) return null;
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -170,54 +166,6 @@ export default function CookieConsent() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Floating Cookie Icon - Always visible, reduced opacity when modal is open */}
-      <motion.button
-        initial={{ opacity: 0, y: 20, scale: 0.8 }}
-        animate={{
-          opacity: isModalOpen ? 0.5 : 1,
-          y: 0,
-          scale: 1
-        }}
-        whileHover={{ scale: isModalOpen ? 1 : 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={handleOpenModal}
-        className="fixed bottom-6 left-6 z-[90] w-14 h-14 bg-[#ff5500]/40 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center justify-center group backdrop-blur-sm"
-        aria-label="Cookie preferences"
-        disabled={isModalOpen}
-      >
-        {/* Cookie Icon SVG */}
-        <svg
-          className="w-7 h-7 text-white transition-transform group-hover:rotate-12"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          {/* Cookie base */}
-          <path
-            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"
-            fill="currentColor"
-          />
-          {/* Chocolate chips - darker circles */}
-          <circle cx="8" cy="8" r="1.5" fill="#8B4513" />
-          <circle cx="16" cy="9" r="1.5" fill="#8B4513" />
-          <circle cx="10" cy="12" r="1.5" fill="#8B4513" />
-          <circle cx="15" cy="14" r="1.5" fill="#8B4513" />
-          <circle cx="9" cy="16" r="1.5" fill="#8B4513" />
-        </svg>
-        {/* Pulse animation ring */}
-        <motion.div
-          className="absolute inset-0 rounded-full border-2 border-[#ff5500]"
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.8, 0, 0.8],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        />
-      </motion.button>
 
       {/* Cookie Modal */}
       <CookieModal isOpen={isModalOpen} onClose={handleCloseModal} />
