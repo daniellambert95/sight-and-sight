@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
     createContact.attributes = {
       FIRSTNAME: name.trim(),
     };
-    createContact.listIds = [5];
+    createContact.listIds = [parseInt(process.env.BREVO_LIST_ID || '5')];
     createContact.updateEnabled = true; // Update if contact exists
 
     await apiInstance.createContact(createContact);
