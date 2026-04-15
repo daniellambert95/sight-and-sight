@@ -4,7 +4,9 @@ import { useState } from 'react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { useTheme } from '../utils/ThemeProvider';
+import QuoteModal from '../components/QuoteModal';
 import { 
   CodeBracketIcon, 
   ChartBarIcon, 
@@ -14,131 +16,106 @@ import {
   RocketLaunchIcon,
   CogIcon,
   MagnifyingGlassIcon,
-  CursorArrowRaysIcon,
   EnvelopeIcon,
   DocumentTextIcon,
-  SpeakerWaveIcon,
   ChatBubbleLeftRightIcon,
   BoltIcon,
-  ClipboardDocumentListIcon
+  LinkIcon,
+  CircleStackIcon,
+  SparklesIcon,
+  ArrowRightIcon,
+  CheckCircleIcon,
+  ArrowTrendingUpIcon
 } from '@heroicons/react/24/outline';
 
 export default function Services() {
   const { theme } = useTheme();
-  const [selectedService, setSelectedService] = useState<any>(null);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
-  const openModal = (service: any) => {
-    setSelectedService(service);
-  };
-
-  const closeModal = () => {
-    setSelectedService(null);
-  };
-
-  // Organized services by category with updated content (Creative Design & Video removed)
+  // Updated service categories based on new structure
   const serviceCategories = [
     {
       id: "web-development",
-      category: "Web Development",
+      category: "Web Development & Design",
+      slug: "web-development",
       color: "orange",
-      icon: <CodeBracketIcon className="w-8 h-8 text-white" />,
-      description: "Custom websites built with cutting-edge technology and optimized for performance",
+      icon: <CodeBracketIcon className="w-12 h-12" />,
+      description: "Custom websites and applications built with cutting-edge technology for optimal performance and user experience",
       services: [
         {
           title: "Custom Website Development",
-          description: "Modern, responsive websites built with React, Next.js and the latest web technologies for optimal performance and user experience.",
-          icon: <ComputerDesktopIcon className="w-6 h-6 text-white" />,
-          features: ["React & Next.js", "Responsive Design", "Performance Optimization", "SEO Foundation"]
+          description: "Modern, responsive websites built with React, Next.js and the latest web technologies.",
+          icon: <ComputerDesktopIcon className="w-6 h-6" />,
         },
         {
           title: "E-commerce Solutions",
-          description: "Complete online store development with secure payment processing, inventory management, and customer-friendly interfaces.",
-          icon: <ShoppingCartIcon className="w-6 h-6 text-white" />,
-          features: ["Payment Integration", "Inventory Management", "Mobile Commerce", "Analytics Dashboard"]
-        },
-        {
-          title: "Website Deployment & Hosting",
-          description: "Seamless deployment with reliable hosting solutions, 99.9% uptime guarantee, SSL certificates, and ongoing maintenance.",
-          icon: <RocketLaunchIcon className="w-6 h-6 text-white" />,
-          features: ["99.9% Uptime", "SSL Certificates", "Regular Backups", "Performance Monitoring"]
+          description: "Complete online stores with secure payment processing and inventory management.",
+          icon: <ShoppingCartIcon className="w-6 h-6" />,
         },
         {
           title: "Web Applications",
-          description: "Custom web applications tailored to your business needs with user authentication, database integration, and scalable architecture.",
-          icon: <CogIcon className="w-6 h-6 text-white" />,
-          features: ["User Authentication", "Database Integration", "API Development", "Scalable Architecture"]
+          description: "Custom web apps with user authentication, database integration, and scalable architecture.",
+          icon: <CogIcon className="w-6 h-6" />,
+        },
+        {
+          title: "Hosting & Deployment",
+          description: "Reliable hosting solutions with 99.9% uptime, SSL certificates, and ongoing maintenance.",
+          icon: <RocketLaunchIcon className="w-6 h-6" />,
         }
       ]
     },
     {
       id: "digital-marketing",
-      category: "Digital Marketing & SEO",
-      color: "orange",
-      icon: <ChartBarIcon className="w-8 h-8 text-white" />,
-      description: "Data-driven strategies to boost your online visibility and drive qualified traffic",
+      category: "Digital Marketing",
+      slug: "digital-marketing",
+      color: "purple",
+      icon: <ChartBarIcon className="w-12 h-12" />,
+      description: "Data-driven strategies to boost your online visibility, drive qualified traffic, and convert visitors into customers",
       services: [
         {
-          title: "Search Engine Optimization (SEO)",
-          description: "Comprehensive SEO strategies to improve your search rankings, increase organic traffic, and enhance online visibility.",
-          icon: <MagnifyingGlassIcon className="w-6 h-6 text-white" />,
-          features: ["Keyword Research", "On-page Optimization", "Technical SEO", "Performance Tracking"]
+          title: "SEO Optimization & Audits",
+          description: "Comprehensive SEO strategies to improve search rankings and increase organic traffic.",
+          icon: <MagnifyingGlassIcon className="w-6 h-6" />,
         },
         {
-          title: "Search Engine Marketing (SEM)",
-          description: "Strategic paid advertising campaigns including Google Ads management, conversion tracking, and ROI optimization.",
-          icon: <CursorArrowRaysIcon className="w-6 h-6 text-white" />,
-          features: ["Google Ads", "Conversion Tracking", "ROI Optimization", "Campaign Management"]
+          title: "Content Marketing & Strategy",
+          description: "Strategic content creation including blog writing and social media that drives conversions.",
+          icon: <DocumentTextIcon className="w-6 h-6" />,
         },
         {
-          title: "Email Marketing",
-          description: "Targeted email campaigns that convert leads into customers and foster brand loyalty through strategic automation and personalization.",
-          icon: <EnvelopeIcon className="w-6 h-6 text-white" />,
-          features: ["Campaign Design", "Automation", "Segmentation", "Performance Analytics"]
-        },
-        {
-          title: "Content Marketing",
-          description: "Strategic content creation including blog writing, social media content, and copywriting that engages your audience and drives conversions.",
-          icon: <DocumentTextIcon className="w-6 h-6 text-white" />,
-          features: ["Blog Writing", "Social Media Content", "Copywriting", "Content Strategy"]
-        },
-        {
-          title: "PR & Communications",
-          description: "Strategic public relations to enhance your brand image, manage reputation, and reach your target audience effectively.",
-          icon: <SpeakerWaveIcon className="w-6 h-6 text-white" />,
-          features: ["Press Releases", "Media Relations", "Brand Messaging", "Crisis Communication"]
+          title: "Email Marketing & Automation",
+          description: "Targeted email campaigns with automation and personalization to nurture leads.",
+          icon: <EnvelopeIcon className="w-6 h-6" />,
         }
       ]
     },
     {
       id: "automation",
       category: "Automation & AI Solutions",
+      slug: "automation",
       color: "orange",
-      icon: <CpuChipIcon className="w-8 h-8 text-white" />,
-      description: "Smart solutions that streamline your business processes and enhance customer experience",
+      icon: <CpuChipIcon className="w-12 h-12" />,
+      description: "Smart solutions that streamline your business processes, integrate systems, and enhance customer experience with AI",
       services: [
         {
-          title: "AI Chatbots",
-          description: "Intelligent chatbots for customer support, lead generation, and appointment booking that provide 24/7 assistance to your customers.",
-          icon: <ChatBubbleLeftRightIcon className="w-6 h-6 text-white" />,
-          features: ["24/7 Customer Support", "Lead Generation", "Appointment Booking", "Multi-language Support"]
+          title: "AI Chatbots & Implementation",
+          description: "Intelligent chatbots for 24/7 customer support, lead generation, and appointment booking.",
+          icon: <ChatBubbleLeftRightIcon className="w-6 h-6" />,
+        },
+        {
+          title: "Data Pipelines & Analytics",
+          description: "Custom data pipelines to collect, process, and analyze your business data for insights.",
+          icon: <CircleStackIcon className="w-6 h-6" />,
+        },
+        {
+          title: "Web Integrations",
+          description: "Connect CRMs, email services, payment systems, and other tools to streamline workflows.",
+          icon: <LinkIcon className="w-6 h-6" />,
         },
         {
           title: "Workflow Automation",
-          description: "Custom automation solutions that streamline repetitive tasks, improve efficiency, and reduce manual work across your business operations.",
-          icon: <BoltIcon className="w-6 h-6 text-white" />,
-          features: ["Task Automation", "Process Optimization", "Integration Setup", "Performance Monitoring"]
-        },
-        {
-          title: "AI Integration",
-          description: "Integration of AI tools and technologies into your existing systems to enhance productivity and decision-making capabilities.",
-          icon: <CpuChipIcon className="w-6 h-6 text-white" />,
-          features: ["AI Tool Integration", "Data Analysis", "Predictive Analytics", "Custom AI Solutions"]
-        },
-        {
-          title: "Business Process Optimization",
-          description: "Analysis and optimization of your business processes using automation tools to increase efficiency and reduce operational costs.",
-          icon: <ClipboardDocumentListIcon className="w-6 h-6 text-white" />,
-          features: ["Process Analysis", "Efficiency Optimization", "Cost Reduction", "Training & Support"]
+          description: "Automate repetitive tasks and optimize business processes to increase efficiency.",
+          icon: <BoltIcon className="w-6 h-6" />,
         }
       ]
     }
@@ -152,77 +129,146 @@ export default function Services() {
     }`}>
       <Navigation currentPage="services" />
       
-      {/* Hero Section - Clean & Minimal */}
-      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-36 md:pt-32 transition-colors duration-300 ${
-        theme === 'dark' 
-          ? 'bg-gradient-to-br from-black via-gray-950 to-black' 
+      {/* Hero Section - Homepage Quality */}
+      <section className={`relative flex items-center justify-center px-6 md:px-12 lg:px-24 transition-colors duration-300 overflow-hidden ${
+        theme === 'dark'
+          ? 'bg-gradient-to-br from-black via-gray-950 to-black'
           : 'bg-gradient-to-br from-white to-gray-50'
-      }`}>
-        <div className="max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* Left Column - Main Content */}
-            <div className="space-y-8">
-              <h1 className={`text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-none tracking-tight ${
+      }`} style={{ minHeight: 'calc(100svh - 0px)', paddingTop: '5rem', paddingBottom: '2rem' }}>
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-[#ff5500] rounded-full opacity-30"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [-20, 20, -20],
+                x: [-10, 10, -10],
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{
+                duration: Math.random() * 4 + 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: Math.random() * 2,
+              }}
+            />
+          ))}
+        </div>
+        
+        <div className="max-w-7xl mx-auto w-full relative z-10">
+          <div className="text-center space-y-8">
+            {/* Main Headline */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="space-y-6"
+            >
+              <h1 className={`text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black leading-none tracking-tight ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                <span className="block">Digital</span>
-                <span className="block text-[#ff5500]">Solutions</span>
-                <span className={`block text-3xl md:text-4xl lg:text-5xl font-light mt-6 ${
+              }`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
+                <span className="block">DIGITAL</span>
+                <span className="block text-[#ff5500]">SOLUTIONS</span>
+                <span className={`block text-2xl md:text-3xl lg:text-4xl font-light mt-4 ${
                   theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                 }`}>
-                  that drive results
+                  that scale & convert
                 </span>
               </h1>
               
-              <p className={`text-xl md:text-2xl font-light max-w-2xl ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-                We craft comprehensive digital experiences through strategic web development, 
-                intelligent marketing, and cutting-edge automation solutions.
-              </p>
-              
-              <div className="pt-8">
-                <Link 
-                  href="/contact"
-                  className="group inline-flex items-center gap-4 px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
-                >
-                  <span>Start Your Project</span>
-                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className={`text-xl md:text-2xl font-light max-w-4xl mx-auto ${
+                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                }`}
+                style={{ fontFamily: 'var(--font-inter)' }}
+              >
+                From <span className="text-[#ff5500] font-semibold">pixel-perfect websites</span> to 
+                <span className="text-[#6366f1] font-semibold"> intelligent automation</span> – 
+                we build digital experiences that drive real business results.
+              </motion.p>
+            </motion.div>
             
-            {/* Right Column - Statistics */}
-            <div className="space-y-12 lg:space-y-16">
+            {/* CTA Buttons */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+            >
+              <button 
+                onClick={() => setIsQuoteModalOpen(true)}
+                className="group relative px-8 py-4 bg-gradient-to-r from-[#ff5500] to-[#ff7800] text-white rounded-2xl hover:from-[#ff6600] hover:to-[#ff8800] transition-all duration-300 text-lg font-bold transform hover:scale-105 shadow-2xl hover:shadow-[#ff5500]/25"
+                style={{ fontFamily: 'var(--font-league-spartan)' }}
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  Start Your Project
+                  <SparklesIcon className="w-5 h-5" />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#ff5500] to-[#ff7800] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+              </button>
+              
+              <Link 
+                href="#services" 
+                className={`group px-8 py-4 border-2 border-[#6366f1] rounded-2xl text-[#6366f1] transition-all duration-300 text-lg font-bold transform hover:scale-105 shadow-lg hover:shadow-xl ${
+                  theme === 'dark' 
+                    ? 'bg-white/5 hover:bg-white/10 backdrop-blur-sm' 
+                    : 'bg-white/80 hover:bg-white backdrop-blur-sm'
+                }`}
+                style={{ fontFamily: 'var(--font-league-spartan)' }}
+              >
+                <span className="flex items-center gap-3">
+                  Explore Services
+                  <ArrowRightIcon className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </Link>
+            </motion.div>
+
+            {/* Enhanced Statistics */}
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto pt-4"
+            >
               {[
-                { number: "3", label: "Core Service Areas", sublabel: "Web, Marketing, Automation" },
-                { number: "10+", label: "Projects Delivered", sublabel: "Across various industries" },
-                { number: "24/7", label: "Support Available", sublabel: "For all our clients" }
+                { number: "3", label: "Core Specializations", sublabel: "Web • Marketing • AI" },
+                { number: "20+", label: "Projects Delivered", sublabel: "Across multiple industries" },
+                { number: "24/7", label: "Support & Maintenance", sublabel: "Always here when you need us" }
               ].map((stat, index) => (
-                <div 
+                <motion.div 
                   key={index}
-                  className="border-l-2 border-[#ff5500] pl-8"
+                  className={`text-center p-4 rounded-2xl backdrop-blur-sm ${
+                    theme === 'dark' ? 'bg-white/5 border border-white/10' : 'bg-white/50 border border-gray-200/50'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <div className={`text-4xl md:text-5xl font-black mb-2 ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>
+                  <div className={`text-2xl md:text-3xl font-black mb-1 ${
+                    index === 0 ? 'text-[#ff5500]' : index === 1 ? 'text-[#6366f1]' : 'text-[#ff5500]'
+                  }`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
                     {stat.number}
                   </div>
-                  <div className={`text-lg font-semibold mb-1 ${
+                  <div className={`text-sm font-semibold mb-1 ${
                     theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                   }`}>
                     {stat.label}
                   </div>
-                  <div className={`text-sm ${
+                  <div className={`text-xs ${
                     theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
                   }`}>
                     {stat.sublabel}
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -304,240 +350,231 @@ export default function Services() {
         </div>
       </section>
       
-      {/* Services Grid */}
-      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-black' : 'bg-white'
+      {/* Services Overview */}
+      <section id="services" className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
+        theme === 'dark' ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
       }`}>
-        <div className="max-w-7xl mx-auto space-y-24">
-          {serviceCategories.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="space-y-16">
-              {/* Category Header */}
-              <div className="text-center space-y-6">
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] text-3xl shadow-2xl">
-                  {category.icon}
-                </div>
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center space-y-6 mb-20"
+          >
+            <h2 className={`text-5xl md:text-6xl lg:text-7xl font-black ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
+              <span className="text-[#ff5500]">Services</span> That
+              <br />Scale Your Business
+            </h2>
+            <p className={`text-xl md:text-2xl font-light max-w-4xl mx-auto ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+            }`}>
+              From concept to conversion, we provide end-to-end digital solutions 
+              that grow with your ambitions.
+            </p>
+          </motion.div>
+          
+          {/* Service Categories Grid */}
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
+            {serviceCategories.map((category, categoryIndex) => (
+              <motion.div
+                key={categoryIndex}
+                whileHover={{ y: -10 }}
+                className={`group relative overflow-hidden rounded-3xl p-8 transition-all duration-500 ${
+                  theme === 'dark' 
+                    ? 'bg-gradient-to-br from-gray-900/80 to-gray-800/80 border border-gray-700/50' 
+                    : 'bg-white/80 border border-gray-200/50'
+                } backdrop-blur-sm shadow-2xl hover:shadow-3xl`}
+              >
+                {/* Background Gradient */}
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 ${
+                  category.color === 'orange' ? 'bg-gradient-to-br from-[#ff5500] to-[#ff7800]' : 'bg-gradient-to-br from-[#6366f1] to-[#8b5cf6]'
+                }`} />
                 
-                <h3 className={`text-4xl md:text-5xl lg:text-6xl font-black ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>
-                  {category.category}
-                </h3>
-                
-                <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
-                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                }`}>
-                  {category.description}
-                </p>
-              </div>
-              
-              {/* Services Grid */}
-              <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-                {category.services.map((service, serviceIndex) => (
-                  <div
-                    key={serviceIndex}
-                    className={`group relative cursor-pointer ${
-                      theme === 'dark' 
-                        ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50' 
-                        : 'bg-white/60 border border-gray-200/50'
-                    } backdrop-blur-sm rounded-3xl p-8 hover:scale-[1.02] transition-all duration-500 shadow-xl`}
-                    onClick={() => openModal(service)}
-                  >
-                    <div className="space-y-6">
-                      <div className="flex items-center justify-between">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center text-2xl shadow-lg">
+                <div className="relative z-10 space-y-8">
+                  {/* Icon & Badge */}
+                  <div className="space-y-4">
+                    <div className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl shadow-lg ${
+                      category.color === 'orange' 
+                        ? 'bg-gradient-to-br from-[#ff5500] to-[#ff7800] text-white' 
+                        : 'bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-white'
+                    }`}>
+                      {category.icon}
+                    </div>
+                    <div className={`inline-block px-3 py-1 rounded-full text-sm font-semibold ${
+                      category.color === 'orange'
+                        ? 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
+                        : 'bg-[#6366f1]/10 text-[#6366f1] border border-[#6366f1]/20'
+                    }`}>
+                      {category.services.length} Services
+                    </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="space-y-4">
+                    <h3 className={`text-2xl md:text-3xl font-black ${
+                      theme === 'dark' ? 'text-white' : 'text-gray-900'
+                    }`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
+                      {category.category}
+                    </h3>
+                    
+                    <p className={`text-lg leading-relaxed ${
+                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                    }`}>
+                      {category.description}
+                    </p>
+                  </div>
+                  
+                  {/* Service List */}
+                  <div className="space-y-3">
+                    {category.services.map((service, serviceIndex) => (
+                      <div key={serviceIndex} className="flex items-center gap-3">
+                        <div className={`p-2 rounded-lg ${
+                          category.color === 'orange'
+                            ? 'bg-[#ff5500]/10 text-[#ff5500]'
+                            : 'bg-[#6366f1]/10 text-[#6366f1]'
+                        }`}>
                           {service.icon}
                         </div>
-                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <svg className="w-6 h-6 text-[#ff5500]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                          </svg>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h3 className={`text-2xl font-bold mb-4 group-hover:text-[#ff5500] transition-colors duration-300 ${
-                          theme === 'dark' ? 'text-white' : 'text-gray-900'
+                        <span className={`font-medium ${
+                          theme === 'dark' ? 'text-gray-200' : 'text-gray-700'
                         }`}>
                           {service.title}
-                        </h3>
-                        <p className={`text-lg leading-relaxed ${
-                          theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                        }`}>
-                          {service.description}
-                        </p>
+                        </span>
                       </div>
-                      
-                      <div className="space-y-2">
-                        <h4 className={`text-sm font-semibold uppercase tracking-wide ${
-                          theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
-                        }`}>Key Features</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {service.features.slice(0, 3).map((feature: string, idx: number) => (
-                            <span key={idx} className={`px-3 py-1 rounded-full text-sm ${
-                              theme === 'dark' 
-                                ? 'bg-gray-800 text-gray-300' 
-                                : 'bg-gray-100 text-gray-600'
-                            }`}>
-                              {feature}
-                            </span>
-                          ))}
-                          {service.features.length > 3 && (
-                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                              theme === 'dark' 
-                                ? 'bg-[#ff5500]/20 text-[#ff5500]' 
-                                : 'bg-[#ff5500]/10 text-[#ff5500]'
-                            }`}>
-                              +{service.features.length - 3} more
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Hover gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-          ))}
+                  
+                  {/* CTA */}
+                  <div className="pt-4">
+                    <Link 
+                      href={`/services/${category.slug}`}
+                      className={`group/link inline-flex items-center gap-2 text-lg font-bold transition-all duration-300 ${
+                        category.color === 'orange'
+                          ? 'text-[#ff5500] hover:text-[#ff6600]'
+                          : 'text-[#6366f1] hover:text-[#7c3aed]'
+                      }`}
+                      style={{ fontFamily: 'var(--font-league-spartan)' }}
+                    >
+                      Learn More
+                      <ArrowRightIcon className="w-5 h-5 transition-transform group-hover/link:translate-x-1" />
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
       
       {/* Call to Action */}
-      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 overflow-hidden ${
+        theme === 'dark' ? 'bg-black' : 'bg-white'
       }`}>
-        <div className="max-w-5xl mx-auto text-center space-y-12">
-          <h2 className={`text-5xl md:text-6xl lg:text-7xl font-black leading-tight ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
-          }`}>
-            Ready to elevate your
-            <br />
-            <span className="text-[#ff5500]">digital presence?</span>
-          </h2>
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className={`absolute inset-0 ${
+            theme === 'dark' 
+              ? 'bg-[radial-gradient(circle_at_50%_50%,#ff5500_1px,transparent_1px)]' 
+              : 'bg-[radial-gradient(circle_at_50%_50%,#ff5500_1px,transparent_1px)]'
+          } bg-[length:50px_50px]`} />
+        </div>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-6xl mx-auto text-center space-y-12 relative z-10"
+        >
+          <div className="space-y-8">
+            <h2 className={`text-5xl md:text-6xl lg:text-8xl font-black leading-tight ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
+              Ready to build
+              <br />
+              something <span className="text-[#ff5500]">extraordinary</span>?
+            </h2>
 
-          <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-          }`}>
-            Let's discuss how our comprehensive services can help you achieve your business goals.
-          </p>
+            <p className={`text-xl md:text-2xl font-light max-w-4xl mx-auto ${
+              theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+            }`}>
+              From initial concept to final launch, we're your strategic partner 
+              in creating digital experiences that drive real business growth.
+            </p>
+          </div>
 
           <div className="flex flex-col sm:flex-row justify-center gap-6 pt-8">
-            <Link 
-              href="/contact" 
-              className="group inline-flex items-center justify-center px-10 py-5 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-xl font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
+            <motion.button 
+              onClick={() => setIsQuoteModalOpen(true)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative px-12 py-6 bg-gradient-to-r from-[#ff5500] to-[#ff7800] text-white rounded-2xl hover:from-[#ff6600] hover:to-[#ff8800] transition-all duration-300 text-xl font-bold shadow-2xl hover:shadow-[#ff5500]/25"
+              style={{ fontFamily: 'var(--font-league-spartan)' }}
             >
-              <span>Get in Touch</span>
-              <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
+              <span className="relative z-10 flex items-center gap-3">
+                Get Your Quote
+                <SparklesIcon className="w-6 h-6" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#ff5500] to-[#ff7800] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+            </motion.button>
             
             <Link 
-              href="/pricing" 
-              className={`group inline-flex items-center justify-center px-10 py-5 rounded-2xl text-xl font-semibold transition-all duration-300 border-2 ${
+              href="/work"
+              className={`group inline-flex items-center justify-center px-12 py-6 rounded-2xl text-xl font-bold transition-all duration-300 border-2 border-[#6366f1] text-[#6366f1] hover:bg-[#6366f1] hover:text-white transform hover:scale-105 shadow-xl ${
                 theme === 'dark' 
-                  ? 'bg-transparent text-white border-gray-700 hover:bg-gray-800 hover:border-gray-600' 
-                  : 'bg-transparent text-gray-900 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
-              } shadow-xl`}
+                  ? 'bg-white/5 backdrop-blur-sm' 
+                  : 'bg-white/80 backdrop-blur-sm'
+              }`}
+              style={{ fontFamily: 'var(--font-league-spartan)' }}
             >
-              <span>View Pricing</span>
-              <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-              </svg>
+              <span className="flex items-center gap-3">
+                View Our Work
+                <ArrowRightIcon className="w-6 h-6 transition-transform group-hover:translate-x-1" />
+              </span>
             </Link>
           </div>
-        </div>
+          
+          {/* Trust Indicators */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 max-w-4xl mx-auto"
+          >
+            {[
+              { icon: <RocketLaunchIcon className="w-8 h-8 text-[#ff5500]" />, text: "Fast Delivery", desc: "2-6 week launches" },
+              { icon: <CheckCircleIcon className="w-8 h-8 text-[#ff5500]" />, text: "Quality Assured", desc: "100% satisfaction" },
+              { icon: <BoltIcon className="w-8 h-8 text-[#ff5500]" />, text: "Modern Tech", desc: "Latest frameworks" },
+              { icon: <ArrowTrendingUpIcon className="w-8 h-8 text-[#ff5500]" />, text: "Results Driven", desc: "ROI focused" }
+            ].map((item, index) => (
+              <div key={index} className={`text-center p-4 rounded-xl backdrop-blur-sm ${
+                theme === 'dark' ? 'bg-white/5' : 'bg-gray-50/50'
+              }`}>
+                <div className="text-2xl mb-2">{item.icon}</div>
+                <div className={`font-bold mb-1 ${
+                  theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>{item.text}</div>
+                <div className={`text-sm ${
+                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>{item.desc}</div>
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
       </section>
       
       <Footer />
 
-      {/* Service Detail Modal */}
-      {selectedService && (
-        <div 
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={closeModal}
-        >
-          <div 
-            className={`relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl p-8 ${
-              theme === 'dark' 
-                ? 'bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700' 
-                : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
-            } shadow-2xl`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close button */}
-            <button 
-              onClick={closeModal}
-              className={`absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center ${
-                theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-900'
-              } transition-colors`}
-            >
-              ×
-            </button>
-
-            {/* Service icon and title */}
-            <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg bg-gradient-to-br from-orange-500 to-orange-600">
-                {selectedService.icon}
-              </div>
-              <div>
-                <h3 className={`text-2xl font-black ${
-                  theme === 'dark' ? 'text-white' : 'text-gray-900'
-                }`}>{selectedService.title}</h3>
-                <p className="text-lg font-semibold text-orange-500">Professional Service</p>
-              </div>
-            </div>
-
-            {/* Detailed description */}
-            <p className={`mb-6 text-lg leading-relaxed ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-            }`}>
-              {selectedService.description}
-            </p>
-
-            {/* Features */}
-            <div className="mb-8">
-              <h4 className={`text-xl font-bold mb-4 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>What's included:</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {selectedService.features.map((item: string, index: number) => (
-                  <div key={index} className="flex items-center">
-                    <div className="w-5 h-5 rounded-full flex items-center justify-center mr-3 bg-orange-500/20">
-                      <span className="text-xs text-orange-500">✓</span>
-                    </div>
-                    <span className={`text-sm ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
-                      {item}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Primary CTA + subtle secondary link */}
-            <div className="text-center">
-              <Link 
-                href="/contact"
-                className="w-full bg-[#ff5500] hover:bg-[#ff6600] text-white font-semibold py-3 px-6 rounded-xl transition-colors text-center block mb-3"
-                onClick={closeModal}
-              >
-                Get a Quote
-              </Link>
-              <Link 
-                href="/pricing"
-                className="text-sm text-orange-500 hover:text-orange-600 underline"
-                onClick={closeModal}
-              >
-                View general pricing
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Quote Modal */}
+      <QuoteModal 
+        isOpen={isQuoteModalOpen} 
+        onClose={() => setIsQuoteModalOpen(false)} 
+      />
     </div>
   );
 } 

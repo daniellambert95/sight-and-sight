@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import DotPattern from "./DotPattern";
 import FloatingParticles from "./FloatingParticles";
-import ProjectModal from "./ProjectModal";
+import QuoteModal from "./QuoteModal";
 import { useTheme } from "../utils/ThemeProvider";
 
 export default function HeroSection() {
@@ -178,7 +178,7 @@ export default function HeroSection() {
             className="flex justify-center gap-6 text-center"
           >
             {[
-              { number: "10+", label: "Projects" },
+              { number: "15+", label: "Projects" },
               { number: "100%", label: "Satisfaction" },
               { number: (
                 <span className="flex items-center ml-1">
@@ -208,8 +208,8 @@ export default function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Project Modal */}
-      <ProjectModal 
+      {/* Quote Modal */}
+      <QuoteModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
       />

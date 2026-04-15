@@ -1,10 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useTheme } from '../utils/ThemeProvider';
-import { InlineWidget } from 'react-calendly';
 import { isValidEmail } from '@/lib/utils';
+
+const InlineWidget = dynamic(
+  () => import('react-calendly').then((mod) => mod.InlineWidget),
+  { ssr: false }
+);
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -135,17 +140,17 @@ Form: Contact Modal
 Submitted: ${new Date().toLocaleString()}
       `.trim();
 
-      // Submit to Web3Forms
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      // Submit to our contact API (which now uses Resend)
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
-          subject: `New Contact Form Submission from ${formData.name}`,
-          from_name: formData.name,
+          name: formData.name,
           email: formData.email,
-          message: emailMessage,
-          to_email: "hello@siteandsight.com"
+          message: formData.message,
+          service: servicesList,
+          projectTypes: ['Contact Modal'],
+          customProject: `Services interested in: ${servicesList}`,
         }),
       });
 

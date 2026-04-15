@@ -24,10 +24,10 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.siteandsight.co
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Site & Sight | Creative Digital Studio",
+    default: "Site & Sight | Web Design, Pipelines & SEO Studio",
     template: "%s | Site & Sight",
   },
-  description: "We craft captivating digital experiences that combine innovative design with cutting-edge technology. Specializing in web development, SEO, marketing automation, and AI solutions.",
+  description: "A friendly creative studio building high-converting websites, data pipelines, web integrations, and SEO content. Based in Dubai.",
   keywords: [
     "web design",
     "web development",
@@ -61,8 +61,8 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: baseUrl,
     siteName: 'Site & Sight',
-    title: 'Site & Sight | Creative Digital Studio',
-    description: 'We craft captivating digital experiences that combine innovative design with cutting-edge technology.',
+    title: 'Site & Sight | Web Design, Pipelines & SEO Studio',
+    description: 'A friendly creative studio building high-converting websites, data pipelines, web integrations, and SEO content. Based in Dubai.',
     images: [
       {
         url: `${baseUrl}/logo/Site&Sight%20logo%20banner/light.svg`,
@@ -74,8 +74,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Site & Sight | Creative Digital Studio',
-    description: 'We craft captivating digital experiences that combine innovative design with cutting-edge technology.',
+    title: 'Site & Sight | Web Design, Pipelines & SEO Studio',
+    description: 'A friendly creative studio building high-converting websites, data pipelines, web integrations, and SEO content. Based in Dubai.',
     images: [`${baseUrl}/logo/Site&Sight%20logo%20banner/light.svg`],
     creator: '@site_and_sight',
   },

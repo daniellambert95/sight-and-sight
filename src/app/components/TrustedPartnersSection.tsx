@@ -70,23 +70,17 @@ export default function TrustedPartnersSection() {
       <div className="relative z-10 max-w-7xl mx-auto">
         <ScrollRevealText direction="up" delay={0.1}>
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                theme === 'dark'
-                  ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                  : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
-              }`}>
-                Trusted Partners
-              </span>
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            </div>
             <h2 className={`text-4xl md:text-5xl font-black mb-6 ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              Built with <span className="text-[#ff5500]">industry-leading</span> tools
+              <span className="text-[#4F46E5]">Trusted Partners</span>
             </h2>
             <p className={`text-xl max-w-3xl mx-auto ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              Built with <span className="text-[#ff5500]">industry-leading</span> tools
+            </p>
+            <p className={`text-lg mt-4 max-w-3xl mx-auto ${
               theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
             }`}>
               We partner with the best technology providers to deliver exceptional results

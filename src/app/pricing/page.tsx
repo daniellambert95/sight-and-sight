@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import QuoteModal from '../components/QuoteModal';
@@ -19,18 +20,12 @@ import {
   CurrencyDollarIcon,
   CheckCircleIcon
 } from '@heroicons/react/24/outline';
+import { ArrowRight } from 'lucide-react';
 
 export default function Pricing() {
   const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const [showQuoteModal, setShowQuoteModal] = useState(false);
-
-  const openQuoteModal = () => {
-    setShowQuoteModal(true);
-  };
-
-  const closeQuoteModal = () => {
-    setShowQuoteModal(false);
-  };
 
   const pricingFactors = [
     {
@@ -106,7 +101,7 @@ export default function Pricing() {
     },
     {
       step: "02",
-      title: "We Analyze Your Needs",
+      title: "We Analyse Your Needs",
       description: "Our team reviews your project and prepares a detailed proposal"
     },
     {
@@ -122,210 +117,234 @@ export default function Pricing() {
   ];
 
   return (
-    <div className={`min-h-screen flex flex-col ${
-      theme === 'dark' ? 'bg-black text-white' : 'bg-white text-black'
-    }`}>
+    <div className={`min-h-screen flex flex-col ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}>
       <Navigation currentPage="pricing" />
 
-      {/* Hero Section - Clean & Minimal */}
-      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-36 md:pt-32 transition-colors duration-300 ${
-        theme === 'dark'
-          ? 'bg-gradient-to-br from-black via-gray-950 to-black'
-          : 'bg-gradient-to-br from-white to-gray-50'
-      }`}>
-        <div className="max-w-7xl mx-auto w-full">
+      {/* Hero */}
+      <section className={`relative flex items-center justify-center overflow-hidden ${
+        isDark ? 'bg-gradient-to-br from-black via-gray-950 to-black' : 'bg-gradient-to-br from-white to-gray-50'
+      }`} style={{ minHeight: 'calc(100svh)', paddingTop: '5rem', paddingBottom: '2rem' }}>
+
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-[#ff5500] rounded-full opacity-20"
+              style={{ left: `${(i * 17 + 5) % 100}%`, top: `${(i * 13 + 10) % 100}%` }}
+              animate={{ y: [-20, 20, -20], x: [-10, 10, -10], opacity: [0.2, 0.5, 0.2] }}
+              transition={{ duration: (i % 4) + 4, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3 }}
+            />
+          ))}
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* Left Column - Main Content */}
+
+            {/* Left — heading + CTAs */}
             <div className="space-y-8">
-              <h1 className={`text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-none tracking-tight ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-                <span className="block">Flexible</span>
-                <span className="block text-[#ff5500]">Pricing</span>
-                <span className={`block text-3xl md:text-4xl lg:text-5xl font-light mt-6 ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                }`}>
+              
+
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className={`text-5xl md:text-7xl lg:text-8xl font-black leading-none tracking-tight ${isDark ? 'text-white' : 'text-gray-900'}`}
+                style={{ fontFamily: 'var(--font-league-spartan)' }}
+              >
+                <span className="block">FLEXIBLE</span>
+                <span className="block text-[#ff5500]">PRICING</span>
+                <span className={`block text-2xl md:text-3xl font-light mt-4 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                   tailored to your needs
                 </span>
-              </h1>
+              </motion.h1>
 
-              <p className={`text-xl md:text-2xl font-light max-w-2xl ${
-                theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-                Every project is unique. We create custom proposals based on your specific needs,
-                goals, and budget—with complete transparency and no hidden fees.
-              </p>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className={`text-xl md:text-2xl font-light max-w-2xl leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
+                style={{ fontFamily: 'var(--font-inter)' }}
+              >
+                Every project is unique. We create <span className="text-[#ff5500] font-semibold">custom proposals</span> based on your specific needs, goals, and budget — with complete{' '}
+                <span className="text-[#6366f1] font-semibold">transparency</span> and no hidden fees.
+              </motion.p>
 
-              <div className="pt-8">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
                 <button
-                  onClick={openQuoteModal}
-                  className="group inline-flex items-center gap-4 px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
+                  onClick={() => setShowQuoteModal(true)}
+                  className="group relative px-8 py-4 bg-gradient-to-r from-[#ff5500] to-[#ff7800] text-white rounded-2xl hover:from-[#ff6600] hover:to-[#ff8800] transition-all duration-300 text-lg font-bold transform hover:scale-105 shadow-2xl hover:shadow-[#ff5500]/25"
+                  style={{ fontFamily: 'var(--font-league-spartan)' }}
                 >
-                  <span>Get Your Custom Quote</span>
-                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
+                  <span className="relative z-10 flex items-center gap-3">
+                    Get Your Custom Quote
+                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#ff5500] to-[#ff7800] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
                 </button>
-              </div>
+
+                <Link
+                  href="/work"
+                  className={`group px-8 py-4 border-2 border-[#6366f1] rounded-2xl text-[#6366f1] transition-all duration-300 text-lg font-bold transform hover:scale-105 shadow-lg text-center ${
+                    isDark ? 'bg-white/5 hover:bg-white/10 backdrop-blur-sm' : 'bg-white/80 hover:bg-white backdrop-blur-sm'
+                  }`}
+                  style={{ fontFamily: 'var(--font-league-spartan)' }}
+                >
+                  <span className="flex items-center justify-center gap-3">
+                    View Our Work
+                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </Link>
+              </motion.div>
             </div>
 
-            {/* Right Column - Why Custom Pricing */}
-            <div className="space-y-8">
-              <div className={`p-8 rounded-3xl ${
-                theme === 'dark'
-                  ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
-                  : 'bg-white/60 border border-gray-200/50'
-              } backdrop-blur-sm shadow-xl`}>
-                <div className="space-y-6">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center shadow-lg">
-                    <CurrencyDollarIcon className="w-8 h-8 text-white" />
-                  </div>
+            {/* Right — Why Custom Pricing card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className={`p-8 rounded-3xl shadow-xl ${
+                isDark
+                  ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-white/10'
+                  : 'bg-white border border-gray-200/60'
+              } backdrop-blur-sm`}
+            >
+              <div className="space-y-6">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff7800] flex items-center justify-center shadow-lg">
+                  <CurrencyDollarIcon className="w-8 h-8 text-white" />
+                </div>
 
-                  <h3 className={`text-2xl font-bold ${
-                    theme === 'dark' ? 'text-white' : 'text-gray-900'
-                  }`}>
-                    Why Custom Pricing?
-                  </h3>
+                <h3
+                  className={`text-2xl font-black ${isDark ? 'text-white' : 'text-gray-900'}`}
+                  style={{ fontFamily: 'var(--font-league-spartan)' }}
+                >
+                  Why Custom Pricing?
+                </h3>
 
-                  <div className="space-y-4">
-                    {[
-                      "Pay only for what you need—no unnecessary features or costs",
-                      "Flexible solutions that scale with your business",
-                      "Transparent breakdown of all costs and deliverables",
-                      "Fair pricing based on project scope and complexity"
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
-                        <CheckCircleIcon className="w-6 h-6 flex-shrink-0 text-[#ff5500] mt-0.5" />
-                        <span className={`text-base ${
-                          theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                        }`}>
-                          {item}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                <div className="space-y-4">
+                  {[
+                    "Pay only for what you need — no unnecessary features or costs",
+                    "Flexible solutions that scale with your business",
+                    "Transparent breakdown of all costs and deliverables",
+                    "Fair pricing based on project scope and complexity"
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-3">
+                      <CheckCircleIcon className="w-5 h-5 flex-shrink-0 text-[#ff5500] mt-0.5" />
+                      <span className={`text-base ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* What Affects Your Quote Section */}
-      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
-      }`}>
+      {/* What Affects Your Quote */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 ${isDark ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'}`}>
         <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center space-y-6 mb-20">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] shadow-2xl">
-              <ChatBubbleLeftRightIcon className="w-10 h-10 text-white" />
-            </div>
-
-            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-black ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-20 space-y-4"
+          >
+            <span className="inline-block text-sm font-medium uppercase tracking-widest text-[#6366f1]">
+              What We Consider
+            </span>
+            <h2
+              className={`text-4xl md:text-5xl lg:text-6xl font-black ${isDark ? 'text-white' : 'text-gray-900'}`}
+              style={{ fontFamily: 'var(--font-league-spartan)' }}
+            >
               What Affects <span className="text-[#ff5500]">Your Quote</span>
             </h2>
-
-            <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-            }`}>
+            <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
               We consider several factors to create a fair and accurate proposal for your project
             </p>
-          </div>
+          </motion.div>
 
-          {/* Pricing Factors Grid */}
           <div className="grid md:grid-cols-2 gap-8">
             {pricingFactors.map((factor, index) => (
               <div
                 key={index}
-                className={`group relative cursor-pointer ${
-                  theme === 'dark'
-                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
-                    : 'bg-white/60 border border-gray-200/50'
-                } backdrop-blur-sm rounded-3xl p-8 hover:scale-[1.02] transition-all duration-500 shadow-xl`}
+                className={`group relative ${
+                  isDark
+                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-white/10'
+                    : 'bg-white border border-gray-200/60'
+                } rounded-3xl p-8 hover:scale-[1.02] transition-all duration-300 shadow-xl`}
               >
                 <div className="space-y-6">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff7800] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                     {factor.icon}
                   </div>
-
                   <div>
-                    <h3 className={`text-2xl font-bold mb-3 group-hover:text-[#ff5500] transition-colors duration-300 ${
-                      theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>
+                    <h3 className={`text-2xl font-black mb-3 group-hover:text-[#ff5500] transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-900'}`}
+                      style={{ fontFamily: 'var(--font-league-spartan)' }}>
                       {factor.title}
                     </h3>
-                    <p className={`text-lg leading-relaxed ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
+                    <p className={`text-lg leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                       {factor.description}
                     </p>
                   </div>
                 </div>
-
-                {/* Hover gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/5 to-[#6366f1]/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className={`relative py-20 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-black' : 'bg-white'
-      }`}>
+      {/* How It Works */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 ${isDark ? 'bg-black' : 'bg-white'}`}>
         <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center space-y-6 mb-20">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] shadow-2xl">
-              <RocketLaunchIcon className="w-10 h-10 text-white" />
-            </div>
-
-            <h3 className={`text-4xl md:text-5xl lg:text-6xl font-black ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-20 space-y-4"
+          >
+            <span className="inline-block text-sm font-medium uppercase tracking-widest text-[#6366f1]">
+              Our Process
+            </span>
+            <h2
+              className={`text-4xl md:text-5xl lg:text-6xl font-black ${isDark ? 'text-white' : 'text-gray-900'}`}
+              style={{ fontFamily: 'var(--font-league-spartan)' }}
+            >
               How It <span className="text-[#ff5500]">Works</span>
-            </h3>
-
-            <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-            }`}>
+            </h2>
+            <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
               Our simple process to get you a custom quote
             </p>
-          </div>
+          </motion.div>
 
-          {/* Process Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {process.map((item, index) => (
               <div
                 key={index}
-                className={`group relative ${
-                  theme === 'dark'
-                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
-                    : 'bg-white/60 border border-gray-200/50'
-                } backdrop-blur-sm rounded-3xl p-8 transition-all duration-500 shadow-xl`}
+                className={`relative ${
+                  isDark
+                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-white/10'
+                    : 'bg-white border border-gray-200/60'
+                } rounded-3xl p-8 shadow-xl`}
               >
                 <div className="space-y-6">
-                  <div className="flex items-center justify-between">
-                    <div className={`text-5xl font-black ${
-                      theme === 'dark' ? 'text-gray-800' : 'text-gray-200'
-                    }`}>
-                      {item.step}
-                    </div>
+                  <div className={`text-5xl font-black ${isDark ? 'text-white/10' : 'text-gray-100'}`}
+                    style={{ fontFamily: 'var(--font-league-spartan)' }}>
+                    {item.step}
                   </div>
-
                   <div>
-                    <h3 className={`text-xl font-bold mb-3 ${
-                      theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>
+                    <h3 className={`text-xl font-black mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}
+                      style={{ fontFamily: 'var(--font-league-spartan)' }}>
                       {item.title}
                     </h3>
-                    <p className={`text-base leading-relaxed ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
+                    <p className={`text-base leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                       {item.description}
                     </p>
                   </div>
@@ -334,133 +353,142 @@ export default function Pricing() {
             ))}
           </div>
 
-          {/* CTA in Process Section */}
           <div className="text-center mt-16">
             <button
-              onClick={openQuoteModal}
-              className="group inline-flex items-center justify-center px-10 py-5 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-xl font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
+              onClick={() => setShowQuoteModal(true)}
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#ff5500] to-[#ff7800] text-white rounded-2xl hover:from-[#ff6600] hover:to-[#ff8800] transition-all duration-300 text-lg font-bold transform hover:scale-105 shadow-2xl hover:shadow-[#ff5500]/25"
+              style={{ fontFamily: 'var(--font-league-spartan)' }}
             >
-              <span>Start Your Quote Now</span>
-              <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+              <span className="relative z-10 flex items-center gap-3">
+                Start Your Quote Now
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#ff5500] to-[#ff7800] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
             </button>
           </div>
         </div>
       </section>
 
-      {/* What's Always Included Section */}
-      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'
-      }`}>
+      {/* Always Included */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 ${isDark ? 'bg-gradient-to-br from-gray-950 to-black' : 'bg-gradient-to-br from-gray-50 to-white'}`}>
         <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="text-center space-y-6 mb-20">
-            <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] shadow-2xl">
-              <SparklesIcon className="w-10 h-10 text-white" />
-            </div>
-
-            <h3 className={`text-4xl md:text-5xl lg:text-6xl font-black ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-20 space-y-4"
+          >
+            <span className="inline-block text-sm font-medium uppercase tracking-widest text-[#6366f1]">
+              Standard Features
+            </span>
+            <h2
+              className={`text-4xl md:text-5xl lg:text-6xl font-black ${isDark ? 'text-white' : 'text-gray-900'}`}
+              style={{ fontFamily: 'var(--font-league-spartan)' }}
+            >
               Always <span className="text-[#ff5500]">Included</span>
-            </h3>
-
-            <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
-              theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-            }`}>
+            </h2>
+            <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
               Every project comes with these premium features as standard
             </p>
-          </div>
+          </motion.div>
 
-          {/* Features Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className={`group relative cursor-pointer ${
-                  theme === 'dark'
-                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-gray-800/50'
-                    : 'bg-white/60 border border-gray-200/50'
-                } backdrop-blur-sm rounded-3xl p-8 hover:scale-[1.02] transition-all duration-500 shadow-xl`}
+                className={`group relative ${
+                  isDark
+                    ? 'bg-gradient-to-br from-gray-900/80 to-black/80 border border-white/10'
+                    : 'bg-white border border-gray-200/60'
+                } rounded-3xl p-8 hover:scale-[1.02] transition-all duration-300 shadow-xl`}
               >
                 <div className="space-y-6">
-                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#ff5500] to-[#ff7800] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                     {feature.icon}
                   </div>
-
                   <div>
-                    <h3 className={`text-xl font-bold mb-3 group-hover:text-[#ff5500] transition-colors duration-300 ${
-                      theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>
+                    <h3 className={`text-xl font-black mb-3 group-hover:text-[#ff5500] transition-colors duration-300 ${isDark ? 'text-white' : 'text-gray-900'}`}
+                      style={{ fontFamily: 'var(--font-league-spartan)' }}>
                       {feature.title}
                     </h3>
-                    <p className={`text-base leading-relaxed ${
-                      theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
-                    }`}>
+                    <p className={`text-base leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                       {feature.description}
                     </p>
                   </div>
                 </div>
-
-                {/* Hover gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-[#ff5500]/5 to-[#6366f1]/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className={`relative py-32 px-6 md:px-12 lg:px-24 transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-black' : 'bg-white'
-      }`}>
-        <div className="max-w-5xl mx-auto text-center space-y-12">
-          <h2 className={`text-5xl md:text-6xl lg:text-7xl font-black leading-tight ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
-          }`}>
+      {/* CTA */}
+      <section className={`relative py-32 px-6 md:px-12 lg:px-24 ${isDark ? 'bg-black' : 'bg-white'}`}>
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1.5 h-1.5 bg-[#ff5500] rounded-full opacity-20"
+              style={{ left: `${(i * 23 + 8) % 100}%`, top: `${(i * 19 + 15) % 100}%` }}
+              animate={{ opacity: [0.2, 0.5, 0.2], scale: [1, 1.5, 1] }}
+              transition={{ duration: 3 + i * 0.4, repeat: Infinity, delay: i * 0.5 }}
+            />
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="max-w-5xl mx-auto text-center space-y-10 relative z-10"
+        >
+          <h2
+            className={`text-5xl md:text-6xl lg:text-7xl font-black leading-tight ${isDark ? 'text-white' : 'text-gray-900'}`}
+            style={{ fontFamily: 'var(--font-league-spartan)' }}
+          >
             Ready for your
             <br />
             <span className="text-[#ff5500]">custom quote?</span>
           </h2>
 
-          <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${
-            theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-          }`}>
-            Tell us about your project and we'll create a detailed proposal tailored specifically to your needs and budget.
+          <p className={`text-xl md:text-2xl font-light max-w-3xl mx-auto ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+            Tell us about your project and we&apos;ll create a detailed proposal tailored to your needs and{' '}
+            <span className="text-[#6366f1] font-semibold">budget</span>.
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-6 pt-8">
+          <div className="flex flex-col sm:flex-row justify-center gap-6 pt-4">
             <button
-              onClick={openQuoteModal}
-              className="group inline-flex items-center justify-center px-10 py-5 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-xl font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
+              onClick={() => setShowQuoteModal(true)}
+              className="group relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-[#ff5500] to-[#ff7800] text-white rounded-2xl hover:from-[#ff6600] hover:to-[#ff8800] transition-all duration-300 text-lg font-bold transform hover:scale-105 shadow-2xl hover:shadow-[#ff5500]/25"
+              style={{ fontFamily: 'var(--font-league-spartan)' }}
             >
-              <span>Get Your Quote</span>
-              <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+              <span className="relative z-10 flex items-center gap-3">
+                Get Your Quote
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-[#ff5500] to-[#ff7800] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
             </button>
 
             <Link
               href="/work"
-              className={`group inline-flex items-center justify-center px-10 py-5 rounded-2xl text-xl font-semibold transition-all duration-300 border-2 ${
-                theme === 'dark'
-                  ? 'bg-transparent text-white border-gray-700 hover:bg-gray-800 hover:border-gray-600'
-                  : 'bg-transparent text-gray-900 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
-              } shadow-xl`}
+              className={`group px-8 py-4 border-2 border-[#6366f1] rounded-2xl text-[#6366f1] transition-all duration-300 text-lg font-bold transform hover:scale-105 shadow-lg hover:shadow-xl ${
+                isDark ? 'bg-white/5 hover:bg-white/10 backdrop-blur-sm' : 'bg-white/80 hover:bg-white backdrop-blur-sm'
+              }`}
+              style={{ fontFamily: 'var(--font-league-spartan)' }}
             >
-              <span>View Our Work</span>
-              <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
+              <span className="flex items-center gap-3">
+                View Our Work
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </span>
             </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
 
-      {/* Quote Modal */}
-      <QuoteModal isOpen={showQuoteModal} onClose={closeQuoteModal} />
-
+      <QuoteModal isOpen={showQuoteModal} onClose={() => setShowQuoteModal(false)} />
       <Footer />
     </div>
   );

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import { useTheme } from '../utils/ThemeProvider';
 import { isValidEmail } from '@/lib/utils';
 import { 
@@ -11,12 +12,10 @@ import {
   ShoppingCartIcon,
   CogIcon,
   BuildingOfficeIcon,
-  PaintBrushIcon,
   ChartBarIcon,
   MagnifyingGlassIcon,
   EnvelopeIcon,
   DocumentTextIcon,
-  SpeakerWaveIcon,
   BoltIcon,
   CpuChipIcon,
   ClipboardDocumentListIcon,
@@ -71,87 +70,63 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
 
   const totalSteps = 3;
 
-  // Organized services by category
+  // Updated service categories to match new services page structure
   const serviceCategories = [
     {
-      id: 'web-creative',
-      name: 'Web Development & Creative Design',
+      id: 'web-development',
+      name: 'Web Development & Design',
       icon: <GlobeAltIcon className="w-8 h-8 text-[#ff5500]" />,
-      description: 'Websites, apps & visual design',
+      description: 'Websites, apps & digital experiences',
       services: [
         { 
           id: 'website', 
-          name: 'Website Development', 
+          name: 'Custom Website Development', 
           icon: <ComputerDesktopIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Custom responsive websites'
+          description: 'Modern, responsive websites built with React & Next.js'
         },
         { 
           id: 'ecommerce', 
           name: 'E-commerce Solutions', 
           icon: <ShoppingCartIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Online stores & payment systems'
+          description: 'Complete online stores with secure payment processing'
         },
         { 
           id: 'webapp', 
           name: 'Web Applications', 
           icon: <CogIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Custom software & dashboards'
+          description: 'Custom web apps with authentication & database integration'
         },
         { 
           id: 'hosting', 
           name: 'Hosting & Deployment', 
           icon: <RocketLaunchIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Reliable hosting & maintenance'
-        },
-        { 
-          id: 'brand-design', 
-          name: 'Brand Identity Design', 
-          icon: <BuildingOfficeIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Logo design & brand guidelines'
-        },
-        { 
-          id: 'graphic-design', 
-          name: 'Graphic Design', 
-          icon: <PaintBrushIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Marketing materials & print design'
-        },
+          description: 'Reliable hosting with 99.9% uptime & SSL certificates'
+        }
       ]
     },
     {
       id: 'digital-marketing',
-      name: 'Digital Marketing & SEO',
+      name: 'Digital Marketing',
       icon: <ChartBarIcon className="w-8 h-8 text-[#ff5500]" />,
-      description: 'Online visibility & growth',
+      description: 'SEO, content & email marketing',
       services: [
         { 
-          id: 'seo', 
-          name: 'SEO Optimization', 
-          icon: <ChartBarIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Search engine optimization'
-        },
-        { 
-          id: 'sem', 
-          name: 'Search Engine Marketing', 
+          id: 'seo-audits', 
+          name: 'SEO Optimization & Audits', 
           icon: <MagnifyingGlassIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Google Ads & PPC campaigns'
+          description: 'Comprehensive SEO strategies to improve search rankings'
         },
         { 
-          id: 'email-marketing', 
-          name: 'Email Marketing', 
-          icon: <EnvelopeIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Email campaigns & automation'
-        },
-        { 
-          id: 'content-marketing', 
-          name: 'Content Marketing', 
+          id: 'content-strategy', 
+          name: 'Content Marketing & Strategy', 
           icon: <DocumentTextIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Blog writing & social media'
+          description: 'Strategic content creation including blogs & social media'
         },
         { 
-          id: 'pr-communications', 
-          name: 'PR & Communications', 
-          icon: <SpeakerWaveIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Public relations & media'
+          id: 'email-automation', 
+          name: 'Email Marketing & Automation', 
+          icon: <EnvelopeIcon className="w-6 h-6 text-[#ff5500]" />,
+          description: 'Targeted email campaigns with automation & personalization'
         }
       ]
     },
@@ -159,31 +134,31 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       id: 'automation',
       name: 'Automation & AI Solutions',
       icon: <CpuChipIcon className="w-8 h-8 text-[#ff5500]" />,
-      description: 'Smart business solutions',
+      description: 'AI, data pipelines & integrations',
       services: [
         { 
           id: 'ai-chatbots', 
-          name: 'AI Chatbots', 
+          name: 'AI Chatbots & Implementation', 
           icon: <CpuChipIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: '24/7 customer support automation'
+          description: 'Intelligent chatbots for 24/7 customer support'
+        },
+        { 
+          id: 'data-pipelines', 
+          name: 'Data Pipelines & Analytics', 
+          icon: <ClipboardDocumentListIcon className="w-6 h-6 text-[#ff5500]" />,
+          description: 'Custom data pipelines for business insights'
+        },
+        { 
+          id: 'web-integrations', 
+          name: 'Web Integrations', 
+          icon: <BoltIcon className="w-6 h-6 text-[#ff5500]" />,
+          description: 'Connect CRMs, email services & other business tools'
         },
         { 
           id: 'workflow-automation', 
           name: 'Workflow Automation', 
-          icon: <BoltIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Process optimization & automation'
-        },
-        { 
-          id: 'ai-integration', 
-          name: 'AI Integration', 
-          icon: <CpuChipIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'AI tools & custom solutions'
-        },
-        { 
-          id: 'consulting', 
-          name: 'Business Process Optimization', 
-          icon: <ClipboardDocumentListIcon className="w-6 h-6 text-[#ff5500]" />,
-          description: 'Strategy & process consulting'
+          icon: <BuildingOfficeIcon className="w-6 h-6 text-[#ff5500]" />,
+          description: 'Automate repetitive tasks & optimize processes'
         }
       ]
     }
@@ -341,17 +316,17 @@ Form: Quote Request Modal
 Submitted: ${new Date().toLocaleString()}
       `.trim();
 
-      // Submit to Web3Forms
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      // Submit to our contact API (which now uses Resend)
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
-          subject: `New Quote Request from ${formData.name}`,
-          from_name: formData.name,
+          name: formData.name,
           email: formData.email,
-          message: emailMessage,
-          to_email: "hello@siteandsight.com"
+          message: `Quote request: ${formData.description || 'Budget: ' + formatBudget(budgetValue) + ', Timeline: ' + formatTimeline(timelineValue)}`,
+          service: servicesList,
+          projectTypes: ['Quote Request'],
+          customProject: emailMessage,
         }),
       });
 
@@ -538,7 +513,7 @@ Submitted: ${new Date().toLocaleString()}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             onClick={(e) => e.stopPropagation()}
-            className={`max-w-4xl w-full max-h-[90vh] overflow-y-auto p-8 md:p-12 rounded-3xl ${
+            className={`max-w-4xl w-full max-h-[90vh] overflow-y-auto p-4 md:p-8 lg:p-12 rounded-2xl md:rounded-3xl ${
               theme === 'dark' 
                 ? 'bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-700' 
                 : 'bg-white border border-gray-200 shadow-2xl'
@@ -594,19 +569,19 @@ Submitted: ${new Date().toLocaleString()}
                     className="space-y-8"
                   >
                     <div className="text-center mb-8">
-                      <h2 className={`text-3xl font-black mb-4 ${
+                      <h2 className={`text-2xl md:text-3xl font-black mb-4 ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
                         What type of services do you need?
                       </h2>
-                      <p className={`text-lg ${
+                      <p className={`text-base md:text-lg ${
                         theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                       }`}>
                         Choose your primary category to see available services
                       </p>
                     </div>
                     
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                       {serviceCategories.map((category) => (
                         <motion.button
                           key={category.id}
@@ -662,7 +637,7 @@ Submitted: ${new Date().toLocaleString()}
                     <div className={`text-center text-sm ${
                       theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                     }`}>
-                      💡 Choose a category to see available services
+                      Choose a category to see available services
                     </div>
                   </motion.div>
                 )}
@@ -679,12 +654,12 @@ Submitted: ${new Date().toLocaleString()}
                     className="space-y-8"
                   >
                     <div className="text-center mb-8">
-                      <h2 className={`text-3xl font-black mb-4 ${
+                      <h2 className={`text-2xl md:text-3xl font-black mb-4 ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
                         Budget & Timeline
                       </h2>
-                      <p className={`text-lg ${
+                      <p className={`text-base md:text-lg ${
                         theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                       }`}>
                         Help us understand your project scope and timing
@@ -695,12 +670,12 @@ Submitted: ${new Date().toLocaleString()}
                       {/* Budget Slider */}
                       <div className="space-y-6">
                         <div className="text-center">
-                          <h3 className={`text-2xl font-bold mb-2 ${
+                          <h3 className={`text-xl md:text-2xl font-bold mb-2 ${
                             theme === 'dark' ? 'text-white' : 'text-gray-900'
                           }`}>
-                            💰 Project Budget
+                            Project Budget
                           </h3>
-                          <div className={`text-3xl font-black text-[#ff5500] mb-4`}>
+                          <div className={`text-2xl md:text-3xl font-black text-[#ff5500] mb-4`}>
                             {formatBudget(budgetValue)}
                           </div>
                         </div>
@@ -739,12 +714,12 @@ Submitted: ${new Date().toLocaleString()}
                       {/* Timeline Slider */}
                       <div className="space-y-6">
                         <div className="text-center">
-                          <h3 className={`text-2xl font-bold mb-2 ${
+                          <h3 className={`text-xl md:text-2xl font-bold mb-2 ${
                             theme === 'dark' ? 'text-white' : 'text-gray-900'
                           }`}>
-                            ⏰ Project Timeline
+                            Project Timeline
                           </h3>
-                          <div className={`text-3xl font-black text-[#ff5500] mb-4`}>
+                          <div className={`text-2xl md:text-3xl font-black text-[#ff5500] mb-4`}>
                             {formatTimeline(timelineValue)}
                           </div>
                         </div>
@@ -797,12 +772,12 @@ Submitted: ${new Date().toLocaleString()}
                     className="space-y-8"
                   >
                     <div className="text-center mb-8">
-                      <h2 className={`text-3xl font-black mb-4 ${
+                      <h2 className={`text-2xl md:text-3xl font-black mb-4 ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
                         Tell us about your project
                       </h2>
-                      <p className={`text-lg ${
+                      <p className={`text-base md:text-lg ${
                         theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                       }`}>
                         Contact details and project information
@@ -811,10 +786,10 @@ Submitted: ${new Date().toLocaleString()}
 
                     {/* Contact Information */}
                     <div className="space-y-6">
-                      <h3 className={`text-xl font-bold ${
+                      <h3 className={`text-lg md:text-xl font-bold ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
-                        📞 Contact Information
+                        Contact Information
                       </h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -881,10 +856,10 @@ Submitted: ${new Date().toLocaleString()}
 
                     {/* Project Description */}
                     <div className="space-y-6">
-                      <h3 className={`text-xl font-bold ${
+                      <h3 className={`text-lg md:text-xl font-bold ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
-                        📝 Project Details (Optional)
+                        Project Details (Optional)
                       </h3>
 
                       <div>
@@ -914,7 +889,7 @@ Submitted: ${new Date().toLocaleString()}
                       <h3 className={`font-bold mb-4 ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
-                        📋 Project Summary
+                        Project Summary
                       </h3>
                       <div className="space-y-2 text-sm">
                         <div><strong>Services:</strong> {formData.services.map(serviceId => 
@@ -959,29 +934,43 @@ Submitted: ${new Date().toLocaleString()}
                     Next Step →
                   </button>
                 ) : (
-                  <div className="flex-1 flex justify-center">
+                  <div className="flex-1 flex flex-col items-center space-y-4">
                     <button
                       type="button"
                       onClick={handleExplicitSubmit}
                       disabled={isSubmitting || !formData.name || !formData.email || !isValidEmail(formData.email)}
-                      className={`px-12 py-3 rounded-xl font-bold text-lg transition-all ${
+                      className={`w-full md:w-auto px-8 md:px-12 py-3 rounded-xl font-bold text-base md:text-lg transition-all ${
                         isSubmitting || !formData.name || !formData.email || !isValidEmail(formData.email)
                           ? 'opacity-50 cursor-not-allowed bg-gray-400'
                           : 'bg-[#ff5500] hover:bg-[#ff6600] text-white transform hover:scale-105 shadow-xl'
                       }`}
                     >
                       {isSubmitting ? (
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center justify-center gap-3">
                           <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                           Submitting...
                         </div>
                       ) : (
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center justify-center gap-2">
                           Submit
                           <RocketLaunchIcon className="w-5 h-5" />
                         </div>
                       )}
                     </button>
+                    
+                    <p className={`text-xs text-center ${
+                      theme === 'dark' ? 'text-gray-500' : 'text-gray-500'
+                    }`}>
+                      By submitting, you agree to our{' '}
+                      <Link 
+                        href="/privacy" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#ff5500] hover:text-[#ff6600] underline transition-colors"
+                      >
+                        Privacy Policy
+                      </Link>
+                    </p>
                   </div>
                 )}
               </div>
@@ -1139,7 +1128,9 @@ Submitted: ${new Date().toLocaleString()}
             }`}
           >
             <div className="text-center">
-              <div className="text-6xl mb-6">🎉</div>
+              <div className="w-16 h-16 bg-[#ff5500] rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircleIcon className="w-8 h-8 text-white" />
+              </div>
               <h1 className={`text-4xl font-black mb-6 ${
                 theme === 'dark' ? 'text-white' : 'text-gray-900'
               }`}>

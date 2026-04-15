@@ -64,7 +64,7 @@ export default function StatsSection() {
   // Statistics data with animated counters
   const stats = [
     { 
-      number: 10, 
+      number: 15, 
       suffix: "+", 
       label: "Projects Completed", 
       icon: <RocketLaunchIcon className="w-8 h-8 text-[#ff5500]" />, 
@@ -112,20 +112,12 @@ export default function StatsSection() {
       <div className="relative z-10 max-w-7xl mx-auto">
         <ScrollRevealText direction="up" delay={0.1}>
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-3 mb-6">
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-              <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                theme === 'dark'
-                  ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                  : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
-              }`}>
-              Our Impact
-              </span>
-              <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            </div>
+           
             <h2 className={`text-4xl md:text-5xl font-black ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}>
+            }`}
+            style={{ fontFamily: 'var(--font-league-spartan)' }}
+            >
               Results that <span className="text-[#ff5500]">speak volumes</span>
             </h2>
           </div>

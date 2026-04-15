@@ -228,81 +228,114 @@ export default function FAQPage() {
       <Navigation currentPage="faq" />
       
       {/* Hero Section */}
-      <section className={`relative min-h-screen flex items-center justify-center px-6 md:px-12 lg:px-24 pt-12 transition-colors duration-300 ${
-        theme === 'dark' 
-          ? 'bg-gradient-to-br from-black via-gray-950 to-black' 
-          : 'bg-gradient-to-br from-white to-gray-50'
-      }`}>
-        <div className="max-w-7xl mx-auto w-full">
+      <section className={`relative flex items-center justify-center overflow-hidden ${
+        theme === 'dark' ? 'bg-gradient-to-br from-black via-gray-950 to-black' : 'bg-gradient-to-br from-white to-gray-50'
+      }`} style={{ minHeight: 'calc(100svh)', paddingTop: '5rem', paddingBottom: '2rem' }}>
+
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 rounded-full opacity-20"
+              style={{
+                backgroundColor: i % 2 === 0 ? '#ff5500' : '#6366f1',
+                left: `${(i * 17 + 5) % 100}%`,
+                top: `${(i * 13 + 10) % 100}%`,
+              }}
+              animate={{ y: [-20, 20, -20], x: [-10, 10, -10], opacity: [0.2, 0.5, 0.2] }}
+              transition={{ duration: (i % 4) + 4, repeat: Infinity, ease: 'easeInOut', delay: i * 0.3 }}
+            />
+          ))}
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            {/* Left Column - Main Content */}
+            {/* Left Column */}
             <div className="space-y-8">
-              <motion.h1 
+
+              <motion.h1
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className={`text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black leading-none tracking-tight ${
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className={`text-5xl md:text-7xl lg:text-8xl font-black leading-none tracking-tight ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}
+                style={{ fontFamily: 'var(--font-league-spartan)' }}
               >
-                <span className="block">Got</span>
-                <span className="block text-[#ff5500]">Questions?</span>
-                <span className={`block text-3xl md:text-4xl lg:text-5xl font-light mt-6 ${
+                <span className="block">GOT</span>
+                <span className="block text-[#ff5500]">QUESTIONS?</span>
+                <span className={`block text-2xl md:text-3xl font-light mt-4 ${
                   theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                 }`}>
                   we&apos;ve got answers
                 </span>
               </motion.h1>
-              
-              <motion.p 
-                initial={{ opacity: 0, y: 30 }}
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className={`text-xl md:text-2xl font-light max-w-2xl ${
+                className={`text-xl md:text-2xl font-light max-w-2xl leading-relaxed ${
                   theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
                 }`}
+                style={{ fontFamily: 'var(--font-inter)' }}
               >
-                Find everything you need to know about our process, pricing, and services. 
-                Clear answers to help you make informed decisions.
+                Find everything you need to know about our <span className="text-[#ff5500] font-semibold">process</span>, <span className="text-[#6366f1] font-semibold">pricing</span>, and services.
               </motion.p>
-              
-              <motion.div 
-                initial={{ opacity: 0, y: 30 }}
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="pt-8"
+                className="flex flex-col sm:flex-row gap-4"
               >
-                <a 
+                <a
                   href="#faq-section"
-                  className="group inline-flex items-center gap-4 px-8 py-4 bg-[#ff5500] text-white rounded-2xl hover:bg-[#ff6600] transition-all duration-300 text-lg font-semibold shadow-2xl hover:shadow-[#ff5500]/25"
+                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#ff5500] to-[#ff7800] text-white rounded-2xl hover:from-[#ff6600] hover:to-[#ff8800] transition-all duration-300 text-lg font-bold transform hover:scale-105 shadow-2xl hover:shadow-[#ff5500]/25"
+                  style={{ fontFamily: 'var(--font-league-spartan)' }}
                 >
-                  <span>Browse Questions</span>
-                  <svg className="w-5 h-5 transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                  <span className="relative z-10 flex items-center gap-3">
+                    Browse Questions
+                    <svg className="w-5 h-5 transition-transform group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#ff5500] to-[#ff7800] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
+                </a>
+
+                <a
+                  href="/contact"
+                  className={`group inline-flex items-center justify-center gap-3 px-8 py-4 border-2 border-[#6366f1] rounded-2xl text-[#6366f1] transition-all duration-300 text-lg font-bold transform hover:scale-105 shadow-lg ${
+                    theme === 'dark' ? 'bg-white/5 hover:bg-white/10 backdrop-blur-sm' : 'bg-white/80 hover:bg-white backdrop-blur-sm'
+                  }`}
+                  style={{ fontFamily: 'var(--font-league-spartan)' }}
+                >
+                  Ask Us Directly
+                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </a>
               </motion.div>
             </div>
-            
-            {/* Right Column - Question Categories Preview */}
-            <motion.div 
+
+            {/* Right Column - Category Cards */}
+            <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="hidden lg:block space-y-6 ml-16"
+              className="hidden lg:block space-y-4"
             >
               {categories.filter(cat => cat.id !== 'all').map((category, index) => {
                 const IconComponent = category.icon;
+                const isIndigo = index % 2 !== 0;
                 return (
-                  <motion.div
+                  <div
                     key={category.id}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                    className={`group p-6 rounded-2xl cursor-pointer transition-all duration-300 border-2 ${
-                      theme === 'dark' 
-                        ? 'bg-white/5 border-gray-800 hover:bg-white/10 hover:border-[#ff5500]/50' 
-                        : 'bg-white/80 border-gray-200 hover:bg-white hover:border-[#ff5500]/50'
+                    className={`group p-5 rounded-2xl cursor-pointer transition-all duration-300 border ${
+                      theme === 'dark'
+                        ? 'bg-white/5 border-white/10 hover:bg-white/10'
+                        : 'bg-white border-gray-200/80 hover:border-[#6366f1]/30'
                     } shadow-lg hover:shadow-xl hover:scale-[1.02]`}
                     onClick={() => {
                       handleCategoryChange(category.id);
@@ -310,26 +343,28 @@ export default function FAQPage() {
                     }}
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff5500] to-[#ff6600] flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <IconComponent className="w-6 h-6" />
+                      <div className={`w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300 ${
+                        isIndigo
+                          ? 'bg-gradient-to-br from-[#6366f1] to-[#8b5cf6]'
+                          : 'bg-gradient-to-br from-[#ff5500] to-[#ff7800]'
+                      }`}>
+                        <IconComponent className="w-5 h-5" />
                       </div>
                       <div className="flex-1">
-                        <h3 className={`font-bold text-lg group-hover:text-[#ff5500] transition-colors duration-300 ${
-                          theme === 'dark' ? 'text-white' : 'text-gray-900'
-                        }`}>
+                        <h3 className={`font-bold text-base transition-colors duration-300 ${
+                          isIndigo ? 'group-hover:text-[#6366f1]' : 'group-hover:text-[#ff5500]'
+                        } ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                           {category.name}
                         </h3>
-                        <p className={`text-sm ${
-                          theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                        }`}>
+                        <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
                           {category.count} questions
                         </p>
                       </div>
-                      <svg className="w-5 h-5 text-[#ff5500] opacity-0 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className={`w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${isIndigo ? 'text-[#6366f1]' : 'text-[#ff5500]'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </div>
-                  </motion.div>
+                  </div>
                 );
               })}
             </motion.div>

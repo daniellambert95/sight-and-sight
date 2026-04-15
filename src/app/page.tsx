@@ -3,15 +3,19 @@
 import { useState, useEffect } from "react";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
-import HowWeWork from "./components/HowWeWork";
 import SubscribeNow from "./components/SubscribeNow";
-import HeroSection from "./components/HeroSection";
+import HeroSection from "./components/sections/HeroSection";
 import StatsSection from "./components/StatsSection";
-import ServicesSection from "./components/ServicesSection";
-import ProjectCarousel from "./components/ProjectCarousel";
+import ServicesGrid from "./components/sections/ServicesGrid";
+import WhySiteAndSight from "./components/sections/WhySiteAndSight";
+import HowItWorks from "./components/sections/HowItWorks";
+import Portfolio from "./components/sections/Portfolio";
+// import SEOContentSection from "./components/sections/SEOContentSection"; // Moved to services subpage
 import TestimonialsSection from "./components/TestimonialsSection";
+import ContactForm from "./components/sections/ContactForm";
 import TrustedPartnersSection from "./components/TrustedPartnersSection";
 import AnimatedIntro from "./components/AnimatedIntro";
+import SimpleFooter from "./components/sections/SimpleFooter";
 import { useTheme } from "./utils/ThemeProvider";
 
 export default function Home() {
@@ -90,19 +94,34 @@ export default function Home() {
           <StatsSection />
 
           {/* Services Section */}
-          <ServicesSection />
+          <ServicesGrid />
 
-          {/* Cinematic Project Carousel */}
-          <ProjectCarousel />
+          {/* Why Site & Sight Section */}
+          <WhySiteAndSight />
+
+          {/* How It Works Section */}
+          <HowItWorks />
+
+          {/* Portfolio Section */}
+          <Portfolio />
+
+          {/* SEO & Content Section - Moved to services subpage for better homepage flow */}
+          {/* <SEOContentSection /> */}
 
           {/* Trusted Partners Section */}
           <TrustedPartnersSection />
 
-          {/* How We Work Section */}
-          <HowWeWork />
-
           {/* Testimonials Section */}
           <TestimonialsSection />
+
+          {/* Cinematic Project Carousel - Commented out (redundant with Portfolio) */}
+          {/* <ProjectCarousel /> */}
+
+          {/* How We Work Section - Commented out (covered in HowItWorks) */}
+          {/* <HowWeWork /> */}
+          
+          {/* Contact Form Section */}
+          <ContactForm />
           
           {/* Subscribe Now Section */}
           <SubscribeNow />

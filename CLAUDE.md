@@ -41,6 +41,12 @@ Uses Google Fonts with CSS variables:
 - Theme state managed in `src/app/utils/ThemeProvider.tsx`
 - Color scheme: Primary orange `#ff5500`, hover `#e64d00`
 
+### Brand Guidelines
+- **Company Name**: "Site & Sight" (with ampersand, not "Cite and Sight")
+- **Color Usage**:
+  - **Orange (#ff5500)**: Action items, services, CTAs, "Portfolio", "How It Works", "Clients Say"
+  - **Purple (Indigo)**: Company/process elements, "Our Impact", "Site & Sight", "Our Process", "Testimonials"
+
 ## Code Architecture
 
 ### Directory Structure

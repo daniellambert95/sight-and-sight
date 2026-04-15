@@ -60,16 +60,16 @@ export default function CTASection() {
           </Link>
           
           <Link 
-            href="/pricing" 
+            href="/contact"
             className={`group relative inline-flex items-center justify-center px-10 py-5 rounded-2xl text-xl font-semibold transition-all duration-300 border-2 backdrop-blur-sm ${
-              theme === 'dark' 
-                ? 'bg-white/10 text-white border-white/30 hover:bg-white/20 hover:border-white/50' 
+              theme === 'dark'
+                ? 'bg-white/10 text-white border-white/30 hover:bg-white/20 hover:border-white/50'
                 : 'bg-black/5 text-gray-900 border-gray-900/30 hover:bg-black/10 hover:border-gray-900/50'
             } shadow-xl hover:shadow-2xl transform hover:scale-105`}
           >
-            <span className="relative z-10">View Pricing</span>
+            <span className="relative z-10">Book a Call</span>
             <svg className="w-6 h-6 ml-3 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
           </Link>
         </div>

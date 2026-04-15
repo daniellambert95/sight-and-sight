@@ -85,7 +85,7 @@ export default function TestimonialsSection() {
   const testimonials = [
     {
       name: "James Carter",
-      position: "Business owner, Der Baumchirurg",
+      position: "Business owner, Carter Tree Care",
       content: "Customers are flying in after getting my site designed by Daniel. The main focus was SEO but it also looks amazing! Very satisfied!",
       rating: 5
     },
@@ -146,23 +146,17 @@ export default function TestimonialsSection() {
       <div className="relative z-10 max-w-7xl mx-auto">
         <ScrollRevealText direction="up" delay={0.1}>
           <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-3 mb-6">
-            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-            <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-              theme === 'dark'
-                ? 'bg-[#ff5500]/20 text-[#ff5500] border border-[#ff5500]/30'
-                : 'bg-[#ff5500]/10 text-[#ff5500] border border-[#ff5500]/20'
+            <h2 className={`text-4xl md:text-5xl font-black mb-6 ${
+              theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
-              Testimonials
-            </span>
-            <div className="w-12 h-0.5 bg-[#ff5500]"></div>
-          </div>
-          <h2 className={`text-4xl md:text-5xl font-black mb-6 ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
-          }`}>
-            What our <span className="text-[#ff5500]">clients say</span>
-          </h2>
-            <p className={`text-xl max-w-3xl mx-auto ${
+              <span className="text-[#4F46E5]">Testimonials</span>
+            </h2>
+            <p className={`text-xl mb-4 max-w-3xl mx-auto ${
+              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              What our <span className="text-[#ff5500]">clients say</span>
+            </p>
+            <p className={`text-lg max-w-3xl mx-auto ${
               theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
             }`}>
               Real results from real businesses who trusted us with their digital transformation
