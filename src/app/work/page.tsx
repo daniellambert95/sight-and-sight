@@ -263,16 +263,21 @@ export default function Work() {
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const PROJECTS_PER_PAGE = 4;
+
   const filteredProjects = filter === 'All' ? projects : projects.filter(p => p.category === filter);
+  const totalPages = Math.ceil(filteredProjects.length / PROJECTS_PER_PAGE);
+  const paginatedProjects = filteredProjects.slice((currentPage - 1) * PROJECTS_PER_PAGE, currentPage * PROJECTS_PER_PAGE);
 
   return (
     <div className={`min-h-screen flex flex-col ${isDark ? 'bg-black text-white' : 'bg-white text-black'}`}>
       <Navigation currentPage="work" />
 
       {/* Hero */}
-      <section ref={heroRef} className={`relative flex items-center justify-center overflow-hidden ${
+      <section ref={heroRef} className={`relative flex items-center justify-center overflow-hidden pt-28 md:pt-20 pb-8 ${
         isDark ? 'bg-gradient-to-br from-black via-gray-950 to-black' : 'bg-gradient-to-br from-white to-gray-50'
-      }`} style={{ minHeight: 'calc(100svh)', paddingTop: '5rem', paddingBottom: '2rem' }}>
+      }`} style={{ minHeight: 'calc(100svh)' }}>
         {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {[...Array(20)].map((_, i) => (
@@ -412,7 +417,7 @@ export default function Work() {
             {allCategories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setFilter(cat)}
+                onClick={() => { setFilter(cat); setCurrentPage(1); }}
                 className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
                   filter === cat
                     ? 'bg-[#ff5500] text-white shadow-lg shadow-[#ff5500]/25'
@@ -426,18 +431,82 @@ export default function Work() {
             ))}
           </motion.div>
 
-          {/* Grid */}
-          <div className="grid md:grid-cols-2 gap-8">
+          {/* Grid — mobile shows all, desktop paginates */}
+          <motion.div
+            key={`${filter}-${currentPage}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="grid md:grid-cols-2 gap-8"
+          >
+            {/* Mobile: all filtered projects */}
             {filteredProjects.map((project, index) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                index={index}
-                isDark={isDark}
-                onClick={() => setSelectedProject(project)}
-              />
+              <div key={project.id} className="md:hidden">
+                <ProjectCard
+                  project={project}
+                  index={index}
+                  isDark={isDark}
+                  onClick={() => setSelectedProject(project)}
+                />
+              </div>
             ))}
-          </div>
+            {/* Desktop: paginated */}
+            {paginatedProjects.map((project, index) => (
+              <div key={project.id} className="hidden md:block">
+                <ProjectCard
+                  project={project}
+                  index={index}
+                  isDark={isDark}
+                  onClick={() => setSelectedProject(project)}
+                />
+              </div>
+            ))}
+          </motion.div>
+
+          {/* Pagination — desktop only */}
+          {totalPages > 1 && (
+            <div className="hidden md:flex items-center justify-center gap-4 mt-16">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 font-bold text-lg ${
+                  currentPage === 1
+                    ? isDark ? 'text-gray-600 border border-white/5 cursor-not-allowed' : 'text-gray-300 border border-gray-200 cursor-not-allowed'
+                    : isDark ? 'text-white border border-white/20 hover:border-[#ff5500] hover:text-[#ff5500]' : 'text-gray-700 border border-gray-300 hover:border-[#ff5500] hover:text-[#ff5500]'
+                }`}
+              >
+                ‹
+              </button>
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`w-11 h-11 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
+                    currentPage === page
+                      ? 'bg-[#ff5500] text-white shadow-lg shadow-[#ff5500]/30 scale-110'
+                      : isDark
+                      ? 'text-gray-300 border border-white/10 hover:border-[#ff5500]/50 hover:text-[#ff5500]'
+                      : 'text-gray-700 border border-gray-200 hover:border-[#ff5500]/50 hover:text-[#ff5500]'
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className={`w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 font-bold text-lg ${
+                  currentPage === totalPages
+                    ? isDark ? 'text-gray-600 border border-white/5 cursor-not-allowed' : 'text-gray-300 border border-gray-200 cursor-not-allowed'
+                    : isDark ? 'text-white border border-white/20 hover:border-[#ff5500] hover:text-[#ff5500]' : 'text-gray-700 border border-gray-300 hover:border-[#ff5500] hover:text-[#ff5500]'
+                }`}
+              >
+                ›
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

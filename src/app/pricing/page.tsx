@@ -121,9 +121,9 @@ export default function Pricing() {
       <Navigation currentPage="pricing" />
 
       {/* Hero */}
-      <section className={`relative flex items-center justify-center overflow-hidden ${
+      <section className={`relative flex items-center justify-center overflow-hidden pt-28 md:pt-20 pb-8 ${
         isDark ? 'bg-gradient-to-br from-black via-gray-950 to-black' : 'bg-gradient-to-br from-white to-gray-50'
-      }`} style={{ minHeight: 'calc(100svh)', paddingTop: '5rem', paddingBottom: '2rem' }}>
+      }`} style={{ minHeight: 'calc(100svh)' }}>
 
         {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">

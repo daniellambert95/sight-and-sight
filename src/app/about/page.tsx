@@ -180,12 +180,12 @@ export default function AboutPage() {
 
       {/* Hero Section */}
       <section
-        className={`relative flex items-center justify-center px-6 md:px-12 lg:px-24 overflow-hidden ${
+        className={`relative flex items-center justify-center px-6 md:px-12 lg:px-24 pt-28 md:pt-20 pb-8 overflow-hidden ${
           theme === 'dark'
             ? 'bg-gradient-to-br from-black via-gray-950 to-black'
             : 'bg-gradient-to-br from-white to-gray-50'
         }`}
-        style={{ minHeight: 'calc(100svh)', paddingTop: '5rem', paddingBottom: '2rem' }}
+        style={{ minHeight: 'calc(100svh)' }}
       >
         <FloatingParticles theme={theme} />
 
@@ -221,7 +221,7 @@ export default function AboutPage() {
               >
                 <span className={theme === 'dark' ? 'text-white' : 'text-gray-900'}>SITE &</span>
                 <br />
-                <span style={{ color: '#6366f1' }}>SIGHT</span>
+                <span style={{ color: '#ff5500' }}>SIGHT</span>
               </h1>
 
               <p className={`text-lg md:text-xl font-light max-w-lg leading-relaxed ${

@@ -20,8 +20,8 @@ const AnimatedIntro: React.FC<AnimatedIntroProps> = ({ onComplete }) => {
   const words = ['WEB', 'SEO', 'WOW!'];
   const staticText = 'WE DO ';
   
-  // Total animation time - 8 seconds
-  const TOTAL_DURATION = 8000;
+  // Total animation time - 7 seconds
+  const TOTAL_DURATION = 7000;
 
   useEffect(() => {
     // Sync progress bar to total duration
@@ -186,7 +186,7 @@ const AnimatedIntro: React.FC<AnimatedIntroProps> = ({ onComplete }) => {
           {/* Progress percentage */}
           <div className="flex justify-between items-center mb-4 px-1">
             <span className={`text-sm ${subtitleClass} font-mono tracking-wider`} style={{ fontFamily: 'var(--font-league-spartan)' }}>LOADING</span>
-            <span className="text-sm text-[#ff5500] font-mono tracking-wider" style={{ fontFamily: 'var(--font-league-spartan)' }}>{Math.round(progress)}%</span>
+            <span className="text-sm text-[#ff5500] font-mono tracking-wider" style={{ fontFamily: 'var(--font-league-spartan)' }}>&nbsp;{Math.round(progress)}%</span>
           </div>
           
           {/* Progress bar */}

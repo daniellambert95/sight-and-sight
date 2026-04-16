@@ -130,11 +130,11 @@ export default function Services() {
       <Navigation currentPage="services" />
       
       {/* Hero Section - Homepage Quality */}
-      <section className={`relative flex items-center justify-center px-6 md:px-12 lg:px-24 transition-colors duration-300 overflow-hidden ${
+      <section className={`relative flex items-center justify-center px-6 md:px-12 lg:px-24 pt-28 md:pt-20 pb-8 transition-colors duration-300 overflow-hidden ${
         theme === 'dark'
           ? 'bg-gradient-to-br from-black via-gray-950 to-black'
           : 'bg-gradient-to-br from-white to-gray-50'
-      }`} style={{ minHeight: 'calc(100svh - 0px)', paddingTop: '5rem', paddingBottom: '2rem' }}>
+      }`} style={{ minHeight: 'calc(100svh)' }}>
         {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(20)].map((_, i) => (
