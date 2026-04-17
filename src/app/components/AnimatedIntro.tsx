@@ -7,6 +7,9 @@ interface AnimatedIntroProps {
   onComplete?: () => void;
 }
 
+const words = ['WEB', 'WOW', 'IT ALL!'];
+const staticText = 'WE DO ';
+
 const AnimatedIntro: React.FC<AnimatedIntroProps> = ({ onComplete }) => {
   const { theme } = useTheme();
   const [phase, setPhase] = useState(0);
@@ -17,11 +20,8 @@ const AnimatedIntro: React.FC<AnimatedIntroProps> = ({ onComplete }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [charIndex, setCharIndex] = useState(0);
   
-  const words = ['WEB', 'SEO', 'WOW!'];
-  const staticText = 'WE DO ';
-  
-  // Total animation time - 7 seconds
-  const TOTAL_DURATION = 7000;
+  // Total animation time - 5 seconds
+  const TOTAL_DURATION = 5000;
 
   useEffect(() => {
     // Sync progress bar to total duration
@@ -31,21 +31,20 @@ const AnimatedIntro: React.FC<AnimatedIntroProps> = ({ onComplete }) => {
           clearInterval(progressInterval);
           return 100;
         }
-        // Progress completes in 7 seconds, leaving 1 second for final display
-        return prev + (100 / (7000 / 100)); // 100 steps over 7 seconds
+        return prev + (100 / (5000 / 100)); // 100 steps over 5 seconds
       });
     }, 100);
 
     // Animation phases - adjusted timing
-    const timer1 = setTimeout(() => setPhase(1), 300);  // Logo appears
-    const timer2 = setTimeout(() => setPhase(2), 1000); // Text starts typing
-    const timer3 = setTimeout(() => setPhase(3), 3000); // Loading bar appears
-    const timer4 = setTimeout(() => setPhase(4), 5000); // Subtitle appears
-    
+    const timer1 = setTimeout(() => setPhase(1), 200);  // Logo appears
+    const timer2 = setTimeout(() => setPhase(2), 600);  // Text starts typing
+    const timer3 = setTimeout(() => setPhase(3), 1800); // Loading bar appears
+    const timer4 = setTimeout(() => setPhase(4), 3000); // Subtitle appears
+
     // Exit animation - synchronized with progress completion
     const exitTimer = setTimeout(() => {
       setIsExiting(true);
-      setTimeout(() => onComplete?.(), 1000);
+      setTimeout(() => onComplete?.(), 700);
     }, TOTAL_DURATION);
 
     return () => {
@@ -58,49 +57,48 @@ const AnimatedIntro: React.FC<AnimatedIntroProps> = ({ onComplete }) => {
     };
   }, [onComplete]);
 
-  // Fixed typewriter effect for changing words only
+  // Typewriter effect
   useEffect(() => {
-    if (phase >= 2) {
-      // Stop animation if we're on the last word and finished typing
-      if (currentWordIndex === words.length - 1 && charIndex >= words[currentWordIndex].length && !isDeleting) {
-        return;
-      }
+    if (phase < 2) return;
 
-      const typeWord = () => {
-        const currentWord = words[currentWordIndex];
-        
-        if (!isDeleting) {
-          // Typing
-          if (charIndex < currentWord.length) {
-            setTypedWord(currentWord.substring(0, charIndex + 1));
-            setCharIndex(prev => prev + 1);
-          } else {
-            // Pause before deleting (except for last word)
-            if (currentWordIndex < words.length - 1) {
-              setTimeout(() => setIsDeleting(true), 1200);
-            }
-            return;
-          }
-        } else {
-          // Deleting
-          if (charIndex > 0) {
-            setCharIndex(prev => prev - 1);
-            setTypedWord(currentWord.substring(0, charIndex - 1));
-          } else {
-            // Move to next word and reset
-            setIsDeleting(false);
-            setCharIndex(0);
-            setCurrentWordIndex(prev => prev + 1);
-            return;
-          }
-        }
-      };
+    const currentWord = words[currentWordIndex];
+    const isLastWord = currentWordIndex === words.length - 1;
 
-      const delay = isDeleting ? 60 : 90;
-      const timer = setTimeout(typeWord, delay);
-      
-      return () => clearTimeout(timer);
+    // Last word fully typed — stop
+    if (isLastWord && !isDeleting && charIndex >= currentWord.length) return;
+
+    let delay: number;
+
+    if (!isDeleting && charIndex >= currentWord.length) {
+      // Word fully typed — pause then start deleting (only if not last word)
+      delay = 800;
+    } else if (isDeleting) {
+      delay = 60;
+    } else {
+      delay = 90;
     }
+
+    const timer = setTimeout(() => {
+      if (!isDeleting && charIndex >= currentWord.length) {
+        // Pause is over, start deleting
+        setIsDeleting(true);
+      } else if (!isDeleting) {
+        // Type next character
+        setTypedWord(currentWord.substring(0, charIndex + 1));
+        setCharIndex(prev => prev + 1);
+      } else if (charIndex > 0) {
+        // Delete a character
+        setCharIndex(prev => prev - 1);
+        setTypedWord(currentWord.substring(0, charIndex - 1));
+      } else {
+        // Deletion done — move to next word
+        setIsDeleting(false);
+        setCharIndex(0);
+        setCurrentWordIndex(prev => prev + 1);
+      }
+    }, delay);
+
+    return () => clearTimeout(timer);
   }, [phase, charIndex, isDeleting, currentWordIndex]);
 
   const handleSkip = () => {
@@ -169,10 +167,10 @@ const AnimatedIntro: React.FC<AnimatedIntroProps> = ({ onComplete }) => {
       </div>
 
               {/* Main Content */}
-        <div className="relative h-full flex flex-col items-center justify-center px-8 pt-30">
+        <div className="relative h-full flex flex-col items-center justify-center px-8">
           {/* Main Text with Typewriter Effect */}
-          <div className="mb-8 min-h-[140px] flex items-center">
-            <h1 className={`text-5xl md:text-8xl lg:text-9xl font-bold ${textClass} transition-opacity duration-1000 ${phase >= 2 ? 'opacity-100' : 'opacity-0'} tracking-tight`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
+          <div className="mb-8 min-h-[160px] flex items-center flex-wrap">
+            <h1 className={`text-5xl md:text-8xl lg:text-9xl font-bold ${textClass} transition-opacity duration-1000 ${phase >= 2 ? 'opacity-100' : 'opacity-0'} tracking-tight whitespace-nowrap`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
               <span className="drop-shadow-lg">
                 {staticText}
                 <span className="text-[#ff5500]">{typedWord}</span>
@@ -233,10 +231,6 @@ const AnimatedIntro: React.FC<AnimatedIntroProps> = ({ onComplete }) => {
             />
           </div>
         </div>
-        {/* Subtitle */}
-        <p className={`pt-12 text-m md:text-xl lg:text-1xl ${subtitleClass} max-w-2xl text-center mb-20 transition-all duration-1000 ${phase >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'} font-medium`} style={{ fontFamily: 'var(--font-league-spartan)' }}>
-          OPTIMIZED FOR HUMANS <span className="block">AND GOOGLE'S ROBOT OVERLORDS.</span> 
-        </p>
       </div>
 
       {/* Skip Button - Minimal */}

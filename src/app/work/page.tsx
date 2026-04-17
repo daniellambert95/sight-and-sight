@@ -19,47 +19,46 @@ const projects = [
     client: "James Carter",
     year: "2025",
     category: "Service Business",
-    description: "Professional websites for tree surgery services operating across Ireland and Germany, establishing market presence in both countries.",
-    longDescription: "James Carter required professional digital presence for his tree surgery business operating in both Ireland and Germany. We developed two complementary websites that maintain brand consistency while serving distinct markets with localized content.",
-    challenge: "Creating separate but cohesive websites for two markets while establishing credibility and generating qualified leads for a specialized service business.",
-    solution: "Two professionally designed websites with localized content, service showcases, and seamless booking systems that establish expertise and trust in both markets.",
+    description: "Professional website for a tree surgery business operating in Ireland, establishing a strong digital presence and generating qualified leads.",
+    longDescription: "James Carter needed a professional digital presence for his tree surgery business in Ireland. We built a clean, credible website that clearly communicates his services, builds trust with prospective clients, and drives consistent lead generation.",
+    challenge: "Establishing credibility online for a specialist trade service and converting website visitors into qualified leads.",
+    solution: "A professionally designed website with service showcases, trust signals, and a streamlined contact system — built to generate real enquiries from day one.",
     results: {
-      primary: "First client in 1 week",
+      primary: "Clients within weeks of launch",
       secondary: [
-        { metric: "2", label: "Market-specific websites" },
-        { metric: "100%", label: "Lead quality score" },
-        { metric: "1 week", label: "To first inquiry & client" }
+        { metric: "Fast", label: "Lead generation" },
+        { metric: "Strong", label: "Local market presence" },
+        { metric: "Growing", label: "Client base" }
       ]
     },
     technologies: ["Next.js", "React", "Tailwind CSS", "Vercel"],
-    services: ["Web Design", "Dual-Market Strategy", "Lead Generation", "Local SEO"],
+    services: ["Web Design", "Lead Generation", "Local SEO", "Copywriting"],
     image: "/images/work/cartertreecare/cartertreecare.webp",
     color: "from-green-600 to-emerald-600",
     featured: true,
-    liveUrl: "https://cartertreecare.ie",
-    germanUrl: "https://derbaumchirurg.de"
+    liveUrl: "https://cartertreecare.ie"
   },
   {
     id: "dignified-life",
     title: "Dignified Life",
     subtitle: "Divorce Guidance & Support Services",
-    client: "Dignified Life",
+    client: "Karen Campbell",
     year: "2026",
     category: "Service Business",
-    description: "Online presence and workflow automations for a divorce guidance and support service, helping clients navigate a difficult process with clarity and care.",
-    longDescription: "Dignified Life needed a professional digital presence that instils trust and clearly communicates their divorce guidance services. We built a clean website alongside automated workflows to streamline client intake and follow-up.",
-    challenge: "Establishing credibility and guiding clients through a sensitive, stressful process while automating key touchpoints to reduce manual admin.",
-    solution: "A compassionate, professionally designed website with clear service breakdowns, trust signals, and automated online workflows for client onboarding and communication.",
+    description: "A fully automated client management system for a divorce guidance service — website, CRM, payments, booking, email marketing, and finance, all connected.",
+    longDescription: "Karen Campbell offers divorce guidance as a service and needed more than just a website. We built a stunning online presence and integrated a complete end-to-end workflow: Kit.com for email marketing, HubSpot CRM for client management, Stripe for payments, Calendly for booking, and Xero for finance — all connected into a single automated pipeline.",
+    challenge: "Delivering a compassionate, trust-building experience for clients navigating a difficult personal situation, while eliminating manual admin across every stage of the client journey.",
+    solution: "A professionally designed website paired with a fully integrated automation stack — Kit.com, HubSpot, Stripe, Calendly, and Xero — working together so Karen's team can focus on clients, not admin.",
     results: {
-      primary: "Automated online service",
+      primary: "Fully automated client journey",
       secondary: [
-        { metric: "Clear", label: "Service communication" },
-        { metric: "Automated", label: "Client workflows" },
-        { metric: "Fast", label: "Inquiry conversion" }
+        { metric: "5", label: "Platforms integrated" },
+        { metric: "Zero", label: "Manual onboarding steps" },
+        { metric: "End-to-end", label: "Automated workflow" }
       ]
     },
-    technologies: ["Next.js", "React", "Tailwind CSS", "Vercel"],
-    services: ["Web Design", "SEO", "Workflow Automation", "Copywriting"],
+    technologies: ["Next.js", "React", "Tailwind CSS", "HubSpot", "Stripe", "Calendly", "Kit.com", "Xero"],
+    services: ["Web Design", "CRM Integration", "Payment Setup", "Email Marketing", "Workflow Automation"],
     image: "/images/work/dignifiedlife/dignifiedlife.webp",
     color: "from-teal-600 to-cyan-600",
     featured: true,
@@ -72,16 +71,16 @@ const projects = [
     client: "Geoff Miller Design",
     year: "2025",
     category: "Creative / Agency",
-    description: "Stunning portfolio website for a Dubai-based graphic designer and content creator, showcasing creative excellence.",
-    longDescription: "Geoff Miller needed a portfolio website that would match the quality of his graphic design and content creation work while attracting high-value clients in Dubai's competitive creative market.",
-    challenge: "Creating a portfolio that showcases creative work while maintaining fast performance and professional presentation for Dubai's luxury market.",
-    solution: "A visually striking portfolio website with optimized image galleries, case study presentations, and seamless client inquiry system.",
+    description: "Stunning portfolio website for a Dubai-based graphic designer and content creator, built to attract high-value clients in a competitive creative market.",
+    longDescription: "Geoff Miller needed a portfolio website that matched the calibre of his graphic design and content creation work. We built a visually striking site that positions his expertise clearly, showcases his projects with impact, and continues to win him new clients.",
+    challenge: "Creating a portfolio that reflects the quality of the work itself — visually compelling, fast, and professional enough to stand out in Dubai's high-end creative market.",
+    solution: "A high-performance portfolio built on Next.js with Sanity CMS, featuring optimised image galleries, polished case study layouts, and a seamless client inquiry flow.",
     results: {
-      primary: "3 new clients in month 1",
+      primary: "Multiple new clients won",
       secondary: [
-        { metric: "Fast", label: "Performance optimized" },
-        { metric: "Luxury", label: "Dubai market ready" },
-        { metric: "Stunning", label: "Visual presentation" }
+        { metric: "Fast", label: "Performance optimised" },
+        { metric: "Growing", label: "Client portfolio" },
+        { metric: "Dubai", label: "Market presence" }
       ]
     },
     technologies: ["Next.js", "Sanity CMS", "Tailwind CSS", "Vercel"],
@@ -94,20 +93,20 @@ const projects = [
   {
     id: "streamline-hr",
     title: "Streamline HR",
-    subtitle: "AI-Powered HR Management Platform",
+    subtitle: "HR Management & Applicant Tracking Platform",
     client: "Streamline HR",
     year: "2025",
     category: "Enterprise / SaaS",
-    description: "Comprehensive employee management system and applicant tracking platform for modern HR departments.",
-    longDescription: "Streamline HR required a full-featured HR management system combining employee management with applicant tracking capabilities for growing businesses.",
-    challenge: "Building a complex, enterprise-grade HR system that remains intuitive and easy to use while handling sensitive employee data securely.",
-    solution: "A comprehensive platform combining employee management, applicant tracking, and HR workflows with robust security and user-friendly interface.",
+    description: "A full-featured HR management platform built for a real external client, combining employee management and applicant tracking in one intuitive system.",
+    longDescription: "Streamline HR needed a robust internal platform to manage their workforce and hiring pipeline. We designed and built a comprehensive HR system from the ground up — covering employee records, applicant tracking, and HR workflows — with a focus on security, usability, and scalability.",
+    challenge: "Building an enterprise-grade HR system that handles sensitive employee data securely while remaining intuitive enough for everyday use across teams.",
+    solution: "A full-stack platform combining employee management and applicant tracking, built with Next.js, Node.js, and PostgreSQL — secure, scalable, and easy to use.",
     results: {
-      primary: "+500 waitlist signups",
+      primary: "Production platform delivered",
       secondary: [
-        { metric: "Secure", label: "Enterprise-grade security" },
-        { metric: "Complete", label: "Full HR workflow" },
-        { metric: "Intuitive", label: "User experience" }
+        { metric: "Secure", label: "Enterprise-grade data handling" },
+        { metric: "Complete", label: "End-to-end HR workflow" },
+        { metric: "Scalable", label: "Built for growth" }
       ]
     },
     technologies: ["Next.js", "Node.js", "PostgreSQL", "AWS", "TypeScript"],
@@ -124,20 +123,20 @@ const projects = [
     client: "Momentum",
     year: "2025",
     category: "Creative / Agency",
-    description: "Dynamic website for an Irish content creation and social media management agency based in Wicklow.",
-    longDescription: "Momentum needed a website that would reflect their creative energy while effectively communicating their content creation and social media management services to potential clients.",
-    challenge: "Building a website that captures the dynamic nature of social media and content creation while converting visitors into clients.",
-    solution: "An engaging website with portfolio showcases, service breakdowns, and integrated client onboarding system.",
+    description: "Website and automation stack for an Irish content creation and social media management agency based in Wicklow.",
+    longDescription: "Momentum is a Wicklow-based content creation and social media management agency. We built a dynamic website that reflects their energy and clearly communicates their services, paired with automations to streamline client intake and team workflows.",
+    challenge: "Capturing the fast-moving nature of social media in a website, while building reliable backend systems that save the team time.",
+    solution: "A high-energy website with portfolio showcases and service breakdowns, combined with automated workflows for client onboarding and communication.",
     results: {
-      primary: "+200% client inquiries",
+      primary: "Launch-ready with automation",
       secondary: [
+        { metric: "Automated", label: "Client onboarding" },
         { metric: "Dynamic", label: "Brand presentation" },
-        { metric: "Engaging", label: "User experience" },
-        { metric: "Wicklow", label: "Local market leader" }
+        { metric: "Streamlined", label: "Team workflows" }
       ]
     },
     technologies: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
-    services: ["Web Design", "Agency Branding", "Portfolio System", "Client Onboarding"],
+    services: ["Web Design", "Agency Branding", "Workflow Automation", "Client Onboarding"],
     image: "/images/work/momentum/mo-mentum.webp",
     color: "from-orange-500 to-red-500",
     featured: true,
@@ -146,28 +145,28 @@ const projects = [
   {
     id: "mademates",
     title: "MadeMates",
-    subtitle: "Community & Connection Platform",
+    subtitle: "B2B Branded Merchandise & Products",
     client: "MadeMates",
     year: "2026",
     category: "Service Business",
-    description: "Vibrant platform connecting creatives and makers, with a bold identity and intuitive community-driven design.",
-    longDescription: "MadeMates needed a platform that could bring together a community of makers and creatives, with a bold visual identity and intuitive UX that encourages connection and collaboration.",
-    challenge: "Designing a community-first digital experience that feels energetic and welcoming without sacrificing clarity or usability.",
-    solution: "A bold, visually driven platform with smart information hierarchy, community features, and a strong brand identity that resonates with creative professionals.",
+    description: "Website for a B2B branded merchandise company that builds custom products and merchandise across a portfolio of brands for global clients.",
+    longDescription: "MadeMates operates a portfolio of seven to eight brands, each focused on producing high-quality branded merchandise and products for companies around the world. We built a website that clearly communicates their B2B offering, showcases their brand portfolio, and makes it easy for global businesses to get in touch.",
+    challenge: "Presenting a multi-brand merchandise business clearly to a B2B audience — communicating scale, quality, and variety without overwhelming the visitor.",
+    solution: "A clean, professional B2B website that showcases MadeMates' brand portfolio and merchandise capabilities, with a clear path for corporate clients to start a conversation.",
     results: {
-      primary: "Community launched",
+      primary: "Successfully launched",
       secondary: [
-        { metric: "Bold", label: "Brand identity" },
-        { metric: "Intuitive", label: "Community UX" },
-        { metric: "Vibrant", label: "Visual design" }
+        { metric: "7-8", label: "Brands showcased" },
+        { metric: "Global", label: "Client reach" },
+        { metric: "5★", label: "Client review" }
       ]
     },
     technologies: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
-    services: ["Web Design", "UI/UX", "Branding", "Community Features"],
+    services: ["Web Design", "B2B Positioning", "Brand Showcase", "Copywriting"],
     image: "/images/work/mademates/mademates.webp",
     color: "from-violet-600 to-indigo-600",
     featured: false,
-    liveUrl: undefined
+    liveUrl: "https://www.made-mates.com/"
   },
   {
     id: "paolotortone",
@@ -177,15 +176,15 @@ const projects = [
     year: "2026",
     category: "Service Business",
     description: "Custom-built portfolio website for a web developer, showcasing his projects and technical expertise with a clean, performant design.",
-    longDescription: "Paolo Tortone is a web developer who needed a portfolio to showcase the projects he has designed and built. We developed the site from the ground up, translating his own design vision into a fast, polished web experience.",
-    challenge: "Building a developer portfolio that accurately reflects technical ability while remaining visually compelling and easy to navigate for potential clients and collaborators.",
+    longDescription: "Paolo Tortone is a creative director who needed a portfolio to showcase the projects he has designed and built. We developed the site from the ground up, translating his own design vision into a fast, polished web experience.",
+    challenge: "Building a creative portfolio that accurately reflects technical ability while remaining visually compelling and easy to navigate for potential clients and collaborators.",
     solution: "A clean, high-performance portfolio built to Paolo's own design, with strong visual hierarchy and smooth interactions that let his projects take centre stage.",
     results: {
-      primary: "Distinctive online presence",
+      primary: "Successfully launched",
       secondary: [
         { metric: "Custom", label: "Developer portfolio" },
         { metric: "Fast", label: "Performance" },
-        { metric: "Minimal", label: "Design aesthetic" }
+        { metric: "5★", label: "Client review" }
       ]
     },
     technologies: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
@@ -193,7 +192,7 @@ const projects = [
     image: "/images/work/paolotortone/paolotortone.webp",
     color: "from-amber-500 to-orange-600",
     featured: false,
-    liveUrl: undefined
+    liveUrl: "https://www.paolotortone.com"
   },
   {
     id: "jadefrisch",
@@ -207,11 +206,11 @@ const projects = [
     challenge: "Communicating a specialist language service clearly and professionally to attract the right clients in a competitive translation market.",
     solution: "A clean, elegant website with a clear service offering, strong professional positioning, and a straightforward contact flow that converts visitors into clients.",
     results: {
-      primary: "Professional service presence",
+      primary: "Successfully launched",
       secondary: [
         { metric: "Elegant", label: "Visual design" },
         { metric: "Clear", label: "Service positioning" },
-        { metric: "Modern", label: "Brand aesthetic" }
+        { metric: "5★", label: "Client review" }
       ]
     },
     technologies: ["Next.js", "React", "Tailwind CSS"],
@@ -219,7 +218,7 @@ const projects = [
     image: "/images/work/jadefrisch/jadefrisch.webp",
     color: "from-emerald-500 to-teal-600",
     featured: false,
-    liveUrl: undefined
+    liveUrl: "https://jadefrisch.vercel.app/"
   },
   {
     id: "pink-pizza-berlin",
@@ -709,7 +708,7 @@ function ProjectModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className={`relative p-8 bg-gradient-to-br ${project.color} text-white rounded-t-3xl`}>
+        <div className="relative p-8 bg-[#6366f1] text-white rounded-t-3xl">
           <button
             onClick={onClose}
             className="absolute top-5 right-5 w-9 h-9 rounded-full flex items-center justify-center bg-white/20 hover:bg-white/30 text-white transition-colors text-xl font-bold"
@@ -817,20 +816,6 @@ function ProjectModal({
                 Visit Website
                 <ExternalLink className="w-4 h-4" />
               </a>
-              {project.germanUrl && (
-                <a
-                  href={project.germanUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-2 px-6 py-3 rounded-2xl font-semibold transition-colors border-2 ${
-                    isDark ? 'border-white/20 text-gray-300 hover:bg-white/10' : 'border-gray-300 text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  <GlobeAltIcon className="w-5 h-5" />
-                  German Site
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              )}
             </div>
           )}
 

@@ -15,8 +15,8 @@ const HeroSection: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [wipeScope, wipeAnimate] = useAnimate();
-  const isIndigo = useRef(false);
-  const wipePhrases = ['things that work', 'things that scale'];
+  const phraseIndex = useRef(0);
+  const wipePhrases = ['things that work', 'automations that never sleep', 'workflows that run themselves', 'things that scale',];
   const [wipePhrase, setWipePhrase] = useState(wipePhrases[0]);
 
   useEffect(() => {
@@ -36,15 +36,16 @@ const HeroSection: React.FC = () => {
     const runWipe = async () => {
       while (!cancelled) {
         // Wait 8s before each wipe
-        await new Promise(r => setTimeout(r, 8000));
+        await new Promise(r => setTimeout(r, 6000));
         if (cancelled) break;
         // Sweep wipe bar left-to-right (reveal new color)
         await wipeAnimate('[data-wipe-bar]', { scaleX: [0, 1] }, { duration: 0.45, ease: [0.4, 0, 0.2, 1] });
         if (cancelled) break;
-        // Flip the underlying color and text while bar covers it
-        isIndigo.current = !isIndigo.current;
-        wipeAnimate('[data-wipe-color]', { color: isIndigo.current ? '#4F46E5' : '#FF5500' }, { duration: 0 });
-        setWipePhrase(isIndigo.current ? wipePhrases[1] : wipePhrases[0]);
+        // Advance to next phrase and alternate colors
+        phraseIndex.current = (phraseIndex.current + 1) % wipePhrases.length;
+        const isIndigo = phraseIndex.current % 2 !== 0;
+        wipeAnimate('[data-wipe-color]', { color: isIndigo ? '#4F46E5' : '#FF5500' }, { duration: 0 });
+        setWipePhrase(wipePhrases[phraseIndex.current]);
         // Sweep wipe bar off to the right
         await wipeAnimate('[data-wipe-bar]', { scaleX: [1, 0], x: ['0%', '100%'] }, { duration: 0.35, ease: [0.4, 0, 0.2, 1] });
         if (cancelled) break;

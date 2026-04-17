@@ -1,0 +1,16 @@
+{
+  "name": "Site & Sight",
+  "short_name": "Site & Sight",
+  "description": "A friendly creative studio building high-converting websites, data pipelines, web integrations, and SEO content. Based in Dubai.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff5500",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
