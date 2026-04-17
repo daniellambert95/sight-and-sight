@@ -119,12 +119,12 @@ export default function TestimonialsSection() {
       content: "My experience working with Daniel/site & sight was nothing but positive. Daniel really puts attention to detail when working with clients, it also helps the fact he has lots of experience in the design space so he was also able to bring this into creating the deadly website for my content creation business. Something I value ALOT when working with people is open and honest communication, and Daniel has that - There was ongoing support and attention to getting the site to a place where we were both happy. I would definitely recommend Site and Sight if your looking for a solid job!",
       rating: 5
     },
-    // {
-    //   name: "Michael Rodriguez",
-    //   position: "CEO, GreenTech Solutions", 
-    //   content: "Professional, creative, and results-driven. Site & Sight transformed our digital presence and helped us reach new customers. Highly recommended!",
-    //   rating: 5
-    // },
+    {
+      name: "Paolo Tortone",
+      position: "Creative Director, paolotortone.com", 
+      content: "I had a great experience working with Daniel from Site & Sight. I had a great experience working with Daniel. He was extremely hands-on from start to finish and really understood what I needed right away. I provided a design I created using Figma AI, and he was able to translate it perfectly into the final website, keeping it exactly as I envisioned it. He also handled all the necessary materials and adjustments along the way, which made the whole process smooth and stress-free. He worked quickly, communicated clearly, and was very easy to collaborate with throughout the project. Overall, a very positive experience. Highly recommended.",
+      rating: 5
+    },
     // {
     //   name: "Lisa Chen",
     //   position: "Founder, Wellness Studio",
