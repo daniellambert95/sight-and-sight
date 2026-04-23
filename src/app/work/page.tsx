@@ -62,7 +62,7 @@ const projects = [
     image: "/images/work/dignifiedlife/dignifiedlife.webp",
     color: "from-teal-600 to-cyan-600",
     featured: true,
-    liveUrl: "https://dignifiedlife.ie"
+    liveUrl: "https://dignified-life.com"
   },
   {
     id: "miller-dzn",

@@ -340,7 +340,7 @@ const Portfolio: React.FC = () => {
       category: ["Web Design", "SEO", "Branding"],
       year: "2026",
       route: "/work",
-      websiteUrl: "dignifiedlife.ie",
+      websiteUrl: "dignified-life.com",
       liveUrl: "https://www.dignified-life.com/",
       featured: false
     },
