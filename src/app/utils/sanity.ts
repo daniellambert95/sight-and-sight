@@ -57,7 +57,13 @@ const POSTS_QUERY = `*[_type == "post" && defined(slug.current)] | order(publish
   },
   tags,
   excerpt,
-  description
+  description,
+  seo {
+    metaTitle,
+    metaDescription,
+    ogImage,
+    noIndex
+  }
 }`;
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
@@ -82,7 +88,13 @@ const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   },
   tags,
   excerpt,
-  description
+  description,
+  seo {
+    metaTitle,
+    metaDescription,
+    ogImage,
+    noIndex
+  }
 }`;
 
 const options = { next: { revalidate: 30 } };

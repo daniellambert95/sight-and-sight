@@ -14,20 +14,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
-  const title = post.title || 'Blog Post';
-  const description = post.excerpt || post.description || 'Read our latest insights on web development, design, and digital marketing.';
+  const title = post.seo?.metaTitle || post.title || 'Blog Post';
+  const description = post.seo?.metaDescription || post.excerpt || post.description || 'Read our latest insights on web development, design, and digital marketing.';
   const publishedTime = post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined;
-  
-  // Get OG image
-  const ogImage = post.mainImage || post.image || post.featuredImage || post.coverImage;
-  const ogImageUrl = ogImage ? urlFor(ogImage)?.width(1200).height(630).url() : `${baseUrl}/logo/Site&Sight%20logo%20banner/light.svg`;
-  
+
+  // SEO ogImage takes priority, then fall back to post hero image
+  const ogImageSource = post.seo?.ogImage || post.mainImage || post.image || post.featuredImage || post.coverImage;
+  const ogImageUrl = ogImageSource ? urlFor(ogImageSource)?.width(1200).height(630).url() : `${baseUrl}/logo/Site&Sight%20logo%20banner/light.svg`;
+
   const authorName = post.author?.name || 'Site & Sight Team';
   const categories = post.categories?.map((cat: any) => cat.title).join(', ') || '';
 
   return {
     title: `${title} | Site & Sight`,
     description,
+    ...(post.seo?.noIndex && { robots: { index: false, follow: false } }),
     keywords: categories ? categories.split(', ') : undefined,
     authors: [{ name: authorName }],
     openGraph: {
