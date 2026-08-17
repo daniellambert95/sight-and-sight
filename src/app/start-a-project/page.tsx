@@ -7,11 +7,6 @@ import { useTheme } from '../utils/ThemeProvider';
 import { isValidEmail } from '@/lib/utils';
 import { CheckCircleIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline';
 
-const formatBudget = (value: number) => {
-  if (value >= 50000) return '€50,000+';
-  return `€${value.toLocaleString()}`;
-};
-
 const INTEREST_OPTIONS = [
   { id: 'branding', label: 'Branding & design' },
   { id: 'marketing', label: 'Digital marketing & SEO' },
@@ -49,7 +44,6 @@ const initialFormData: FormData = {
 export default function StartAProjectPage() {
   const { theme } = useTheme();
   const [formData, setFormData] = useState<FormData>(initialFormData);
-  const [budgetValue, setBudgetValue] = useState(2500);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -117,7 +111,6 @@ export default function StartAProjectPage() {
           goals: formData.goals,
           hasBranding: formData.hasBranding,
           brandingLink: formData.brandingLink,
-          budget: formatBudget(budgetValue),
           interests: interestLabels,
           interestDetails: formData.interestDetails,
           additionalInfo: formData.additionalInfo,
@@ -369,33 +362,6 @@ export default function StartAProjectPage() {
                     className={`${inputClasses} resize-none`}
                     placeholder="Optional"
                   />
-                </div>
-
-                <div>
-                  <div className="text-center mb-4">
-                    <label className={labelClasses}>Rough Project Budget</label>
-                    <div className="text-3xl font-black" style={{ color: '#ff5500' }}>
-                      {formatBudget(budgetValue)}
-                    </div>
-                  </div>
-                  <input
-                    type="range"
-                    min="1000"
-                    max="50000"
-                    step="500"
-                    value={budgetValue}
-                    onChange={e => setBudgetValue(parseInt(e.target.value))}
-                    className="w-full h-3 rounded-lg appearance-none cursor-pointer slider"
-                    style={{
-                      background: `linear-gradient(to right, #ff5500 0%, #ff5500 ${((budgetValue - 1000) / (50000 - 1000)) * 100}%, ${theme === 'dark' ? '#374151' : '#e5e7eb'} ${((budgetValue - 1000) / (50000 - 1000)) * 100}%, ${theme === 'dark' ? '#374151' : '#e5e7eb'} 100%)`,
-                    }}
-                  />
-                  <div className={`flex justify-between text-sm mt-2 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}>
-                    <span>€1K</span>
-                    <span>€5K</span>
-                    <span>€15K</span>
-                    <span>€50K+</span>
-                  </div>
                 </div>
 
                 {errorMsg && (

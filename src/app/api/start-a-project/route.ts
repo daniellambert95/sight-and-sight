@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
       goals,
       hasBranding,
       brandingLink,
-      budget,
       interests,
       interestDetails,
       additionalInfo,
@@ -53,7 +52,6 @@ export async function POST(request: NextRequest) {
       rows.push({ label: 'Branding/Design Link', value: brandingLink });
     }
 
-    rows.push({ label: 'Budget Range', value: budget || 'Not specified' });
     rows.push({ label: 'Other Interests', value: interests && interests.length > 0 ? interests.join(', ') : 'None' });
 
     const textRows = rows.map(r => `- ${r.label}: ${r.value}`).join('\n');
